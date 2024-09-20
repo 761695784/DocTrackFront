@@ -25,7 +25,7 @@ nav ul {
 }
 
 nav ul li {
-  margin: 0 35px 0 ; /* Espacement des liens */
+  margin: 0 35px 0; /* Espacement des liens */
 }
 
 nav ul li a {
@@ -35,6 +35,14 @@ nav ul li a {
   transition: all 0.3s;
   padding: 10px 15px; /* Taille du bouton */
   border-radius: 5px; /* Coins arrondis */
+  display: inline-block; /* Nécessaire pour le padding et la transition */
+  background-color: transparent; /* Couleur de fond par défaut */
+}
+
+/* Effet de bouton au survol */
+nav ul li a:hover {
+  background-color: #F6A500; /* Couleur de fond au survol */
+  color: #000000; /* Couleur du texte au survol */
 }
 
 /* Styles pour le menu hamburger */
@@ -89,6 +97,5 @@ nav ul li a {
 
   .connexion .btn {
     margin-top: 10px; /* Espace au-dessus du bouton de connexion mobile */
-
   }
 }
