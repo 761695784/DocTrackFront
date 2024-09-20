@@ -1,0 +1,94 @@
+/* Styles de base */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #31287C; /* Couleur de fond */
+  padding: 10px 20px;
+}
+
+.logo img {
+  height: 50px; /* Ajustez la taille du logo */
+  margin-right: 20px; /* Espace à droite du logo */
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  margin-left: auto; /* Remplacez 700px par auto pour un meilleur alignement */
+  padding: 0;
+}
+
+nav ul li {
+  margin: 0 35px 0 ; /* Espacement des liens */
+}
+
+nav ul li a {
+  color: white; /* Couleur du texte */
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s;
+  padding: 10px 15px; /* Taille du bouton */
+  border-radius: 5px; /* Coins arrondis */
+}
+
+/* Styles pour le menu hamburger */
+.navbar-toggler {
+  margin-left: 100px; /* Espace entre le bouton hamburger et le logo */
+}
+
+/* Bouton de connexion */
+.connexion .btn {
+  background-color: #F6A500; /* Couleur du bouton */
+  color: black; /* Couleur du texte du bouton */
+  font-weight: bolder;
+  height: 36.54px;
+  justify-content: center;
+  padding: 5px 20px;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+  margin-left: 100px; /* Espace à gauche du bouton de connexion */
+}
+
+.connexion .btn:hover {
+  background-color: #d89e00; /* Couleur au survol du bouton */
+}
+
+.connexion .btn:active {
+  background-color: #b88a00; /* Couleur active du bouton */
+}
+
+/* Styles responsives */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column; /* Colonne pour écran mobile */
+    align-items: flex-start; /* Alignement à gauche */
+    padding: 10px; /* Ajustement de l'espace autour de l'en-tête */
+  }
+
+  .navbar-brand, .navbar-toggler {
+    margin-bottom: 10px; /* Espace entre le logo et le bouton hamburger */
+  }
+
+  nav ul {
+    flex-direction: column; /* Menu vertical sur mobile */
+    width: 100%; /* Prend toute la largeur */
+    padding: 10px 0; /* Espacement autour des liens */
+    margin-top: 10px; /* Espace au-dessus du menu */
+  }
+
+  nav ul li {
+    margin: 10px 0; /* Espacement vertical entre les éléments */
+  }
+
+  .connexion .btn {
+    margin-top: 10px; /* Espace au-dessus du bouton de connexion mobile */
+
+  }
+}
