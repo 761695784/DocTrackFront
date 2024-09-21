@@ -1,0 +1,139 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #F6A500; /* Couleur de fond */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.Formulaire {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 120px; /* Marge autour du container */
+}
+
+.container {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 100%;
+  justify-content: center;
+  max-width: 732px; /* Largeur maximale pour le formulaire */
+  height: auto; /* Hauteur automatique pour s'adapter au contenu */
+  margin: auto;
+  margin-top: 2rem;
+  font-family: 'Open Sans';
+  font-weight: bold;
+  margin-left: 5%; /* Margin left pour le desktop */
+}
+
+.form-container h2 {
+  text-align: center;
+  color: #31287C; /* Couleur du texte */
+}
+
+.test {
+  margin: auto;
+  margin-left: 15%; /* Pour aligner le formulaire sur desktop */
+}
+
+.label-container {
+  display: flex;
+  justify-content: space-between; /* Espacement entre les champs */
+  margin-bottom: 15px; /* Espacement entre les lignes */
+}
+
+label {
+  display: block;
+  margin: 15px 14px 2px;
+  color: #31287C; /* Couleur du texte */
+}
+
+input {
+  width: 246px; /* Largeur du champ de saisie */
+  height: 56px; /* Hauteur du champ de saisie */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  box-sizing: border-box;
+  margin: 8px; /* Espacement autour des champs */
+}
+
+.question {
+  margin-left: 14px;
+}
+
+a {
+  color: #31287C; /* Couleur du lien */
+}
+
+button {
+  width: 229px; /* Largeur du bouton */
+  height: 40px; /* Hauteur du bouton */
+  background-color: #31287C; /* Couleur du bouton */
+  color: white;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-left: 8rem; /* Alignement du bouton sur desktop */
+}
+
+button:hover {
+  background-color: #F6A500; /* Couleur au survol */
+}
+
+@media (max-width: 480px) {
+body{
+  overflow-x: hidden;
+}
+  .Formulaire {
+   width: 400px;
+   overflow-x: hidden;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+  flex-wrap: wrap;
+  margin:0;
+
+  }
+  .label-container {
+    flex-direction: column; /* Un champ par ligne sur mobile */
+  }
+
+  input {
+    width: 90%; /* Réduction de la largeur pour ajustement mobile */
+  }
+
+  button {
+    width: 90%; /* Bouton adapté à la largeur mobile */
+    margin-left: 5%; /* Centrage du bouton sur mobile */
+  }
+
+  .carteImage {
+    display: none; /* Masquer l'image sur mobile */
+  }
+  .container{
+
+    padding: 0;
+    width: 90%;
+    justify-content: center;
+    max-width: 100%; /* Largeur maximale pour le formulaire */
+    height: auto; /* Hauteur automatique pour s'adapter au contenu */
+    margin: 0;
+    margin-top: 2rem;
+    margin-left:0;
+  }
+  .test {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    margin-left: 0;
+    width: 100%;/* Pour aligner le formulaire sur desktop */
+  }
+}
