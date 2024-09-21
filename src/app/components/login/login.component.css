@@ -1,0 +1,124 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #F6A500; /* Couleur de fond */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.Formulaire {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 120px; /* Marge autour du container */
+}
+
+.container {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 100%;
+  justify-content: center;
+  max-width: 732px; /* Largeur maximale pour le formulaire */
+  height: 513px; /* Hauteur totale */
+  margin: auto;
+  margin-top: 2rem;
+  font-family: 'Open Sans';
+  font-weight: bold;
+  margin-left: 10%; /* Margin left pour le desktop */
+}
+
+.form-container h2 {
+  text-align: center;
+  color: #31287C; /* Couleur du texte */
+  display: flex;
+  justify-content: center;
+}
+
+.test {
+  margin: auto;
+  margin-left: 15%; /* Pour aligner le formulaire sur desktop */
+}
+
+label {
+  display: block;
+  margin: 15px 14px 2px;
+  color: #31287C; /* Couleur du texte */
+}
+
+input {
+  width: 455px; /* Largeur du champ de saisie */
+  height: 56px; /* Hauteur du champ de saisie */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  box-sizing: border-box;
+  margin: 8px;
+}
+
+.question {
+  margin-left: 14px;
+}
+
+a {
+  color: #31287C; /* Couleur du lien */
+}
+
+button {
+  width: 229px; /* Largeur du bouton */
+  height: 40px; /* Hauteur du bouton */
+  background-color: #31287C; /* Couleur du bouton */
+  color: white;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-left: 8rem; /* Alignement du bouton sur desktop */
+}
+
+button:hover {
+  background-color: #F6A500; /* Couleur au survol */
+}
+
+.carte {
+  margin-left: -8rem;
+}
+
+.carteImage {
+  justify-content: center; /* Centrer l'image sur le desktop */
+}
+
+@media (max-width: 768px) {
+  .Formulaire {
+    flex-direction: column; /* Empiler les éléments pour mobile */
+    align-items: center; /* Centrer les éléments sur mobile */
+    margin: 20px; /* Réduire la marge pour mobile */
+  }
+
+  .container {
+    width: 90%; /* Ajustement pour le conteneur sur mobile */
+    height: auto; /* Hauteur automatique pour éviter les débordements */
+    margin: 0; /* Retirer la marge sur mobile */
+  }
+
+  input, button {
+    width: 100%; /* Champs et bouton prennent toute la largeur sur petits écrans */
+    max-width: none; /* Pour supprimer la largeur maximale */
+    margin-left: 0; /* Ajustement de marque pour les éléments sur mobile */
+  }
+
+  .test {
+    align-items: center; /* Centrer les éléments sur mobile */
+    margin-left: 0; /* Diminuer la marge pour le mobile */
+  }
+
+  .carteImage {
+    display: none; /* Masquer l'image de la carte sur petits écrans */
+  }
+
+  .question {
+    text-align: center; /* Centrer la question sur mobile */
+  }
+}
