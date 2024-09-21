@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
- /* Hero Section Styling */
- .hero-section {
+
+/* CSS du HeroSection **/
+.hero-section {
   background-image: url('/assets/Imagebanniere.png');
   background-size: cover;
   background-position: center;
@@ -77,7 +78,7 @@ h1 {
   justify-content: space-between;
 }
 
-/* Barre de recherche responsive */
+/* Responsivité HeroSection **/
 @media (max-width: 768px) {
   .hero-section {
       height: auto;
@@ -104,7 +105,6 @@ h1 {
 
   .input-group .form-control {
       font-size: 1rem;
-
   }
 
   .input-group .btn {
@@ -114,23 +114,21 @@ h1 {
   .mb-4 {
       display: flex;
       flex-direction: column;
-      align-items: center; /* centrer les boutons */
+      align-items: center;
       margin-top: 20px;
-
   }
 
   .mb-4 .btn {
-      width: 80%; /* Largeur des boutons sur mobile */
+      width: 80%;
       font-size: 0.9em;
       margin: 8px 0;
   }
 
   .mb-4 .btn.dec {
-    margin-left: 70px; /* Augmentation de la marge à gauche pour le bouton "Déclarer une Perte" */
+    margin-left: 70px;
+  }
 }
-
-}
-
+/* CSS de la partie Avantages  **/
 .avantage-section, .statistique {
   padding: 60px 0;
   text-align: center;
@@ -146,33 +144,33 @@ h1 {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('/assets/last1.png'); /* Chemin vers votre image de fond */
+  background-image: url('/assets/last1.png');
   background-size: cover;
   background-position: center;
-  opacity: 1; /* Ajustez l'opacité ici */
-  z-index: 0; /* Placez l'image en arrière-plan */
+  opacity: 1;
+  z-index: 0;
 }
 
 .avantage-section .container {
-  position: relative; /* Permet d'afficher le contenu au-dessus de l'image de fond */
-  z-index: 1; /* S'assure que le contenu est au-dessus de l'image de fond */
+  position: relative;
+  z-index: 1;
 }
 
 .avantage-section img {
-  height: auto; /* Permet une taille d'image responsive */
+  height: auto;
   margin-bottom: 20px;
-  max-width: 100%; /* Assurez-vous que les images ne débordent pas */
+  max-width: 100%;
 }
 
 .avantage-section h4 {
-  margin-top: 10px; /* Ajuste la marge pour plus de séparation */
+  margin-top: 10px;
   font-weight: lighter;
-  font-family: 'Roboto', sans-serif; /* Applique la police Roboto */
+  font-family: 'Roboto', sans-serif;
 }
 
 .titre-avantage {
   font-size: 45px;
-  font-family: 'Roboto', sans-serif; /* Applique la police Roboto */
+  font-family: 'Roboto', sans-serif;
   font-weight: bolder;
   color: #31287C;
 }
@@ -181,34 +179,34 @@ h1 {
   font-size: 16px;
 }
 
-/* Media queries pour les écrans plus petits */
+/* Responsivité de la partie Avantages **/
 @media (max-width: 768px) {
   .titre-avantage {
-    font-size: 32px; /* Réduit la taille du titre */
+    font-size: 32px;
   }
 
   .col-md-3 {
-    font-size: 14px; /* Réduit la taille de police dans les colonnes */
+    font-size: 14px;
   }
 
   .avantage-section img {
-    max-width: 50%; /* Réduit la taille des images sur les petits écrans */
-    height: auto; /* Maintient le ratio aspect */
+    max-width: 50%;
+    height: auto;
   }
 
   .avantage-section h4 {
-    font-size: 18px; /* Réduit la taille des sous-titres */
+    font-size: 18px;
   }
 }
 
-
+/* CSS de la partie Statistique */
 .statistique {
   padding: 60px 0;
   background-color: #f9f9f9;
 }
 
 .titre-avantage {
-  font-size: 45px; /* Taille plus grande sur le bureau */
+  font-size: 45px;
   font-family: 'Roboto', sans-serif;
   font-weight: bolder;
   color: #31287C;
@@ -228,37 +226,38 @@ h1 {
 .quote {
   position: relative;
   padding: 0 20px;
-  font-size: 2.2em; /* Taille du texte sur le bureau */
+  font-size: 2.2em;
   font-family: 'Open Sans', sans-serif;
   font-weight: bold;
-  width: 800px; /* Largeur fixe sur le bureau */
+  width: 800px;
 }
 
 .img-quote {
   display: block;
-  margin-bottom: -10px; /* Ajustement pour les images de guillemets */
+  margin-bottom: -10px;
 }
 
+/* Responsive de la partie Statistique **/
 @media (max-width: 768px) {
   .titre-avantage {
-    font-size: 24px; /* Taille réduite pour les petits écrans */
+    font-size: 24px;
   }
 
   .quote {
-    font-size: 1.1em; /* Taille du texte réduite */
-    width: auto; /* Largeur flexible */
-    padding: 0 10px; /* Padding réduit */
+    font-size: 1.1em;
+    width: auto;
+    padding: 0 10px;
   }
 
   .img-quote {
-    width: 50px; /* Largeur spécifique pour les guillemets */
+    width: 50px;
     margin-bottom: 0;
-    display: inline; /* Affichage en ligne pour conserver le flux avec le texte */
+    display: inline;
   }
 
   .img-statistiques {
-    height: auto; /* Hauteur auto pour maintenir l'aspect ratio */
-    width: 100%; /* Pleine largeur */
+    height: auto;
+    width: 100%;
   }
 
   .img-quote-End {
@@ -267,18 +266,19 @@ h1 {
   }
 
   .img-quote-Start {
-    align-items:start;
+    align-items: start;
     width: 50px;
     margin-right: 80%;
     margin-bottom: 20px;
+  }
 
-   }
-   .Statist {
+  .Statist {
     display: flex;
-    flex-direction:row;
-   }
+    flex-direction: row;
+  }
 }
 
+/*CSS de la partie Comment ca marche **/
 .first {
 display: flex;
 align-content: space-between;
@@ -346,13 +346,14 @@ padding: 3%;
     font-weight: bold;
   }
   .fonctionnement {
-    background-image: url('/assets/arriereplan2(1).png'); /* Remplacer par le chemin de votre image */
+    background-image: url('/assets/arriereplan2(1).png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    opacity: 1; /* Ajustez l'opacité ici */
+    opacity: 1;
     z-index: 0;
   }
+  /* Responsivité de la partie Comment ca marche **/
   @media only screen and (max-width: 768px) {
     .fonctionnement {
       padding: 10px;
@@ -381,12 +382,12 @@ padding: 3%;
 
     .video {
       width: 100%;
-      height: auto; /* Ajustez selon vos besoins */
+      height: auto;
       margin-top: 0;
     }
   }
 
-/* Styles généraux */
+/* CSS de la partie Témoignage**/
 .titre-temoin {
   font-size: 45px;
   font-family: 'Roboto', sans-serif;
@@ -405,7 +406,7 @@ padding: 3%;
 
 .testimonial-text {
   background: #31287C;
-  margin-top: 90px;
+  margin-top: 130px;
   color: #F6A500;
   margin-left: 10%;
   height: 220px;
@@ -427,6 +428,7 @@ padding: 3%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin-top: 2rem;
 }
 
 .testimonial-image {
@@ -455,47 +457,162 @@ padding: 3%;
   margin-top: 1.2rem;
 }
 
-/* Responsive Design pour Mobile */
+/* Responsive de la partie temoignage */
 @media (max-width: 768px) {
   .titre-temoin {
-    font-size: 24px; /* Ajustement de la taille de la police */
-    margin-left: 5%; /* Ajustement de la marge gauche */
+    font-size: 24px;
+    margin-left: 5%;
   }
 
   .trait {
-    width: 50%; /* Augmentation de la largeur pour mobile */
+    width: 50%;
   }
 
   .testimonial-text {
-    width: 60%; /* Augmentation de la largeur du conteneur de texte */
-    margin-right: 55%; /* Centrage du bloc */
-    height: 120px; /* Hauteur automatique pour un meilleur ajustement */
-    padding: 20px; /* Augmentation du padding pour un meilleur espacement */
+    margin-top: 10px;
+    margin-left: 0px;
+    margin-right: 20%;
+    height: 155px;
+    padding: 30px;
+    width: 90%;
+    justify-content: center;
+    text-align: center;
   }
 
+
   .parole {
-    font-size: 10px; /* Réduction de la taille de la police du texte */
-    margin-left: 1%;
+    font-size: 12px;
+    margin-left: 0px;
+    text-align: justify;
+    margin-top: -12px;
+    width: 80%;
   }
 
   .nom {
-    width: 60%; /* Ajustement de la largeur du nom */
-    margin-left: 5%; /* Centrage du bloc du nom */
+    width: 80%;
+    margin-left: 5%;
+    height: 60px;
+    margin-top: -10px;
   }
 
   .author {
-    font-size: 18px; /* Réduction de la taille de la police du nom */
+    font-size: 14px;
+    text-align: center;
+    margin: auto;
   }
 
   .testimonial-image {
-    width: 50%; /* Ajustement de la largeur de l'image */
-    margin: 20px auto; /* Centrage de l'image avec une marge automatique */
-    margin-top: 20px; /* Ajustement du haut de la marge */
+    width: 35%;
+    margin-top: -14rem;
+    margin-left: 60%;
+
+  }
+  .testimonial-image img {
+    width: 100%;
+    height: auto;
+    margin-top:3rem ;
+
+  }
+}
+
+/* CSS de la section Partenaire  **/
+.container-partenaires {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 20px;
+  padding: 20px;
+  margin-left: 3%;
+}
+
+.partenaire-img {
+  flex:  30%;
+  margin: 0.5%;
+  max-width: 300px;
+}
+
+.trait2 {
+  width: 7%;
+  margin-left: 45%;
+  margin-top: -2%;
+  height: 12px;
+  background-color: #F6A500;
+}
+
+/* Responsivité pour la section Partenaire */
+@media (max-width: 768px) {
+  .partenaire-img {
+    flex: 1 1 48%;
+    margin: 3%;
+    width: 130px;
+    height: auto;
+  }
+  .trait2 {
+    width: 30%;
+    margin-left: 35%;
+    margin-top:-3rem;
+  }
+  .container-partenaires {
+    justify-content: space-around;
+    margin-top: -2rem;
   }
 
-  .testimonial-image img {
-    width: 100%; /* L'image prend toute la largeur du conteneur */
-    height: auto; /* Hauteur automatique pour éviter la déformation */
-    margin-top:3rem ;
+}
+/*  CSS du Footer **/
+.footer {
+  background-color: #31287C;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.footer-logo {
+  width: 100px;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+}
+
+.social-icons a {
+  margin: 0 10px;
+}
+
+.footer-separator {
+  width: 100%;
+  height: 1px;
+  background-color: #F6A500;
+  margin: 20px 0;
+}
+
+.footer-bottom p {
+  text-align: center;
+  margin: 5px 0;
+}
+
+/* Responsivité du footer */
+@media (max-width: 768px) {
+  .footer-top {
+    flex-direction: column;
+  }
+
+  .footer-links, .social-icons {
+    margin-top: 10px;
+    justify-content: center;
+  }
+
+  .footer-links a, .social-icons a {
+    margin: 5px;
   }
 }
