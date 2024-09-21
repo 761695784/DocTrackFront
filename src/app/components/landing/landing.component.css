@@ -496,6 +496,6 @@ padding: 3%;
   .testimonial-image img {
     width: 100%; /* L'image prend toute la largeur du conteneur */
     height: auto; /* Hauteur automatique pour éviter la déformation */
-    margin-top:2rem ;
+    margin-top:3rem ;
   }
 }
