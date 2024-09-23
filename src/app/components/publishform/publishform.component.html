@@ -1,1 +1,67 @@
-<p>publishform works!</p>
+<app-navbar></app-navbar>
+    <main>
+        <div class="publication-form">
+            <div class="form-section">
+                <img src="/assets/logoo4.png" alt="DocTrack Logo" class="logo">
+                <form>
+                    <div class="file-input">
+                        <label for="documentImage">Image ou document</label>
+                        <input type="file" id="documentImage">
+                    </div>
+                    <div class="double-input">
+                        <div>
+                            <label for="ownerLastName">Nom propriétaire</label>
+                            <input type="text" id="ownerLastName" placeholder="Saisir nom">
+                        </div>
+                        <div>
+                            <label for="ownerFirstName">Prénom propriétaire</label>
+                            <input type="text" id="ownerFirstName" placeholder="Saisir prénom">
+                        </div>
+                    </div>
+                    <div class="double-input">
+                        <div>
+                            <label for="idNumber">Numéro Identification</label>
+                            <input type="text" id="idNumber" placeholder="Saisir Identification">
+                        </div>
+                        <div>
+                            <label for="foundLocation">Lieu de Trouvaille</label>
+                            <input type="text" id="foundLocation" placeholder="Saisir lieu">
+                        </div>
+                    </div>
+                    <div class="single-input">
+                        <label for="documentType">Type de Document</label>
+                        <select id="documentType">
+                            <option value="Carte nationale d'identité">Carte nationale d'identité</option>
+                            <option value="passport">Passeport</option>
+                            <option value="Permis de conduire">Permis de conduire</option>
+                            <option value="Carte grise ">Carte grise</option>
+                            <option value="Certificat de naissance">Certificat de naissance</option>
+                            <option value="Diplômes Baccalauréat">Diplômes Baccalauréat</option>
+                            <option value="Carte professionnelle">Carte professionnelle</option>
+                            <option value="Carte bancaire">Carte bancaire</option>
+                            <option value="Attestation d'assurance">Attestation d'assurance</option>
+                            <option value="Carnet de santé">Carnet de santé</option>
+                            <option value="Contrat de travail">Contrat de travail</option>
+                            <option value="Carte d'étudiant">Carte d'étudiant</option>
+                            <option value="other">Autre</option>
+
+                            <!-- Plus de types de documents ici -->
+                        </select>
+                    </div>
+                    <div class="single-input">
+                        <label for="status">Statut</label>
+                        <select id="status">
+                            <option value="not_recovered">Non récupéré (par défaut)</option>
+                            <!-- Autres statuts ici -->
+                        </select>
+                    </div>
+                    <button type="submit">Publier</button>
+                </form>
+            </div>
+            <div class="image-section">
+                <img src="/assets/imageformpub.png" alt="Exemple de document">
+            </div>
+        </div>
+    </main>
+
+
