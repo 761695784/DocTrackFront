@@ -86,9 +86,11 @@ button:hover {
   margin-left: -8rem;
 }
 
+
 .carteImage {
-  justify-content: center; /* Centrer l'image sur le desktop */
-}
+  justify-content:center; /* Centrer l'image sur le desktop */
+  }
+
 
 @media (max-width: 768px) {
   .Formulaire {
