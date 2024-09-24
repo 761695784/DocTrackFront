@@ -1,42 +1,38 @@
 <app-navbar></app-navbar>
 <main>
-    <div class="container">
-        <div class="form-container">
-            <img src="/assets/logoo4.png" alt="DocTrack Logo" class="logo">
-
-            <form>
-                <div class="single-input">
-                    <label for="declarationTitle">Titre</label>
-                    <input type="text" id="declarationTitle" placeholder="Saisir le titre de votre déclaration">
-                </div>
-                <div class="double-input">
-                    <div>
-                        <label for="firstNameExact">Prénom exacte dans le Document</label>
-                        <input type="text" id="firstNameExact" placeholder="Saisir prénom">
-                    </div>
-                    <div>
-                        <label for="lastNameExact">Nom exacte dans le Document</label>
-                        <input type="text" id="lastNameExact" placeholder="Saisir nom">
-                    </div>
-                </div>
-                <div class="single-input">
-                    <label for="documentType">Type de Document</label>
-                    <select id="documentType">
-                        <option>Type de Document</option>
-                        <option value="Carte d'identité">Carte d'identité</option>
-                        <option value="Permis de conduire">Permis de conduire</option>
-                        <option value="passport">Passeport</option>
-                    </select>
-                </div>
-                <div class="single-input">
-                    <label for="idNumber">Numéro Identification</label>
-                    <input type="text" id="idNumber" placeholder="Saisir le numéro d'identification">
-                </div>
-                <button type="submit">Soumettre ma déclaration</button>
-            </form>
+  <div class="container">
+    <div class="form-container">
+      <img src="/assets/logoo4.png" alt="DocTrack Logo" class="logo">
+      <form [formGroup]="declarationForm" (ngSubmit)="onSubmit()" method="post">
+        <div class="single-input">
+          <label for="Title">Titre</label>
+          <input type="text" id="Title" formControlName="Title" placeholder="Saisir le titre de votre déclaration">
         </div>
-        <div class="image-container">
-            <img src="/assets/declarepub.png" alt="Documents variés" class="ima">
+        <div class="double-input">
+          <div>
+            <label for="FirstNameInDoc">Prénom exacte dans le document</label>
+            <input type="text" id="FirstNameInDoc" formControlName="FirstNameInDoc" placeholder="Saisir prénom">
+          </div>
+          <div>
+            <label for="LastNameInDoc">Nom exacte dans le document</label>
+            <input type="text" id="LastNameInDoc" formControlName="LastNameInDoc" placeholder="Saisir nom">
+          </div>
         </div>
+        <div class="single-input">
+          <label for="documentType">Type de Document</label>
+          <select id="documentType" formControlName="documentType">
+            <option *ngFor="let type of documentTypes" [value]="type.id">{{ type.name }}</option>
+          </select>
+        </div>
+        <div class="single-input">
+          <label for="DocIdentification">Numéro d'Identification</label>
+          <input type="text" id="DocIdentification" formControlName="DocIdentification" placeholder="Saisir le numéro d'identification">
+        </div>
+        <button type="submit">Soumettre ma déclaration</button>
+      </form>
     </div>
+    <div class="image-container">
+      <img src="/assets/declarepub.png" alt="Documents variés" class="ima">
+    </div>
+  </div>
 </main>
