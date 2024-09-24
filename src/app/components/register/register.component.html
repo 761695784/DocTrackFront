@@ -16,6 +16,23 @@
             <input type="text" id="FirstName" formControlName="FirstName" placeholder="Saisir le prenom" required>
           </div>
         </div>
+        <div class="single">
+          <label for="email">Email</label>
+          <input class="single-input" type="email" id="email" formControlName="email" placeholder="Saisir mon email" required>
+        </div>
+
+        <div class="label-container">
+          <div>
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" formControlName="password" placeholder="********" required>
+          </div>
+          <div class="label-container">
+            <div>
+              <label for="password_confirmation">Confirmer le mot de passe</label>
+              <input type="password" id="password_confirmation" formControlName="password_confirmation" placeholder="********" required>
+            </div>
+          </div>
+        </div>
 
         <div class="label-container">
           <div>
@@ -28,22 +45,7 @@
           </div>
         </div>
 
-        <div class="label-container">
-          <div>
-            <label for="email">Email</label>
-            <input type="email" id="email" formControlName="email" placeholder="Saisir mon email" required>
-          </div>
-          <div>
-            <label for="password">Mot de passe</label>
-            <input type="password" id="password" formControlName="password" placeholder="********" required>
-          </div>
-          <div class="label-container">
-            <div>
-              <label for="password_confirmation">Confirmer le mot de passe</label>
-              <input type="password" id="password_confirmation" formControlName="password_confirmation" placeholder="********" required>
-            </div>
-          </div>
-        </div>
+
 
         <p class="question">Déjà un compte ? <a href="#">Connexion</a></p>
 

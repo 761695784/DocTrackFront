@@ -37,7 +37,7 @@ body {
 
 .test {
   margin: auto;
-  margin-left: 15%; /* Pour aligner le formulaire sur desktop */
+  margin-left: 2%; /* Pour aligner le formulaire sur desktop */
 }
 
 .label-container {
@@ -53,8 +53,16 @@ label {
 }
 
 input {
-  width: 246px; /* Largeur du champ de saisie */
+  width: 300px; /* Largeur du champ de saisie */
   height: 56px; /* Hauteur du champ de saisie */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  box-sizing: border-box;
+  margin: 8px; /* Espacement autour des champs */
+}
+.single-input {
+  width: 98%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 12px;
@@ -71,6 +79,7 @@ a {
 }
 
 button {
+  display: block;
   width: 229px; /* Largeur du bouton */
   height: 40px; /* Hauteur du bouton */
   background-color: #31287C; /* Couleur du bouton */
@@ -79,7 +88,7 @@ button {
   border-radius: 7px;
   cursor: pointer;
   margin-top: 10px;
-  margin-left: 8rem; /* Alignement du bouton sur desktop */
+  margin-left: 12rem; /* Alignement du bouton sur desktop */
 }
 
 button:hover {
@@ -135,5 +144,10 @@ body{
     margin: 0;
     margin-left: 0;
     width: 100%;/* Pour aligner le formulaire sur desktop */
+  }
+
+  .single-input {
+    width: 90%;
+ /* Espacement autour des champs */
   }
 }

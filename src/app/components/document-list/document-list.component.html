@@ -1,4 +1,4 @@
-<app-navbar></app-navbar>
+<!-- <app-navbar></app-navbar>
 
 <div class="container">
   <div class="search-bar">
@@ -81,4 +81,33 @@
 </div>
 
 
+<app-footer></app-footer> -->
+
+
+<app-navbar></app-navbar>
+<div class="container">
+  <div class="search-bar">
+    <input type="text" placeholder="Rechercher en tapant les mots clés" />
+    <button class="search-btn">Chercher un document</button>
+    <button class="my-publications-btn">Mes publications</button>
+  </div>
+  <div class="grid-container">
+    <div *ngFor="let document of documents" class="card">
+      <img *ngIf="document.image" [src]="document.image" alt="Document Image" />
+      <p *ngIf="!document.image">Image non disponible</p>
+      <div class="card-content">
+        <p class="published-by">Publié par {{ document.user.FirstName }} {{ document.user.LastName }} | {{ document.created_at | date }}</p>
+        <p class="phone-number">📞 {{ document.user.Phone }}</p>
+        <p>Prénom propriétaire: <strong>{{ document.OwnerFirstName }}</strong></p>
+        <p>Nom propriétaire: <strong>{{ document.OwnerLastName }}</strong></p>
+        <div class="card-actions">
+          <button class="details-btn">Voir détails</button>
+          <span class="status" [ngClass]="document.statut === 'récupéré' ? 'success' : 'error'">
+            {{ document.statut === 'récupéré' ? '✔️' : '❌' }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <app-footer></app-footer>
