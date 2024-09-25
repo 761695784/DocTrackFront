@@ -1,8 +1,12 @@
+import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { PublicationsService } from './../services/publications.service';
 import { FooterComponent } from './../footer/footer.component';
 import { NavbarComponent } from './../navbar/navbar.component';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+
 
 export interface Document {
   id: number;
@@ -30,14 +34,14 @@ export interface Document {
 @Component({
   selector: 'app-document-list',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent,CommonModule, ],
+  imports: [NavbarComponent, FooterComponent,CommonModule,FormsModule ],
   templateUrl: './document-list.component.html',
   styleUrls: ['./document-list.component.css']
 })
 export class DocumentListComponent implements OnInit {
   documents: Document[] = [];
 
-  constructor(private publicationsService: PublicationsService) { }
+  constructor(private publicationsService: PublicationsService, private router: Router) { }
 
   ngOnInit(): void {
     this.fetchDocuments();
@@ -48,26 +52,15 @@ export class DocumentListComponent implements OnInit {
       next: (data) => {
         console.log(data); // Ajoutez ceci pour vérifier la réponse
         this.documents = data;
-         // const imageUrl = evenement.image?.startsWith('evenements/')
-  //                       ? http://127.0.0.1:8000/storage/${evenement.image}
-  //                       : http://127.0.0.1:8000/storage/evenements/${evenement.image};
-
-  //                   return {
-  //                       ...evenement,
-  //                       image: imageUrl,
-  //                   };
 
       },
       error: (err) => console.error('Failed to fetch documents', err)
     });
   }
- // const imageUrl = evenement.image?.startsWith('evenements/')
-  //                       ? http://127.0.0.1:8000/storage/${evenement.image}
-  //                       : http://127.0.0.1:8000/storage/evenements/${evenement.image};
-
-  //                   return {
-  //                       ...evenement,
-  //                       image: imageUrl,
-  //                   };
   // Ajouter d'autres méthodes pour manipuler les publications si nécessaire
+
+
+  viewDetails(id: number): void {
+    this.router.navigate(['/document', id]); // Remplacez '/document' par votre route de détails
+  }
 }

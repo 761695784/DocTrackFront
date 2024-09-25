@@ -21,9 +21,17 @@ body {
   margin-top: 20px;
 }
 
+.image-container {
+  width: 100%; /* S'assure que le conteneur d'image prend toute la largeur disponible */
+  max-height: 400px; /* Limite la hauteur du conteneur */
+  overflow: hidden; /* Cache les parties de l'image qui dépassent */
+  position: relative; /* Positionnement relatif pour pouvoir ajuster l'image */
+}
+
 .document-img {
-  width: 100%;
-  height: auto;
+  width: 100%; /* L'image prend toute la largeur de son conteneur */
+  height: 60%; /* L'image prend toute la hauteur de son conteneur */
+  object-fit:contain; /* Ajuste l'image pour couvrir tout le conteneur tout en maintenant ses proportions */
   border-radius: 10px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
 }
@@ -37,19 +45,21 @@ body {
 .document-info p {
   margin: 10px 0;
   color: #333;
+
 }
 
 .action-buttons {
   display: flex;
-  /* justify-content:center; */
   align-items: center;
   margin-top: 20px;
   margin-left: 4rem;
 }
 
 .status-icon {
-  font-size: 40px;
+  font-size: 70px;
   color: red;
+  margin-left: -5rem;
+  margin-top: -7rem;
 }
 
 .restore-btn {
@@ -105,7 +115,18 @@ body {
 
   .status-icon {
     margin-bottom: 10px;
+    margin-left: 0;
+    margin-top: 0;
+    font-size: 40px;
+
   }
+  /* .status-icon {
+    font-size: 70px;
+    color: red;
+    margin-left: -5rem;
+    margin-top: -7rem;
+  } */
+
 
   .restore-btn {
     width: 100%;
@@ -119,4 +140,8 @@ body {
   .submit-btn {
     width: 100%;
   }
+  .container {
+    width: 100%;
 }
+
+ }

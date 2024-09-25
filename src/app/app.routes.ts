@@ -17,7 +17,7 @@ export const routes: Routes = [
   { path: 'liste', component: DocumentListComponent},
   { path: 'details', component: DocumentDetailComponent},
   { path: 'declarer', component: DeclarationformComponent},
-
+  { path: 'document/:id', component: DocumentDetailComponent }, // Récupère l'ID depuis l'URL 
 
 
 ];

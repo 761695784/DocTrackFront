@@ -1,69 +1,41 @@
 <app-navbar></app-navbar>
 
 <div class="container">
-  <div class="card-document">
+  <div *ngIf="documentDetails" class="card-document">
     <div class="row">
-      <!-- Left Section: Document Image -->
       <div class="col-lg-6 col-md-6 col-sm-12">
-        <img class="document-img" src="/assets/cni2.png" alt="Document Image" />
+        <div class="image-container">
+          <img *ngIf="documentDetails.image" class="document-img" [src]="documentDetails.image" alt="Document Image" />
+        </div>
       </div>
 
-      <!-- Right Section: Document Details -->
+
       <div class="col-lg-6 col-md-6 col-sm-12 details-section">
         <div class="document-info">
-          <p>Publié par Adama Dabish | 15 Août 2024</p>
-          <p>📞 <strong>77 428 51 26</strong></p>
-          <p><strong>Prénom propriétaire :</strong> SIGNARE</p>
-          <p><strong>Nom propriétaire :</strong> NDIAYE</p>
-          <p><strong>Lieu :</strong> Dakar Sacré Coeur</p>
-          <p><strong>Identification :</strong> 1752 2002 07638</p>
+          <p>Publié par {{ documentDetails.user.FirstName }} {{ documentDetails.user.LastName }} | {{ documentDetails.created_at | date }}</p>
+          <p>📞 <strong>{{ documentDetails.user.Phone }}</strong></p>
+          <p><strong>Prénom propriétaire :</strong> {{ documentDetails.OwnerFirstName }}</p>
+          <p><strong>Nom propriétaire :</strong> {{ documentDetails.OwnerLastName }}</p>
+          <p><strong>Lieu :</strong> {{ documentDetails.Location }}</p>
+          <p><strong>Identification :</strong> {{ documentDetails.identification }}</p>
           <button class="btn restore-btn">Restituer</button>
         </div>
+
         <div class="action-buttons">
           <span class="status-icon">❌</span>
         </div>
       </div>
+
+
     </div>
 
-    <!-- Comment Section -->
+
+
     <div class="comment-section">
       <input class="comment-input" placeholder="Écrire un commentaire...">
       <button class="btn submit-btn">Envoyer</button>
-    </div>
-
-    <!-- Comments Display -->
-    <div class="comments">
-      <div class="comment">
-        <p><strong>Alice :</strong> Bonjour Adama, je connais le propriétaire, voici son numéro 77 346 25 14</p>
-      </div>
     </div>
   </div>
 </div>
 
 <app-footer></app-footer>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
