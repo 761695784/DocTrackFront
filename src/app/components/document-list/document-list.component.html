@@ -93,7 +93,7 @@
   </div>
   <div class="grid-container">
     <div *ngFor="let document of documents" class="card">
-      <img *ngIf="document.image" [src]="document.image" alt="Document Image" />
+      <img *ngIf="document.image" [src]="document.image" alt="document" />
       <p *ngIf="!document.image">Image non disponible</p>
       <div class="card-content">
         <p class="published-by">Publié par {{ document.user.FirstName }} {{ document.user.LastName }} | {{ document.created_at | date }}</p>

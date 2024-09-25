@@ -36,7 +36,7 @@ export class PublishformComponent {
     private fb: FormBuilder
   ) {
     this.publishForm = this.fb.group({
-      image: [null, Validators.required], // Image ou document
+      image: ['', Validators.required], // Image ou document
       OwnerLastName: ['', Validators.required], // Nom propriétaire
       OwnerFirstName: ['', Validators.required], // Prénom propriétaire
       DocIdentification: [''], // Champ optionnel

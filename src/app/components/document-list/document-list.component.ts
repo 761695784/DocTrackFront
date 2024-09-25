@@ -48,10 +48,26 @@ export class DocumentListComponent implements OnInit {
       next: (data) => {
         console.log(data); // Ajoutez ceci pour vérifier la réponse
         this.documents = data;
+         // const imageUrl = evenement.image?.startsWith('evenements/')
+  //                       ? http://127.0.0.1:8000/storage/${evenement.image}
+  //                       : http://127.0.0.1:8000/storage/evenements/${evenement.image};
+
+  //                   return {
+  //                       ...evenement,
+  //                       image: imageUrl,
+  //                   };
+
       },
       error: (err) => console.error('Failed to fetch documents', err)
     });
   }
+ // const imageUrl = evenement.image?.startsWith('evenements/')
+  //                       ? http://127.0.0.1:8000/storage/${evenement.image}
+  //                       : http://127.0.0.1:8000/storage/evenements/${evenement.image};
 
+  //                   return {
+  //                       ...evenement,
+  //                       image: imageUrl,
+  //                   };
   // Ajouter d'autres méthodes pour manipuler les publications si nécessaire
 }

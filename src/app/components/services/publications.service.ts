@@ -18,7 +18,7 @@ export class PublicationsService {
   getAllPublications(): Observable<Document[]> {
     return this.http.get<Document[]>(this.apiUrlGet).pipe(
       map(documents => documents.map(doc => {
-        doc.image = doc.image ? `http://localhost:8000/storage/public/documents/${doc.image}` : '';
+        doc.image = doc.image ? `http://localhost:8000${doc.image}` : '';
         return doc;
       }))
     );
