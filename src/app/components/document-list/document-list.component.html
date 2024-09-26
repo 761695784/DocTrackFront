@@ -87,12 +87,12 @@
 <app-navbar></app-navbar>
 <div class="container">
   <div class="search-bar">
-    <input type="text" placeholder="Rechercher en tapant les mots clés" />
-    <button class="search-btn">Chercher un document</button>
+    <input type="text" placeholder="Rechercher en tapant les mots clés" [(ngModel)]="searchTerm" (input)="filterDocuments()" />
+    <button class="search-btn" (click)="filterDocuments()">Chercher un document</button>
     <button class="my-publications-btn">Mes publications</button>
   </div>
   <div class="grid-container">
-    <div *ngFor="let document of documents" class="card">
+    <div *ngFor="let document of filteredDocuments" class="card">
       <img *ngIf="document.image" [src]="document.image" alt="document" />
       <p *ngIf="!document.image">Image non disponible</p>
       <div class="card-content">

@@ -7,6 +7,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { Routes } from '@angular/router';
 import { DocumentDetailComponent } from './components/document-detail/document-detail.component';
 import { PublishformComponent } from './components/publishform/publishform.component';
+import { MypublishComponent } from './components/mypublish/mypublish.component';
 
 export const routes: Routes = [
   { path: 'navbar', component:NavbarComponent},
@@ -17,7 +18,8 @@ export const routes: Routes = [
   { path: 'liste', component: DocumentListComponent},
   { path: 'details', component: DocumentDetailComponent},
   { path: 'declarer', component: DeclarationformComponent},
-  { path: 'document/:id', component: DocumentDetailComponent }, // Récupère l'ID depuis l'URL 
+  { path: 'document/:id', component: DocumentDetailComponent },
+  { path:  'mypub', component:MypublishComponent },
 
 
 ];

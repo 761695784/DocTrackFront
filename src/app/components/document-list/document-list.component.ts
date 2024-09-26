@@ -6,8 +6,6 @@ import { NavbarComponent } from './../navbar/navbar.component';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-
-
 export interface Document {
   id: number;
   image: string;
@@ -30,16 +28,17 @@ export interface Document {
   };
 }
 
-
 @Component({
   selector: 'app-document-list',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent,CommonModule,FormsModule ],
+  imports: [NavbarComponent, FooterComponent, CommonModule, FormsModule],
   templateUrl: './document-list.component.html',
   styleUrls: ['./document-list.component.css']
 })
 export class DocumentListComponent implements OnInit {
   documents: Document[] = [];
+  filteredDocuments: Document[] = [];
+  searchTerm: string = '';
 
   constructor(private publicationsService: PublicationsService, private router: Router) { }
 
@@ -50,15 +49,28 @@ export class DocumentListComponent implements OnInit {
   fetchDocuments(): void {
     this.publicationsService.getAllPublications().subscribe({
       next: (data) => {
-        console.log(data); // Ajoutez ceci pour vérifier la réponse
+        console.log('Documents fetched:', data); // Vérifiez la réponse de l'API
         this.documents = data;
-
+        this.filteredDocuments = data; // Initialisez filteredDocuments avec tous les documents
       },
       error: (err) => console.error('Failed to fetch documents', err)
     });
   }
-  // Ajouter d'autres méthodes pour manipuler les publications si nécessaire
 
+  filterDocuments(): void {
+    console.log('Search Term:', this.searchTerm); // Affiche le terme de recherche
+    if (this.searchTerm) {
+      const lowerCaseSearchTerm = this.searchTerm.toLowerCase();
+      this.filteredDocuments = this.documents.filter(document =>
+        document.OwnerFirstName.toLowerCase().includes(lowerCaseSearchTerm) ||
+        document.OwnerLastName.toLowerCase().includes(lowerCaseSearchTerm)
+      );
+      console.log('Filtered Documents:', this.filteredDocuments); // Vérifiez les documents filtrés
+    } else {
+      this.filteredDocuments = this.documents; // Si le champ de recherche est vide, affiche tous les documents
+      console.log('No search term, showing all documents.');
+    }
+  }
 
   viewDetails(id: number): void {
     this.router.navigate(['/document', id]); // Remplacez '/document' par votre route de détails

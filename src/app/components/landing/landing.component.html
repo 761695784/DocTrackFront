@@ -7,11 +7,12 @@
     <p class="text">"Publiez ou recherchez des documents perdus et retrouvés en toute simplicité."<br>
       <span class="titre">DocTrack</span> votre solution rapide et sécurisée.</p>
       <br>
-    <!-- Barre de recherche -->
-    <div class="input-group mb-3" style="max-width: 800px; margin: 0 auto;"> <!-- Augmentation de la largeur -->
-      <input type="text" class="form-control" placeholder="Recherchez un document trouvé" aria-label="Recherche">
-      <button class="btn btn-outline-secondary" type="button">Rechercher</button>
-    </div> <br>
+  <!-- Barre de recherche -->
+  <div class="input-group mb-3" style="max-width: 800px; margin: 0 auto;"> <!-- Augmentation de la largeur -->
+    <input type="text" class="form-control" placeholder="Recherchez un document trouvé"
+          aria-label="Recherche" [(ngModel)]="searchTerm" (input)="filterDocuments()">
+    <button class="btn btn-outline-secondary" type="button" (click)="filterDocuments()">Rechercher</button>
+  </div> <br>
 
     <!-- Boutons centrés -->
     <div class="mb-4">
@@ -20,6 +21,34 @@
     </div>
   </div>
 </section>
+
+<section *ngIf="searchTerm.length > 0">
+  <div *ngIf="filteredDocuments.length === 0" class="no-results">
+    <p>Aucun document trouvé pour "{{ searchTerm }}". Veuillez essayer une autre recherche.</p>
+  </div>
+
+  <div *ngIf="filteredDocuments.length > 0" class="search-results">
+    <div class="grid-container">
+      <div *ngFor="let document of filteredDocuments" class="card">
+        <img *ngIf="document.image" [src]="document.image" alt="document" />
+        <p *ngIf="!document.image">Image non disponible</p>
+        <div class="card-content">
+          <p class="published-by">Publié par {{ document.user.FirstName }} {{ document.user.LastName }} | {{ document.created_at | date }}</p>
+          <p class="phone-number">📞 {{ document.user.Phone }}</p>
+          <p>Prénom propriétaire: <strong>{{ document.OwnerFirstName }}</strong></p>
+          <p>Nom propriétaire: <strong>{{ document.OwnerLastName }}</strong></p>
+          <div class="card-actions">
+            <button class="details-btn" (click)="viewDetails(document.id)">Voir détails</button>
+            <span class="status" [ngClass]="document.statut === 'récupéré' ? 'success' : 'error'">
+              {{ document.statut === 'récupéré' ? '✔️' : '❌' }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <section class="avantage-section">
   <div class="container">
