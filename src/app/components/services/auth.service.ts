@@ -42,9 +42,13 @@ export class AuthService {
 
   // Vérifier si l'utilisateur est authentifié
   isAuthenticated(): boolean {
-    const token = localStorage.getItem('token');
-    return !!token;
-  }
+    if (typeof window !== 'undefined' && window.localStorage) {
+        const token = localStorage.getItem('token');
+        return !!token;
+    }
+    return false; // Retourne false si l'environnement est non-navigateur
+}
+
 
   logout(): void {
     localStorage.removeItem('token');

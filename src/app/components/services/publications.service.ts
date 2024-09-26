@@ -9,14 +9,15 @@ import { Document } from '../document-list/document-list.component';
   providedIn: 'root'
 })
 export class PublicationsService {
-  private apiUrlGet = 'http://localhost:8000/api/document'; // URL pour récupérer les documents
+  private apiUrlGetAll = 'http://localhost:8000/api/document'; // URL pour récupérer tous les documents
+  private apiUrlGetUser = 'http://localhost:8000/api/mypub'; // URL pour récupérer uniquement les documents de l'utilisateur connecté
   private apiUrlPost = 'http://localhost:8000/api/documents'; // URL pour ajouter des documents
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   // Récupérer toutes les publications
   getAllPublications(): Observable<Document[]> {
-    return this.http.get<Document[]>(this.apiUrlGet).pipe(
+    return this.http.get<Document[]>(this.apiUrlGetAll).pipe(
       map(documents => documents.map(doc => {
         doc.image = doc.image ? `http://localhost:8000${doc.image}` : '';
         return doc;
@@ -24,19 +25,35 @@ export class PublicationsService {
     );
   }
 
-  // Ajouter une publication
-  addPublication(document: FormData): Observable<Document> {
-    const token = localStorage.getItem('token'); // récupère le token
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}` // ajoute l'en-tête d'authentification
+  getUserPublications(): Observable<Document[]> {
+    if (typeof window !== 'undefined' && window.localStorage) {
+        const token = localStorage.getItem('token');
+        const headers = new HttpHeaders({
+            'Authorization': `Bearer ${token}`
+        });
+        return this.http.get<Document[]>(this.apiUrlGetUser, { headers });
+    }
+    return new Observable<Document[]>(observer => {
+        observer.error('Non-navigateur : impossible de récupérer les publications utilisateur');
     });
+}
 
-    // Utilisation de FormData pour envoyer le fichier et les autres champs
-    return this.http.post<Document>(this.apiUrlPost, document, { headers }).pipe(
-      tap(response => {
-        // Effectuez éventuellement d'autres actions ici avec la réponse
-        console.log('Réponse du serveur:', response);
-      })
-    );
-  }
+addPublication(document: FormData): Observable<Document> {
+    if (typeof window !== 'undefined' && window.localStorage) {
+        const token = localStorage.getItem('token');
+        const headers = new HttpHeaders({
+            'Authorization': `Bearer ${token}`
+        });
+
+        return this.http.post<Document>(this.apiUrlPost, document, { headers }).pipe(
+            tap(response => {
+                console.log('Réponse du serveur:', response);
+            })
+        );
+    }
+    return new Observable<Document>(observer => {
+        observer.error('Non-navigateur : impossible d\'ajouter une publication');
+    });
+}
+
 }

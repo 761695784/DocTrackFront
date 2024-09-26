@@ -7,7 +7,6 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
 
-
 export interface Document {
   id: number;
   image: string;
@@ -33,7 +32,7 @@ export interface Document {
 @Component({
   selector: 'app-document-list',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent, CommonModule, FormsModule,NgxPaginationModule],
+  imports: [NavbarComponent, FooterComponent, CommonModule, FormsModule, NgxPaginationModule],
   templateUrl: './document-list.component.html',
   styleUrls: ['./document-list.component.css']
 })
@@ -53,8 +52,9 @@ export class DocumentListComponent implements OnInit {
     this.publicationsService.getAllPublications().subscribe({
       next: (data) => {
         console.log('Documents fetched:', data); // Vérifiez la réponse de l'API
-        this.documents = data;
-        this.filteredDocuments = data; // Initialisez filteredDocuments avec tous les documents
+        // Trier les documents du plus récent au plus ancien
+        this.documents = data.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+        this.filteredDocuments = this.documents; // Initialisez filteredDocuments avec tous les documents
       },
       error: (err) => console.error('Failed to fetch documents', err)
     });
@@ -79,8 +79,8 @@ export class DocumentListComponent implements OnInit {
     this.router.navigate(['/document', id]); // Remplacez '/document' par votre route de détails
   }
 
-    // Méthode appelée lors du changement de page
-    pageChanged(event: number): void {
-      this.currentPage = event;
-    }
+  // Méthode appelée lors du changement de page
+  pageChanged(event: number): void {
+    this.currentPage = event;
+  }
 }
