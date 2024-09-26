@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { AuthService } from '../services/auth.service';
 import Swal from 'sweetalert2'; // Importer SweetAlert2
 import { NavbarComponent } from '../navbar/navbar.component';
+import { RedirectService } from '../services/redirection.service'; // Importer RedirectService
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
@@ -14,7 +17,11 @@ import { NavbarComponent } from '../navbar/navbar.component';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private redirectService: RedirectService // Injection de RedirectService
+  ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -40,8 +47,11 @@ export class LoginComponent implements OnInit {
             icon: 'success',
             confirmButtonText: 'Continuer'
           });
-        // Stocker le token dans le localStorage
-          localStorage.setItem('token', response.token); // Assurez-vous que `response.token` correspond à la structure de la réponse de votre API
+
+          // Rediriger vers l'URL d'origine ou une route par défaut
+          const redirectUrl = this.redirectService.getRedirectUrl();
+          this.redirectService.clearRedirectUrl(); // Effacer l'URL
+          this.authService.router.navigate([redirectUrl || '/accueil']); // Assurez-vous que router est accessible
         },
         error => {
           // Gérer les erreurs de connexion

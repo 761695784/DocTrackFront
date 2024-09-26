@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';  // Importer Router
 import Swal from 'sweetalert2';
 
 export interface User {
@@ -24,7 +25,7 @@ export interface User {
 export class RegisterComponent {
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {  // Ajouter Router ici
     this.registerForm = this.fb.group({
       LastName: ['', Validators.required],
       FirstName: ['', Validators.required],
@@ -59,9 +60,12 @@ export class RegisterComponent {
             text: 'Inscription réussie!',
             icon: 'success',
             confirmButtonText: 'OK'
+          }).then(() => {
+            this.router.navigate(['/accueil']);  // Redirection vers la page d'accueil
           });
           this.registerForm.reset();
         },
+
         error: (error) => {
           console.error('Registration error:', error);
           let errorMessage = 'Erreur lors de l\'inscription.';
