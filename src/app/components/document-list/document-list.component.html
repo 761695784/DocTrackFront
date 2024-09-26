@@ -92,7 +92,7 @@
     <button class="my-publications-btn">Mes publications</button>
   </div>
   <div class="grid-container">
-    <div *ngFor="let document of filteredDocuments" class="card">
+    <div *ngFor="let document of filteredDocuments | paginate: { itemsPerPage: 12, currentPage: currentPage }" class="card">
       <img *ngIf="document.image" [src]="document.image" alt="document" />
       <p *ngIf="!document.image">Image non disponible</p>
       <div class="card-content">
@@ -109,5 +109,8 @@
       </div>
     </div>
   </div>
+
+  <!-- Pagination controls -->
+  <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
 </div>
 <app-footer></app-footer>

@@ -141,3 +141,32 @@ body {
     margin-bottom: 0; /* Supprimer le fond pour les boutons supplémentaires */
   }
 }
+
+/* .pagination-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+
+}
+
+.pagination-controls .ngx-pagination {
+  padding: 0;
+}
+
+.pagination-controls .ngx-pagination li {
+  display: inline;
+  margin: 0 5px;
+}
+
+.pagination-controls .ngx-pagination li a {
+  padding: 10px 15px;
+  background-color: #F6A500;
+  color: white;
+  border-radius: 4px;
+  margin-left: 20rem;
+}
+
+.pagination-controls .ngx-pagination li.active a {
+  background-color: #F6A500;
+
+} */

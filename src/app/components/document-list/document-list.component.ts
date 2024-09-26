@@ -1,10 +1,12 @@
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PublicationsService } from './../services/publications.service';
 import { FooterComponent } from './../footer/footer.component';
 import { NavbarComponent } from './../navbar/navbar.component';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgxPaginationModule } from 'ngx-pagination';
+
 
 export interface Document {
   id: number;
@@ -31,7 +33,7 @@ export interface Document {
 @Component({
   selector: 'app-document-list',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent, CommonModule, FormsModule],
+  imports: [NavbarComponent, FooterComponent, CommonModule, FormsModule,NgxPaginationModule],
   templateUrl: './document-list.component.html',
   styleUrls: ['./document-list.component.css']
 })
@@ -39,6 +41,7 @@ export class DocumentListComponent implements OnInit {
   documents: Document[] = [];
   filteredDocuments: Document[] = [];
   searchTerm: string = '';
+  currentPage: number = 1;
 
   constructor(private publicationsService: PublicationsService, private router: Router) { }
 
@@ -75,4 +78,9 @@ export class DocumentListComponent implements OnInit {
   viewDetails(id: number): void {
     this.router.navigate(['/document', id]); // Remplacez '/document' par votre route de détails
   }
+
+    // Méthode appelée lors du changement de page
+    pageChanged(event: number): void {
+      this.currentPage = event;
+    }
 }
