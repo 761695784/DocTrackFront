@@ -17,4 +17,14 @@ export class DetailsService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<DocumentDetails>(`${this.apiUrl}/${id}`, { headers });
   }
+
+  requestRestitution(documentId: number): Observable<any> {
+    const token = localStorage.getItem('token'); // Récupère le token
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}` // Ajoute l'en-tête d'authentification
+    });
+
+    return this.http.post<any>(`http://localhost:8000/api/documents/${documentId}/restitution`, {}, { headers });
+  }
+
 }

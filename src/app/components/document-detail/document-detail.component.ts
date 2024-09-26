@@ -7,7 +7,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { CommentairesService } from '../services/commentaire.service';
 import { FormsModule } from '@angular/forms';
-
+import Swal from 'sweetalert2';
 
 // Assurez-vous d'utiliser une interface pour décrire les données du document
 export interface DocumentDetails {
@@ -18,7 +18,7 @@ export interface DocumentDetails {
   Location: string;
   statut: string; // Peut être 'récupéré' ou 'non récupéré'
   document_type_id: number;
-  identification:string;
+  identification: string;
   user_id: number;
   created_at: string;
   updated_at: string;
@@ -46,7 +46,7 @@ export interface Commentaire {
 @Component({
   selector: 'app-document-detail',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent, CommonModule,FormsModule],
+  imports: [NavbarComponent, FooterComponent, CommonModule, FormsModule],
   templateUrl: './document-detail.component.html',
   styleUrls: ['./document-detail.component.css']
 })
@@ -55,7 +55,9 @@ export class DocumentDetailComponent implements OnInit {
   commentaires: Commentaire[] = []; // Ajout pour stocker les commentaires
   newComment: string = ''; // Pour stocker le contenu du nouveau commentaire
 
-  constructor(private route: ActivatedRoute, private detailsService: DetailsService,
+  constructor(
+    private route: ActivatedRoute,
+    private detailsService: DetailsService,
     private commentairesService: CommentairesService, // Ajout du service Commentaires
     private authService: AuthService // Ajout du service AuthService
   ) { }
@@ -72,7 +74,6 @@ export class DocumentDetailComponent implements OnInit {
       }
     });
   }
-
 
   getDocumentDetails(id: number): void {
     this.detailsService.getDocumentDetails(id).subscribe({
@@ -106,13 +107,52 @@ export class DocumentDetailComponent implements OnInit {
         next: () => {
           this.newComment = '';
           this.getCommentaires(this.documentDetails?.id!); // Utilisation de l'opérateur non-null assertion '!'
+          Swal.fire({
+            icon: 'success',
+            title: 'Commentaire ajouté',
+            text: 'Votre commentaire a été ajouté avec succès.',
+          });
         },
-        error: (err) => console.error('Erreur lors de l\'ajout du commentaire', err)
+        error: (err) => {
+          console.error('Erreur lors de l\'ajout du commentaire', err);
+          Swal.fire({
+            icon: 'error',
+            title: 'Erreur',
+            text: 'Une erreur est survenue lors de l\'ajout de votre commentaire.',
+          });
+        }
       });
     } else {
-      console.error('Impossible d\'ajouter le commentaire car document_id est undefined ou l\'utilisateur n\'est pas authentifié');
+      Swal.fire({
+        icon: 'warning',
+        title: 'Non authentifié',
+        text: 'Vous devez être authentifié pour ajouter un commentaire.',
+      });
     }
   }
 
+  // Méthode pour demander la restitution d'un document
+  requestRestitution(): void {
+    if (this.documentDetails) {
+      this.detailsService.requestRestitution(this.documentDetails.id).subscribe({
+        next: (response) => {
+          console.log('Notification envoyée avec succès');
+          Swal.fire({
+            icon: 'success',
+            title: 'Demande envoyée',
+            text: 'Votre demande de restitution a été envoyée avec succès.',
+          });
+        },
+        error: (err) => {
+          console.error('Erreur lors de la demande de restitution', err);
+          Swal.fire({
+            icon: 'error',
+            title: 'Erreur',
+            text: 'Une erreur est survenue lors de la demande de restitution.',
+          });
+        }
+      });
+    }
+  }
 
 }
