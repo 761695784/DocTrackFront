@@ -12,7 +12,7 @@
 
       <div class="col-lg-6 col-md-6 col-sm-12 details-section">
         <div class="document-info">
-          <p>Publié par {{ documentDetails.user.FirstName }} {{ documentDetails.user.LastName }} | {{ documentDetails.created_at | date }}</p>
+          <p>Publié par <strong>{{ documentDetails.user.FirstName }} {{ documentDetails.user.LastName }}</strong> | {{ documentDetails.created_at | date }}</p>
           <p>📞 <strong>{{ documentDetails.user.Phone }}</strong></p>
           <p><strong>Prénom propriétaire :</strong> {{ documentDetails.OwnerFirstName }}</p>
           <p><strong>Nom propriétaire :</strong> {{ documentDetails.OwnerLastName }}</p>

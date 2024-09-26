@@ -66,11 +66,13 @@ export class DocumentDetailComponent implements OnInit {
       if (documentIdString) {
         const documentId = +documentIdString; // Convertir en nombre
         this.getDocumentDetails(documentId);
+        this.getCommentaires(documentId); // Charger les commentaires dès que le document est chargé
       } else {
         console.error('Document ID is null or undefined');
       }
     });
   }
+
 
   getDocumentDetails(id: number): void {
     this.detailsService.getDocumentDetails(id).subscribe({
