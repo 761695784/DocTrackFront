@@ -28,12 +28,19 @@
 
 
     </div>
+<br>
 
-
+    <div class="comments-list">
+      <h3>Commentaires</h3>
+      <div *ngFor="let commentaire of commentaires" class="comment">
+        <p> <strong>{{ commentaire.user.FirstName }} {{ commentaire.user.LastName }}</strong> | {{ commentaire.created_at | date }}</p>
+        <p>{{ commentaire.contenu }}</p>
+      </div>
+    </div>
 
     <div class="comment-section">
-      <input class="comment-input" placeholder="Écrire un commentaire...">
-      <button class="btn submit-btn">Envoyer</button>
+      <input class="comment-input" [(ngModel)]="newComment" placeholder="Écrire un commentaire...">
+      <button class="btn submit-btn" (click)="addCommentaire()">Envoyer</button>
     </div>
   </div>
 </div>
