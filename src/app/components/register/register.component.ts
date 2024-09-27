@@ -25,7 +25,7 @@ export interface User {
 export class RegisterComponent {
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {  // Ajouter Router ici
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.registerForm = this.fb.group({
       LastName: ['', Validators.required],
       FirstName: ['', Validators.required],
@@ -60,9 +60,12 @@ export class RegisterComponent {
             text: 'Inscription réussie!',
             icon: 'success',
             confirmButtonText: 'OK'
-          }).then(() => {
-            this.router.navigate(['/accueil']);  // Redirection vers la page d'accueil
           });
+
+          // Redirection vers la page d'accueil après la minuterie
+          setTimeout(() => {
+            this.router.navigate(['/accueil']);
+          }, 2000);
           this.registerForm.reset();
         },
 
@@ -79,6 +82,11 @@ export class RegisterComponent {
             icon: 'error',
             confirmButtonText: 'OK'
           });
+
+          // Masquer l'alerte après 2 secondes
+          setTimeout(() => {
+            Swal.close();
+          }, 2000);
         }
       });
     } else {
@@ -89,6 +97,11 @@ export class RegisterComponent {
         icon: 'error',
         confirmButtonText: 'OK'
       });
+
+      // Masquer l'alerte après 2 secondes
+      setTimeout(() => {
+        Swal.close();
+      }, 2000);
     }
   }
 
@@ -132,9 +145,9 @@ export class RegisterComponent {
     }
 
     // Validation confirmation_password
-    if (this.registerForm.get('confirmation_password')?.hasError('required')) {
+    if (this.registerForm.get('password_confirmation')?.hasError('required')) {
       messages.push('La confirmation du mot de passe est requise.');
-    } else if (this.registerForm.get('confirmation_password')?.value !== this.registerForm.get('password')?.value) {
+    } else if (this.registerForm.get('password_confirmation')?.value !== this.registerForm.get('password')?.value) {
       messages.push('La confirmation du mot de passe ne correspond pas.');
     }
     return messages;

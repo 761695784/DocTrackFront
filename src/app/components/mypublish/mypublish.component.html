@@ -1,6 +1,10 @@
 <app-navbar></app-navbar>
 
 <div class="container">
+
+  <div *ngIf="publications.length === 0">
+    <p>Vous n'avez aucune publication pour le moment.</p>
+  </div>
   <div class="grid-container">
     <!-- Boucle pour afficher toutes les publications -->
     <div class="card" *ngFor="let publication of publications">

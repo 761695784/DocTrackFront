@@ -61,6 +61,8 @@ export class DeclarationformComponent {
         icon: 'warning',
         title: 'Formulaire invalide !',
         text: 'Veuillez remplir tous les champs requis.',
+        timer: 2000, // Masquer après 2 secondes
+        timerProgressBar: true // Barre de progression
       });
       return;
     }
@@ -75,21 +77,26 @@ export class DeclarationformComponent {
 
     console.log('Données à envoyer :', formData);
     console.log('Selected Document Type ID:', this.declarationForm.get('documentType')?.value);
+
     // Vérifier l'authentification avant de soumettre la déclaration
     if (this.authService.isAuthenticated()) {
       this.declarationService.addDeclaration(formData).subscribe(response => {
         Swal.fire({
           icon: 'success',
           title: 'Déclaration ajoutée !',
-          text: "Votre déclaration de perte a été soumise avec succès.Nous vous notifierons une fois qu'une publication correspondant à votre Déclaration. Sur ce nous vous conseillons de temps en temps verifer votre Boite Mail !! "
+          text: 'Votre déclaration a été ajoutée avec succès.',
+          timer: 2000, // Masquer après 2 secondes
+          timerProgressBar: true // Barre de progression
         });
         this.declarationForm.reset(); // Réinitialisation du formulaire
       }, error => {
-        console.error('Erreur lors de l\'ajout de la déclaration:', error);
+        console.error('Erreur lors de l\'ajout de la déclaration:', error.error);
         Swal.fire({
           icon: 'error',
           title: 'Erreur !',
-          text: error.error.message || 'Une erreur est survenue lors de la soumission de votre déclaration.',
+          text: error.error.message || 'Une erreur est survenue lors de l\'ajout de votre déclaration.',
+          timer: 2000, // Masquer après 2 secondes
+          timerProgressBar: true // Barre de progression
         });
       });
     } else {
@@ -97,6 +104,8 @@ export class DeclarationformComponent {
         icon: 'warning',
         title: 'Non authentifié !',
         text: 'Vous devez vous connecter pour soumettre une déclaration.',
+        timer: 2000, // Masquer après 2 secondes
+        timerProgressBar: true // Barre de progression
       });
     }
   }

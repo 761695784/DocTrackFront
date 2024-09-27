@@ -4,6 +4,7 @@ import { NavbarComponent } from './../navbar/navbar.component';
 import { Component, OnInit } from '@angular/core';
 import { PublicationsService } from '../services/publications.service';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
 
 
 export interface Document {
@@ -27,6 +28,7 @@ export interface Document {
     email_verified_at?: string;  // Optionnel, selon si c'est pertinent pour ton application
   };
 }
+
 @Component({
   selector: 'app-mypublish',
   standalone: true,
@@ -36,7 +38,6 @@ export interface Document {
 })
 export class MypublishComponent implements OnInit {
   publications: Document[] = [];
-
 
   constructor(private publicationService: PublicationsService) {}
 
@@ -57,39 +58,78 @@ export class MypublishComponent implements OnInit {
   }
 
   deletePublication(id: number): void {
-    if (confirm('Êtes-vous sûr de vouloir supprimer cette publication ?')) {
-      this.publicationService.deletePublication(id).subscribe({
-        next: () => {
-          this.publications = this.publications.filter(publication => publication.id !== id);
-          alert('Publication supprimée avec succès.');
-        },
-        error: (err) => console.error('Erreur lors de la suppression de la publication', err)
-      });
-    }
+    Swal.fire({
+      title: 'Êtes-vous sûr de vouloir supprimer cette publication ?',
+      text: "Cette action est irréversible !",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui, supprimer!',
+      cancelButtonText: 'Annuler'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.publicationService.deletePublication(id).subscribe({
+          next: () => {
+            this.publications = this.publications.filter(publication => publication.id !== id);
+            Swal.fire({
+              title: 'Supprimé!',
+              text: 'Publication supprimée avec succès.',
+              icon: 'success',
+              timer: 2000, // L'alerte disparaît après 2 secondes
+              showConfirmButton: false // Ne pas afficher le bouton de confirmation
+            });
+          },
+          error: (err) => console.error('Erreur lors de la suppression de la publication', err)
+        });
+      }
+    });
   }
+
   toggleStatus(publication: Document): void {
     if (publication.user_id === this.getUserId()) {
-        const newStatus = publication.statut === 'récupéré' ? 'non récupéré' : 'récupéré';
-        console.log(`Changement du statut pour la publication ID ${publication.id}: ${newStatus}`);
+      const newStatus = publication.statut === 'récupéré' ? 'non récupéré' : 'récupéré';
 
-        this.publicationService.updatePublicationStatus(publication.id, newStatus).subscribe({
+      Swal.fire({
+        title: 'Êtes-vous sûr ?',
+        text: `Le statut va être changé en "${newStatus}".`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui, changer!',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          console.log(`Changement du statut pour la publication ID ${publication.id}: ${newStatus}`);
+
+          this.publicationService.updatePublicationStatus(publication.id, newStatus).subscribe({
             next: (response) => {
-                console.log('Réponse de la mise à jour:', response);
-                publication.statut = response.document.statut;  // Mettre à jour le statut affiché
-                console.log('Statut après mise à jour:', publication.statut);
+              console.log('Réponse de la mise à jour:', response);
+              publication.statut = response.document.statut;  // Mettre à jour le statut affiché
+              Swal.fire({
+                title: 'Mise à jour!',
+                text: `Le statut a été mis à jour à "${publication.statut}".`,
+                icon: 'success',
+                timer: 2000, // L'alerte disparaît après 2 secondes
+                showConfirmButton: false // Ne pas afficher le bouton de confirmation
+              });
             },
             error: (err) => {
-                console.error('Erreur lors de la mise à jour:', err);
-                alert('Erreur lors de la mise à jour du statut. Détails: ' + (err.error?.message || err.message || 'Inconnu'));
+              console.error('Erreur lors de la mise à jour:', err);
+              Swal.fire('Erreur!', 'Erreur lors de la mise à jour du statut.', 'error');
             }
-        });
+          });
+        }
+      });
     } else {
-        alert("Vous n'êtes pas autorisé à modifier ce statut.");
+      Swal.fire('Non autorisé', "Vous n'êtes pas autorisé à modifier ce statut.", 'error');
     }
-}
+  }
+
   // Méthode pour récupérer l'ID de l'utilisateur connecté (si stocké dans localStorage)
   private getUserId(): number | null {
-    const userId = localStorage.getItem('userId'); // Assure-toi que tu as stocké cet ID lors de la connexion
+    const userId = localStorage.getItem('userId');  // Assure-toi que cet ID est stocké lors de la connexion
     return userId ? Number(userId) : null;
   }
 }

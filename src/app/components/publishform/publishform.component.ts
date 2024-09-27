@@ -49,9 +49,9 @@ export class PublishformComponent {
   onSubmit() {
     // Validation conditionnelle pour DocIdentification
     if (this.publishForm.get('DocIdentification')?.value) {
-        this.publishForm.get('DocIdentification')?.setValidators([Validators.required]);
+      this.publishForm.get('DocIdentification')?.setValidators([Validators.required]);
     } else {
-        this.publishForm.get('DocIdentification')?.clearValidators();
+      this.publishForm.get('DocIdentification')?.clearValidators();
     }
 
     // Mettre à jour la validité du champ
@@ -59,12 +59,14 @@ export class PublishformComponent {
 
     // Vérifier la validité du formulaire
     if (this.publishForm.invalid) {
-        Swal.fire({
-            icon: 'warning',
-            title: 'Formulaire invalide !',
-            text: 'Veuillez remplir tous les champs requis.',
-        });
-        return;
+      Swal.fire({
+        icon: 'warning',
+        title: 'Formulaire invalide !',
+        text: 'Veuillez remplir tous les champs requis.',
+        timer: 2000, // Masquer après 2 secondes
+        timerProgressBar: true // Barre de progression
+      });
+      return;
     }
 
     const formData = new FormData();
@@ -80,29 +82,35 @@ export class PublishformComponent {
 
     // Vérification de l'authentification pour pouvoir publier un document
     if (this.authService.isAuthenticated()) {
-        this.publicationsService.addPublication(formData).subscribe(response => {
-            Swal.fire({
-                icon: 'success',
-                title: 'Publication ajoutée !',
-                text: 'Votre document a été publié avec succès.',
-            });
-            this.publishForm.reset(); // Réinitialisation du formulaire
-        }, error => {
-            console.error('Erreur lors de l\'ajout de la publication:', error.error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Erreur !',
-                text: error.error.message || 'Une erreur est survenue lors de l\'ajout de votre document.',
-            });
-        });
-    } else {
+      this.publicationsService.addPublication(formData).subscribe(response => {
         Swal.fire({
-            icon: 'warning',
-            title: 'Non authentifié !',
-            text: 'Vous devez vous connecter pour publier un document.',
+          icon: 'success',
+          title: 'Publication ajoutée !',
+          text: 'Votre document a été publié avec succès.',
+          timer: 2000, // Masquer après 2 secondes
+          timerProgressBar: true // Barre de progression
         });
+        this.publishForm.reset(); // Réinitialisation du formulaire
+      }, error => {
+        console.error('Erreur lors de l\'ajout de la publication:', error.error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur !',
+          text: error.error.message || 'Une erreur est survenue lors de l\'ajout de votre document.',
+          timer: 2000, // Masquer après 2 secondes
+          timerProgressBar: true // Barre de progression
+        });
+      });
+    } else {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Non authentifié !',
+        text: 'Vous devez vous connecter pour publier un document.',
+        timer: 2000, // Masquer après 2 secondes
+        timerProgressBar: true // Barre de progression
+      });
     }
-}
+  }
 
   onFileChange(event: any) {
     const file = event.target.files[0];

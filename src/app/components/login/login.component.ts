@@ -6,7 +6,6 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { RedirectService } from '../services/redirection.service'; // Importer RedirectService
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -45,13 +44,15 @@ export class LoginComponent implements OnInit {
             title: 'Connexion réussie',
             text: 'Bienvenue !',
             icon: 'success',
-            confirmButtonText: 'Continuer'
+            // confirmButtonText: 'Continuer',
+            timer: 2000, // Option pour masquer après 2 secondes
+            // timerProgressBar: true // Option pour montrer une barre de progression
+          }).then(() => {
+            // Rediriger vers l'URL d'origine ou une route par défaut
+            const redirectUrl = this.redirectService.getRedirectUrl();
+            this.redirectService.clearRedirectUrl(); // Effacer l'URL
+            this.authService.router.navigate([redirectUrl || '/accueil']); // Assurez-vous que router est accessible
           });
-
-          // Rediriger vers l'URL d'origine ou une route par défaut
-          const redirectUrl = this.redirectService.getRedirectUrl();
-          this.redirectService.clearRedirectUrl(); // Effacer l'URL
-          this.authService.router.navigate([redirectUrl || '/accueil']); // Assurez-vous que router est accessible
         },
         error => {
           // Gérer les erreurs de connexion
@@ -59,7 +60,11 @@ export class LoginComponent implements OnInit {
             title: 'Échec de la connexion',
             text: 'Email ou mot de passe incorrect.',
             icon: 'error',
-            confirmButtonText: 'Réessayer'
+            confirmButtonText: 'Réessayer',
+            timer: 2000, // Option pour masquer après 2 secondes
+            timerProgressBar: true // Option pour montrer une barre de progression
+          }).then(() => {
+            // Action après la fermeture de l'alerte, si nécessaire
           });
         }
       );
@@ -68,7 +73,11 @@ export class LoginComponent implements OnInit {
         title: 'Erreur',
         text: 'Veuillez remplir tous les champs obligatoires.',
         icon: 'error',
-        confirmButtonText: 'D\'accord'
+        confirmButtonText: 'D\'accord',
+        timer: 2000, // Option pour masquer après 2 secondes
+        // timerProgressBar: true // Option pour montrer une barre de progression
+      }).then(() => {
+        // Action après la fermeture de l'alerte, si nécessaire
       });
     }
   }
