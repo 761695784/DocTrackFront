@@ -20,7 +20,7 @@ header {
 nav ul {
   list-style: none;
   display: flex;
-  margin-left: auto; /* Remplacez 700px par auto pour un meilleur alignement */
+  margin-left: 700px; /* Remplacez 700px par auto pour un meilleur alignement */
   padding: 0;
 }
 
@@ -86,16 +86,18 @@ nav ul li a:hover {
 
   nav ul {
     flex-direction: column; /* Menu vertical sur mobile */
-    width: 100%; /* Prend toute la largeur */
     padding: 10px 0; /* Espacement autour des liens */
     margin-top: 10px; /* Espace au-dessus du menu */
+    margin-left: 0;
+
   }
 
   nav ul li {
-    margin: 10px 0; /* Espacement vertical entre les éléments */
+    margin: 5px 0; /* Espacement vertical entre les éléments */
   }
 
   .connexion .btn {
     margin-top: 10px; /* Espace au-dessus du bouton de connexion mobile */
+    margin-left: 40px;
   }
 }
