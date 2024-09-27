@@ -12,7 +12,7 @@ export class PublicationsService {
   private apiUrlGetAll = 'http://localhost:8000/api/document'; // URL pour récupérer tous les documents
   private apiUrlGetUser = 'http://localhost:8000/api/mypub'; // URL pour récupérer uniquement les documents de l'utilisateur connecté
   private apiUrlPost = 'http://localhost:8000/api/documents'; // URL pour ajouter des documents
-  private apiUrlDelete = 'http://localhost:8000/api/documents'; // URL pour supprimer des documents
+  private apiUrlDelete = 'http://localhost:8000/api/document'; // URL pour supprimer des documents
   private apiUrlUpdate = 'http://localhost:8000/api/document'; // URL pour mettre à jour des documents
 
   private publicationsSubject = new BehaviorSubject<Document[]>([]);
@@ -63,8 +63,12 @@ export class PublicationsService {
   }
 
   deletePublication(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrlDelete}/documents/${id}`);
-  }
+    const token = localStorage.getItem('token'); // obtenir le token d'authentification
+    const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+    });
+    return this.http.delete<void>(`${this.apiUrlDelete}/${id}`, { headers });
+}
 
   updatePublicationStatus(id: number, statut: string): Observable<{ success: boolean; message: string; document: Document }> {
       const token = localStorage.getItem('token'); // Obtenez le token d'authentification
