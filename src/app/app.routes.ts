@@ -1,3 +1,4 @@
+import { LostdeclarationComponent } from './components/lostdeclaration/lostdeclaration.component';
 import { DeclarationformComponent } from './components/declarationform/declarationform.component';
 import { DocumentListComponent } from './components/document-list/document-list.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -20,7 +21,8 @@ export const routes: Routes = [
   { path: 'details', component: DocumentDetailComponent ,canActivate: [AuthGuard]},
   { path: 'declarer', component: DeclarationformComponent ,canActivate: [AuthGuard]},
   { path: 'document/:id', component: DocumentDetailComponent ,canActivate: [AuthGuard] },
-  { path:  'mypub', component:MypublishComponent ,canActivate: [AuthGuard] },
+  { path: 'mypub', component:MypublishComponent ,canActivate: [AuthGuard] },
+  { path: 'lost', component:LostdeclarationComponent ,canActivate: [AuthGuard] }
 
 
 ];
