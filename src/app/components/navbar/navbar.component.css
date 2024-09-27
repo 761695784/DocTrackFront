@@ -72,6 +72,26 @@ nav ul li a:hover {
   background-color: #b88a00; /* Couleur active du bouton */
 }
 
+/* Style de l'icône utilisateur et du dropdown */
+.dropdown-toggle {
+  background-color: #F6A500;
+  color: black;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.dropdown-menu {
+  background-color: #fff;
+}
+
+.dropdown-item:hover {
+  background-color: #F6A500;
+  font-weight:bold ;
+}
+
+
+
+
 /* Styles responsives */
 @media (max-width: 768px) {
   header {

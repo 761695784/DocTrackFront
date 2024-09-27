@@ -4,14 +4,13 @@
           <a class="navbar-brand logo" href="#">
               <img src="/assets/logoo2.png"  class="w-100" alt="Logo">
           </a>
-          <a href="/connexion" class="btn btn-warning connexion ml-auto d-lg-none d-block" style="background-color: #F6A500; font-weight: bold;">Connexion</a> <!-- Bouton de connexion visible uniquement sur mobile -->
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav mr-auto text-end">
                   <li class="nav-item">
-                      <a class="nav-link " href="/accueil">Accueil</a>
+                      <a class="nav-link" href="/accueil">Accueil</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link" href="#apropos">À propos</a>
@@ -23,7 +22,24 @@
                       <a class="nav-link" href="/lost">Déclaration de perte</a>
                   </li>
               </ul>
-              <a href="/connexion" class="btn btn-warning connexion d-none d-lg-block" style="background-color: #F6A500; font-weight: bold;" >Connexion</a> <!-- Bouton de connexion visible uniquement sur desktop -->
+              <!-- Vérification de l'authentification -->
+              <div *ngIf="authService.isAuthenticated(); else loginBtn">
+                <div class="dropdown">
+                  <button class="btn btn-warning dropdown-toggle" type="button" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user"><span class="user-name mr-2" style="color: black; font-weight: bold;">
+                      {{ authService.getUserName() }}
+                    </span></i> <!-- Icône utilisateur -->
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="#" (click)="goToChangePassword()">Modifier mot de passe</a>
+                    <a class="dropdown-item" href="/accueil" (click)="logout()">Déconnexion</a>
+                  </div>
+                </div>
+              </div>
+              <!-- Si l'utilisateur n'est pas authentifié, afficher le bouton Connexion -->
+              <ng-template #loginBtn>
+                <a href="/connexion" class="btn btn-warning connexion" style="background-color: #F6A500; font-weight: bold;">Connexion</a>
+              </ng-template>
           </div>
       </div>
   </nav>
