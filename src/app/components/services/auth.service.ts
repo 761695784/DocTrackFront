@@ -30,6 +30,7 @@ export class AuthService {
         // Assurez-vous que la réponse contient un token
         if (response.token) {
           localStorage.setItem('token', response.token); // stocker le token
+          localStorage.setItem('userId', response.user.id); 
 
           // Rediriger l'utilisateur vers l'URL qu'il a demandée
           const redirectUrl = this.redirectService.getRedirectUrl();

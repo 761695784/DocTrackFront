@@ -9,17 +9,18 @@
 
       <div class="card-content">
         <!-- Informations dynamiques de la publication -->
-        <p class="published-by">Publié par {{ publication.user.FirstName}}  {{ publication.user.LastName}}  | {{ publication.created_at | date:'dd MMM yyyy' }}</p>
+        <p class="published-by">Publié par {{ publication.user.FirstName }} {{ publication.user.LastName }} | {{ publication.created_at | date:'dd MMM yyyy' }}</p>
         <p class="phone-number">📞 {{ publication.user.Phone }}</p>
         <p>Prénom propriétaire: <strong>{{ publication.OwnerFirstName }}</strong></p>
         <p>Nom propriétaire: <strong>{{ publication.OwnerLastName }}</strong></p>
 
         <div class="card-actions">
-          <button class="details-btn">Voir détails</button>
-          <!-- Statut dynamique -->
-          <span class="status" [ngClass]="{'success': publication.statut === 'found', 'pending': publication.statut !== 'found'}">
-            {{ publication.statut === 'found' ? '✔️' : '❌' }}
+          <span class="delete-icon" (click)="deletePublication(publication.id)" style="cursor: pointer; color: red; font-size: 24px;">🗑️</span>
+          <span class="status" (click)="toggleStatus(publication)" [ngClass]="publication.statut === 'récupéré' ? 'success' : 'error'" style="cursor: pointer;">
+            {{ publication.statut === 'récupéré' ? '✔️' : '❌' }}
           </span>
+
+
         </div>
       </div>
     </div>

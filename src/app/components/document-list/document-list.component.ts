@@ -79,6 +79,11 @@ export class DocumentListComponent implements OnInit {
     this.router.navigate(['/document', id]); // Remplacez '/document' par votre route de détails
   }
 
+  goToMyPublications(): void {
+    this.router.navigate(['/mypub']); // Redirection vers la route /mypub
+  }
+
+
   // Méthode appelée lors du changement de page
   pageChanged(event: number): void {
     this.currentPage = event;

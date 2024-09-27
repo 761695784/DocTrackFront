@@ -89,7 +89,7 @@
   <div class="search-bar">
     <input type="text" placeholder="Rechercher en tapant les mots clés" [(ngModel)]="searchTerm" (input)="filterDocuments()" />
     <button class="search-btn" (click)="filterDocuments()">Chercher un document</button>
-    <button class="my-publications-btn">Mes publications</button>
+    <button class="my-publications-btn" (click)="goToMyPublications()">Mes publications</button>
   </div>
   <div class="grid-container">
     <div *ngFor="let document of filteredDocuments | paginate: { itemsPerPage: 12, currentPage: currentPage }" class="card">

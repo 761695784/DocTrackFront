@@ -37,6 +37,7 @@ export interface Document {
 export class MypublishComponent implements OnInit {
   publications: Document[] = [];
 
+
   constructor(private publicationService: PublicationsService) {}
 
   ngOnInit() {
@@ -55,4 +56,40 @@ export class MypublishComponent implements OnInit {
     return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
   }
 
+  deletePublication(id: number): void {
+    if (confirm('Êtes-vous sûr de vouloir supprimer cette publication ?')) {
+      this.publicationService.deletePublication(id).subscribe({
+        next: () => {
+          this.publications = this.publications.filter(publication => publication.id !== id);
+          alert('Publication supprimée avec succès.');
+        },
+        error: (err) => console.error('Erreur lors de la suppression de la publication', err)
+      });
+    }
+  }
+  toggleStatus(publication: Document): void {
+    if (publication.user_id === this.getUserId()) {
+        const newStatus = publication.statut === 'récupéré' ? 'non récupéré' : 'récupéré';
+        console.log(`Changement du statut pour la publication ID ${publication.id}: ${newStatus}`);
+
+        this.publicationService.updatePublicationStatus(publication.id, newStatus).subscribe({
+            next: (response) => {
+                console.log('Réponse de la mise à jour:', response);
+                publication.statut = response.document.statut;  // Mettre à jour le statut affiché
+                console.log('Statut après mise à jour:', publication.statut);
+            },
+            error: (err) => {
+                console.error('Erreur lors de la mise à jour:', err);
+                alert('Erreur lors de la mise à jour du statut. Détails: ' + (err.error?.message || err.message || 'Inconnu'));
+            }
+        });
+    } else {
+        alert("Vous n'êtes pas autorisé à modifier ce statut.");
+    }
+}
+  // Méthode pour récupérer l'ID de l'utilisateur connecté (si stocké dans localStorage)
+  private getUserId(): number | null {
+    const userId = localStorage.getItem('userId'); // Assure-toi que tu as stocké cet ID lors de la connexion
+    return userId ? Number(userId) : null;
+  }
 }

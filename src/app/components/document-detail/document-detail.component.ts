@@ -43,6 +43,8 @@ export interface Commentaire {
   created_at: string;
 }
 
+
+
 @Component({
   selector: 'app-document-detail',
   standalone: true,

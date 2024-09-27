@@ -21,11 +21,9 @@
           <button class="btn restore-btn" (click)="requestRestitution()">Restituer</button>
         </div>
 
-        <div class="action-buttons">
-          <span class="status-icon">❌</span>
-        </div>
-      </div>
-
+        <span class="status" style="font-size: 40px;" [ngClass]="documentDetails.statut === 'récupéré' ? 'success' : 'error'">
+          {{ documentDetails.statut === 'récupéré' ? '✔️' : '❌' }}
+        </span>
 
     </div>
 <br>
