@@ -7,33 +7,52 @@
                 <div class="file-input">
                     <label for="image">Image ou document</label>
                     <input type="file" id="image" (change)="onFileChange($event)" required>
+                    <div *ngIf="publishForm.get('image')?.invalid && publishForm.get('image')?.touched" class="error-message">
+                        {{ getErrorMessage('image') }}
+                    </div>
                 </div>
                 <div class="double-input">
                     <div>
                         <label for="OwnerLastName">Nom propriétaire</label>
                         <input type="text" id="OwnerLastName" formControlName="OwnerLastName" placeholder="Saisir nom">
+                        <div *ngIf="publishForm.get('OwnerLastName')?.invalid && publishForm.get('OwnerLastName')?.touched" class="error-message">
+                            {{ getErrorMessage('OwnerLastName') }}
+                        </div>
                     </div>
                     <div>
                         <label for="OwnerFirstName">Prénom propriétaire</label>
                         <input type="text" id="OwnerFirstName" formControlName="OwnerFirstName" placeholder="Saisir prénom">
+                        <div *ngIf="publishForm.get('OwnerFirstName')?.invalid && publishForm.get('OwnerFirstName')?.touched" class="error-message">
+                            {{ getErrorMessage('OwnerFirstName') }}
+                        </div>
                     </div>
                 </div>
                 <div class="double-input">
                     <div>
                         <label for="DocIdentification">Numéro Identification</label>
                         <input type="text" id="DocIdentification" formControlName="DocIdentification" placeholder="Saisir Identification">
+                        <div *ngIf="publishForm.get('DocIdentification')?.invalid && publishForm.get('DocIdentification')?.touched" class="error-message">
+                            {{ getErrorMessage('DocIdentification') }}
+                        </div>
                     </div>
                     <div>
                         <label for="Location">Lieu de Trouvaille</label>
                         <input type="text" id="Location" formControlName="Location" placeholder="Saisir lieu">
+                        <div *ngIf="publishForm.get('Location')?.invalid && publishForm.get('Location')?.touched" class="error-message">
+                            {{ getErrorMessage('Location') }}
+                        </div>
                     </div>
                 </div>
                 <div class="single-input">
-                  <label for="documentType">Type de Document</label>
-                  <select id="documentType" formControlName="documentType">
-                      <option *ngFor="let type of documentTypes" [value]="type.id">{{ type.name }}</option>
-                  </select>
-              </div>
+                    <label for="documentType">Type de Document</label>
+                    <select id="documentType" formControlName="documentType">
+                        <option value="" disabled>Sélectionner un type</option>
+                        <option *ngFor="let type of documentTypes" [value]="type.id">{{ type.name }}</option>
+                    </select>
+                    <div *ngIf="publishForm.get('documentType')?.invalid && publishForm.get('documentType')?.touched" class="error-message">
+                        {{ getErrorMessage('documentType') }}
+                    </div>
+                </div>
                 <div class="single-input">
                     <label for="statut">Statut</label>
                     <select id="statut" formControlName="statut">
@@ -41,7 +60,7 @@
                         <!-- Autres statuts ici -->
                     </select>
                 </div>
-                <button type="submit">Publier</button>
+                <button type="submit" [disabled]="publishForm.invalid">Publier</button>
             </form>
         </div>
         <div class="image-section">

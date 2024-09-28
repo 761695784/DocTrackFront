@@ -5,30 +5,46 @@
       <img src="/assets/logoo4.png" alt="DocTrack Logo" class="logo">
       <form [formGroup]="declarationForm" (ngSubmit)="onSubmit()" method="post">
         <div class="single-input">
-          <label for="Title">Titre</label>
-          <input type="text" id="Title" formControlName="Title" placeholder="Saisir le titre de votre déclaration">
+            <label for="Title">Titre</label>
+            <input type="text" id="Title" formControlName="Title" placeholder="Saisir le titre de votre déclaration">
+            <div *ngIf="declarationForm.get('Title')?.invalid && declarationForm.get('Title')?.touched" class="error-message">
+                {{ getErrorMessage('Title') }}
+            </div>
         </div>
         <div class="double-input">
-          <div>
-            <label for="FirstNameInDoc">Prénom exacte dans le document</label>
-            <input type="text" id="FirstNameInDoc" formControlName="FirstNameInDoc" placeholder="Saisir prénom">
-          </div>
-          <div>
-            <label for="LastNameInDoc">Nom exacte dans le document</label>
-            <input type="text" id="LastNameInDoc" formControlName="LastNameInDoc" placeholder="Saisir nom">
-          </div>
+            <div>
+                <label for="FirstNameInDoc">Prénom exact dans le document</label>
+                <input type="text" id="FirstNameInDoc" formControlName="FirstNameInDoc" placeholder="Saisir prénom">
+                <div *ngIf="declarationForm.get('FirstNameInDoc')?.invalid && declarationForm.get('FirstNameInDoc')?.touched" class="error-message">
+                    {{ getErrorMessage('FirstNameInDoc') }}
+                </div>
+            </div>
+            <div>
+                <label for="LastNameInDoc">Nom exact dans le document</label>
+                <input type="text" id="LastNameInDoc" formControlName="LastNameInDoc" placeholder="Saisir nom">
+                <div *ngIf="declarationForm.get('LastNameInDoc')?.invalid && declarationForm.get('LastNameInDoc')?.touched" class="error-message">
+                    {{ getErrorMessage('LastNameInDoc') }}
+                </div>
+            </div>
         </div>
         <div class="single-input">
-          <label for="documentType">Type de Document</label>
-          <select id="documentType" formControlName="documentType">
-            <option *ngFor="let type of documentTypes" [value]="type.id">{{ type.name }}</option>
-          </select>
+            <label for="documentType">Type de Document</label>
+            <select id="documentType" formControlName="documentType">
+                <option value="">Sélectionner un type</option>
+                <option *ngFor="let type of documentTypes" [value]="type.id">{{ type.name }}</option>
+            </select>
+            <div *ngIf="declarationForm.get('documentType')?.invalid && declarationForm.get('documentType')?.touched" class="error-message">
+                Le type de document est requis.
+            </div>
         </div>
         <div class="single-input">
-          <label for="DocIdentification">Numéro d'Identification</label>
-          <input type="text" id="DocIdentification" formControlName="DocIdentification" placeholder="Saisir le numéro d'identification">
+            <label for="DocIdentification">Numéro d'Identification</label>
+            <input type="text" id="DocIdentification" formControlName="DocIdentification" placeholder="Saisir le numéro d'identification">
+            <div *ngIf="declarationForm.get('DocIdentification')?.invalid && declarationForm.get('DocIdentification')?.touched" class="error-message">
+                {{ getErrorMessage('DocIdentification') }}
+            </div>
         </div>
-        <button type="submit">Soumettre ma déclaration</button>
+        <button type="submit" [disabled]="declarationForm.invalid">Soumettre ma déclaration</button>
       </form>
     </div>
     <div class="image-container">

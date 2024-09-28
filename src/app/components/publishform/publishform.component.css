@@ -93,6 +93,11 @@ button:hover {
   background-color: #F6A500;
 }
 
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
 /* Media query pour les écrans supérieurs à 768px */
 @media (min-width: 768px) {
   main {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { DeclarationService } from '../services/declaration.service';
 import { AuthService } from '../services/auth.service';
@@ -7,9 +7,9 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-declarationform',
-  standalone: true,
+  selector: 'app-declaration',
   imports: [NavbarComponent, ReactiveFormsModule, CommonModule],
+  standalone: true,
   templateUrl: './declarationform.component.html',
   styleUrls: ['./declarationform.component.css']
 })
@@ -36,57 +36,51 @@ export class DeclarationformComponent {
     private authService: AuthService
   ) {
     this.declarationForm = this.fb.group({
-      Title: ['', Validators.required], // Titre de la déclaration
-      FirstNameInDoc: ['', Validators.required], // Prénom exact
-      LastNameInDoc: ['', Validators.required], // Nom exact
-      documentType: ['', Validators.required], // Type de document
-      DocIdentification: [''] // Numéro d'identification
+      Title: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
+      FirstNameInDoc: ['', [Validators.required, Validators.minLength(3), Validators.pattern('[a-zA-Z ]*')]],
+      LastNameInDoc: ['', [Validators.required, Validators.minLength(2), Validators.pattern('[a-zA-Z ]*')]],
+      documentType: ['', Validators.required],
+      DocIdentification: [''] // Numéro d'identification optionnel
     });
   }
 
-  onSubmit() {
-    // Validation conditionnelle pour DocIdentification
-    if (this.declarationForm.get('DocIdentification')?.value) {
-      this.declarationForm.get('DocIdentification')?.setValidators([Validators.required]);
-    } else {
-      this.declarationForm.get('DocIdentification')?.clearValidators();
+  getErrorMessage(field: string): string {
+    const control = this.declarationForm.get(field);
+    if (control?.hasError('required')) {
+      return 'Ce champ est obligatoire.';
+    } else if (control?.hasError('minlength')) {
+      const minLength = control.errors?.['minlength'].requiredLength;
+      return `Ce champ doit contenir au moins ${minLength} caractères.`;
+    } else if (control?.hasError('pattern')) {
+      return 'Ce champ ne doit contenir que des lettres.';
     }
+    return '';
+  }
 
-    // Mettre à jour la validité du champ
-    this.declarationForm.get('DocIdentification')?.updateValueAndValidity();
-
-    // Vérifier la validité du formulaire
+  onSubmit() {
+    // Vérifie si le formulaire est valide
     if (this.declarationForm.invalid) {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Formulaire invalide !',
-        text: 'Veuillez remplir tous les champs requis.',
-        timer: 2000, // Masquer après 2 secondes
-        timerProgressBar: true // Barre de progression
-      });
+      this.declarationForm.markAllAsTouched(); // Marque tous les champs comme touchés pour afficher les erreurs
       return;
     }
 
-    // Préparation des données à envoyer
+    // Préparation des données pour l'envoi
     const formData = new FormData();
     formData.append('Title', this.declarationForm.get('Title')?.value);
     formData.append('FirstNameInDoc', this.declarationForm.get('FirstNameInDoc')?.value);
     formData.append('LastNameInDoc', this.declarationForm.get('LastNameInDoc')?.value);
-    formData.append('document_type_id', this.declarationForm.get('documentType')?.value); // Vérifier cet ID
+    formData.append('document_type_id', this.declarationForm.get('documentType')?.value);
     formData.append('DocIdentification', this.declarationForm.get('DocIdentification')?.value);
 
-    console.log('Données à envoyer :', formData);
-    console.log('Selected Document Type ID:', this.declarationForm.get('documentType')?.value);
-
-    // Vérifier l'authentification avant de soumettre la déclaration
+    // Vérification de l'authentification avant de soumettre
     if (this.authService.isAuthenticated()) {
       this.declarationService.addDeclaration(formData).subscribe(response => {
         Swal.fire({
           icon: 'success',
           title: 'Déclaration ajoutée !',
           text: 'Votre déclaration a été ajoutée avec succès.',
-          timer: 2000, // Masquer après 2 secondes
-          timerProgressBar: true // Barre de progression
+          timer: 2000,
+          timerProgressBar: true
         });
         this.declarationForm.reset(); // Réinitialisation du formulaire
       }, error => {
@@ -95,8 +89,8 @@ export class DeclarationformComponent {
           icon: 'error',
           title: 'Erreur !',
           text: error.error.message || 'Une erreur est survenue lors de l\'ajout de votre déclaration.',
-          timer: 2000, // Masquer après 2 secondes
-          timerProgressBar: true // Barre de progression
+          timer: 2000,
+          timerProgressBar: true
         });
       });
     } else {
@@ -104,8 +98,8 @@ export class DeclarationformComponent {
         icon: 'warning',
         title: 'Non authentifié !',
         text: 'Vous devez vous connecter pour soumettre une déclaration.',
-        timer: 2000, // Masquer après 2 secondes
-        timerProgressBar: true // Barre de progression
+        timer: 2000,
+        timerProgressBar: true
       });
     }
   }

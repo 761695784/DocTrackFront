@@ -33,6 +33,7 @@ body {
 .form-container h2 {
   text-align: center;
   color: #31287C; /* Couleur du texte */
+  font-weight: bold;
 }
 
 .test {
@@ -49,7 +50,7 @@ body {
 label {
   display: block;
   margin: 15px 14px 2px;
-  color: #31287C; /* Couleur du texte */
+  color: black; /* Couleur du texte */
 }
 
 input {
@@ -93,6 +94,12 @@ button {
 
 button:hover {
   background-color: #F6A500; /* Couleur au survol */
+}
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+  margin-left: 20px;
 }
 
 @media (max-width: 480px) {

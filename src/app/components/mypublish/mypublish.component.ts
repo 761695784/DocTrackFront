@@ -89,6 +89,9 @@ export class MypublishComponent implements OnInit {
   toggleStatus(publication: Document): void {
     if (publication.user_id === this.getUserId()) {
       const newStatus = publication.statut === 'récupéré' ? 'non récupéré' : 'récupéré';
+      const currentUserId = this.getUserId();
+      console.log('publication.user_id:', publication.user_id);
+      console.log('Current user ID:', this.getUserId());
 
       Swal.fire({
         title: 'Êtes-vous sûr ?',
@@ -129,7 +132,9 @@ export class MypublishComponent implements OnInit {
 
   // Méthode pour récupérer l'ID de l'utilisateur connecté (si stocké dans localStorage)
   private getUserId(): number | null {
-    const userId = localStorage.getItem('userId');  // Assure-toi que cet ID est stocké lors de la connexion
+    const userId = localStorage.getItem('userId');  // Assurez-vous que cet ID est stocké lors de la connexion
+    console.log('User ID:', userId);  // Ajoutez ce log pour le débogage
     return userId ? Number(userId) : null;
   }
+
 }

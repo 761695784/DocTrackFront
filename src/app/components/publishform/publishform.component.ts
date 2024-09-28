@@ -36,37 +36,36 @@ export class PublishformComponent {
     private fb: FormBuilder
   ) {
     this.publishForm = this.fb.group({
-      image: ['', Validators.required], // Image ou document
-      OwnerLastName: ['', Validators.required], // Nom propriétaire
-      OwnerFirstName: ['', Validators.required], // Prénom propriétaire
-      DocIdentification: [''], // Champ optionnel
-      Location: ['', Validators.required], // Lieu de Trouvaille
-      documentType: ['', Validators.required], // Type de Document
-      statut: ['non récupéré', Validators.required] // Statut par défaut
+      image: ['', Validators.required],
+      OwnerLastName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25), this.noSpecialCharsValidator]],
+      OwnerFirstName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50), this.noSpecialCharsValidator]],
+      DocIdentification: [''],
+      Location: ['', [Validators.required, Validators.maxLength(20), this.noSpecialCharsValidator]],
+      documentType: ['', Validators.required],
+      statut: ['non récupéré', Validators.required]
     });
   }
 
-  onSubmit() {
-    // Validation conditionnelle pour DocIdentification
-    if (this.publishForm.get('DocIdentification')?.value) {
-      this.publishForm.get('DocIdentification')?.setValidators([Validators.required]);
-    } else {
-      this.publishForm.get('DocIdentification')?.clearValidators();
+  getErrorMessage(field: string): string {
+    const control = this.publishForm.get(field);
+    if (control?.hasError('required')) {
+      return 'Ce champ est obligatoire';
+    } else if (control?.hasError('minlength')) {
+      const minLength = control.errors?.['minlength'].requiredLength;
+      return `Ce champ doit contenir au moins ${minLength} caractères`;
+    } else if (control?.hasError('maxlength')) {
+      const maxLength = control.errors?.['maxlength'].requiredLength;
+      return `Ce champ ne doit pas dépasser ${maxLength} caractères`;
+    } else if (control?.hasError('invalidChars')) {
+      return 'Caractères non valides. Seules les lettres sont autorisées';
     }
+    return '';
+  }
 
-    // Mettre à jour la validité du champ
-    this.publishForm.get('DocIdentification')?.updateValueAndValidity();
-
-    // Vérifier la validité du formulaire
+  onSubmit() {
     if (this.publishForm.invalid) {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Formulaire invalide !',
-        text: 'Veuillez remplir tous les champs requis.',
-        timer: 2000, // Masquer après 2 secondes
-        timerProgressBar: true // Barre de progression
-      });
-      return;
+      this.publishForm.markAllAsTouched(); // Marque tous les champs comme touchés pour afficher les messages d'erreur
+      return; // Ne pas afficher le SweetAlert tant que le formulaire est invalide
     }
 
     const formData = new FormData();
@@ -78,27 +77,23 @@ export class PublishformComponent {
     formData.append('document_type_id', this.publishForm.get('documentType')?.value);
     formData.append('statut', this.publishForm.get('statut')?.value);
 
-    console.log('Données à envoyer :', formData);
-
-    // Vérification de l'authentification pour pouvoir publier un document
     if (this.authService.isAuthenticated()) {
       this.publicationsService.addPublication(formData).subscribe(response => {
         Swal.fire({
           icon: 'success',
           title: 'Publication ajoutée !',
           text: 'Votre document a été publié avec succès.',
-          timer: 2000, // Masquer après 2 secondes
-          timerProgressBar: true // Barre de progression
+          timer: 2000,
+          timerProgressBar: true
         });
-        this.publishForm.reset(); // Réinitialisation du formulaire
+        this.publishForm.reset();
       }, error => {
-        console.error('Erreur lors de l\'ajout de la publication:', error.error);
         Swal.fire({
           icon: 'error',
           title: 'Erreur !',
           text: error.error.message || 'Une erreur est survenue lors de l\'ajout de votre document.',
-          timer: 2000, // Masquer après 2 secondes
-          timerProgressBar: true // Barre de progression
+          timer: 2000,
+          timerProgressBar: true
         });
       });
     } else {
@@ -106,8 +101,8 @@ export class PublishformComponent {
         icon: 'warning',
         title: 'Non authentifié !',
         text: 'Vous devez vous connecter pour publier un document.',
-        timer: 2000, // Masquer après 2 secondes
-        timerProgressBar: true // Barre de progression
+        timer: 2000,
+        timerProgressBar: true
       });
     }
   }
@@ -116,8 +111,16 @@ export class PublishformComponent {
     const file = event.target.files[0];
     if (file) {
       this.publishForm.patchValue({
-        image: file // Assurez-vous que cela correspond au nom du contrôle
+        image: file
       });
     }
+  }
+
+  noSpecialCharsValidator(control: any) {
+    const regex = /^[a-zA-Z\s]+$/;
+    if (control.value && !regex.test(control.value)) {
+      return { invalidChars: true };
+    }
+    return null;
   }
 }

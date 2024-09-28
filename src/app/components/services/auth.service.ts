@@ -23,23 +23,24 @@ export class AuthService {
   }
 
 
-  // Connexion
-  login(credentials: any): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post(`${this.apiUrl}/login`, credentials, { headers }).pipe(
-      tap((response: any) => {
-        if (response.token) {
-          localStorage.setItem('token', response.token); // stocker le token
-          localStorage.setItem('user', JSON.stringify(response.user)); // stocker les informations de l'utilisateur
+// Connexion
+login(credentials: any): Observable<any> {
+  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  return this.http.post(`${this.apiUrl}/login`, credentials, { headers }).pipe(
+    tap((response: any) => {
+      if (response.token) {
+        localStorage.setItem('token', response.token); // stocker le token
+        localStorage.setItem('user', JSON.stringify(response.user)); // stocker les informations de l'utilisateur
+        localStorage.setItem('userId', response.user.id); // Assurez-vous de stocker le bon userId
 
-          // Rediriger l'utilisateur vers l'URL qu'il a demandée
-          const redirectUrl = this.redirectService.getRedirectUrl();
-          this.redirectService.clearRedirectUrl(); // Effacer l'URL
-          this.router.navigate([redirectUrl || '/accueil']); // Rediriger vers l'URL d'origine ou une route par défaut
-        }
-      })
-    );
-  }
+        // Rediriger l'utilisateur vers l'URL qu'il a demandée
+        const redirectUrl = this.redirectService.getRedirectUrl();
+        this.redirectService.clearRedirectUrl(); // Effacer l'URL
+        this.router.navigate([redirectUrl || '/accueil']); // Rediriger vers l'URL d'origine ou une route par défaut
+      }
+    })
+  );
+}
 
 
   // Vérifier si l'utilisateur est authentifié

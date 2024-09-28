@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router';  // Importer Router
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { CommonModule } from '@angular/common';
 
 export interface User {
   LastName: string;
@@ -12,13 +13,13 @@ export interface User {
   Phone: string;
   email: string;
   password: string;
-  password_confirmation: string;  // Ajouter cette ligne
+  password_confirmation: string;
 }
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [NavbarComponent, ReactiveFormsModule],
+  imports: [NavbarComponent, ReactiveFormsModule, CommonModule],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
@@ -27,13 +28,13 @@ export class RegisterComponent {
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.registerForm = this.fb.group({
-      LastName: ['', Validators.required],
-      FirstName: ['', Validators.required],
-      Adress: ['', Validators.required],
-      Phone: ['', Validators.required],
+      LastName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25), Validators.pattern('^[a-zA-Z]+$')]],
+      FirstName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50), Validators.pattern('^[a-zA-Z]+$')]],
+      Adress: ['', [Validators.required, Validators.maxLength(20), Validators.pattern('^[a-zA-Z0-9 ]+$')]],
+      Phone: ['', [Validators.required, Validators.pattern('^\\+221(33|70|75|76|77|78)[0-9]{7}$')]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      password_confirmation: ['', Validators.required], // Change in TypeScript code
+      password_confirmation: ['', Validators.required],
     });
   }
 
@@ -42,19 +43,14 @@ export class RegisterComponent {
   }
 
   onSubmit(): void {
-    console.log('Form submitted:', this.registerForm.value);
-
     if (this.registerForm.valid) {
       const userData: User = {
         ...this.registerForm.value,
-        confirmation_password: this.registerForm.value.password  // Assignez ici la valeur
+        confirmation_password: this.registerForm.value.password
       };
-
-      console.log('User data to send:', userData);
 
       this.authService.register(userData).subscribe({
         next: (response) => {
-          console.log('Registration successful:', response);
           Swal.fire({
             title: 'Succès!',
             text: 'Inscription réussie!',
@@ -62,17 +58,13 @@ export class RegisterComponent {
             confirmButtonText: 'OK'
           });
 
-          // Redirection vers la page d'accueil après la minuterie
           setTimeout(() => {
             this.router.navigate(['/accueil']);
           }, 2000);
           this.registerForm.reset();
         },
-
         error: (error) => {
-          console.error('Registration error:', error);
           let errorMessage = 'Erreur lors de l\'inscription.';
-          console.log('Error response:', error); // Log de l'erreur complète
           if (error.error?.errors) {
             errorMessage += ' Détails : ' + JSON.stringify(error.error.errors);
           }
@@ -82,74 +74,25 @@ export class RegisterComponent {
             icon: 'error',
             confirmButtonText: 'OK'
           });
-
-          // Masquer l'alerte après 2 secondes
-          setTimeout(() => {
-            Swal.close();
-          }, 2000);
         }
       });
-    } else {
-      const errorMessages = this.getErrorMessages();
-      Swal.fire({
-        title: 'Erreur!',
-        text: errorMessages.join('\n'),
-        icon: 'error',
-        confirmButtonText: 'OK'
-      });
-
-      // Masquer l'alerte après 2 secondes
-      setTimeout(() => {
-        Swal.close();
-      }, 2000);
     }
   }
 
   // Nouvelle méthode pour récupérer les messages d'erreur
-  private getErrorMessages(): string[] {
-    const messages: string[] = [];
-
-    // Validation LastName
-    if (this.registerForm.get('LastName')?.hasError('required')) {
-      messages.push('Le nom est requis.');
+  public getErrorMessage(controlName: string): string {
+    const control = this.registerForm.get(controlName);
+    if (control?.hasError('required')) {
+      return 'Ce champ est requis.';
+    } else if (control?.hasError('minlength')) {
+      return 'Ce champ contenir au moins ' + control.errors?.['minlength'].requiredLength + ' caractères.';
+    } else if (control?.hasError('maxlength')) {
+      return ' Ce champ ne peut pas dépasser ' + control.errors?.['maxlength'].requiredLength + ' caractères.';
+    } else if (control?.hasError('pattern')) {
+      return 'Format invalide.';
+    } else if (control?.hasError('email')) {
+      return 'L\'email doit être valide.';
     }
-
-    // Validation FirstName
-    if (this.registerForm.get('FirstName')?.hasError('required')) {
-      messages.push('Le prénom est requis.');
-    }
-
-    // Validation Adress
-    if (this.registerForm.get('Adress')?.hasError('required')) {
-      messages.push('L\'adresse est requise.');
-    }
-
-    // Validation Phone
-    if (this.registerForm.get('Phone')?.hasError('required')) {
-      messages.push('Le numéro de téléphone est requis.');
-    }
-
-    // Validation email
-    if (this.registerForm.get('email')?.hasError('required')) {
-      messages.push('L\'email est requis.');
-    } else if (this.registerForm.get('email')?.hasError('email')) {
-      messages.push('L\'email doit être un email valide.');
-    }
-
-    // Validation password
-    if (this.registerForm.get('password')?.hasError('required')) {
-      messages.push('Le mot de passe est requis.');
-    }
-    if (this.registerForm.get('password')?.hasError('minlength')) {
-      messages.push('Le mot de passe doit contenir au moins 6 caractères.');
-    }
-
-    // Validation confirmation_password
-    if (this.registerForm.get('password_confirmation')?.hasError('required')) {
-      messages.push('La confirmation du mot de passe est requise.');
-    } else if (this.registerForm.get('password_confirmation')?.value !== this.registerForm.get('password')?.value) {
-      messages.push('La confirmation du mot de passe ne correspond pas.');
-    }
-    return messages;
+    return '';
   }
 }

@@ -50,6 +50,11 @@ button {
   cursor: pointer;
   font-weight: bold;
 }
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
 
 button:hover {
   background-color: #F6A500; /* Orange on hover */
