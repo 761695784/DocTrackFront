@@ -1,0 +1,63 @@
+<app-navbar></app-navbar>
+<section class="Formulaire">
+  <div class="container">
+    <div class="form-container">
+      <h2>Modifier mon Profil</h2>
+      <form class="test" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+
+        <!-- Champ Nom et Prénom -->
+        <div class="label-container">
+          <div class="field-container">
+            <label for="LastName">Nom</label>
+            <input type="text" id="LastName" formControlName="LastName">
+          </div>
+          <div class="field-container">
+            <label for="FirstName">Prénom</label>
+            <input type="text" id="FirstName" formControlName="FirstName">
+          </div>
+        </div>
+
+        <!-- Champs Email et Numéro de téléphone -->
+        <div class="label-container horizontal">
+          <div class="field-container">
+            <label for="email">Email</label>
+            <input  type="email" id="email" formControlName="email">
+          </div>
+          <div class="field-container">
+            <label for="Phone">Numéro de téléphone</label>
+            <input type="tel" id="Phone" formControlName="Phone">
+          </div>
+        </div>
+
+        <!-- Champs Adresse et Ancien mot de passe -->
+        <div class="label-container horizontal">
+          <div class="field-container">
+            <label for="Adress">Adresse</label>
+            <input type="text" id="Adress" formControlName="Adress">
+          </div>
+          <div class="field-container">
+            <label for="oldPassword">Ancien mot de passe</label>
+            <input type="password" id="oldPassword" formControlName="oldPassword">
+          </div>
+        </div>
+
+        <!-- Champs Nouveau mot de passe et Confirmation -->
+        <div class="label-container horizontal">
+          <div class="field-container">
+            <label for="newPassword">Nouveau mot de passe</label>
+            <input type="password" id="newPassword" formControlName="newPassword">
+          </div>
+          <div class="field-container">
+            <label for="newPasswordConfirm">Confirmation nouveau mot de passe</label>
+            <input type="password" id="newPasswordConfirm" formControlName="newPasswordConfirm">
+            <div *ngIf="profileForm.hasError('passwordMismatch')">
+              <small class="error-text">Les mots de passe ne correspondent pas.</small>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit">Enregistrer</button>
+      </form>
+    </div>
+  </div>
+</section>

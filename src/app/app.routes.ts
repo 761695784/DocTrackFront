@@ -10,6 +10,7 @@ import { DocumentDetailComponent } from './components/document-detail/document-d
 import { PublishformComponent } from './components/publishform/publishform.component';
 import { MypublishComponent } from './components/mypublish/mypublish.component';
 import { AuthGuard } from './guards/auth.guard';
+import { ChangeprofilComponent } from './components/changeprofil/changeprofil.component';
 
 export const routes: Routes = [
   { path: 'navbar', component:NavbarComponent},
@@ -22,7 +23,8 @@ export const routes: Routes = [
   { path: 'declarer', component: DeclarationformComponent ,canActivate: [AuthGuard]},
   { path: 'document/:id', component: DocumentDetailComponent ,canActivate: [AuthGuard] },
   { path: 'mypub', component:MypublishComponent ,canActivate: [AuthGuard] },
-  { path: 'lost', component:LostdeclarationComponent ,canActivate: [AuthGuard] }
+  { path: 'lost', component:LostdeclarationComponent ,canActivate: [AuthGuard] },
+  { path: 'modify', component:ChangeprofilComponent ,canActivate: [AuthGuard]}
 
 
 ];
