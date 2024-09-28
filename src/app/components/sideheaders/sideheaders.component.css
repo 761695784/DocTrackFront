@@ -1,0 +1,80 @@
+/* Header Styles */
+.header {
+  background-color: #F6A500; /* Yellow background */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  color: white;
+  position: relative;
+  width: 87%;
+  margin-left: 13%;
+}
+
+.header-left h1 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.search-bar {
+  position: relative;
+  margin-right: 20px;
+}
+
+.search-bar input {
+  padding: 8px 12px;
+  border-radius: 20px;
+  border: none;
+  width: 250px;
+}
+
+.search-bar i {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  color: #31287C; /* Matches sidebar */
+}
+
+.user-icon {
+  display: flex;
+  align-items: center;
+}
+
+.user-icon img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.user-icon i {
+  font-size: 20px;
+  color: #31287C; /* Matches sidebar */
+}
+
+/* Responsive Header */
+@media (max-width: 768px) {
+  .header {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+
+  .header-left h1 {
+      font-size: 18px;
+  }
+
+  .search-bar input {
+      width: 180px;
+  }
+
+  .user-icon img {
+      width: 30px;
+      height: 30px;
+  }
+}

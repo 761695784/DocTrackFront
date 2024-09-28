@@ -11,6 +11,8 @@ import { PublishformComponent } from './components/publishform/publishform.compo
 import { MypublishComponent } from './components/mypublish/mypublish.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ChangeprofilComponent } from './components/changeprofil/changeprofil.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { SideheadersComponent } from './components/sideheaders/sideheaders.component';
 
 export const routes: Routes = [
   { path: 'navbar', component:NavbarComponent},
@@ -24,7 +26,9 @@ export const routes: Routes = [
   { path: 'document/:id', component: DocumentDetailComponent ,canActivate: [AuthGuard] },
   { path: 'mypub', component:MypublishComponent ,canActivate: [AuthGuard] },
   { path: 'lost', component:LostdeclarationComponent ,canActivate: [AuthGuard] },
-  { path: 'modify', component:ChangeprofilComponent ,canActivate: [AuthGuard]}
+  { path: 'modify', component:ChangeprofilComponent ,canActivate: [AuthGuard]},
+  { path: 'sidebar', component:SidebarComponent },
+  { path: 'head', component: SideheadersComponent},
 
 
 ];
