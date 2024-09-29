@@ -89,6 +89,7 @@ body {
 
 .error {
   color: red;
+  font-size: 60px;
 }
 
 /* Media Queries pour adopter la réactivité */

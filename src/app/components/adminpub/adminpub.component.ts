@@ -10,6 +10,8 @@ import { SideheadersComponent } from '../sideheaders/sideheaders.component';
 import { DetailsService } from '../services/details.service';
 import { CommonModule } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
+import Swal from 'sweetalert2';
+
 
 
 
@@ -56,5 +58,47 @@ export class AdminpubComponent implements OnInit {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     return this.documents.slice(startIndex, startIndex + this.itemsPerPage);
   }
+
+  deletePublication(id: number): void {
+    if (id) {
+      Swal.fire({
+        title: 'Êtes-vous sûr de vouloir supprimer cette publication ?',
+        text: "Cette action est irréversible !",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui, supprimer!',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.publicationsService.deletePublication(id).subscribe({
+            next: () => {
+              Swal.fire({
+                title: 'Supprimé!',
+                text: 'Publication supprimée avec succès.',
+                icon: 'success',
+                timer: 2000,
+                showConfirmButton: false
+              });
+              this.loadAllPublications(); // Recharge la liste des publications après suppression
+            },
+            error: (err) => {
+              console.error('Erreur lors de la suppression de la publication', err);
+              Swal.fire({
+                title: 'Erreur',
+                text: 'Une erreur est survenue lors de la suppression.',
+                icon: 'error'
+              });
+            }
+          });
+        }
+      });
+    } else {
+      console.error('L\'ID de la publication est invalide.');
+    }
+  }
+
+
 
 }

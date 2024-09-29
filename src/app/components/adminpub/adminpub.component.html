@@ -11,10 +11,16 @@
         <p>Prénom propriétaire: <strong>{{ document.OwnerFirstName }}</strong></p>
         <p>Nom propriétaire: <strong>{{ document.OwnerLastName }}</strong></p>
         <div class="card-actions">
+
+          <div class="card-actions">
+            <span class="delete-icon"   (click)="deletePublication(document.id)" style="cursor: pointer; color: red; font-size: 40px;">🗑️</span>
+             </div>
+
           <button class="details-btn" (click)="viewDetails(document.id)" >Voir détails</button>
           <span class="status" [ngClass]="document.statut === 'récupéré' ? 'success' : 'error'">
             {{ document.statut === 'récupéré' ? '✔️' : '❌' }}
           </span>
+
         </div>
       </div>
     </div>

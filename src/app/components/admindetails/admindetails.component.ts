@@ -29,7 +29,8 @@ export class AdmindetailsComponent {
   selectedDocumentDetails: DocumentDetails | null = null;
   commentaires: Commentaire[] = []; // Ajout pour stocker les commentaires
   newComment: string = ''; // Pour stocker le contenu du nouveau commentaire
-  
+  publications: Document[] = [];
+
 
   constructor(
     private publicationsService: PublicationsService,
@@ -113,5 +114,8 @@ export class AdmindetailsComponent {
       });
     }
   }
+
+  
+
 
 }
