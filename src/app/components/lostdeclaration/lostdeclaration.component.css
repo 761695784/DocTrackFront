@@ -9,11 +9,10 @@ body {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 400px;
   margin: 0 auto;
   padding: 20px;
 }
-
 
 .grid-container {
   display: grid;
@@ -22,6 +21,7 @@ body {
   margin-top: 20px;
 }
 
+
 .card {
   background-color: white;
   border-radius: 10px;
@@ -29,6 +29,7 @@ body {
   overflow: hidden;
   margin: 20px;
 }
+
 
 .card img {
   width: 100%;

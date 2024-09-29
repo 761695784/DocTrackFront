@@ -42,6 +42,15 @@ export class DeclarationService {
     );
   }
 
+  //afficher toutes les declaration pour l'admin uniquement
+  getAllDeclarations(): Observable<any[]> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get<any[]>(this.apiUrlGet, { headers });
+  }
+
     // Supprimer une déclaration
     deleteDeclaration(id: number): Observable<any> {
       const token = localStorage.getItem('token');

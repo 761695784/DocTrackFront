@@ -6,6 +6,11 @@ import { CommonModule } from '@angular/common';
 import { DeclarationService } from '../services/declaration.service';
 import Swal from 'sweetalert2';
 
+
+
+
+
+
 @Component({
   selector: 'app-lostdeclaration',
   standalone: true,
