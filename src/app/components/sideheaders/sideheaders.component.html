@@ -1,33 +1,29 @@
 <app-sidebar></app-sidebar>
 
-<body>
-  <div class="header">
+<div class="header">
+  <div class="header-right">
+    <div class="search-bar">
+      <input type="text" placeholder="Rechercher..." />
+      <i class="fas fa-search"></i>
+    </div>
 
-      <div class="header-right">
-          <div class="search-bar">
-              <input type="text" placeholder="Rechercher..." />
-              <i class="fas fa-search"></i>
-          </div>
+    <!-- Icône de notification -->
+    <div class="notification-icon">
+      <i class="fas fa-bell"></i>
+    </div>
 
-          <!-- Icône de notification -->
-          <div class="notification-icon">
-            <i class="fas fa-bell"></i>
-          </div>
-
-          <!-- Dropdown utilisateur -->
-          <div>
-            <div class="dropdown">
-              <button class="btn dropdown-toggle" type="button" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-user user-icon"></i>
-                <span class="user-name mr-2" style="color: white; font-weight: bold;">Malang</span>
-              </button>
-              <div class="dropdown-menu" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="/modify">Modifier mon profil</a>
-                <a class="dropdown-item" href="/accueil">Déconnexion</a>
-              </div>
-            </div>
-          </div>
-
+    <!-- Dropdown utilisateur -->
+    <div *ngIf="authService.isAuthenticated()" ngbDropdown>
+      <button class="btn btn" ngbDropdownToggle style="background-color:#31287C;">
+        <i class="fas fa-user"></i>
+        <span class="user-name mr-2" style="color: white; font-weight: bold;">
+          {{ authService.getUserName() }}
+        </span>
+      </button>
+      <div ngbDropdownMenu>
+        <a class="dropdown-item" href="/modify" (click)="goToChangePassword()">Modifier mon profil</a>
+        <a class="dropdown-item" href="/connexion" (click)="logout()">Déconnexion</a>
       </div>
+    </div>
   </div>
-</body>
+</div>

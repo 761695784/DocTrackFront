@@ -14,6 +14,8 @@ import { AuthGuard } from './guards/auth.guard';
 import { ChangeprofilComponent } from './components/changeprofil/changeprofil.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { SideheadersComponent } from './components/sideheaders/sideheaders.component';
+import { AdminpubComponent } from './components/adminpub/adminpub.component';
+import { AdmindetailsComponent } from './components/admindetails/admindetails.component';
 
 export const routes: Routes = [
   { path: 'navbar', component:NavbarComponent},
@@ -31,6 +33,8 @@ export const routes: Routes = [
   { path: 'sidebar', component:SidebarComponent },
   { path: 'head', component: SideheadersComponent},
   { path : 'admin', component: AdminComponent ,canActivate: [AuthGuard]},
+  { path: 'adminpub', component: AdminpubComponent ,canActivate: [AuthGuard]},
+  { path: 'admindetails/:id', component:AdmindetailsComponent ,canActivate: [AuthGuard]},
 
 
 ];

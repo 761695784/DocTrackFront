@@ -22,31 +22,6 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/register`, user);
   }
 
-
-  // login(credentials: any): Observable<any> {
-  //   const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  //   return this.http.post(`${this.apiUrl}/login`, credentials, { headers }).pipe(
-  //     tap((response: any) => {
-  //       if (response.token) {
-  //         localStorage.setItem('token', response.token); // stocker le token
-  //         localStorage.setItem('user', JSON.stringify(response.user)); // stocker les informations de l'utilisateur
-  //         localStorage.setItem('userId', response.user.id); // stocker l'ID de l'utilisateur
-
-  //         // Rediriger en fonction du rôle de l'utilisateur
-  //         const role = response.user.role; // Assurez-vous que l'API renvoie le rôle de l'utilisateur
-  //         if (role === 'Admin') {
-  //           this.router.navigate(['/admin']); // Redirection pour l'admin
-  //         } else {
-  //           // Rediriger l'utilisateur vers l'URL qu'il a demandée ou vers /accueil
-  //           const redirectUrl = this.redirectService.getRedirectUrl();
-  //           this.redirectService.clearRedirectUrl(); // Effacer l'URL
-  //           this.router.navigate([redirectUrl || '/accueil']); // Redirection pour utilisateur simple
-  //         }
-  //       }
-  //     })
-  //   );
-  // }
-
   login(credentials: any): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(`${this.apiUrl}/login`, credentials, { headers }).pipe(

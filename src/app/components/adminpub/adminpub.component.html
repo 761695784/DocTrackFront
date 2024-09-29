@@ -1,0 +1,28 @@
+<app-sideheaders></app-sideheaders>
+
+<div class="container">
+  <div class="grid-container">
+    <div *ngFor="let document of paginatedDocuments" class="card">
+      <img *ngIf="document.image" [src]="document.image" alt="document" />
+      <p *ngIf="!document.image">Image non disponible</p>
+      <div class="card-content">
+        <p class="published-by">Publié par {{ document.user.FirstName }} {{ document.user.LastName }} | {{ document.created_at | date }}</p>
+        <p class="phone-number">📞 {{ document.user.Phone }}</p>
+        <p>Prénom propriétaire: <strong>{{ document.OwnerFirstName }}</strong></p>
+        <p>Nom propriétaire: <strong>{{ document.OwnerLastName }}</strong></p>
+        <div class="card-actions">
+          <button class="details-btn" (click)="viewDetails(document.id)" >Voir détails</button>
+          <span class="status" [ngClass]="document.statut === 'récupéré' ? 'success' : 'error'">
+            {{ document.statut === 'récupéré' ? '✔️' : '❌' }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pagination controls -->
+  <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+
+</div>
+
+<app-footer></app-footer>

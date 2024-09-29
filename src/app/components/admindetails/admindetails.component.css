@@ -1,0 +1,139 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+}
+
+
+
+.card-document {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-top: 20px;
+  width: 60%;
+  margin: 0 auto;
+}
+
+.image-container {
+  width: 100%; /* S'assure que le conteneur d'image prend toute la largeur disponible */
+  max-height: 400px; /* Limite la hauteur du conteneur */
+  overflow: hidden; /* Cache les parties de l'image qui dépassent */
+  position: relative; /* Positionnement relatif pour pouvoir ajuster l'image */
+}
+
+.document-img {
+  width: 100%; /* L'image prend toute la largeur de son conteneur */
+  height: 60%; /* L'image prend toute la hauteur de son conteneur */
+  object-fit:contain; /* Ajuste l'image pour couvrir tout le conteneur tout en maintenant ses proportions */
+  border-radius: 10px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.details-section {
+  display: flex;
+  flex-direction:row;
+  justify-content: space-between;
+}
+
+.document-info p {
+  margin: 10px 0;
+  color: #333;
+
+}
+
+.action-buttons {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  margin-left: 4rem;
+}
+
+.status-icon {
+  font-size: 70px;
+  color: red;
+  margin-left: -5rem;
+  margin-top: -7rem;
+}
+
+.restore-btn {
+  padding: 10px 20px;
+  background-color: #31287C;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.comment-section {
+  margin-top: 20px;
+  display: flex;
+}
+
+.comment-input {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+  height: 40px;
+}
+
+.submit-btn {
+  padding: 10px 20px;
+  background-color: #31287C;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  height: 40px;
+}
+
+.comments {
+  margin-top: 20px;
+}
+
+.comment {
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+/* Responsiveness for mobile */
+@media (max-width: 768px) {
+  .action-buttons {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .status-icon {
+    margin-bottom: 10px;
+    margin-left: 0;
+    margin-top: 0;
+    font-size: 40px;
+
+  }
+
+
+  .restore-btn {
+    width: 100%;
+  }
+
+  .comment-input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .submit-btn {
+    width: 100%;
+  }
+  .container {
+    width: 100%;
+}
+
+ }
