@@ -2,18 +2,32 @@
 
 <body>
   <div class="header">
-      <div class="header-left">
-          <h1>Publications</h1>
-      </div>
+
       <div class="header-right">
           <div class="search-bar">
               <input type="text" placeholder="Rechercher..." />
               <i class="fas fa-search"></i>
           </div>
-          <div class="user-icon">
-              <img src="/assets/Drapeau_national1.png" alt="User Avatar">
-              <i class="fas fa-bell"></i>
+
+          <!-- Icône de notification -->
+          <div class="notification-icon">
+            <i class="fas fa-bell"></i>
           </div>
+
+          <!-- Dropdown utilisateur -->
+          <div>
+            <div class="dropdown">
+              <button class="btn dropdown-toggle" type="button" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-user user-icon"></i>
+                <span class="user-name mr-2" style="color: white; font-weight: bold;">Malang</span>
+              </button>
+              <div class="dropdown-menu" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="/modify">Modifier mon profil</a>
+                <a class="dropdown-item" href="/accueil">Déconnexion</a>
+              </div>
+            </div>
+          </div>
+
       </div>
   </div>
 </body>

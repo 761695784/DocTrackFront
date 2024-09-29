@@ -1,3 +1,4 @@
+import { AdminComponent } from './components/admin/admin.component';
 import { LostdeclarationComponent } from './components/lostdeclaration/lostdeclaration.component';
 import { DeclarationformComponent } from './components/declarationform/declarationform.component';
 import { DocumentListComponent } from './components/document-list/document-list.component';
@@ -29,6 +30,7 @@ export const routes: Routes = [
   { path: 'modify', component:ChangeprofilComponent ,canActivate: [AuthGuard]},
   { path: 'sidebar', component:SidebarComponent },
   { path: 'head', component: SideheadersComponent},
+  { path : 'admin', component: AdminComponent},
 
 
 ];
