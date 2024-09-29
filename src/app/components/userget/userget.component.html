@@ -1,0 +1,41 @@
+<app-sideheaders></app-sideheaders>
+
+<div class="container">
+  <div class="header">
+    <h1>Utilisateurs</h1>
+    <button class="add-user-btn">+ utilisateur</button>
+  </div>
+
+  <div class="table-responsive">
+    <table class="user-table">
+      <thead>
+        <tr>
+          <th><input type="checkbox" /></th>
+          <th>Noms</th>
+          <th>Prénoms</th>
+          <th>Email</th>
+          <th>Rôles</th>
+          <th>Adresse</th>
+          <th>Téléphone</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td><input type="checkbox" /></td>
+          <td>{{ user.LastName }}</td>
+          <td>{{ user.FirstName }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.roles.join(', ') }}</td>
+          <td>{{ user.Adress }}</td>
+          <td>{{ user.Phone }}</td>
+          <td>
+            <button class="delete-btn" (click)="deleteUser(user.id)">
+              <span class="delete-icon" style="cursor: pointer; color: red; font-size: 24px;">🗑️</span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

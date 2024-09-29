@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
       const isAdmin = roles.some((role: any) => role.name === 'Admin');
 
       // Bloquer l'accès aux routes spécifiques si l'utilisateur n'est pas admin
-      const adminRoutes = ['admindec', 'admindetails/:id', 'adminpub', 'admin'];
+      const adminRoutes = ['admindec', 'admindetails/:id', 'adminpub', 'admin', 'adminuser'];
       const isRestrictedAdminRoute = adminRoutes.some(route => next.routeConfig?.path?.startsWith(route));
 
       if (isRestrictedAdminRoute && !isAdmin) {

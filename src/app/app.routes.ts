@@ -17,6 +17,7 @@ import { SideheadersComponent } from './components/sideheaders/sideheaders.compo
 import { AdminpubComponent } from './components/adminpub/adminpub.component';
 import { AdmindetailsComponent } from './components/admindetails/admindetails.component';
 import { AdmindeclarationComponent } from './components/admindeclaration/admindeclaration.component';
+import { UsergetComponent } from './components/userget/userget.component';
 
 export const routes: Routes = [
   { path: 'navbar', component:NavbarComponent},
@@ -36,7 +37,8 @@ export const routes: Routes = [
   { path : 'admin', component: AdminComponent ,canActivate: [AuthGuard]},
   { path: 'adminpub', component: AdminpubComponent ,canActivate: [AuthGuard]},
   { path: 'admindetails/:id', component:AdmindetailsComponent ,canActivate: [AuthGuard]},
-  { path: 'admindec', component:AdmindeclarationComponent, canActivate: [AuthGuard]}
+  { path: 'admindec', component:AdmindeclarationComponent, canActivate: [AuthGuard]},
+  { path: 'adminuser', component: UsergetComponent, canActivate: [AuthGuard]},
 
 
 ];

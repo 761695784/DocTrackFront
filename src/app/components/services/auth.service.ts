@@ -11,6 +11,7 @@ import { tap } from 'rxjs/operators';
 })
 export class AuthService {
   private apiUrl = 'http://localhost:8000/api';
+  private apiUrlGetAll = 'http://localhost:8000/api'   ;
 
   constructor(
     private http: HttpClient,
@@ -81,4 +82,16 @@ export class AuthService {
 
     return this.http.put(`${this.apiUrl}/change-password`, passwordData, { headers });
   }
+
+    // Nouvelle méthode pour récupérer tous les utilisateurs avec leurs rôles
+    getAllUsers(): Observable<any> {
+      const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+      return this.http.get(`${this.apiUrlGetAll}/users`, { headers });
+    }
+
+    // Nouvelle méthode pour supprimer un utilisateur
+    deleteUser(id: number): Observable<any> {
+      const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+      return this.http.delete(`${this.apiUrlGetAll}/users/${id}`, { headers });
+    }
 }
