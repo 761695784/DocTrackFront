@@ -80,5 +80,9 @@ export class UsergetComponent implements OnInit {
     });
   }
 
+  // Methode pour etre redirigé vers la page d'ajout
+  addUser(): void {
+    this.router.navigate(['/adminadd']); // Redirection vers la route adminadd
+  }
 
 }
