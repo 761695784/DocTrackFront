@@ -35,36 +35,22 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       const loginData = this.loginForm.value;
 
-      // Appelez votre service de connexion ici
+      // Appel au service de connexion
       this.authService.login(loginData).subscribe(
         response => {
-          // Supposons que votre API renvoie un token d'authentification
-          localStorage.setItem('token', response.token); // Sauvegarder le token dans le localStorage
           Swal.fire({
             title: 'Connexion réussie',
             text: 'Bienvenue !',
             icon: 'success',
-            // confirmButtonText: 'Continuer',
-            timer: 2000, // Option pour masquer après 2 secondes
-            // timerProgressBar: true // Option pour montrer une barre de progression
-          }).then(() => {
-            // Rediriger vers l'URL d'origine ou une route par défaut
-            const redirectUrl = this.redirectService.getRedirectUrl();
-            this.redirectService.clearRedirectUrl(); // Effacer l'URL
-            this.authService.router.navigate([redirectUrl || '/accueil']); // Assurez-vous que router est accessible
+            timer: 2000,
           });
         },
         error => {
-          // Gérer les erreurs de connexion
           Swal.fire({
             title: 'Échec de la connexion',
             text: 'Email ou mot de passe incorrect.',
             icon: 'error',
-            confirmButtonText: 'Réessayer',
-            timer: 2000, // Option pour masquer après 2 secondes
-            timerProgressBar: true // Option pour montrer une barre de progression
-          }).then(() => {
-            // Action après la fermeture de l'alerte, si nécessaire
+            timer: 2000,
           });
         }
       );
@@ -73,12 +59,9 @@ export class LoginComponent implements OnInit {
         title: 'Erreur',
         text: 'Veuillez remplir tous les champs obligatoires.',
         icon: 'error',
-        confirmButtonText: 'D\'accord',
-        timer: 2000, // Option pour masquer après 2 secondes
-        // timerProgressBar: true // Option pour montrer une barre de progression
-      }).then(() => {
-        // Action après la fermeture de l'alerte, si nécessaire
+        timer: 2000,
       });
     }
   }
+
 }

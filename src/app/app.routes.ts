@@ -30,7 +30,7 @@ export const routes: Routes = [
   { path: 'modify', component:ChangeprofilComponent ,canActivate: [AuthGuard]},
   { path: 'sidebar', component:SidebarComponent },
   { path: 'head', component: SideheadersComponent},
-  { path : 'admin', component: AdminComponent},
+  { path : 'admin', component: AdminComponent ,canActivate: [AuthGuard]},
 
 
 ];
