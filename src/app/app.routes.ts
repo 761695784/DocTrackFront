@@ -1,3 +1,4 @@
+import { UserAddComponent } from './components/user-add/user-add.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { LostdeclarationComponent } from './components/lostdeclaration/lostdeclaration.component';
 import { DeclarationformComponent } from './components/declarationform/declarationform.component';
@@ -39,6 +40,7 @@ export const routes: Routes = [
   { path: 'admindetails/:id', component:AdmindetailsComponent ,canActivate: [AuthGuard]},
   { path: 'admindec', component:AdmindeclarationComponent, canActivate: [AuthGuard]},
   { path: 'adminuser', component: UsergetComponent, canActivate: [AuthGuard]},
+  { path: 'adminadd', component: UserAddComponent, canActivate: [AuthGuard] },
 
 
 ];

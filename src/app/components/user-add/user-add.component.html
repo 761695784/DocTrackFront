@@ -1,1 +1,60 @@
-<p>user-add works!</p>
+<app-sideheaders></app-sideheaders>
+<div class="form-container">
+  <div class="form-header">
+    <h2>Ajouter un utilisateur</h2>
+    <button class="close-btn">×</button>
+  </div>
+
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="role">Rôle</label>
+      <select formControlName="role" required>
+        <option value="" disabled selected>Sélectionner un rôle</option>
+        <option value="Admin">Admin</option>
+        <option value="SimpleUser">SimpleUser</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="FirstName">Nom</label>
+        <input type="text" formControlName="FirstName" placeholder="Nom" />
+      </div>
+      <div class="form-group">
+        <label for="LastName">Prénom</label>
+        <input type="text" formControlName="LastName" placeholder="Prénom" />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" formControlName="email" placeholder="Email" />
+      </div>
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input type="password" formControlName="password" placeholder="Mot de passe" />
+      </div>
+      <div class="form-group">
+        <label for="password_confirmation">Confirmer le mot de passe</label>
+        <input type="password" formControlName="password_confirmation" placeholder="Confirmer le mot de passe" />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="Phone">Téléphone</label>
+        <input type="text" formControlName="Phone" placeholder="Téléphone" />
+      </div>
+      <div class="form-group">
+        <label for="Adress">Adresse</label>
+        <input type="text" formControlName="Adress" placeholder="Adresse" />
+      </div>
+    </div>
+
+    <div class="form-buttons">
+      <button type="button" class="cancel-btn">Annuler</button>
+      <button type="submit" class="submit-btn" [disabled]="userForm.invalid">Ajouter</button>
+    </div>
+  </form>
+</div>

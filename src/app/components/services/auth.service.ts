@@ -11,7 +11,9 @@ import { tap } from 'rxjs/operators';
 })
 export class AuthService {
   private apiUrl = 'http://localhost:8000/api';
-  private apiUrlGetAll = 'http://localhost:8000/api'   ;
+  private apiUrlGetAll = 'http://localhost:8000/api' ;
+  private apiUrlPost = 'http://localhost:8000/api'; // URL pour ajouter des documents
+
 
   constructor(
     private http: HttpClient,
@@ -94,4 +96,10 @@ export class AuthService {
       const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
       return this.http.delete(`${this.apiUrlGetAll}/users/${id}`, { headers });
     }
+
+    addUser(userData: any): Observable<any> {
+      const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+      return this.http.post(`${this.apiUrlPost}/create-admin`, userData, { headers });
+    }
+
 }
