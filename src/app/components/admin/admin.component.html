@@ -1,77 +1,56 @@
 <app-sideheaders></app-sideheaders>
 
-<div class="container">
 
-  <div class="grid-container">
-    <div class="card">
-      <img src="/assets/permis1.png" alt="Document Image" />
-      <div class="card-content">
-        <p class="published-by">Publié par Malang Marna | 15 Aout 2024</p>
-        <p class="phone-number">📞 +221 76 169 57 84 </p>
-        <p>Prénom propriétaire: <strong>OUSSEYNOU</strong></p>
-        <p>Nom propriétaire: <strong>DIOUF</strong></p>
-        <div class="card-actions">
-          <button class="details-btn">Voir détails</button>
-          <span class="status success">✔️</span>
-        </div>
-      </div>
+<div class="stats-container">
+    <div class="stat-box bleu">
+        <!-- <i class="fas fa-file-alt"></i> -->
+         <img src="/assets/perte.png" alt="">
+        <span>45 Déclarations de pertes</span>
     </div>
-
-    <div class="card">
-      <img src="/assets/permis1.png" alt="Document Image" />
-      <div class="card-content">
-        <p class="published-by">Publié par Malang Marna | 15 Aout 2024</p>
-        <p class="phone-number">📞 +221 76 169 57 84 </p>
-        <p>Prénom propriétaire: <strong>OUSSEYNOU</strong></p>
-        <p>Nom propriétaire: <strong>DIOUF</strong></p>
-        <div class="card-actions">
-          <button class="details-btn">Voir détails</button>
-          <span class="status success">✔️</span>
-        </div>
-      </div>
+    <div class="stat-box jaune">
+        <!-- <i class="fas fa-file"></i> -->
+         <img src="/assets/pub.png" alt="">
+        <span>45 Documents Publiés</span>
     </div>
-
-    <div class="card">
-      <img src="/assets/permis1.png" alt="Document Image" />
-      <div class="card-content">
-        <p class="published-by">Publié par Malang Marna | 15 Aout 2024</p>
-        <p class="phone-number">📞 +221 76 169 57 84 </p>
-        <p>Prénom propriétaire: <strong>OUSSEYNOU</strong></p>
-        <p>Nom propriétaire: <strong>DIOUF</strong></p>
-        <div class="card-actions">
-          <button class="details-btn">Voir détails</button>
-          <span class="status error">❌</span>
-        </div>
-      </div>
+    <div class="stat-box bleu">
+        <!-- <i class="fas fa-hand-holding"></i> -->
+         <img src="/assets/demande.png" alt="">
+        <span>45 Demandes de restitutions</span>
     </div>
-
-    <div class="card">
-      <img src="/assets/permis1.png" alt="Document Image" />
-      <div class="card-content">
-        <p class="published-by">Publié par Malang Marna | 15 Aout 2024</p>
-        <p class="phone-number">📞 +221 76 169 57 84 </p>
-        <p>Prénom propriétaire: <strong>OUSSEYNOU</strong></p>
-        <p>Nom propriétaire: <strong>DIOUF</strong></p>
-        <div class="card-actions">
-          <button class="details-btn">Voir détails</button>
-          <span class="status success">✔️</span>
-        </div>
-      </div>
+    <div class="stat-box jaune">
+        <!-- <i class="fas fa-envelope"></i> -->
+         <img src="/assets/mail.png" alt="">
+        <span>45 Emails envoyés</span>
     </div>
-
-    <div class="card">
-      <img src="/assets/permis1.png" alt="Document Image" />
-      <div class="card-content">
-        <p class="published-by">Publié par Malang Marna | 15 Aout 2024</p>
-        <p class="phone-number">📞 +221 76 169 57 84 </p>
-        <p>Prénom propriétaire: <strong>OUSSEYNOU</strong></p>
-        <p>Nom propriétaire: <strong>DIOUF</strong></p>
-        <div class="card-actions">
-          <button class="details-btn">Voir détails</button>
-          <span class="status success">✔️</span>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
 
+<button class="btn-history">Historiques des Restitutions</button>
+
+<div class="table-container">
+  <table>
+      <thead>
+          <tr>
+              <th>id</th>
+              <th>Expéditeur</th>
+              <th>Destinataire</th>
+              <th>Objet</th>
+              <th>Contenu</th>
+              <th>Date D'envoi</th>
+              <th>Document ID</th>
+              <th>Action</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let emailLog of emailLogs">
+              <td>{{ emailLog.id }}</td>
+              <td>{{ emailLog.from }}</td>
+              <td>{{ emailLog.to }}</td>
+              <td>{{ emailLog.subject }}</td>
+              <td>{{ emailLog.body }}</td>
+              <td>{{ emailLog.created_at | date:'dd/MM/yyyy' }}</td>
+              <td>{{ emailLog.document_id }}</td> <!-- Affichage de l'ID du document -->
+              <td><i class="fas fa-trash delete-icon"></i></td>
+          </tr>
+      </tbody>
+  </table>
+</div>

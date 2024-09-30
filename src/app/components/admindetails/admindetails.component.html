@@ -20,7 +20,7 @@
         <button class="btn restore-btn">Restituer</button>
       </div>
 
-      <span class="status" style="font-size: 40px;" [ngClass]="documentDetails.statut === 'récupéré' ? 'success' : 'error'">
+      <span class="status" [ngClass]="documentDetails.statut === 'récupéré' ? 'success' : 'error'">
         {{ documentDetails.statut === 'récupéré' ? '✔️' : '❌' }}
       </span>
     </div>

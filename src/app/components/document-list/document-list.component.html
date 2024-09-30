@@ -98,8 +98,8 @@
       <div class="card-content">
         <p class="published-by">Publié par {{ document.user.FirstName }} {{ document.user.LastName }} | {{ document.created_at | date }}</p>
         <p class="phone-number">📞 {{ document.user.Phone }}</p>
-        <p>Prénom propriétaire: <strong>{{ document.OwnerFirstName }}</strong></p>
-        <p>Nom propriétaire: <strong>{{ document.OwnerLastName }}</strong></p>
+        <p>Prénom propriétaire : <strong>{{ document.OwnerFirstName }}</strong></p>
+        <p>Nom propriétaire : <strong>{{ document.OwnerLastName }}</strong></p>
         <div class="card-actions">
           <button class="details-btn" (click)="viewDetails(document.id)">Voir détails</button>
           <span class="status" [ngClass]="document.statut === 'récupéré' ? 'success' : 'error'">

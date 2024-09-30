@@ -60,11 +60,11 @@ body {
   margin-left: 4rem;
 }
 
-.status-icon {
-  font-size: 70px;
+.status {
+  font-size: 100px;
   color: red;
   margin-left: -5rem;
-  margin-top: -7rem;
+  margin-top: 0rem;
 }
 
 .restore-btn {
