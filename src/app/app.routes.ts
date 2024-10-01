@@ -41,6 +41,7 @@ export const routes: Routes = [
   { path: 'admindec', component:AdmindeclarationComponent, canActivate: [AuthGuard]},
   { path: 'adminuser', component: UsergetComponent, canActivate: [AuthGuard]},
   { path: 'adminadd', component: UserAddComponent, canActivate: [AuthGuard] },
+  { path: '**', component: LandingComponent}
 
 
 ];
