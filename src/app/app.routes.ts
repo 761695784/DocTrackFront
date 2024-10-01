@@ -21,6 +21,7 @@ import { AdmindeclarationComponent } from './components/admindeclaration/adminde
 import { UsergetComponent } from './components/userget/userget.component';
 
 export const routes: Routes = [
+  { path: '', component: LandingComponent },
   { path: 'navbar', component:NavbarComponent},
   { path: 'accueil', component:LandingComponent},
   { path: 'connexion', component:LoginComponent},
@@ -41,7 +42,8 @@ export const routes: Routes = [
   { path: 'admindec', component:AdmindeclarationComponent, canActivate: [AuthGuard]},
   { path: 'adminuser', component: UsergetComponent, canActivate: [AuthGuard]},
   { path: 'adminadd', component: UserAddComponent, canActivate: [AuthGuard] },
-  { path: '**', component: LandingComponent}
+
+
 
 
 ];
