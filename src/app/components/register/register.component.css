@@ -12,6 +12,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   margin: 120px; /* Marge autour du container */
+  margin-top: 3rem;
 }
 
 .container {
@@ -23,11 +24,12 @@ body {
   justify-content: center;
   max-width: 732px; /* Largeur maximale pour le formulaire */
   height: auto; /* Hauteur automatique pour s'adapter au contenu */
-  margin: auto;
-  margin-top: 2rem;
+  /* margin-top: 0.5rem; */
   font-family: 'Open Sans';
   font-weight: bold;
-  margin-left: 5%; /* Margin left pour le desktop */
+  margin-left: 7%; /* Margin left pour le desktop */
+  position: absolute;
+
 }
 
 .form-container h2 {
@@ -86,6 +88,7 @@ button {
   background-color: #31287C; /* Couleur du bouton */
   color: white;
   border: none;
+  font-weight: bold;
   border-radius: 7px;
   cursor: pointer;
   margin-top: 10px;
@@ -101,6 +104,9 @@ button:hover {
   margin-top: 5px;
   margin-left: 20px;
 }
+
+.carteImage {
+margin-left: 45%;}
 
 @media (max-width: 480px) {
 body{

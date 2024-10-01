@@ -20,14 +20,16 @@ export class AdminComponent {
 
   declarationsCount: number = 0;
   publicationsCount: number = 0;
-  restitutionsCount: number = 0;
+  // restitutionsCount: number = 0;
   emailsSentCount: number = 0;
+  restitutionCount: number = 0;
 
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
     this.loadEmailLogs();
     this.loadAllData();
+    this.loadRestitutionCount();
   }
 
   loadEmailLogs() {
@@ -43,10 +45,23 @@ export class AdminComponent {
 
   loadAllData(): void {
     this.authService.getAllData().subscribe(data => {
-      this.declarationsCount = data.declarations.length;  // Compte le nombre de déclarations
-      this.publicationsCount = data.publications.length;  // Compte le nombre de publications
-      this.restitutionsCount = data.restitutions.length;  // Compte le nombre de restitutions
-      this.emailsSentCount = data.emailsSent.length;      // Compte le nombre d'emails envoyés
+      this.declarationsCount = data.declarations.length;
+      this.publicationsCount = data.publications.length;
+      this.emailsSentCount = data.emailsSent.length;
+      console.log('Emails envoyés:', this.emailsSentCount);  // Vérifiez si cette valeur est correcte
+   });
+
+
+  }
+
+  loadRestitutionCount(): void {
+    this.authService.getRestitutionRequestCount().subscribe({
+      next: (data) => {
+        this.restitutionCount = data.count;
+      },
+      error: (error) => {
+        console.error('Erreur lors de la récupération du compte des restitutions', error);
+      }
     });
   }
 

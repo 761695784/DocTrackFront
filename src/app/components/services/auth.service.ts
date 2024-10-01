@@ -114,5 +114,10 @@ export class AuthService {
       return this.http.get(`${this.apiUrl}/notification`, { headers }); // Assurez-vous que l'URL correspond à votre API
     }
 
+     // Récupère le nombre de demandes de restitution
+    getRestitutionRequestCount(): Observable<any> {
+      const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+      return this.http.get(`${this.apiUrl}/restitution-count`, { headers }); // Assurez-vous que l'URL correspond à votre API
+    }
 
 }

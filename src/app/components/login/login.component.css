@@ -28,6 +28,8 @@ body {
   font-family: 'Open Sans';
   font-weight: bold;
   margin-left: 10%; /* Margin left pour le desktop */
+  position: absolute;
+
 }
 
 .form-container h2 {
@@ -35,6 +37,7 @@ body {
   color: #31287C; /* Couleur du texte */
   display: flex;
   justify-content: center;
+
 }
 
 .test {
@@ -72,6 +75,7 @@ button {
   background-color: #31287C; /* Couleur du bouton */
   color: white;
   border: none;
+  font-weight: bold;
   border-radius: 7px;
   cursor: pointer;
   margin-top: 10px;
@@ -89,6 +93,7 @@ button:hover {
 
 .carteImage {
   justify-content:center; /* Centrer l'image sur le desktop */
+  margin-left: 55%;
   }
 
 

@@ -140,52 +140,52 @@ export class DocumentDetailComponent implements OnInit {
   }
 
   // Méthode pour demander la restitution d'un document
-   requestRestitution(): void {
-    if (this.documentDetails) {
-      // Afficher une boîte de dialogue de confirmation
-      Swal.fire({
-        title: 'Êtes-vous sûr ?',
-        text: 'Vous êtes sur le point d\'envoyer une demande de restitution.',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Oui, envoyer',
-        cancelButtonText: 'Annuler'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          // L'utilisateur a confirmé, procéder à l'envoi de la demande
-          this.detailsService.requestRestitution(this.documentDetails!.id).subscribe({
-            next: (response) => {
-              console.log('Notification envoyée avec succès');
-              Swal.fire({
-                icon: 'success',
-                title: 'Demande envoyée',
-                text: 'Votre demande de restitution a été envoyée avec succès.',
-                timer: 2000, // Durée de l'alerte en millisecondes
-                showConfirmButton: false // Ne pas afficher le bouton de confirmation
-              });
-            },
-            error: (err) => {
-              console.error('Erreur lors de la demande de restitution', err);
-              Swal.fire({
-                icon: 'error',
-                title: 'Erreur',
-                text: 'Une erreur est survenue lors de la demande de restitution.',
-                timer: 2000, // Durée de l'alerte en millisecondes
-                showConfirmButton: false // Ne pas afficher le bouton de confirmation
-              });
-            }
-          });
-        }
-      });
-    } else {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Document non trouvé',
-        text: 'Aucun document à restituer.',
-        timer: 2000, // Durée de l'alerte en millisecondes
-        showConfirmButton: false // Ne pas afficher le bouton de confirmation
-      });
+    requestRestitution(): void {
+      if (this.documentDetails) {
+        // Afficher une boîte de dialogue de confirmation
+        Swal.fire({
+          title: 'Êtes-vous sûr ?',
+          text: 'Vous êtes sur le point d\'envoyer une demande de restitution.',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Oui, envoyer',
+          cancelButtonText: 'Annuler'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // L'utilisateur a confirmé, procéder à l'envoi de la demande
+            this.detailsService.requestRestitution(this.documentDetails!.id).subscribe({
+              next: (response) => {
+                console.log('Notification envoyée avec succès');
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Demande envoyée',
+                  text: 'Votre demande de restitution a été envoyée avec succès.',
+                  timer: 2000, // Durée de l'alerte en millisecondes
+                  showConfirmButton: false // Ne pas afficher le bouton de confirmation
+                });
+              },
+              error: (err) => {
+                console.error('Erreur lors de la demande de restitution', err);
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Erreur',
+                  text: 'Une erreur est survenue lors de la demande de restitution.',
+                  timer: 2000, // Durée de l'alerte en millisecondes
+                  showConfirmButton: false // Ne pas afficher le bouton de confirmation
+                });
+              }
+            });
+          }
+        });
+      } else {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Document non trouvé',
+          text: 'Aucun document à restituer.',
+          timer: 2000, // Durée de l'alerte en millisecondes
+          showConfirmButton: false // Ne pas afficher le bouton de confirmation
+        });
+      }
     }
-  }
 
 }

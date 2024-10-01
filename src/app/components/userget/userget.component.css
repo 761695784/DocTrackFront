@@ -32,6 +32,8 @@ body {
   background-color: #F6A500;
   color: white;
   border: none;
+  font-weight: bold;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   border-radius: 25px;
   cursor: pointer;
   font-size: 16px;
@@ -102,6 +104,7 @@ body {
 
 .user-table td {
   color: #444;
+  font-weight: bold;
 }
 
 .user-table td .delete-icon {
