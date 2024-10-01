@@ -1,30 +1,55 @@
 <app-sideheaders></app-sideheaders>
 
-
 <div class="stats-container">
-    <div class="stat-box bleu">
-        <!-- <i class="fas fa-file-alt"></i> -->
-         <img src="/assets/perte.png" alt="">
-        <span>45 Déclarations de pertes</span>
-    </div>
-    <div class="stat-box jaune">
-        <!-- <i class="fas fa-file"></i> -->
-         <img src="/assets/pub.png" alt="">
-        <span>45 Documents Publiés</span>
-    </div>
-    <div class="stat-box bleu">
-        <!-- <i class="fas fa-hand-holding"></i> -->
-         <img src="/assets/demande.png" alt="">
-        <span>45 Demandes de restitutions</span>
-    </div>
-    <div class="stat-box jaune">
-        <!-- <i class="fas fa-envelope"></i> -->
-         <img src="/assets/mail.png" alt="">
-        <span>45 Emails envoyés</span>
-    </div>
+  <div class="stat-box bleu">
+      <img src="/assets/perte.png" alt="">
+      <span>{{ declarationsCount }} Déclarations de pertes</span>
+  </div>
+  <div class="stat-box jaune">
+      <img src="/assets/pub.png" alt="">
+      <span>{{ publicationsCount }} Documents Publiés</span>
+  </div>
+  <div class="stat-box bleu">
+      <img src="/assets/demande.png" alt="">
+      <span>{{ restitutionsCount }} Demandes de restitutions</span>
+  </div>
+  <div class="stat-box jaune">
+      <img src="/assets/mail.png" alt="">
+      <span>{{ emailsSentCount }} Emails envoyés</span>
+  </div>
 </div>
 
+
 <button class="btn-history">Historiques des Restitutions</button>
+
+    <!-- Affichage des résultats filtrés -->
+<div class="container">
+  <div class="grid-container">
+    <div *ngFor="let document of filteredDocuments" class="card">
+      <img *ngIf="document.image" [src]="document.image" alt="document" />
+      <p *ngIf="!document.image">Image non disponible</p>
+      <div class="card-content">
+        <p class="published-by">Publié par {{ document.user.FirstName }} {{ document.user.LastName }} | {{ document.created_at | date }}</p>
+        <p class="phone-number">📞 {{ document.user.Phone }}</p>
+        <p>Prénom propriétaire: <strong>{{ document.OwnerFirstName }}</strong></p>
+        <p>Nom propriétaire: <strong>{{ document.OwnerLastName }}</strong></p>
+        <div class="card-actions">
+          <button class="details-btn" (click)="viewDetails(document.id)">Voir détails</button>
+          <span class="status" [ngClass]="document.statut === 'récupéré' ? 'success' : 'error'">
+            {{ document.statut === 'récupéré' ? '✔️' : '❌' }}
+          </span>
+          <span class="delete-icon" (click)="deletePublication(document.id)" style="cursor: pointer; color: red; font-size: 40px;">🗑️</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Ajout du texte stylisé -->
+<div class="email-list-header">
+    <h2>Liste de tous les emails envoyés</h2>
+    <p>Retrouvez ici l'historique complet des emails envoyés via notre système. Vous pouvez consulter le contenu, les destinataires et les détails associés.</p>
+</div>
 
 <div class="table-container">
   <table>
@@ -35,8 +60,7 @@
               <th>Destinataire</th>
               <th>Objet</th>
               <th>Contenu</th>
-              <th>Date D'envoi</th>
-              <th>Document ID</th>
+              <th>Date</th>
               <th>Action</th>
           </tr>
       </thead>
@@ -48,8 +72,8 @@
               <td>{{ emailLog.subject }}</td>
               <td>{{ emailLog.body }}</td>
               <td>{{ emailLog.created_at | date:'dd/MM/yyyy' }}</td>
-              <td>{{ emailLog.document_id }}</td> <!-- Affichage de l'ID du document -->
-              <td><i class="fas fa-trash delete-icon"></i></td>
+              <td><span class="delete-icon" style="cursor: pointer; color: red; font-size: 40px;">🗑️</span>
+              </td>
           </tr>
       </tbody>
   </table>

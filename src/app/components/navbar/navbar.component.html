@@ -1,8 +1,8 @@
 <header>
   <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="container-fluid d-flex justify-content-between align-items-center">
-          <a class="navbar-brand logo" href="#">
-              <img src="/assets/logoo2.png"  class="w-100" alt="Logo">
+          <a class="navbar-brand logo" routerLink="/">
+              <img src="/assets/logoo2.png" class="w-100" alt="Logo">
           </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -10,16 +10,16 @@
           <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav mr-auto text-end">
                   <li class="nav-item">
-                      <a class="nav-link" href="/accueil">Accueil</a>
+                      <a class="nav-link" routerLink="/accueil" routerLinkActive="active">Accueil</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="#apropos">À propos</a>
+                      <a class="nav-link" routerLink="/#apropos" routerLinkActive="active">À propos</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="/liste">Publications</a>
+                      <a class="nav-link" routerLink="/liste" routerLinkActive="active">Publications</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="/lost">Déclaration de perte</a>
+                      <a class="nav-link" routerLink="/lost" routerLinkActive="active">Déclaration de perte</a>
                   </li>
               </ul>
               <!-- Vérification de l'authentification -->
@@ -31,14 +31,14 @@
                     </span></i> <!-- Icône utilisateur -->
                   </button>
                   <div class="dropdown-menu" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="/modify" (click)="goToChangePassword()">Modifier mon profil</a>
-                    <a class="dropdown-item" href="/accueil" (click)="logout()">Déconnexion</a>
+                    <a class="dropdown-item" routerLink="/modify" (click)="goToChangePassword()">Modifier mon profil</a>
+                    <a class="dropdown-item" routerLink="/accueil" (click)="logout()">Déconnexion</a>
                   </div>
                 </div>
               </div>
               <!-- Si l'utilisateur n'est pas authentifié, afficher le bouton Connexion -->
               <ng-template #loginBtn>
-                <a href="/connexion" class="btn btn-warning connexion" style="background-color: #F6A500; font-weight: bold;">Connexion</a>
+                <a routerLink="/connexion" class="btn btn-warning connexion" style="background-color: #F6A500; font-weight: bold;">Connexion</a>
               </ng-template>
           </div>
       </div>

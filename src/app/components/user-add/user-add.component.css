@@ -8,11 +8,23 @@
 /* Form Container */
 .form-container {
   max-width: 600px;
-  margin: 20px auto;
+  margin: 40px auto;
   padding: 30px;
   background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateY(50px);
+  animation: fadeIn 0.6s ease forwards;
+  transition: all 0.3s ease;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Form Header */
@@ -24,7 +36,7 @@
 }
 
 .form-header h2 {
-  font-size: 20px;
+  font-size: 24px;
   color: #31287C;
 }
 
@@ -34,39 +46,46 @@
   font-size: 24px;
   cursor: pointer;
   color: #31287C;
+  transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+  color: #F6A500;
 }
 
 /* Form Group */
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .form-group label {
   display: block;
-  font-size: 14px;
+  font-size: 16px;
   color: #31287C;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
 }
 
 .form-group input,
 .form-group select {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 8px;
   font-size: 14px;
-  outline: none;
+  transition: all 0.3s ease;
 }
 
 .form-group input:focus,
 .form-group select:focus {
   border-color: #F6A500;
+  box-shadow: 0 0 8px rgba(246, 165, 0, 0.3);
 }
 
 /* Form Row */
 .form-row {
   display: flex;
   justify-content: space-between;
+  gap: 20px;
 }
 
 .form-row .form-group {
@@ -77,25 +96,53 @@
 .form-buttons {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
+  gap: 15px;
+  margin-top: 20px;
 }
 
 .cancel-btn {
-  padding: 10px 20px;
+  padding: 12px 25px;
   background-color: white;
   color: #31287C;
-  border: 1px solid #31287C;
-  border-radius: 5px;
+  border: 2px solid #31287C;
+  border-radius: 8px;
   cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cancel-btn:hover {
+  background-color: #31287C;
+  color: white;
 }
 
 .submit-btn {
-  padding: 10px 20px;
+  padding: 12px 25px;
   background-color: #31287C;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #F6A500;
+}
+
+/* Full width for email input */
+.full-width {
+  width: 100%;
+}
+
+/* Form Row */
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.form-row .form-group {
+  width: 48%;
 }
 
 /* Responsive Design */
@@ -105,7 +152,7 @@
   }
 
   .form-header h2 {
-    font-size: 18px;
+    font-size: 20px;
   }
 
   .form-row {

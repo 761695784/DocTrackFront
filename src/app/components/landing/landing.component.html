@@ -1,26 +1,25 @@
 <app-navbar></app-navbar>
 
-<section class="hero-section bg-dark text-light py-30">
+<section class="hero-section bg-dark text-light py-30 animated-hero">
   <div class="container text-center"><br>
     <h1>Vous avez perdu un document important ? <br>
       Nous sommes là pour vous aider à le retrouver</h1>
     <p class="text">"Publiez ou recherchez des documents perdus et retrouvés en toute simplicité."<br>
       <span class="titre">DocTrack</span> votre solution rapide et sécurisée.</p>
       <br>
-  <!-- Barre de recherche -->
-  <div class="input-group mb-3" style="max-width: 800px; margin: 0 auto;"> <!-- Augmentation de la largeur -->
-    <input type="text" class="form-control" placeholder="Recherchez un document trouvé"
-          aria-label="Recherche" [(ngModel)]="searchTerm" (input)="filterDocuments()">
-    <button class="btn btn-outline-secondary" type="button" (click)="filterDocuments()">Rechercher</button>
-  </div> <br>
+      <div class="input-group mb-3" style="max-width: 800px; margin: 0 auto;">
+        <input type="text" class="form-control" placeholder="Recherchez un document trouvé"
+               aria-label="Recherche" [(ngModel)]="searchTerm" (input)="filterDocuments()">
+        <button class="btn btn-outline-secondary" type="button" (click)="filterDocuments()">Rechercher</button>
+      </div> <br>
 
-    <!-- Boutons centrés -->
-    <div class="mb-4">
-      <a href="/declarer" class="btn btn-outline-light dec" style="margin-right: 70px;" >Déclarer une Perte</a>
-      <a href="/publier" class="btn pub">Publier un document</a>
-    </div>
+      <div class="mb-4">
+        <a href="/declarer" class="btn btn-outline-light dec" style="margin-right: 70px;">Déclarer une Perte</a>
+        <a href="/publier" class="btn pub">Publier un document</a>
+      </div>
   </div>
 </section>
+
 
 <section *ngIf="searchTerm.length > 0">
   <div *ngIf="filteredDocuments.length === 0" class="no-results">
@@ -54,26 +53,27 @@
   <div class="container">
     <h2 class="titre-avantage">Bénéficiez des avantages de DocTrack</h2>
     <div class="row mt-5">
-      <div class="col-md-3 text-center">
+      <div class="col-md-3 text-center advantage-item">
         <img src="assets/avantage1.png" alt="avantage 1">
         <h4>Rechercher votre document perdu depuis la plateforme.</h4>
       </div>
-      <div class="col-md-3 text-center">
+      <div class="col-md-3 text-center advantage-item">
         <img src="assets/avantage2.png" alt="avantage 2">
         <h4>Déclarer la perte de votre document depuis la plateforme.</h4>
       </div>
-      <div class="col-md-3 text-center">
+      <div class="col-md-3 text-center advantage-item">
         <img src="assets/avantage3.png" alt="avantage 3">
         <h4>Publier un document retrouvé avec la possibilité de vous contacter.</h4>
       </div>
-      <div class="col-md-3 text-center">
+      <div class="col-md-3 text-center advantage-item">
         <img src="assets/avantage4.png" alt="avantage 4">
         <h4>Récupérer votre document de la main du trouveur et remercier le !</h4>
       </div>
     </div>
     <br>
   </div>
-</section><br>
+</section>
+
 
 <section class="statistique">
   <div class="container">

@@ -34,7 +34,6 @@ body {
   list-style: none;
   width: 100%;
   margin-top: 15px;
-
 }
 
 .menu-item {
@@ -47,7 +46,25 @@ body {
   font-weight: bold;
   margin-top: 25px;
   width: 100%;
+}
 
+/* Styles for links */
+.menu-item a {
+  text-decoration: none;  /* Supprimer le soulignement des liens */
+  color: white;           /* Couleur blanche pour le texte */
+  width: 100%;            /* Prendre toute la largeur disponible */
+  display: inline-block;  /* Permet de cliquer sur tout l'élément */
+}
+
+/* Change link color and icon color when menu-item is hovered */
+.menu-item:hover a,
+.menu-item.active a {
+  color: black;  /* Couleur du texte noir pour l'élément actif ou au survol */
+}
+
+.menu-item:hover i,
+.menu-item.active i {
+  color: black;  /* Couleur de l'icône noir pour l'élément actif ou au survol */
 }
 
 .menu-item i {
@@ -58,12 +75,7 @@ body {
 
 .menu-item:hover,
 .menu-item.active {
-  background-color: #F6A500;
-  color: black;
-}
-
-.menu-item.active span {
-  font-weight: bold;
+  background-color: #F6A500;  /* Fond jaune pour l'élément actif ou au survol */
 }
 
 /* Responsive Sidebar for Mobile */

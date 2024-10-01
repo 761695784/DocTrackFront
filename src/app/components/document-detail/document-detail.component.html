@@ -1,47 +1,46 @@
 <app-navbar></app-navbar>
 
 <div class="container">
-  <div *ngIf="documentDetails" class="card-document">
+  <div *ngIf="documentDetails" class="card-document animate-card">
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-12">
         <div class="image-container">
-          <img *ngIf="documentDetails.image" class="document-img" [src]="documentDetails.image" alt="Document Image" />
+          <img *ngIf="documentDetails.image" class="document-img animate-image" [src]="documentDetails.image" alt="Document Image" />
         </div>
       </div>
 
-
       <div class="col-lg-6 col-md-6 col-sm-12 details-section">
-        <div class="document-info">
+        <div class="document-info animate-content">
           <p>Publié par <strong>{{ documentDetails.user.FirstName }} {{ documentDetails.user.LastName }}</strong> | {{ documentDetails.created_at | date }}</p>
           <p>📞 <strong>{{ documentDetails.user.Phone }}</strong></p>
           <p><strong>Prénom propriétaire :</strong> {{ documentDetails.OwnerFirstName }}</p>
           <p><strong>Nom propriétaire :</strong> {{ documentDetails.OwnerLastName }}</p>
           <p><strong>Lieu :</strong> {{ documentDetails.Location }}</p>
           <p><strong>Identification :</strong> {{ documentDetails.identification }}</p>
-          <button class="btn restore-btn" (click)="requestRestitution()">Restituer</button>
+          <button class="btn restore-btn animate-button" (click)="requestRestitution()">Restituer</button>
         </div>
 
         <span class="status" style="font-size: 40px;" [ngClass]="documentDetails.statut === 'récupéré' ? 'success' : 'error'">
           {{ documentDetails.statut === 'récupéré' ? '✔️' : '❌' }}
         </span>
-
+      </div>
     </div>
-<br>
 
-    <div class="comments-list">
-      <h3>Commentaires</h3>
-      <div *ngFor="let commentaire of commentaires" class="comment">
-        <p> <strong>{{ commentaire.user.FirstName }} {{ commentaire.user.LastName }}</strong> | {{ commentaire.created_at | date }}</p>
+    <br><br>
+
+    <div class="comments-list animate-comments">
+      <h3>Commentaires</h3><br>
+      <div *ngFor="let commentaire of commentaires" class="comment animate-comment">
+        <p><strong>{{ commentaire.user.FirstName }} {{ commentaire.user.LastName }}</strong> | {{ commentaire.created_at | date }}</p>
         <p>{{ commentaire.contenu }}</p>
       </div>
     </div>
 
-    <div class="comment-section">
+    <div class="comment-section animate-comments">
       <input class="comment-input" [(ngModel)]="newComment" placeholder="Écrire un commentaire...">
-      <button class="btn submit-btn" (click)="addCommentaire()">Envoyer</button>
+      <button class="btn submit-btn animate-button" (click)="addCommentaire()">Envoyer</button>
     </div>
   </div>
-</div>
 </div>
 
 <app-footer></app-footer>

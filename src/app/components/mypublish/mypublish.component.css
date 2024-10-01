@@ -5,7 +5,8 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #f3f4f7 25%, #e2e5ec 100%);
 }
 
 .container {
@@ -14,16 +15,50 @@ body {
   padding: 20px;
 }
 
-.search-btn,
-.my-publications-btn {
-  background-color: #F6A500;
-  color: black;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+.header-text {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.animated-title {
+  font-size: 3rem;
   font-weight: bold;
-  flex-shrink: 0; /* Empêche les boutons de rétrécir */
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #31287C;
+  background: linear-gradient(to right, #F6A500, #31287C);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  animation: slide-in 1.2s ease-out forwards;
+  display: inline-block;
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+  border-bottom: 4px solid #F6A500;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #555;
+  font-style: italic;
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.no-publications {
+  font-size: 1.2rem;
+  color: #f00;
+  text-align: center;
+  margin-top: 30px;
 }
 
 .grid-container {
@@ -35,10 +70,15 @@ body {
 
 .card {
   background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  margin: 20px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .card img {
@@ -48,14 +88,14 @@ body {
 }
 
 .card-content {
-  padding: 15px;
+  padding: 20px;
 }
 
 .published-by,
 .phone-number {
-  font-size: 15px;
-  color: gray;
-  font-weight: bold;
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 5px;
 }
 
 .card-actions {
@@ -65,43 +105,51 @@ body {
   margin-top: 10px;
 }
 
-.details-btn {
-  color: white;
-  padding: 8px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  background-color: #31287C;
+.delete-icon {
+  font-size: 1.5rem;
+  color: #f44336;
+  transition: transform 0.2s;
+}
+
+.delete-icon:hover {
+  transform: scale(1.2);
 }
 
 .status {
-  font-size: 40px;
+  font-size: 1.5rem;
 }
 
 .success {
-  color: green;
+  color: #4CAF50;
 }
 
 .error {
-  color: red;
+  color: #f44336;
+}
+
+.status:hover {
+  transform: scale(1.1);
+  transition: transform 0.2s;
 }
 
 /* Media Queries pour adopter la réactivité */
 @media (max-width: 768px) {
 
-  .my-publications-btn {
-    width: 100%; /* Les boutons prennent toute la largeur */
-    padding: 8px; /* Taille des détails */
-    font-size: 14px; /* Taille de la police réduite */
-    margin-bottom: 10px; /* Espace entre les boutons */
+  .animated-title {
+    font-size: 2.5rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
   }
 }
 
 @media (min-width: 769px) {
+  .animated-title {
+    font-size: 3rem;
+  }
 
-  .my-publications-btn {
-    width: auto; /* Enlever la largeur de 100% */
-    margin-bottom: 0; /* Supprimer le fond pour les boutons supplémentaires */
+  .subtitle {
+    font-size: 1.2rem;
   }
 }

@@ -2,9 +2,15 @@
 
 <div class="container">
 
-  <div *ngIf="publications.length === 0">
-    <p>Vous n'avez aucune publication pour le moment.</p>
+  <div class="header-text">
+    <h1 class="animated-title">Découvrez et Gérez Vos Publications</h1>
+    <p class="subtitle">Modifier ici le statut de vos publications de documents perdus en cliquant sur l'icone de la croix une fois la restitution faite, ou bien supprimer simplement en clicquant sur la corbeille.</p>
   </div>
+
+  <div *ngIf="publications.length === 0">
+    <p class="no-publications">Vous n'avez aucune publication pour le moment.</p>
+  </div>
+
   <div class="grid-container">
     <!-- Boucle pour afficher toutes les publications -->
     <div class="card" *ngFor="let publication of publications">
@@ -19,12 +25,10 @@
         <p>Nom propriétaire: <strong>{{ publication.OwnerLastName }}</strong></p>
 
         <div class="card-actions">
-          <span class="delete-icon" (click)="deletePublication(publication.id)" style="cursor: pointer; color: red; font-size: 24px;">🗑️</span>
+          <span class="delete-icon" (click)="deletePublication(publication.id)" style="cursor: pointer;">🗑️</span>
           <span class="status" (click)="toggleStatus(publication)" [ngClass]="publication.statut === 'récupéré' ? 'success' : 'error'" style="cursor: pointer;">
             {{ publication.statut === 'récupéré' ? '✔️' : '❌' }}
           </span>
-
-
         </div>
       </div>
     </div>

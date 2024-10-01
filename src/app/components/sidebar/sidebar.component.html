@@ -5,22 +5,22 @@
       </div>
       <ul class="menu">
           <!-- Accueil (Admin Dashboard) -->
-          <li class="menu-item active">
+          <li class="menu-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
               <i class="fas fa-home"></i>
               <span><a routerLink="/admin">Accueil</a></span>
           </li>
           <!-- Publications -->
-          <li class="menu-item">
+          <li class="menu-item" routerLinkActive="active">
               <i class="fas fa-newspaper"></i>
               <span><a routerLink="/adminpub">Publications</a></span>
           </li>
           <!-- Déclarations -->
-          <li class="menu-item">
+          <li class="menu-item" routerLinkActive="active">
               <i class="fas fa-user-friends"></i>
               <span><a routerLink="/admindec">Déclarations</a></span>
           </li>
           <!-- Utilisateurs -->
-          <li class="menu-item">
+          <li class="menu-item" routerLinkActive="active">
               <i class="fas fa-users"></i>
               <span><a routerLink="/adminuser">Utilisateurs</a></span>
           </li>

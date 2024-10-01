@@ -104,10 +104,15 @@ export class AuthService {
 
     // Dans votre service Angular (AuthService)
 
-getAllEmailLogs(): Observable<any> {
-  const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
-  return this.http.get(`${this.apiUrl}/emails`, { headers }); // Assurez-vous que l'URL correspond à votre API
-}
+    getAllEmailLogs(): Observable<any> {
+      const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+      return this.http.get(`${this.apiUrl}/emails`, { headers }); // Assurez-vous que l'URL correspond à votre API
+    }
+
+    getAllData(): Observable<any> {
+      const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+      return this.http.get(`${this.apiUrl}/notification`, { headers }); // Assurez-vous que l'URL correspond à votre API
+    }
 
 
 }

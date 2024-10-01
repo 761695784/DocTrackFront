@@ -2,7 +2,6 @@
 <div class="form-container">
   <div class="form-header">
     <h2>Ajouter un utilisateur</h2>
-    <button class="close-btn">×</button>
   </div>
 
   <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
@@ -25,12 +24,14 @@
         <input type="text" formControlName="LastName" placeholder="Prénom" />
       </div>
     </div>
-
     <div class="form-row">
-      <div class="form-group">
+      <div class="form-group full-width">
         <label for="email">Email</label>
         <input type="email" formControlName="email" placeholder="Email" />
       </div>
+    </div>
+
+    <div class="form-row">
       <div class="form-group">
         <label for="password">Mot de passe</label>
         <input type="password" formControlName="password" placeholder="Mot de passe" />
@@ -40,6 +41,7 @@
         <input type="password" formControlName="password_confirmation" placeholder="Confirmer le mot de passe" />
       </div>
     </div>
+
 
     <div class="form-row">
       <div class="form-group">
@@ -53,7 +55,6 @@
     </div>
 
     <div class="form-buttons">
-      <button type="button" class="cancel-btn">Annuler</button>
       <button type="submit" class="submit-btn" [disabled]="userForm.invalid">Ajouter</button>
     </div>
   </form>

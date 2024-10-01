@@ -5,6 +5,7 @@ import { AuthService } from '../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PublicationsService } from '../services/publications.service';
 
 
 @Component({
@@ -17,12 +18,29 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 export class SideheadersComponent implements OnInit{
 
   FirstName: string = '';
+  documents: any[] = []; // Pour stocker les documents récupérés
+  filteredDocuments: any[] = [];  // Documents filtrés par la recherche
+  searchQuery: string = '';  // Texte entré dans la barre de recherche
 
-  constructor(public authService: AuthService , private router: Router) {}
+
+  constructor(public authService: AuthService , private router: Router,  publicationsService: PublicationsService) {}
 
   ngOnInit() {
     this.FirstName = this.authService.getUserName(); // Récupérer le nom de l'utilisateur
   }
+
+    // Méthode pour filtrer les documents selon la recherche
+    searchDocuments(): void {
+      const query = this.searchQuery.toLowerCase();
+      this.filteredDocuments = this.documents.filter(document =>
+        document.Title.toLowerCase().includes(query) ||  // Cherche dans le titre
+        document.OwnerFirstName.toLowerCase().includes(query) ||  // Cherche dans le prénom
+        document.OwnerLastName.toLowerCase().includes(query)  // Cherche dans le nom
+      );
+    }
+
+
+
 
   goToChangePassword(): void {
     this.router.navigate(['/change-password']);

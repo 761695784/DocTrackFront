@@ -23,6 +23,11 @@ nav ul {
   margin-left: 700px; /* Remplacez 700px par auto pour un meilleur alignement */
   padding: 0;
 }
+nav ul li a.active {
+  background-color: #F6A500; /* Couleur de fond pour le lien actif */
+  color: black; /* Couleur du texte pour le lien actif */
+}
+
 
 nav ul li {
   margin: 0 35px 0; /* Espacement des liens */

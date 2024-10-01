@@ -50,32 +50,82 @@ body {
 
 }
 
+.table-container {
+  margin-top: 10px;
+  margin-left: 15%;
+  width: 83%;
+}
+
 table {
   width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 20px; /* To add border-radius to the whole table */
+  overflow: hidden; /* Ensures the border-radius is applied */
+  background-color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+thead {
   border-radius: 20px;
-  /* border-collapse: collapse; */
+}
+
+thead th:first-child {
+  border-top-left-radius: 20px;
+}
+
+thead th:last-child {
+  border-top-right-radius: 20px;
 }
 
 th, td {
-  padding: 30px;
+  padding: 20px;
   text-align: left;
-  border-bottom: 2px solid #ddd;
   font-weight: bold;
 }
-
 
 th {
   background-color: #31287C;
   color: white;
+  position: relative;
 }
 
 td {
   background-color: white;
+  border-bottom: 1px solid #ddd;
 }
 
+/* Hover effect and transition for table rows */
+tbody tr {
+  transition: background-color 0.3s ease;
+}
+
+tbody tr:hover {
+  background-color: rgba(49, 40, 124, 0.1);
+}
+
+/* Delete icon hover effect */
 .delete-icon {
   color: #F6A500;
   cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.delete-icon:hover {
+  color: #FF4500;
+}
+
+/* Additional animation for delete icon */
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+.delete-icon:hover {
+  animation: shake 0.5s ease;
 }
 
 .btn-history {
@@ -88,4 +138,76 @@ td {
   margin-top: 50px;
   font-weight: bold !important;
   margin-left: 83%;
+  transition: background-color 0.3s ease;
+}
+
+.btn-history:hover {
+  background-color: #1d1a61;
+}
+
+.email-list-header {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.email-list-header h2 {
+  font-size: 2rem;
+  color: #31287C; /* Couleur bleu foncé */
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.email-list-header p {
+  font-size: 1.2rem;
+  color: #555;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.card-content {
+  margin-top: 10px;
+}
+
+.card-actions {
+  margin-top: 10px;
+}
+
+.status.success {
+  color: green;
+}
+
+.status.error {
+  color: red;
+}
+
+.details-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete-icon {
+  cursor: pointer;
+  color: red;
+  font-size: 24px;
 }

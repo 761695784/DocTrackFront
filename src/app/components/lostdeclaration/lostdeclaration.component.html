@@ -1,28 +1,36 @@
- <app-navbar></app-navbar>
+<app-navbar></app-navbar>
 
 <div class="container">
 
-  <div *ngIf="declarations.length === 0">
-    <p>Vous n'avez aucune déclaration pour le moment.</p>
+  <!-- Titre accrocheur avec animation -->
+  <div class="header-text">
+    <h1 class="animated-title">Gérez vos Déclarations</h1>
+    <p class="subtitle">Acceder a l'historique de toute vos déclarations de perte et  supprimez une fois que vous retrouvez votre document en toute simplicité.</p>
   </div>
 
-  <div class="grid-container" *ngFor="let declaration of declarations; let i = index">
-    <div class="card">
+  <!-- Message en cas d'absence de déclarations -->
+  <div *ngIf="declarations.length === 0">
+    <p class="no-declarations">Vous n'avez aucune déclaration pour le moment.</p>
+  </div>
+
+  <!-- Grille d'affichage des cartes -->
+  <div class="grid-container">
+    <div class="card" *ngFor="let declaration of declarations; let i = index">
       <img src="/assets/declaration.png" alt="Document Image" />
+
       <div class="card-content">
         <p><strong>{{ declaration.Title }}</strong></p>
-        <p class="published-by">Déclaré le {{ declaration.created_at | date }}</p>
-        <p>Prénom exacte: <strong>{{ declaration.FirstNameInDoc }}</strong></p>
-        <p>Nom exacte: <strong>{{ declaration.LastNameInDoc }}</strong></p>
+        <p class="published-by">Déclaré le {{ declaration.created_at | date:'dd MMM yyyy' }}</p>
+        <p>Prénom exact: <strong>{{ declaration.FirstNameInDoc }}</strong></p>
+        <p>Nom exact: <strong>{{ declaration.LastNameInDoc }}</strong></p>
+
         <div class="card-actions">
-          <button class="my-btn" (click)="deleteDeclaration(declaration.id)">Supprimer</button>
+          <button class="delete-btn" (click)="deleteDeclaration(declaration.id)">Supprimer</button>
         </div>
       </div>
     </div>
   </div>
 
-
 </div>
 
 <app-footer></app-footer>
-

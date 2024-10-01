@@ -1,11 +1,14 @@
+/* General styling */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  transition: all 0.3s ease-in-out;
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f4f6f9;
 }
 
 .container {
@@ -14,6 +17,46 @@ body {
   padding: 20px;
 }
 
+/* Section intro styling */
+.section-intro {
+  background: linear-gradient(135deg, rgba(246, 165, 0, 0.9), rgba(49, 40, 124, 0.9)), url('/assets/background-image.jpg');
+  background-size: cover;
+  background-position: center;
+  padding: 50px 20px;
+  color: white;
+  text-align: center;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  animation: fade-in 1s ease forwards;
+}
+
+.section-intro h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.section-intro p {
+  font-size: 1.4rem;
+  font-weight: normal;
+  margin-bottom: 0;
+}
+
+/* Fade-in animation */
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Search bar styling */
 .search-bar {
   display: flex;
   justify-content: flex-start;
@@ -23,25 +66,35 @@ body {
 }
 
 .search-bar input {
-  padding: 10px;
+  padding: 12px;
   flex: 1;
-  background-color: aliceblue;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  font-size: 1.1rem;
 }
 
 .search-btn,
 .my-publications-btn {
   background-color: #F6A500;
-  color: black;
-  padding: 10px 20px;
+  color:black;
+  padding: 12px 25px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
-  flex-shrink: 0; /* Empêche les boutons de rétrécir */
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease-in-out, transform 0.3s;
 }
 
+.search-btn:hover,
+.my-publications-btn:hover {
+  background-color: #d18e00;
+  transform: translateY(-2px);
+}
+
+/* Grid container and card styling */
 .grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -52,19 +105,43 @@ body {
 .card {
   background-color: white;
   border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   margin: 20px;
+  transform: scale(1);
+  animation: card-fade-in 0.5s ease forwards;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+@keyframes card-fade-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 .card img {
   width: 100%;
   height: 200px;
   object-fit: cover;
+  transition: transform 0.3s ease-in-out;
+}
+
+.card:hover img {
+  transform: scale(1.05);
 }
 
 .card-content {
-  padding: 15px;
+  padding: 20px;
 }
 
 .published-by,
@@ -83,16 +160,21 @@ body {
 
 .details-btn {
   color: white;
-  padding: 8px 15px;
+  padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
   background-color: #31287C;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.details-btn:hover {
+  background-color: #251d6b;
 }
 
 .status {
-  font-size: 60px;
+  font-size: 30px;
 }
 
 .success {
@@ -103,42 +185,29 @@ body {
   color: red;
 }
 
-/* Media Queries pour adopter la réactivité */
+/* Media Queries for responsiveness */
 @media (max-width: 768px) {
+  .section-intro h1 {
+    font-size: 2rem;
+  }
+
+  .section-intro p {
+    font-size: 1rem;
+  }
+
   .search-bar {
-    flex-direction: column; /* Empile les éléments verticaux sur petites écrans */
-    margin-left: 0;  /* Supprime le margin à gauche pour une meilleure centering */
+    flex-direction: column;
+    margin-left: 0;
   }
 
   .search-bar input {
-    width: 100%;  /* Prend toute la largeur */
-    margin-bottom: 10px; /* Espace entre le champ de recherche et les boutons */
-    padding: 8px; /* Taille des détails */
+    width: 100%;
+    margin-bottom: 10px;
   }
 
   .search-btn,
   .my-publications-btn {
-    width: 100%; /* Les boutons prennent toute la largeur */
-    padding: 8px; /* Taille des détails */
-    font-size: 14px; /* Taille de la police réduite */
-    margin-bottom: 10px; /* Espace entre les boutons */
+    width: 100%;
+    margin-bottom: 10px;
   }
 }
-
-@media (min-width: 769px) {
-  .search-bar {
-    /* Options pour écrans plus larges pour un meilleur affichage en ligne */
-    flex-direction: row; /* Affiche les éléments en horizontal */
-  }
-
-  .search-bar input {
-    width: auto; /* Enlever la largeur de 100% */
-  }
-
-  .search-btn,
-  .my-publications-btn {
-    width: auto; /* Enlever la largeur de 100% */
-    margin-bottom: 0; /* Supprimer le fond pour les boutons supplémentaires */
-  }
-}
-

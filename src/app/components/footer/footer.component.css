@@ -1,6 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-/*  CSS du Footer **/
+/* Assurez-vous que le body et html ont une hauteur complète */
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Le contenu de la page occupe tout l'espace restant */
+.content {
+  flex: 1; /* Permet au contenu de s'étendre */
+}
+
+/* Votre footer */
 .footer {
   background-color: #31287C;
   color: white;
@@ -8,6 +21,7 @@
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  width: 100%;
 }
 
 .footer-top {

@@ -1,96 +1,18 @@
-<!-- <app-navbar></app-navbar>
-
-<div class="container">
-  <div class="search-bar">
-    <input type="text" placeholder="Rechercher en tapant les mots clés" />
-    <button class="search-btn">Chercher un document</button>
-    <button class="my-publications-btn">Mes publications</button>
-  </div>
-
-  <div class="grid-container">
-    <div class="card">
-      <img src="/assets/permis1.png" alt="Document Image" />
-      <div class="card-content">
-        <p class="published-by">Publié par Malang Marna | 15 Aout 2024</p>
-        <p class="phone-number">📞 +221 76 169 57 84 </p>
-        <p>Prénom propriétaire: <strong>OUSSEYNOU</strong></p>
-        <p>Nom propriétaire: <strong>DIOUF</strong></p>
-        <div class="card-actions">
-          <button class="details-btn">Voir détails</button>
-          <span class="status success">✔️</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="/assets/permis1.png" alt="Document Image" />
-      <div class="card-content">
-        <p class="published-by">Publié par Malang Marna | 15 Aout 2024</p>
-        <p class="phone-number">📞 +221 76 169 57 84 </p>
-        <p>Prénom propriétaire: <strong>OUSSEYNOU</strong></p>
-        <p>Nom propriétaire: <strong>DIOUF</strong></p>
-        <div class="card-actions">
-          <button class="details-btn">Voir détails</button>
-          <span class="status success">✔️</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="/assets/permis1.png" alt="Document Image" />
-      <div class="card-content">
-        <p class="published-by">Publié par Malang Marna | 15 Aout 2024</p>
-        <p class="phone-number">📞 +221 76 169 57 84 </p>
-        <p>Prénom propriétaire: <strong>OUSSEYNOU</strong></p>
-        <p>Nom propriétaire: <strong>DIOUF</strong></p>
-        <div class="card-actions">
-          <button class="details-btn">Voir détails</button>
-          <span class="status error">❌</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="/assets/permis1.png" alt="Document Image" />
-      <div class="card-content">
-        <p class="published-by">Publié par Malang Marna | 15 Aout 2024</p>
-        <p class="phone-number">📞 +221 76 169 57 84 </p>
-        <p>Prénom propriétaire: <strong>OUSSEYNOU</strong></p>
-        <p>Nom propriétaire: <strong>DIOUF</strong></p>
-        <div class="card-actions">
-          <button class="details-btn">Voir détails</button>
-          <span class="status success">✔️</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="/assets/permis1.png" alt="Document Image" />
-      <div class="card-content">
-        <p class="published-by">Publié par Malang Marna | 15 Aout 2024</p>
-        <p class="phone-number">📞 +221 76 169 57 84 </p>
-        <p>Prénom propriétaire: <strong>OUSSEYNOU</strong></p>
-        <p>Nom propriétaire: <strong>DIOUF</strong></p>
-        <div class="card-actions">
-          <button class="details-btn">Voir détails</button>
-          <span class="status success">✔️</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<app-footer></app-footer> -->
-
-
 <app-navbar></app-navbar>
+
 <div class="container">
+  <!-- Section Title with Description -->
+  <div class="section-intro">
+    <h1>Bienvenue sur la page des publications</h1>
+    <p>Explorez les documents publiés, contactez les publicateurs,aider des personnes a retrouver leurs documents, commenter une publication et demander la restitution si vous etes proprietaires. Cette plateforme facilite la recherche et la récupération des documents perdus.</p>
+  </div>
+
   <div class="search-bar">
     <input type="text" placeholder="Rechercher en tapant les mots clés" [(ngModel)]="searchTerm" (input)="filterDocuments()" />
     <button class="search-btn" (click)="filterDocuments()">Chercher un document</button>
     <button class="my-publications-btn" (click)="goToMyPublications()">Mes publications</button>
   </div>
+
   <div class="grid-container">
     <div *ngFor="let document of filteredDocuments | paginate: { itemsPerPage: 12, currentPage: currentPage }" class="card">
       <img *ngIf="document.image" [src]="document.image" alt="document" />
