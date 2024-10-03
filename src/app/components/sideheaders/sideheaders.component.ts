@@ -1,5 +1,5 @@
 import { FormsModule } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,EventEmitter, Output } from '@angular/core';
 import { SidebarComponent } from "../sidebar/sidebar.component";
 import { AuthService } from '../services/auth.service';
 import { CommonModule } from '@angular/common';
@@ -22,6 +22,14 @@ export class SideheadersComponent implements OnInit{
   filteredDocuments: any[] = [];  // Documents filtrés par la recherche
   searchQuery: string = '';  // Texte entré dans la barre de recherche
   newNotifications: any[] = [];
+  searchTerm: string = '';
+  @Output() searchEvent = new EventEmitter<string>();
+
+
+
+  onSearch() {
+    this.searchEvent.emit(this.searchTerm); // Emettre une chaîne de caractères
+  }
 
 
   constructor(public authService: AuthService , private router: Router,  publicationsService: PublicationsService) {}

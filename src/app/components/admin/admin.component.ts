@@ -5,6 +5,7 @@ import { SidebarComponent } from './../sidebar/sidebar.component';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+
 @Component({
   selector: 'app-admin',
   standalone: true,
@@ -15,13 +16,14 @@ import { CommonModule } from '@angular/common';
 export class AdminComponent implements OnInit {
 
   emailLogs: any[] = [];
-  filteredEmailLogs: any[] = []; // Pour stocker les emails filtrés
+  documents: any[] = [];
+  searchTerm: string = '';
   filteredDocuments: any[] = [];
+  filteredEmailLogs: any[] = []; // Pour stocker les emails filtrés
   declarationsCount: number = 0;
   publicationsCount: number = 0;
   emailsSentCount: number = 0;
   restitutionCount: number = 0;
-
   currentPage: number = 1;
   itemsPerPage: number = 10; // Emails par page
   totalPages: number = 0;     // Nombre total de pages
@@ -96,6 +98,15 @@ export class AdminComponent implements OnInit {
     });
   }
 
+
+
+  // Méthode pour filtrer les publications par nom ou prénom
+  onSearch(searchTerm: string): void {
+    this.filteredDocuments = this.documents.filter(doc =>
+      doc.user.FirstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      doc.user.LastName.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }
   viewDetails(documentId: number): void {
     console.log('Voir détails pour', documentId);
   }

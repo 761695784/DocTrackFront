@@ -21,25 +21,15 @@
 
 <button class="btn-history" (click)="showRestitutionHistory()">Historiques des Restitutions</button>
 
-    <!-- Affichage des résultats filtrés -->
-<div class="container">
-  <div class="grid-container">
-    <div *ngFor="let document of filteredDocuments" class="card">
-      <img *ngIf="document.image" [src]="document.image" alt="document" />
-      <p *ngIf="!document.image">Image non disponible</p>
-      <div class="card-content">
-        <p class="published-by">Publié par {{ document.user.FirstName }} {{ document.user.LastName }} | {{ document.created_at | date }}</p>
-        <p class="phone-number">📞 {{ document.user.Phone }}</p>
-        <p>Prénom propriétaire: <strong>{{ document.OwnerFirstName }}</strong></p>
-        <p>Nom propriétaire: <strong>{{ document.OwnerLastName }}</strong></p>
-        <div class="card-actions">
-          <button class="details-btn" (click)="viewDetails(document.id)">Voir détails</button>
-          <span class="status" [ngClass]="document.statut === 'récupéré' ? 'success' : 'error'">
-            {{ document.statut === 'récupéré' ? '✔️' : '❌' }}
-          </span>
-          <span class="delete-icon" (click)="deletePublication(document.id)" style="cursor: pointer; color: red; font-size: 40px;">🗑️</span>
-        </div>
-      </div>
+<!-- Afficher les résultats de recherche -->
+<div *ngIf="filteredDocuments.length > 0" class="search-results">
+  <div *ngFor="let document of filteredDocuments" class="card">
+    <img *ngIf="document.image" [src]="document.image" alt="document" />
+    <p *ngIf="!document.image">Image non disponible</p>
+    <div class="card-content">
+      <p class="published-by">Publié par {{ document.user.FirstName }} {{ document.user.LastName }} | {{ document.created_at | date }}</p>
+      <p>Prénom propriétaire: <strong>{{ document.OwnerFirstName }}</strong></p>
+      <p>Nom propriétaire: <strong>{{ document.OwnerLastName }}</strong></p>
     </div>
   </div>
 </div>
