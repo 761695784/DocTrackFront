@@ -10,26 +10,26 @@
     <table class="user-table">
       <thead>
         <tr>
-          <th><input type="checkbox" /></th>
-          <th>Noms</th>
-          <th>Prénoms</th>
-          <th>Email</th>
-          <th>Rôles</th>
-          <th>Adresse</th>
-          <th>Téléphone</th>
+          <th (click)="sortUsers('id')">id</th>
+          <th (click)="sortUsers('LastName')">Noms</th>
+          <th (click)="sortUsers('FirstName')">Prénoms</th>
+          <th (click)="sortUsers('email')">Email</th>
+          <th (click)="sortUsers('roles')">Rôles</th>
+          <th (click)="sortUsers('Adress')">Adresse</th>
+          <th (click)="sortUsers('Phone')">Téléphone</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of users">
-          <td><input type="checkbox" /></td>
-          <td>{{ user.LastName }}</td>
-          <td>{{ user.FirstName }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.roles.join(', ') }}</td>
-          <td>{{ user.Adress }}</td>
-          <td>{{ user.Phone }}</td>
-          <td>
+        <tr *ngFor="let user of paginatedUsers">
+          <td data-label="id">{{user.id}}</td>
+          <td data-label="Noms">{{ user.LastName }}</td>
+          <td data-label="Prénoms">{{ user.FirstName }}</td>
+          <td data-label="Email">{{ user.email }}</td>
+          <td data-label="Rôles">{{ user.roles.join(', ') }}</td>
+          <td data-label="Adresse">{{ user.Adress }}</td>
+          <td data-label="Téléphone">{{ user.Phone }}</td>
+          <td data-label="Action">
             <button class="delete-btn" (click)="deleteUser(user.id)">
               <span class="delete-icon" style="cursor: pointer; font-size: 24px;">🗑️</span>
             </button>
@@ -37,5 +37,11 @@
         </tr>
       </tbody>
     </table>
+  </div>
+
+  <div class="pagination-controls">
+    <button (click)="pageChanged(currentPage - 1)" [disabled]="currentPage === 1">Précédent</button>
+    <span>Page {{ currentPage }} sur {{ totalPages }}</span>
+    <button (click)="pageChanged(currentPage + 1)" [disabled]="currentPage === totalPages">Suivant</button>
   </div>
 </div>

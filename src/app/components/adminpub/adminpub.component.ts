@@ -39,25 +39,33 @@ export class AdminpubComponent implements OnInit {
 
   loadAllPublications(): void {
     this.publicationsService.getAllPublications().subscribe({
-      next: (docs) => this.documents = docs,
+      next: (docs) => {
+        // Trier les publications par date de création du plus récent au plus ancien
+        this.documents = docs.sort((a: Document, b: Document) => {
+          return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+        });
+      },
       error: (err) => console.error('Erreur lors de la récupération des publications', err)
     });
   }
+
   viewDetails(id: number): void {
     this.router.navigate(['/admindetails', id]); // Remplacez '/document' par votre route de détails
   }
 
+  pageChanged(page: number): void {
+    this.currentPage = page;
+  }
 
-    // Méthode pour changer de page
-    pageChanged(event: number): void {
-      this.currentPage = event;
-    }
-
-      // Méthode pour afficher les documents de la page actuelle
   get paginatedDocuments(): Document[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     return this.documents.slice(startIndex, startIndex + this.itemsPerPage);
   }
+
+  get totalPages(): number {
+    return Math.ceil(this.documents.length / this.itemsPerPage);
+  }
+
 
   deletePublication(id: number): void {
     if (id) {

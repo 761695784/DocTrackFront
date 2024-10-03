@@ -27,8 +27,12 @@
   </div>
 
   <!-- Pagination controls -->
-  <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
-
+ <!-- Pagination controls -->
+ <div class="pagination-controls">
+  <button (click)="pageChanged(currentPage - 1)" [disabled]="currentPage === 1">Précédent</button>
+  <span>Page {{ currentPage }} sur {{ totalPages }}</span>
+  <button (click)="pageChanged(currentPage + 1)" [disabled]="currentPage === totalPages">Suivant</button>
+</div>
 </div>
 
-<app-footer></app-footer>
+<!-- <app-footer></app-footer> -->

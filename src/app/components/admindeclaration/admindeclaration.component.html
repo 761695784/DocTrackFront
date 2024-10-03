@@ -4,20 +4,26 @@
   <p>Aucune déclaration disponible.</p>
 </div>
 
-<div class="grid-container" *ngFor="let declaration of declarations; let i = index">
-  <div class="card">
-    <img src="/assets/declaration.png" alt="Document Image" />
-    <div class="card-content">
-      <p><strong>{{ declaration.Title }}</strong></p>
-      <p class="published-by">Déclaré par {{ declaration.user.FirstName }} {{ declaration.user.LastName }}  le {{ declaration.created_at | date }}</p>
-      <p>📞 : <strong>{{ declaration.user.Phone }}</strong></p>
-      <p>Prénom exacte sur document: <strong>{{ declaration.FirstNameInDoc }}</strong></p>
-      <p>Nom exacte sur document: <strong>{{ declaration.LastNameInDoc }}</strong></p>
-      <div class="card-actions">
-        <button class="my-btn" (click)="deleteDeclaration(declaration.id)">Supprimer</button>
+<div class="container" *ngIf="declarations.length > 0">
+  <div class="grid-container">
+    <div *ngFor="let declaration of declarations; let i = index" class="card">
+      <img src="/assets/declaration.png" alt="Document Image" />
+      <div class="card-content">
+        <p><strong>{{ declaration.Title }}</strong></p>
+        <p class="published-by">Déclaré par {{ declaration.user.FirstName }} {{ declaration.user.LastName }} le {{ declaration.created_at | date }}</p>
+        <p>📞 : <strong>{{ declaration.user.Phone }}</strong></p>
+        <p>Prénom exacte sur document: <strong>{{ declaration.FirstNameInDoc }}</strong></p>
+        <p>Nom exacte sur document: <strong>{{ declaration.LastNameInDoc }}</strong></p>
+        <div class="card-actions">
+          <button class="my-btn" (click)="deleteDeclaration(declaration.id)">Supprimer</button>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<app-footer></app-footer>
+<!-- Contrôles de pagination -->
+<pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+
+
+<!-- <app-footer></app-footer> -->

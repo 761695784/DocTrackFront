@@ -118,13 +118,30 @@ body {
     align-items: flex-start;
   }
 
-  .status-icon {
+  .status {
     margin-bottom: 10px;
     margin-left: 0;
     margin-top: 0;
-    font-size: 40px;
+    font-size: 60px;
 
   }
+
+  .card-document {
+    background-color: white;
+    padding: 20px;
+    width: 78%;
+    margin-left: 20%;
+    /* margin: 0 auto; */
+  }
+
+  /* .image-container {
+    width: 100%;
+    max-height: 400px;
+    overflow: hidden;
+    position: relative;
+  } */
+
+
 
 
   .restore-btn {

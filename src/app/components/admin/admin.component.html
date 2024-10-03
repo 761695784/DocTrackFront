@@ -19,7 +19,7 @@
 </div>
 
 
-<button class="btn-history">Historiques des Restitutions</button>
+<button class="btn-history" (click)="showRestitutionHistory()">Historiques des Restitutions</button>
 
     <!-- Affichage des résultats filtrés -->
 <div class="container">
@@ -64,16 +64,23 @@
           </tr>
       </thead>
       <tbody>
-          <tr *ngFor="let emailLog of emailLogs">
+          <tr *ngFor="let emailLog of paginatedEmailLogs">
               <td>{{ emailLog.id }}</td>
               <td>{{ emailLog.from }}</td>
               <td>{{ emailLog.to }}</td>
               <td>{{ emailLog.subject }}</td>
               <td>{{ emailLog.body }}</td>
               <td>{{ emailLog.created_at | date:'dd/MM/yyyy' }}</td>
-              <td><span class="delete-icon" style="cursor: pointer; color: red; font-size: 40px;">🗑️</span>
-              </td>
+              <td><span class="delete-icon" style="cursor: pointer; color: red; font-size: 40px;">🗑️</span></td>
           </tr>
       </tbody>
   </table>
 </div>
+
+<!-- Pagination Controls -->
+<div class="pagination-controls">
+  <button (click)="pageChanged(currentPage - 1)" [disabled]="currentPage === 1">Précédent</button>
+  <span>Page {{ currentPage }} sur {{ totalPages }}</span>
+  <button (click)="pageChanged(currentPage + 1)" [disabled]="currentPage === totalPages">Suivant</button>
+</div>
+

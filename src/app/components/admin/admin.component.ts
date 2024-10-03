@@ -2,27 +2,30 @@ import { FormsModule } from '@angular/forms';
 import { SideheadersComponent } from './../sideheaders/sideheaders.component';
 import { AuthService } from './../services/auth.service';
 import { SidebarComponent } from './../sidebar/sidebar.component';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [CommonModule,SideheadersComponent,FormsModule],
+  imports: [CommonModule, SideheadersComponent, FormsModule],
   templateUrl: './admin.component.html',
-  styleUrl: './admin.component.css'
+  styleUrls: ['./admin.component.css']
 })
-export class AdminComponent {
+export class AdminComponent implements OnInit {
 
   emailLogs: any[] = [];
-  filteredDocuments: any[] = [];  // Documents filtrés par la recherche
-
-
+  filteredEmailLogs: any[] = []; // Pour stocker les emails filtrés
+  filteredDocuments: any[] = [];
   declarationsCount: number = 0;
   publicationsCount: number = 0;
-  // restitutionsCount: number = 0;
   emailsSentCount: number = 0;
   restitutionCount: number = 0;
+
+  currentPage: number = 1;
+  itemsPerPage: number = 10; // Emails par page
+  totalPages: number = 0;     // Nombre total de pages
+  isShowingRestitutionHistory: boolean = false; // Contrôle pour afficher les restitutions
 
   constructor(private authService: AuthService) {}
 
@@ -32,10 +35,16 @@ export class AdminComponent {
     this.loadRestitutionCount();
   }
 
+  // Méthode pour charger les logs d'emails avec la pagination
   loadEmailLogs() {
     this.authService.getAllEmailLogs().subscribe(
       (response) => {
-        this.emailLogs = response.data; // Assurez-vous que la structure de la réponse correspond
+        // Trier les emails par date décroissante (du plus récent au plus ancien)
+        this.emailLogs = response.data.sort((a: any, b: any) => {
+          return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+        });
+        this.filteredEmailLogs = this.emailLogs; // Par défaut, on montre tous les emails
+        this.totalPages = Math.ceil(this.filteredEmailLogs.length / this.itemsPerPage);
       },
       (error) => {
         console.error('Erreur lors du chargement des logs d\'emails:', error);
@@ -43,17 +52,39 @@ export class AdminComponent {
     );
   }
 
+  // Méthode pour obtenir les emails paginés
+  get paginatedEmailLogs(): any[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    return this.filteredEmailLogs.slice(startIndex, startIndex + this.itemsPerPage);
+  }
+
+  // Méthode pour changer de page
+  pageChanged(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
+  }
+
+  // Méthode pour afficher uniquement les emails de demandes de restitution
+  showRestitutionHistory(): void {
+    this.isShowingRestitutionHistory = true;
+    this.filteredEmailLogs = this.emailLogs.filter((email) => {
+      return email.subject.includes('Demande de restitution');
+    });
+    this.currentPage = 1; // Réinitialise à la première page
+    this.totalPages = Math.ceil(this.filteredEmailLogs.length / this.itemsPerPage);
+  }
+
+  // Méthode pour charger toutes les données
   loadAllData(): void {
     this.authService.getAllData().subscribe(data => {
       this.declarationsCount = data.declarations.length;
       this.publicationsCount = data.publications.length;
       this.emailsSentCount = data.emailsSent.length;
-      console.log('Emails envoyés:', this.emailsSentCount);  // Vérifiez si cette valeur est correcte
-   });
-
-
+    });
   }
 
+  // Méthode pour charger le nombre de demandes de restitution
   loadRestitutionCount(): void {
     this.authService.getRestitutionRequestCount().subscribe({
       next: (data) => {
@@ -66,12 +97,10 @@ export class AdminComponent {
   }
 
   viewDetails(documentId: number): void {
-    // Implémentation pour voir les détails d'un document
     console.log('Voir détails pour', documentId);
   }
 
   deletePublication(documentId: number): void {
-    // Implémentation pour supprimer une publication
     console.log('Suppression de la publication', documentId);
   }
 }

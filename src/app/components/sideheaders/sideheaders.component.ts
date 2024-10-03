@@ -21,12 +21,14 @@ export class SideheadersComponent implements OnInit{
   documents: any[] = []; // Pour stocker les documents récupérés
   filteredDocuments: any[] = [];  // Documents filtrés par la recherche
   searchQuery: string = '';  // Texte entré dans la barre de recherche
+  newNotifications: any[] = [];
 
 
   constructor(public authService: AuthService , private router: Router,  publicationsService: PublicationsService) {}
 
   ngOnInit() {
     this.FirstName = this.authService.getUserName(); // Récupérer le nom de l'utilisateur
+
   }
 
     // Méthode pour filtrer les documents selon la recherche

@@ -6,18 +6,32 @@ import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SideheadersComponent } from "../sideheaders/sideheaders.component";
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';  // Importation de SweetAlert2
+import Swal from 'sweetalert2';
+
+interface User {
+  id: number;
+  LastName: string;
+  FirstName: string;
+  email: string;
+  roles: string[];
+  Adress: string;
+  Phone: string;
+}
 
 @Component({
   selector: 'app-userget',
   standalone: true,
   imports: [SidebarComponent, CommonModule, FormsModule, NgbModule, SideheadersComponent],
   templateUrl: './userget.component.html',
-  styleUrl: './userget.component.css'
+  styleUrls: ['./userget.component.css']
 })
 export class UsergetComponent implements OnInit {
 
-  users: any[] = []; // Pour stocker les utilisateurs récupérés
+  users: User[] = [];
+  filteredUsers: User[] = []; // Pour stocker les utilisateurs filtrés
+  currentPage: number = 1;
+  itemsPerPage: number = 10; // Utilisateurs par page
+  totalPages: number = 0;     // Nombre total de pages
 
   constructor(
     private authService: AuthService,
@@ -33,15 +47,29 @@ export class UsergetComponent implements OnInit {
     this.authService.getAllUsers().subscribe({
       next: (response) => {
         if (response.success) {
-          this.users = response.users;
+          this.users = response.users.sort((a: User, b: User) => b.id - a.id); // Tri par ID du plus récent au plus ancien
+          this.filteredUsers = this.users; // Par défaut, montrer tous les utilisateurs
+          this.totalPages = Math.ceil(this.filteredUsers.length / this.itemsPerPage);
         }
       },
       error: (err) => console.error('Erreur lors de la récupération des utilisateurs', err)
     });
   }
 
-  // Méthode pour supprimer un utilisateur (à implémenter plus tard)
-// Méthode pour confirmer la suppression d'un utilisateur avec SweetAlert
+  // Méthode pour obtenir les utilisateurs paginés
+  get paginatedUsers(): User[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    return this.filteredUsers.slice(startIndex, startIndex + this.itemsPerPage);
+  }
+
+  // Méthode pour changer de page
+  pageChanged(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
+  }
+
+  // Méthode pour supprimer un utilisateur
   deleteUser(userId: number): void {
     Swal.fire({
       title: 'Êtes-vous sûr ?',
@@ -54,20 +82,16 @@ export class UsergetComponent implements OnInit {
       cancelButtonText: 'Annuler'
     }).then((result) => {
       if (result.isConfirmed) {
-        // Si l'utilisateur confirme la suppression
         this.authService.deleteUser(userId).subscribe({
           next: () => {
-            // Afficher SweetAlert après une suppression réussie
             Swal.fire(
               'Supprimé !',
               'L\'utilisateur a été supprimé.',
               'success'
             );
-            // Recharger la liste des utilisateurs
-            this.loadUsers();
+            this.loadUsers(); // Recharge les utilisateurs après suppression
           },
           error: (err) => {
-            // Afficher SweetAlert en cas d'erreur
             Swal.fire(
               'Erreur !',
               'Une erreur est survenue lors de la suppression.',
@@ -80,9 +104,19 @@ export class UsergetComponent implements OnInit {
     });
   }
 
-  // Methode pour etre redirigé vers la page d'ajout
-  addUser(): void {
-    this.router.navigate(['/adminadd']); // Redirection vers la route adminadd
+  // Méthode pour trier les utilisateurs
+  sortUsers(key: keyof User): void {
+    this.filteredUsers.sort((a, b) => {
+      if (a[key] < b[key]) return -1;
+      if (a[key] > b[key]) return 1;
+      return 0;
+    });
+    this.totalPages = Math.ceil(this.filteredUsers.length / this.itemsPerPage);
+    this.pageChanged(1); // Réinitialise à la première page après tri
   }
 
+  // Méthode pour rediriger vers la page d'ajout
+  addUser(): void {
+    this.router.navigate(['/adminadd']);
+  }
 }

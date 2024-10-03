@@ -2,13 +2,17 @@ body {
   font-family: Arial, sans-serif;
 }
 
+/* Ajout d'une animation d'entrée lors du chargement des stats */
 .stats-container {
   display: flex;
   justify-content: space-around;
   margin: 20px 0;
   margin-left: 13%;
+  opacity: 0;
+  animation: fadeIn 1s ease forwards; /* Animation d'apparition fluide */
 }
 
+/* Animation sur les stat-box */
 .stat-box {
   display: flex;
   background-color: #31287C;
@@ -20,9 +24,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction:row;
+  flex-direction: row;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Ajout d'une transition fluide */
 }
-
+.stat-box:hover {
+  transform: translateY(-10px); /* Légère élévation de la boîte lors du survol */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Ombre lors du survol */
+}
 .bleu {
   background-color: #31287C;
   font-weight: bold !important;
@@ -54,6 +62,18 @@ body {
   margin-top: 10px;
   margin-left: 15%;
   width: 83%;
+}
+
+/* Animation fadeIn */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 table {
@@ -210,4 +230,40 @@ tbody tr:hover {
   cursor: pointer;
   color: red;
   font-size: 24px;
+}
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  margin-left:60%;
+}
+
+.pagination-controls button {
+  padding: 10px 15px;
+  margin: 0 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #31287C;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.pagination-controls button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination-controls button:hover:not(:disabled) {
+  background-color: #F6A500;
+  transform: scale(1.05);
+}
+
+.pagination-controls span {
+  margin: 0 15px;
+  font-size: 16px;
+  color: #333;
 }

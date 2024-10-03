@@ -7,6 +7,8 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import Swal from'sweetalert2';
 import { DeclarationService } from '../services/declaration.service';
+import { NgxPaginationModule } from 'ngx-pagination';
+
 
 export interface Declaration {
   id: number;
@@ -32,12 +34,15 @@ export interface Declaration {
 @Component({
   selector: 'app-admindeclaration',
   standalone: true,
-  imports: [FooterComponent, SideheadersComponent,CommonModule,FormsModule],
+  imports: [FooterComponent, SideheadersComponent,CommonModule,FormsModule,NgxPaginationModule],
   templateUrl: './admindeclaration.component.html',
   styleUrl: './admindeclaration.component.css'
 })
 export class AdmindeclarationComponent {
   declarations: any[] = [];
+  currentPage: number = 1;
+  itemsPerPage: number = 12;
+
 
   constructor(
       private declarationService: DeclarationService,
@@ -62,6 +67,14 @@ export class AdmindeclarationComponent {
         );
       }
 
+      pageChanged(event: number): void {
+        this.currentPage = event;
+      }
+
+      get paginatedDeclarations(): Declaration[] {
+        const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+        return this.declarations.slice(startIndex, startIndex + this.itemsPerPage);
+      }
 
 
 

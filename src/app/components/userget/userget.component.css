@@ -9,9 +9,10 @@ body {
 }
 
 .container {
-  max-width: 1200px;
-  margin: 40px auto;
+  max-width: 1500px;
+  margin: 40px;
   padding: 20px;
+  margin-left: 17%;
 }
 
 .header {
@@ -24,6 +25,8 @@ body {
 .header h1 {
   font-size: 30px;
   color: #31287C;
+  font-weight: bold;
+
   letter-spacing: 1px;
 }
 
@@ -85,21 +88,10 @@ body {
 .user-table tbody tr {
   border-bottom: 1px solid #ddd;
   transition: all 0.3s ease;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeIn 0.5s forwards;
-}
-
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .user-table tbody tr:hover {
   background-color: rgba(246, 165, 0, 0.1);
-  transform: scale(1.01);
 }
 
 .user-table td {
@@ -113,6 +105,11 @@ body {
   transition: transform 0.3s ease;
 }
 
+.delete-btn {
+  border: none;
+  background-color: transparent;
+}
+
 .user-table td .delete-icon:hover {
   transform: rotate(20deg);
   color: #ff4d4d;
@@ -120,8 +117,21 @@ body {
 
 /* Responsive Table for Mobile */
 @media (max-width: 768px) {
+  .user-table {
+    display: block;
+  }
+  .header h1 {
+  font-size: 18px;
+  font-weight: bold;
+}
   .user-table thead {
-    display: none;
+    display: none; /* Cacher l'en-tête du tableau sur mobile */
+  }
+
+  .add-user-btn {
+    width: auto !important;
+    height: auto !important;
+    margin: auto;
   }
 
   .user-table tbody tr {
@@ -138,6 +148,7 @@ body {
     text-align: right;
     padding: 10px 5px;
     font-size: 14px;
+    position: relative; /* Nécessaire pour la position des pseudo-éléments */
   }
 
   .user-table tbody td:before {
@@ -149,6 +160,48 @@ body {
   }
 
   .user-table tbody td:last-child {
-    text-align: center;
+    text-align: center; /* Centrer l'action dans le dernier élément */
   }
+
+  .container {
+    max-width: 700px;
+    /* margin: 40px; */
+    padding: 20px;
+    margin-left: 17%;
+  }
+}
+
+.pagination-controls {
+  align-items: center;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  margin-right: 15px;
+}
+
+.pagination-controls button {
+  padding: 10px 15px;
+  margin: 0 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #31287C;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.pagination-controls button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination-controls button:hover:not(:disabled) {
+  background-color: #F6A500;
+  transform: scale(1.05);
+}
+
+.pagination-controls span {
+  margin: 0 15px;
+  font-size: 16px;
+  color: #333;
 }
