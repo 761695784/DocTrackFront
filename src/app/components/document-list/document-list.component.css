@@ -210,4 +210,41 @@ body {
     width: 100%;
     margin-bottom: 10px;
   }
+
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px ;
+  margin-left: 70%;
+}
+
+.pagination-controls button {
+  padding: 10px 15px;
+  margin: 0 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #31287C;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.pagination-controls button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination-controls button:hover:not(:disabled) {
+  background-color: #F6A500;
+  transform: scale(1.05);
+}
+
+.pagination-controls span {
+  margin: 0 15px;
+  font-size: 16px;
+  color: #333;
 }

@@ -14,7 +14,7 @@
   </div>
 
   <div class="grid-container">
-    <div *ngFor="let document of filteredDocuments | paginate: { itemsPerPage: 12, currentPage: currentPage }" class="card">
+    <div *ngFor="let document of paginatedDocuments" class="card">
       <img *ngIf="document.image" [src]="document.image" alt="document" />
       <p *ngIf="!document.image">Image non disponible</p>
       <div class="card-content">
@@ -33,6 +33,11 @@
   </div>
 
   <!-- Pagination controls -->
-  <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+  <!-- <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls> -->
+  <div class="pagination-controls">
+    <button (click)="pageChanged(currentPage - 1)" [disabled]="currentPage === 1">Précédent</button>
+    <span>Page {{ currentPage }} sur {{ totalPages }}</span>
+    <button (click)="pageChanged(currentPage + 1)" [disabled]="currentPage === totalPages">Suivant</button>
+  </div>
 </div>
 <app-footer></app-footer>

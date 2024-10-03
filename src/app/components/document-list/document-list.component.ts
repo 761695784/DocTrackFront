@@ -41,6 +41,8 @@ export class DocumentListComponent implements OnInit {
   filteredDocuments: Document[] = [];
   searchTerm: string = '';
   currentPage: number = 1;
+  itemsPerPage: number = 12;
+
 
   constructor(private publicationsService: PublicationsService, private router: Router) { }
 
@@ -85,7 +87,21 @@ export class DocumentListComponent implements OnInit {
 
 
   // Méthode appelée lors du changement de page
-  pageChanged(event: number): void {
-    this.currentPage = event;
+  // pageChanged(event: number): void {
+  //   this.currentPage = event;
+  // }
+
+  pageChanged(page: number): void {
+    this.currentPage = page;
   }
+
+  get paginatedDocuments(): Document[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    return this.documents.slice(startIndex, startIndex + this.itemsPerPage);
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.documents.length / this.itemsPerPage);
+  }
+
 }
