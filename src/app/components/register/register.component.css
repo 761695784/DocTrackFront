@@ -43,6 +43,11 @@ body {
   margin-left: 2%; /* Pour aligner le formulaire sur desktop */
 }
 
+#form{
+  background-color: rgba(248, 242, 242, 0.5)
+}
+
+
 .label-container {
   display: flex;
   justify-content: space-between; /* Espacement entre les champs */
