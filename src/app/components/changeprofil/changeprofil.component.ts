@@ -64,21 +64,21 @@ export class ChangeprofilComponent implements OnInit {
   onSubmit() {
     if (this.profileForm.valid) {
       const profileData = this.profileForm.value;
-      const { oldPassword, newPassword } = profileData;
 
       // Mettre à jour les informations de profil
       this.authService.updateProfile(profileData).subscribe(
         (response) => {
-          console.log('Profil mis à jour', response);
           Swal.fire({
             icon: 'success',
             title: 'Profil mis à jour',
             text: 'Vos informations de profil ont été mises à jour avec succès !',
             confirmButtonText: 'Ok'
+          }).then(() => {
+            // Redirection après la mise à jour du profil
+            this.router.navigate(['/accueil']); // Remplacer par la route souhaitée
           });
         },
         (error) => {
-          console.error(error);
           Swal.fire({
             icon: 'error',
             title: 'Erreur',
@@ -89,23 +89,24 @@ export class ChangeprofilComponent implements OnInit {
       );
 
       // Vérifier si l'utilisateur souhaite changer son mot de passe
-      if (oldPassword && newPassword) {
+      if (profileData.oldPassword && profileData.newPassword) {
         this.authService.changePassword({
-          current_password: oldPassword,
-          new_password: newPassword,
+          current_password: profileData.oldPassword,
+          new_password: profileData.newPassword,
           new_password_confirmation: profileData.newPasswordConfirm
         }).subscribe(
           (response) => {
-            console.log('Mot de passe changé', response);
             Swal.fire({
               icon: 'success',
               title: 'Mot de passe changé',
               text: 'Votre mot de passe a été changé avec succès !',
               confirmButtonText: 'Ok'
+            }).then(() => {
+              // Redirection après le changement de mot de passe
+              this.router.navigate(['/accueil']); // Remplacer par la route souhaitée
             });
           },
           (error) => {
-            console.error(error);
             Swal.fire({
               icon: 'error',
               title: 'Erreur',
@@ -124,4 +125,5 @@ export class ChangeprofilComponent implements OnInit {
       });
     }
   }
+
 }

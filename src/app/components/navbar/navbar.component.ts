@@ -19,12 +19,13 @@ export class NavbarComponent {
 
   // Fonction pour rediriger vers la page de modification du mot de passe
   goToChangePassword(): void {
-    this.router.navigate(['/change-password']);
+    this.router.navigate(['/modify']); // Correction de l'URL
   }
 
   // Fonction pour se déconnecter
   logout(): void {
     this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
 }
