@@ -57,7 +57,7 @@ export class AdmindetailsComponent {
     this.detailsService.getDocumentDetails(id).subscribe({
       next: (details) => {
         // Vérifie si l'image existe et ajoute le préfixe pour l'URL complète
-        details.image = details.image ? `http://localhost:8000${details.image}` : '';
+        details.image = details.image ? `https://doctrackapi.malang2019marna.simplonfabriques.com${details.image}` : '';
         this.documentDetails = details; // Assurez-vous de bien utiliser les données comme vous en avez besoin
       },
       error: (err) => console.error('Erreur lors de la récupération des détails du document', err)
@@ -115,7 +115,7 @@ export class AdmindetailsComponent {
     }
   }
 
-  
+
 
 
 }
