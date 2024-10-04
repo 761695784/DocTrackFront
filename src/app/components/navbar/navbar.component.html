@@ -26,13 +26,15 @@
               <div *ngIf="authService.isAuthenticated(); else loginBtn">
                 <div class="dropdown">
                   <button class="btn btn-warning dropdown-toggle" type="button" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-user"><span class="user-name mr-2" style="color: black; font-weight: bold;">
-                      {{ authService.getUserName() }}
-                    </span></i> <!-- Icône utilisateur -->
+                    <i class="fas fa-user">
+                      <span class="user-name mr-2" style="color: black; font-weight: bold;">
+                        {{ authService.getUserName() }}
+                      </span>
+                    </i>
                   </button>
                   <div class="dropdown-menu" aria-labelledby="userDropdown">
                     <a class="dropdown-item" (click)="goToChangePassword()">Modifier mon profil</a>
-                    <a class="dropdown-item" routerLink="/accueil" (click)="logout()">Déconnexion</a>
+                    <a class="dropdown-item" (click)="logout()">Déconnexion</a>
                   </div>
                 </div>
               </div>

@@ -4,15 +4,15 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { ChangeprofilComponent } from '../changeprofil/changeprofil.component';
+// import { ChangeprofilComponent } from '../changeprofil/changeprofil.component';
 
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule,FormsModule, RouterModule,ChangeprofilComponent],
+  imports: [CommonModule,FormsModule, RouterModule],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
   constructor(public authService: AuthService, private router: Router) {}
