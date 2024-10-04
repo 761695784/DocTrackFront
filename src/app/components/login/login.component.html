@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <section class="Formulaire">
-  <div class="container">
-    <div class="form-container">
+  <div class="container" id="form">
+    <div class="form-container" >
       <h2>Connexion</h2>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="test">
         <label for="email">Email</label>

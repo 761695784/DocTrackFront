@@ -31,6 +31,9 @@ body {
   position: absolute;
 
 }
+#form{
+  background-color: rgba(238, 230, 230, 0.3)
+}
 
 .form-container h2 {
   text-align: center;

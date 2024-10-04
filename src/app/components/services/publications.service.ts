@@ -14,7 +14,7 @@ export class PublicationsService {
   private apiUrlPost = 'http://localhost:8000/api/documents'; // URL pour ajouter des documents
   private apiUrlDelete = 'http://localhost:8000/api/document'; // URL pour supprimer des documents
   private apiUrlUpdate = 'http://localhost:8000/api/document'; // URL pour mettre à jour des documents
-
+  // https://doctrackapi.malang2019marna.simplonfabriques.com/api/documentation
   private publicationsSubject = new BehaviorSubject<Document[]>([]);
   public publications$ = this.publicationsSubject.asObservable();
 

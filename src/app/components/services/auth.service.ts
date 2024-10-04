@@ -72,14 +72,14 @@ export class AuthService {
   }
 
    updateProfile(profileData: any): Observable<any> {
-    // const userId = localStorage.getItem('userId');
+    const userId = localStorage.getItem('userId');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
 
     return this.http.put(`${this.apiUrl}/profil`, profileData, { headers });
   }
 
   changePassword(passwordData: any): Observable<any> {
-    // const userId = localStorage.getItem('userId');
+    const userId = localStorage.getItem('userId');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
 
     return this.http.put(`${this.apiUrl}/change-password`, passwordData, { headers });

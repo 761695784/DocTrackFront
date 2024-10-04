@@ -57,6 +57,7 @@
     commentaires: Commentaire[] = []; // Ajout pour stocker les commentaires
     newComment: string = ''; // Pour stocker le contenu du nouveau commentaire
     isRestitutionRequested: boolean = false; // Ajout pour suivre l'état de la demande de restitution
+    isOwner: boolean = false; // Variable pour suivre si l'utilisateur est le propriétaire
 
     constructor(
       private route: ActivatedRoute,
@@ -84,6 +85,10 @@
           // Vérifie si l'image existe et ajoute le préfixe pour l'URL complète
           details.image = details.image ? `http://localhost:8000${details.image}` : '';
           this.documentDetails = details; // Assurez-vous de bien utiliser les données comme vous en avez besoin
+
+        // Vérifier si l'utilisateur actuel est le propriétaire du document
+        const currentUserId = +localStorage.getItem('userId')!; // ID de l'utilisateur connecté
+        this.isOwner = currentUserId === this.documentDetails?.user.id; // Comparer avec l'ID de l'utilisateur qui a publié
         },
         error: (err) => console.error('Erreur lors de la récupération des détails du document', err)
       });
@@ -142,7 +147,7 @@
 
     // Méthode pour demander la restitution d'un document
     requestRestitution(): void {
-      if (this.documentDetails) {
+      if (!this.isOwner && this.documentDetails) { // Empêche le propriétaire de demander une restitution
         Swal.fire({
           title: 'Êtes-vous sûr ?',
           text: 'Vous êtes sur le point d\'envoyer une demande de restitution.',
@@ -154,8 +159,7 @@
           if (result.isConfirmed) {
             this.detailsService.requestRestitution(this.documentDetails!.id).subscribe({
               next: (response) => {
-                console.log('Notification envoyée avec succès');
-                this.isRestitutionRequested = true; // Désactiver le bouton après succès
+                this.isRestitutionRequested = true;
                 Swal.fire({
                   icon: 'success',
                   title: 'Demande envoyée',
@@ -165,7 +169,6 @@
                 });
               },
               error: (err) => {
-                console.error('Erreur lors de la demande de restitution', err);
                 Swal.fire({
                   icon: 'error',
                   title: 'Erreur',
@@ -179,9 +182,9 @@
         });
       } else {
         Swal.fire({
-          icon: 'warning',
-          title: 'Document non trouvé',
-          text: 'Aucun document à restituer.',
+          icon: 'error',
+          title: 'Action interdite',
+          text: 'Vous ne pouvez pas demander la restitution de votre propre document.',
           timer: 2000,
           showConfirmButton: false
         });
