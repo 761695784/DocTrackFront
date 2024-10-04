@@ -8,10 +8,10 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class DeclarationService {
-  private apiUrlGet = 'http://localhost:8000/api/declarations'; // URL pour récupérer les déclarations
-  private apiUrlPost = 'http://localhost:8000/api/declarations'; // URL pour ajouter des déclarations
-  private apiUrlGetUserDeclarations = 'http://localhost:8000/api/mydec';
-  private apiUrlDelete = 'http://localhost:8000/api/declarations';
+  private apiUrlGet = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api/declarations'; // URL pour récupérer les déclarations
+  private apiUrlPost = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api/declarations'; // URL pour ajouter des déclarations
+  private apiUrlGetUserDeclarations = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api/mydec';
+  private apiUrlDelete = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api/declarations';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 

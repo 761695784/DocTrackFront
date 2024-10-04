@@ -11,8 +11,8 @@ import { tap } from 'rxjs/operators';
 })
 export class AuthService {
   private apiUrl = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api';
-  private apiUrlGetAll = 'http://localhost:8000/api' ;
-  private apiUrlPost = 'http://localhost:8000/api'; // URL pour ajouter des documents
+  private apiUrlGetAll = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api' ;
+  private apiUrlPost = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api/'; // URL pour ajouter des documents
 
 
   constructor(
