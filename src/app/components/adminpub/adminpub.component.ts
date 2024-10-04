@@ -27,6 +27,7 @@ export class AdminpubComponent implements OnInit {
   searchTerm: string = '';
   currentPage: number = 1;
   itemsPerPage: number = 12;
+  filteredDocuments: Document[] = [];
 
   constructor(
     private publicationsService: PublicationsService,
@@ -40,14 +41,29 @@ export class AdminpubComponent implements OnInit {
   loadAllPublications(): void {
     this.publicationsService.getAllPublications().subscribe({
       next: (docs) => {
-        // Trier les publications par date de création du plus récent au plus ancien
         this.documents = docs.sort((a: Document, b: Document) => {
           return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
         });
+        this.filteredDocuments = this.documents; // Initialise filteredDocuments avec tous les documents
       },
       error: (err) => console.error('Erreur lors de la récupération des publications', err)
     });
   }
+
+
+  filterDocuments(): void {
+    this.currentPage = 1;  // Réinitialiser à la première page
+    if (this.searchTerm) {
+      const lowerCaseSearchTerm = this.searchTerm.toLowerCase();
+      this.filteredDocuments = this.documents.filter(document =>
+        document.OwnerFirstName.toLowerCase().includes(lowerCaseSearchTerm) ||
+        document.OwnerLastName.toLowerCase().includes(lowerCaseSearchTerm)
+      );
+    } else {
+      this.filteredDocuments = this.documents;
+    }
+  }
+
 
   viewDetails(id: number): void {
     this.router.navigate(['/admindetails', id]); // Remplacez '/document' par votre route de détails
@@ -58,9 +74,11 @@ export class AdminpubComponent implements OnInit {
   }
 
   get paginatedDocuments(): Document[] {
+    const docsToPaginate = this.filteredDocuments.length > 0 ? this.filteredDocuments : this.documents;
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    return this.documents.slice(startIndex, startIndex + this.itemsPerPage);
+    return docsToPaginate.slice(startIndex, startIndex + this.itemsPerPage);
   }
+
 
   get totalPages(): number {
     return Math.ceil(this.documents.length / this.itemsPerPage);

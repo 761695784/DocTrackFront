@@ -81,8 +81,10 @@ body {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin-left: 20px;
+  margin-top: 40px;
+  margin-left: 22%;
   gap: 10px;
+  width: 60%;
 }
 
 .search-bar input {

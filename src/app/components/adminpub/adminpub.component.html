@@ -2,10 +2,8 @@
 
 
 <div class="search-bar">
-  <input type="text" placeholder="Rechercher en tapant les mots clés"  />
-  <!-- [(ngModel)]="searchTerm" (input)="filterDocuments()" -->
-  <button class="search-btn" >Chercher un document</button>
-  <!-- (click)="filterDocuments()" -->
+  <input type="text" placeholder="Rechercher en tapant les mots clés" [(ngModel)]="searchTerm" (input)="filterDocuments()" />
+  <button class="search-btn" (click)="filterDocuments()">Chercher un document</button>
 </div>
 
 <div class="container">

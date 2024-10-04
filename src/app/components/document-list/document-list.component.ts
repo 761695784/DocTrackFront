@@ -32,7 +32,7 @@ export interface Document {
 @Component({
   selector: 'app-document-list',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent, CommonModule, FormsModule, NgxPaginationModule],
+  imports: [NavbarComponent, FooterComponent, CommonModule, FormsModule],
   templateUrl: './document-list.component.html',
   styleUrls: ['./document-list.component.css']
 })
@@ -85,11 +85,6 @@ export class DocumentListComponent implements OnInit {
     this.router.navigate(['/mypub']); // Redirection vers la route /mypub
   }
 
-
-  // Méthode appelée lors du changement de page
-  // pageChanged(event: number): void {
-  //   this.currentPage = event;
-  // }
 
   pageChanged(page: number): void {
     this.currentPage = page;
