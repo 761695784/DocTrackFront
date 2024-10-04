@@ -14,7 +14,7 @@
   </div>
 
   <div class="grid-container">
-    <div *ngFor="let document of paginatedDocuments" class="card">
+    <div *ngFor="let document of paginatedFilteredDocuments" class="card">
       <img *ngIf="document.image" [src]="document.image" alt="document" />
       <p *ngIf="!document.image">Image non disponible</p>
       <div class="card-content">
@@ -31,6 +31,7 @@
       </div>
     </div>
   </div>
+
 
   <!-- Pagination controls -->
   <!-- <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls> -->

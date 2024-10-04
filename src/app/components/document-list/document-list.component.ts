@@ -89,6 +89,12 @@ export class DocumentListComponent implements OnInit {
     this.currentPage = page;
   }
 
+
+  get paginatedFilteredDocuments(): Document[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    return this.filteredDocuments.slice(startIndex, startIndex + this.itemsPerPage);
+  }
+
   get paginatedDocuments(): Document[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     return this.documents.slice(startIndex, startIndex + this.itemsPerPage);
