@@ -1,12 +1,14 @@
 <app-sidebar></app-sidebar>
 
 <div class="header">
-  <div class="header-right">
-    <!-- <div class="search-bar">
-      <input type="text" placeholder="Rechercher..." />
-      <i class="fas fa-search"></i>
-    </div> -->
+  <!-- Section de défilement du texte -->
+  <div class="scroll-text" style="flex-grow: 1; margin-right: 20px;">
+    <marquee direction="left" scrollamount="6" behavior="scroll" style="font-size: 20px; color: #31287C; font-weight: bold;">
+      Bienvenue sur DocTrack - Simplifiez la gestion de vos documents perdus et retrouvés ! Ensemble, nous construisons un monde où chaque document trouve sa place.
+    </marquee>
+  </div>
 
+  <div class="header-right">
     <!-- Icône de notification -->
     <div class="notification-icon">
       <i class="fas fa-bell"></i>
@@ -14,7 +16,7 @@
 
     <!-- Dropdown utilisateur -->
     <div *ngIf="authService.isAuthenticated()" ngbDropdown>
-      <button class="btn btn" ngbDropdownToggle style="background-color:#31287C; margin-left: 40%;">
+      <button class="btn btn" ngbDropdownToggle style="background-color:#31287C;">
         <i class="fas fa-user"></i>
         <span class="user-name mr-2" style="color: white; font-weight: bold;">
           {{ authService.getUserName() }}

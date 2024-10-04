@@ -1,8 +1,6 @@
-/* Header Styles */
 .header {
-  background-color: #F6A500; 
+  background-color: #F6A500;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 15px 30px;
   color: white;
@@ -11,31 +9,15 @@
   margin-left: 13%;
 }
 
-
 .header-right {
   display: flex;
-  margin-left: 65%;
   align-items: center;
 }
 
-.search-bar {
-  position: relative;
-  margin-right: 20px;
-}
-
-.search-bar input {
-  padding: 8px 12px;
-  border-radius: 20px;
-  border: none;
-  width: 320px;
-}
-
-.search-bar i {
-  position: absolute;
-  top: 50%;
-  right: 15px;
-  transform: translateY(-50%);
-  color: #31287C;
+.scroll-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .notification-icon {
@@ -60,12 +42,6 @@
   font-weight: bold;
 }
 
-
-.user-icon i {
-  font-size: 20px;
-  color: #31287C;
-}
-
 .dropdown-toggle {
   background-color: #31287C;
   color: white !important;
@@ -80,24 +56,4 @@
 .dropdown-item:hover {
   background-color: #F6A500;
   font-weight: bold;
-}
-
-/* Responsive Header */
-@media (max-width: 768px) {
-  .header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .header-left h1 {
-    font-size: 18px;
-  }
-
-  .search-bar input {
-    width: 180px;
-  }
-
-  .notification-icon {
-    margin-right: 10px;
-  }
 }
