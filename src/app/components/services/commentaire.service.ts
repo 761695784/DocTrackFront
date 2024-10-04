@@ -7,13 +7,13 @@ import { Commentaire } from '../document-detail/document-detail.component';
   providedIn: 'root'
 })
 export class CommentairesService {
-  private apiUrl = 'http://localhost:8000/api/comments'; // URL pour les commentaires
+  private apiUrl = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api/comments'; // URL pour les commentaires
 
   constructor(private http: HttpClient) {}
 
   // Récupérer les commentaires par document ID
   getCommentairesByDocument(documentId: number): Observable<Commentaire[]> {
-    return this.http.get<Commentaire[]>(`http://localhost:8000/api/documents/${documentId}/comments`);
+    return this.http.get<Commentaire[]>(`https://doctrackapi.malang2019marna.simplonfabriques.com/api/documents/${documentId}/comments`);
   }
 
   // Ajouter un commentaire

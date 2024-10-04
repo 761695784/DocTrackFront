@@ -7,7 +7,7 @@ import { DocumentDetails } from '../document-detail/document-detail.component'; 
   providedIn: 'root'
 })
 export class DetailsService {
-  private apiUrl = 'http://localhost:8000/api/documents'; // URL de l'API pour les publications
+  private apiUrl = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api/documents'; // URL de l'API pour les publications
 
   constructor(private http: HttpClient) {}
 
@@ -24,7 +24,7 @@ export class DetailsService {
       'Authorization': `Bearer ${token}` // Ajoute l'en-tête d'authentification
     });
 
-    return this.http.post<any>(`http://localhost:8000/api/documents/${documentId}/restitution`, {}, { headers });
+    return this.http.post<any>(`https://doctrackapi.malang2019marna.simplonfabriques.com/api/documents/${documentId}/restitution`, {}, { headers });
   }
 
 }
