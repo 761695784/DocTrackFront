@@ -9,18 +9,18 @@ import { Document } from '../document-list/document-list.component';
   providedIn: 'root'
 })
 export class PublicationsService {
-  // private apiUrlGetAll = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api/document'; // URL pour récupérer tous les documents
-  // private apiUrlGetUser = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api/mypub'; // URL pour récupérer uniquement les documents de l'utilisateur connecté
-  // private apiUrlPost = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api/documents'; // URL pour ajouter des documents
-  // private apiUrlDelete = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api/document'; // URL pour supprimer des documents
-  // private apiUrlUpdate = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api/document'; // URL pour mettre à jour des documents
+  private apiUrlGetAll = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api/document'; // URL pour récupérer tous les documents
+  private apiUrlGetUser = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api/mypub'; // URL pour récupérer uniquement les documents de l'utilisateur connecté
+  private apiUrlPost = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api/documents'; // URL pour ajouter des documents
+  private apiUrlDelete = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api/document'; // URL pour supprimer des documents
+  private apiUrlUpdate = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api/document'; // URL pour mettre à jour des documents
 
 
-  private apiUrlGetAll = 'http://localhost:8000/api/document';
-  private apiUrlGetUser = 'http://localhost:8000/api/mypub';
-  private apiUrlPost = 'http://localhost:8000/api/documents';
-  private apiUrlDelete = 'http://localhost:8000/api/document';
-  private apiUrlUpdate = 'http://localhost:8000/api/document';
+  // private apiUrlGetAll = 'http://localhost:8000/api/document';
+  // private apiUrlGetUser = 'http://localhost:8000/api/mypub';
+  // private apiUrlPost = 'http://localhost:8000/api/documents';
+  // private apiUrlDelete = 'http://localhost:8000/api/document';
+  // private apiUrlUpdate = 'http://localhost:8000/api/document';
 
   // https://doctrackapi.malang2019marna.simplonfabriques.com/api
 
@@ -36,8 +36,8 @@ export class PublicationsService {
     return this.http.get<Document[]>(this.apiUrlGetAll).pipe(
       tap(documents => this.publicationsSubject.next(documents)), // Met à jour le sujet
       map(documents => documents.map(doc => {
-        doc.image = doc.image ? `http://localhost:8000${doc.image}` : '';
-        // doc.image = doc.image ? `https://doctrackapi.malang2019marna.simplonfabriques.com${doc.image}` : '';
+        // doc.image = doc.image ? `http://localhost:8000${doc.image}` : '';
+        doc.image = doc.image ? `https://doctrackapi.malang2019marna.simplonfabriques.com${doc.image}` : '';
 
         return doc;
       }))

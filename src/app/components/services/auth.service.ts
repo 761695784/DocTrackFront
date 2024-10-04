@@ -10,12 +10,13 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  // private apiUrl = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api';
-  // private apiUrlGetAll = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api' ;
-  // private apiUrlPost = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api/'; // URL pour ajouter des documents
-  private apiUrlPost = 'http://localhost:8000/api';
-  private apiUrl = 'http://localhost:8000/api';
-  private apiUrlGetAll = 'http://localhost:8000/api';
+  private apiUrl = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api';
+  private apiUrlGetAll = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api' ;
+  private apiUrlPost = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api/'; // URL pour ajouter des documents
+
+  // private apiUrlPost = 'http://localhost:8000/api';
+  // private apiUrl = 'http://localhost:8000/api';
+  // private apiUrlGetAll = 'http://localhost:8000/api';
   constructor(
     private http: HttpClient,
     public router: Router,

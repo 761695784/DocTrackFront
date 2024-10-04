@@ -8,6 +8,7 @@ import { Commentaire } from '../document-detail/document-detail.component';
 })
 export class CommentairesService {
   private apiUrl = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api/comments'; // URL pour les commentaires
+//private apiUrl = 'http://localhost:8000/api/comments';
 
   constructor(private http: HttpClient) {}
 
