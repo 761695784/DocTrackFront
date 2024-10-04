@@ -10,7 +10,7 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8000/api';
+  private apiUrl = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api';
   private apiUrlGetAll = 'http://localhost:8000/api' ;
   private apiUrlPost = 'http://localhost:8000/api'; // URL pour ajouter des documents
 
