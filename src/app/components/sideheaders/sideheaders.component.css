@@ -1,6 +1,6 @@
 /* Header Styles */
 .header {
-  background-color: #F6A500; /* Yellow background */
+  background-color: #F6A500; 
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -50,7 +50,7 @@
 }
 
 .user-icon {
-  margin-right: 8px; /* Ajoute un espacement de 8px entre l'icône et le texte */
+  margin-right: 8px;
   font-size: 20px;
   color: white;
 }
