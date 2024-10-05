@@ -17,10 +17,12 @@ export class AuthService {
   // private apiUrlPost = 'http://localhost:8000/api';
   // private apiUrl = 'http://localhost:8000/api';
   // private apiUrlGetAll = 'http://localhost:8000/api';
+
+
   constructor(
     private http: HttpClient,
     public router: Router,
-    private redirectService: RedirectService // Injection du RedirectService
+    private redirectService: RedirectService
   ) {}
 
   register(user: User): Observable<any> {

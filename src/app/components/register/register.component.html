@@ -58,7 +58,7 @@
           </div>
           <div>
             <label for="Phone">Numéro de téléphone</label>
-            <input type="tel" id="Phone" formControlName="Phone" placeholder="Entrer votre numero" required>
+            <input type="tel" id="Phone" formControlName="Phone" placeholder="Entrer votre numero sous format +221" required>
             <div *ngIf="registerForm.get('Phone')?.invalid && (registerForm.get('Phone')?.touched || registerForm.get('Phone')?.dirty)">
               <small class="error">{{ getErrorMessage('Phone') }}</small>
             </div>

@@ -27,10 +27,14 @@ export class RegisterComponent {
   registerForm: FormGroup;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+    /**
+     * Construction du regles de validations des champs du formulaire d'inscription
+     */
+
     this.registerForm = this.fb.group({
       LastName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25), Validators.pattern('^[a-zA-Z]+$')]],
-      FirstName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50), Validators.pattern('^[a-zA-Z]+$')]],
-      Adress: ['', [Validators.required, Validators.maxLength(20), Validators.pattern('^[a-zA-Z0-9 ]+$')]],
+      FirstName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50), Validators.pattern('^[a-zA-Z]+( [a-zA-Z]+)*$')]],  // Nouvelle regex pour plusieurs prénoms
+      Adress: ['', [Validators.required, Validators.maxLength(50), Validators.pattern('^[a-zA-Z0-9 ,.-]+$')]],
       Phone: ['', [Validators.required, Validators.pattern('^\\+221(33|70|75|76|77|78)[0-9]{7}$')]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -41,7 +45,10 @@ export class RegisterComponent {
   ngOnInit(): void {
     console.log('Register component initialized.');
   }
-
+/**
+ * message d'alertes pour notifier si l'inscription est reussie ou pas
+ * accompagné de la redirection
+ */
   onSubmit(): void {
     if (this.registerForm.valid) {
       const userData: User = {
@@ -79,7 +86,7 @@ export class RegisterComponent {
     }
   }
 
-  // Nouvelle méthode pour récupérer les messages d'erreur
+  /**Methodes permettant l'affichage des messages d'erreur en dessous de chaque champ du formulaire */
   public getErrorMessage(controlName: string): string {
     const control = this.registerForm.get(controlName);
     if (control?.hasError('required')) {
