@@ -22,16 +22,15 @@ body {
 }
 
 .image-container {
-  width: 100%; /* S'assure que le conteneur d'image prend toute la largeur disponible */
-  max-height: 400px; /* Limite la hauteur du conteneur */
-  overflow: hidden; /* Cache les parties de l'image qui dépassent */
-  position: relative; /* Positionnement relatif pour pouvoir ajuster l'image */
+  width: 100%; 
+  max-height: 400px;
+  overflow: hidden;
+  position: relative;
 }
 
 .document-img {
-  width: 100%; /* L'image prend toute la largeur de son conteneur */
-  height: 60%; /* L'image prend toute la hauteur de son conteneur */
-  object-fit:contain; /* Ajuste l'image pour couvrir tout le conteneur tout en maintenant ses proportions */
+  width: 100%;
+  object-fit:contain;
   border-radius: 10px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
 }
@@ -60,6 +59,9 @@ body {
   color: red;
   margin-left: -5rem;
   margin-top: -7rem;
+}
+.error {
+  color: red;
 }
 
 .restore-btn {

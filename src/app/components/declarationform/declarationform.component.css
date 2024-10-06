@@ -19,7 +19,7 @@
 
 .logo {
   display: block;
-  margin: 0 auto 20px; /* Center the logo */
+  margin: 0 auto 20px; 
 }
 
 .single-input, .double-input div {
@@ -43,7 +43,7 @@ input[type="text"], select {
 button {
   width: 90%;
   padding: 12px;
-  background-color: #31287C; /* Dark blue */
+  background-color: #31287C;
   color: white;
   border: none;
   border-radius: 4px;
@@ -57,7 +57,7 @@ button {
 }
 
 button:hover {
-  background-color: #F6A500; /* Orange on hover */
+  background-color: #F6A500;
 }
 
 
@@ -85,6 +85,6 @@ button:hover {
   }
 
   .image-container {
-      display: none; /* Hide image on mobile */
+      display: none;
   }
 }

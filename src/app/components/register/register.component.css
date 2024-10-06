@@ -112,58 +112,61 @@ button:hover {
 .carteImage {
 margin-left: 45%;}
 
-@media (max-width: 480px) {
-body{
-  overflow-x: hidden;
-}
-  .Formulaire {
-   width: 400px;
-   overflow-x: hidden;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-  flex-wrap: wrap;
-  margin:0;
-
+/* Mobile Styles */
+@media screen and (max-width: 768px) {
+  body {
+    font-size: 14px; 
   }
+
+  .Formulaire {
+    flex-direction: column;
+    margin: 0;
+    padding: 20px;
+  }
+
+  .container {
+    margin: 0;
+    padding: 20px;
+    width: 100%;
+    position: relative;
+    box-shadow: none;
+  }
+
+  .form-container h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+
+  label {
+    margin: 10px 0 5px;
+  }
+
+  input, .single-input {
+    width: 100%;
+    margin: 5px 0;
+  }
+
   .label-container {
     flex-direction: column;
+    margin-bottom: 20px;
   }
 
-  input {
-    width: 90%;
-  }
-
-  button {
-    width: 90%; 
-    margin-left: 5%;
-  }
-
-  .carteImage {
-    display: none;
-  }
-  .container{
-
-    padding: 0;
-    width: 90%;
-    justify-content: center;
-    max-width: 100%;
-    height: auto;
-    margin: 0;
-    margin-top: 2rem;
-    margin-left:0;
-  }
   .test {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-    margin-left: 0;
+    margin: 0 auto;
     width: 100%;
   }
 
-  .single-input {
-    width: 90%;
+  button {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .carteImage {
+display: none;
+  }
+
+  .carte {
+    width: 80%;
+    height: auto;
   }
 }

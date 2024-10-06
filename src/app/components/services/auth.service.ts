@@ -25,10 +25,13 @@ export class AuthService {
     private redirectService: RedirectService
   ) {}
 
+
+  //Methode d'inscription d'un user simple
   register(user: User): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, user);
   }
 
+  // Methode de Connexion d'un user
   login(credentials: any): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(`${this.apiUrl}/login`, credentials, { headers }).pipe(
@@ -70,11 +73,13 @@ export class AuthService {
         return user?.FirstName || 'Utilisateur';
       }
 
+  // Methode de la deconnexion
   logout(): void {
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
   }
 
+  //methode pour la modifications des infos du profil
    updateProfile(profileData: any): Observable<any> {
     const userId = localStorage.getItem('userId');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
@@ -82,10 +87,10 @@ export class AuthService {
     return this.http.put(`${this.apiUrl}/profil`, profileData, { headers });
   }
 
+  // Methode pour le changement de mot de passe
   changePassword(passwordData: any): Observable<any> {
     const userId = localStorage.getItem('userId');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
-
     return this.http.put(`${this.apiUrl}/change-password`, passwordData, { headers });
   }
 
@@ -101,18 +106,19 @@ export class AuthService {
       return this.http.delete(`${this.apiUrlGetAll}/users/${id}`, { headers });
     }
 
+     // Nouvelle méthode pour ajouter un utilisateur admin
     addUser(userData: any): Observable<any> {
       const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
       return this.http.post(`${this.apiUrlPost}/create-admin`, userData, { headers });
     }
 
-    // Dans votre service Angular (AuthService)
-
+    // Methode d'affichage des historiques des mails envoyes
     getAllEmailLogs(): Observable<any> {
       const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
       return this.http.get(`${this.apiUrl}/emails`, { headers }); // Assurez-vous que l'URL correspond à votre API
     }
 
+    //Methode pour recuperer les donnees concerant toutes les mails
     getAllData(): Observable<any> {
       const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
       return this.http.get(`${this.apiUrl}/notification`, { headers }); // Assurez-vous que l'URL correspond à votre API

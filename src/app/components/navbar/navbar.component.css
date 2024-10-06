@@ -1,4 +1,3 @@
-/* Styles de base */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -8,57 +7,54 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #31287C; /* Couleur de fond */
+  background-color: #31287C;
   padding: 10px 20px;
 }
 
 .logo img {
-  height: 50px; /* Ajustez la taille du logo */
-  margin-right: 20px; /* Espace à droite du logo */
+  height: 50px;
+  margin-right: 20px;
 }
 
 nav ul {
   list-style: none;
   display: flex;
-  margin-left: 700px; /* Remplacez 700px par auto pour un meilleur alignement */
+  margin-left: 700px;
   padding: 0;
 }
+
 nav ul li a.active {
-  background-color: #F6A500; /* Couleur de fond pour le lien actif */
-  color: black; /* Couleur du texte pour le lien actif */
+  background-color: #F6A500;
+  color: black;
 }
 
-
 nav ul li {
-  margin: 0 35px 0; /* Espacement des liens */
+  margin: 0 35px 0;
 }
 
 nav ul li a {
-  color: white; /* Couleur du texte */
+  color: white;
   text-decoration: none;
   font-weight: bold;
   transition: all 0.3s;
-  padding: 10px 15px; /* Taille du bouton */
-  border-radius: 5px; /* Coins arrondis */
-  display: inline-block; /* Nécessaire pour le padding et la transition */
-  background-color: transparent; /* Couleur de fond par défaut */
+  padding: 10px 15px;
+  border-radius: 5px;
+  display: inline-block;
+  background-color: transparent;
 }
 
-/* Effet de bouton au survol */
 nav ul li a:hover {
-  background-color: #F6A500; /* Couleur de fond au survol */
-  color: #000000; /* Couleur du texte au survol */
+  background-color: #F6A500;
+  color: #000000;
 }
 
-/* Styles pour le menu hamburger */
 .navbar-toggler {
-  margin-left: 100px; /* Espace entre le bouton hamburger et le logo */
+  margin-left: 200px;
 }
 
-/* Bouton de connexion */
 .connexion .btn {
-  background-color: #F6A500; /* Couleur du bouton */
-  color: black; /* Couleur du texte du bouton */
+  background-color: #F6A500;
+  color: black;
   font-weight: bolder;
   height: 36.54px;
   justify-content: center;
@@ -66,18 +62,17 @@ nav ul li a:hover {
   text-decoration: none;
   border-radius: 8px;
   transition: background-color 0.3s;
-  margin-left: 100px; /* Espace à gauche du bouton de connexion */
+  margin-left: 100px;
 }
 
 .connexion .btn:hover {
-  background-color: #d89e00; /* Couleur au survol du bouton */
+  background-color: #d89e00;
 }
 
 .connexion .btn:active {
-  background-color: #b88a00; /* Couleur active du bouton */
+  background-color: #b88a00;
 }
 
-/* Style de l'icône utilisateur et du dropdown */
 .dropdown-toggle {
   background-color: #F6A500;
   color: black;
@@ -91,40 +86,36 @@ nav ul li a:hover {
 
 .dropdown-item:hover {
   background-color: #F6A500;
-  font-weight:bold ;
+  font-weight: bold;
 }
 
-
-
-
-/* Styles responsives */
 @media (max-width: 768px) {
-  header {
-    flex-direction: column; /* Colonne pour écran mobile */
-    align-items: flex-start; /* Alignement à gauche */
-    padding: 10px; /* Ajustement de l'espace autour de l'en-tête */
+  .navbar-collapse {
+      background-color: #31287C;
+      position: absolute;
+      top: 60px;
+      left: 180px;
+      z-index: 1000;
+      display: none;
   }
 
-  .navbar-brand, .navbar-toggler {
-    margin-bottom: 10px; /* Espace entre le logo et le bouton hamburger */
+  .navbar-collapse.show {
+      display: block;
   }
-  .navbar-toggler {
-    margin-left: 230px;
-  }
+
   nav ul {
-    flex-direction: column; /* Menu vertical sur mobile */
-    padding: 10px 0; /* Espacement autour des liens */
-    margin-top: 10px; /* Espace au-dessus du menu */
-    margin-left: 0;
-
+      flex-direction: column;
+      margin: 0;
+      padding: 15px 0;
   }
 
   nav ul li {
-    margin: 5px 0; /* Espacement vertical entre les éléments */
+      margin: 10px 0;
   }
 
-  .connexion .btn {
-    margin-top: 10px; /* Espace au-dessus du bouton de connexion mobile */
-    margin-left: 40px;
+  nav ul li a {
+      padding: 10px;
+      width: 100%;
+      text-align: center;
   }
 }
