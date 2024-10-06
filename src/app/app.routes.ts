@@ -45,7 +45,4 @@ export const routes: Routes = [
   { path: 'adminadd', component: UserAddComponent, canActivate: [AuthGuard] },
   { path: 'profil', component:AdminprofilComponent,  canActivate: [AuthGuard]}
 
-
-
-
 ];

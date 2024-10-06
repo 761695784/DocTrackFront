@@ -44,6 +44,8 @@ export class PublicationsService {
     );
   }
 
+
+  //Methode d'affichage des pub d'un user specific
   getUserPublications(): Observable<Document[]> {
     if (typeof window !== 'undefined' && window.localStorage) {
         const token = localStorage.getItem('token');
@@ -57,13 +59,14 @@ export class PublicationsService {
     });
   }
 
+
+//Methode pour ajouter une publication
   addPublication(document: FormData): Observable<Document> {
     if (typeof window !== 'undefined' && window.localStorage) {
         const token = localStorage.getItem('token');
         const headers = new HttpHeaders({
             'Authorization': `Bearer ${token}`
         });
-
         return this.http.post<Document>(this.apiUrlPost, document, { headers }).pipe(
             tap(response => {
                 console.log('Réponse du serveur:', response);
@@ -75,6 +78,7 @@ export class PublicationsService {
     });
   }
 
+  // Methode pour la suppression d'une publication
   deletePublication(id: number): Observable<void> {
     const token = localStorage.getItem('token'); // obtenir le token d'authentification
     const headers = new HttpHeaders({
@@ -83,6 +87,7 @@ export class PublicationsService {
     return this.http.delete<void>(`${this.apiUrlDelete}/${id}`, { headers });
 }
 
+//methode pour la modification du statut de sa propre publication
   updatePublicationStatus(id: number, statut: string): Observable<{ success: boolean; message: string; document: Document }> {
       const token = localStorage.getItem('token'); // Obtenez le token d'authentification
       const headers = new HttpHeaders({

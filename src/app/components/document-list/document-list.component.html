@@ -19,7 +19,7 @@
       <p *ngIf="!document.image">Image non disponible</p>
       <div class="card-content">
         <p class="published-by">Publié par {{ document.user.FirstName }} {{ document.user.LastName }} | {{ document.created_at | date }}</p>
-        <p class="phone-number">📞 {{ document.user.Phone }}</p>
+        <!-- <p class="phone-number">📞 {{ document.user.Phone }}</p> -->
         <p>Prénom propriétaire : <strong>{{ document.OwnerFirstName }}</strong></p>
         <p>Nom propriétaire : <strong>{{ document.OwnerLastName }}</strong></p>
         <div class="card-actions">
@@ -34,7 +34,6 @@
 
 
   <!-- Pagination controls -->
-  <!-- <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls> -->
   <div class="pagination-controls">
     <button (click)="pageChanged(currentPage - 1)" [disabled]="currentPage === 1">Précédent</button>
     <span>Page {{ currentPage }} sur {{ totalPages }}</span>

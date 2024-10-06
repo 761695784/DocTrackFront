@@ -12,11 +12,11 @@
   // Assurez-vous d'utiliser une interface pour décrire les données du document
   export interface DocumentDetails {
     id: number;
-    image: string | null; // Peut être null si aucune image n'est fournie
+    image: string | null;
     OwnerFirstName: string;
     OwnerLastName: string;
     Location: string;
-    statut: string; // Peut être 'récupéré' ou 'non récupéré'
+    statut: string;
     document_type_id: number;
     identification: string;
     user_id: number;
@@ -27,9 +27,9 @@
       FirstName: string;
       LastName: string;
       Phone: string;
-      Adress?: string;  // Optionnel, selon si tu veux afficher l'adresse ou pas
+      Adress?: string;
       email: string;
-      email_verified_at?: string;  // Optionnel, selon si c'est pertinent pour ton application
+      email_verified_at?: string; 
     };
   }
   export interface Commentaire {
@@ -96,6 +96,8 @@
       });
     }
 
+
+//Methode d'affichage de commentaire
     getCommentaires(documentId: number): void {
       this.commentairesService.getCommentairesByDocument(documentId).subscribe({
         next: (comments) => {

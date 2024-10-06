@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { DocumentDetails } from '../document-detail/document-detail.component'; // Assurez-vous d'utiliser le type DocumentDetails correcte pour les détails du document
-
+import { DocumentDetails } from '../document-detail/document-detail.component'; 
 @Injectable({
   providedIn: 'root'
 })
