@@ -108,7 +108,9 @@ nav ul li a:hover {
   .navbar-brand, .navbar-toggler {
     margin-bottom: 10px; /* Espace entre le logo et le bouton hamburger */
   }
-
+  .navbar-toggler {
+    margin-left: 230px;
+  }
   nav ul {
     flex-direction: column; /* Menu vertical sur mobile */
     padding: 10px 0; /* Espacement autour des liens */
