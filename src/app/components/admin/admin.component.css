@@ -58,11 +58,6 @@ body {
 
 }
 
-.table-container {
-  margin-top: 10px;
-  margin-left: 15%;
-  width: 83%;
-}
 
 /* Animation fadeIn */
 @keyframes fadeIn {
@@ -266,4 +261,132 @@ tbody tr:hover {
   margin: 0 15px;
   font-size: 16px;
   color: #333;
+}
+@media only screen and (max-width: 768px) {
+  /* Container pour les statistiques */
+  .stats-container {
+    flex-direction: column;
+    align-items: center;
+    margin-left: 60px;
+    margin-right: 0;
+  }
+
+  /* Chaque stat-box prend toute la largeur disponible et s'aligne verticalement */
+  .stat-box {
+    width: 65%;
+    margin-bottom: 20px; /* Ajout d'espace entre les boîtes */
+    flex-direction: column; /* Pour aligner le texte et l'image verticalement */
+  }
+
+  /* Les images à l'intérieur des stat-box */
+  .stat-box img {
+    width: 40px; /* Réduire la taille des images pour les petits écrans */
+    margin-right: 10px;
+  }
+
+  /* Texte à l'intérieur des stat-box */
+  .stat-box span {
+    font-size: 1.2rem; /* Réduire légèrement la taille de la police pour mobile */
+  }
+
+  /* Ajustement des contrôles de pagination */
+  .pagination-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+
+  .pagination-controls button {
+    margin-bottom: 10px; /* Ajout d'espacement entre les boutons de pagination */
+  }
+
+
+
+
+}
+/* Responsivité pour les petits écrans (tablettes et mobiles) */
+@media only screen and (max-width: 768px) {
+  /* Rendre le tableau plus compact et lisible */
+ /* Remove margin and padding for compact appearance */
+ tbody tr {
+  display: block;
+  margin-bottom: 10px; /* Réduire l'espace entre les lignes */
+  border: 1px solid #ddd;
+  border-radius: 5px; /* Réduction de l'effet de carte */
+}
+
+tbody td {
+  display: block;
+  text-align: left;
+  font-size: 0.85rem; /* Taille de texte légèrement réduite */
+  padding: 8px 10px; /* Moins d'espace interne */
+  position: relative;
+  padding-left: 40%; /* Moins d'espace pour le label */
+  border-bottom: 1px solid #ddd; /* Ligne de séparation entre les cellules */
+}
+
+tbody td::before {
+  content: attr(data-label);
+  position: absolute;
+  left: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  color: #31287C; /* Couleur des labels */
+}
+
+/* Supprimer les bordures du dernier élément de chaque ligne */
+tbody td:last-child {
+  border-bottom: none;
+}
+
+/* Remove thead for mobile */
+thead {
+  display: none;
+}
+
+/* Remove top margins */
+.table-container {
+  margin-left: 15%;
+}
+  /* Améliorer la disposition des boutons d'action (icône de suppression) */
+  .delete-icon {
+    font-size: 30px;
+  }
+
+  .pagination-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+
+  .pagination-controls button {
+    margin-bottom: 10px;
+  }
+
+
+  .email-list-header {
+    padding: 10px;
+    text-align: center;
+  }
+
+  .email-list-header h2 {
+    font-size: 1rem; /* Réduire la taille du titre */
+    margin-bottom: 10px;
+    margin-left: 16%;
+  }
+
+  .email-list-header p {
+    font-size: 0.8rem; /* Réduire la taille du texte explicatif */
+    margin: 0 auto;
+    line-height: 1.4;
+    max-width: 100%; /* S'assurer que le texte occupe tout l'espace disponible */
+    margin-left: 3%;
+  }
+  .btn-history {
+
+    margin-left: 28%;
+  }
 }

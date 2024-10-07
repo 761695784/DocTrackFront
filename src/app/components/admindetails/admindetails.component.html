@@ -17,7 +17,7 @@
         <p><strong>Nom propriétaire :</strong> {{ documentDetails.OwnerLastName }}</p>
         <p><strong>Lieu :</strong> {{ documentDetails.Location }}</p>
         <p><strong>Identification :</strong> {{ documentDetails.identification }}</p>
-        <button class="btn restore-btn">Restituer</button>
+        <!-- <button class="btn restore-btn">Restituer</button> -->
       </div>
 
       <span class="status" [ngClass]="documentDetails.statut === 'récupéré' ? 'success' : 'error'">

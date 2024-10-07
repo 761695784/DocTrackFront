@@ -57,3 +57,47 @@
   background-color: #F6A500;
   font-weight: bold;
 }
+@media only screen and (max-width: 768px) {
+  /* Header responsif pour mobile */
+  .header {
+    width: 78.5%;
+    margin-left: 20.5%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .scroll-text {
+    width: 100%;
+    justify-content: center;
+    margin-right: 0;
+  }
+
+  marquee {
+    font-size: 16px;
+  }
+
+  .header-right {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+
+  .notification-icon {
+    font-size: 18px;
+    margin-right: 10px;
+  }
+
+  .user-name {
+    font-size: 16px;
+    margin-right: 5px;
+  }
+
+  .dropdown-toggle {
+    font-size: 16px;
+    padding: 5px 10px;
+  }
+
+  .dropdown-menu {
+    font-size: 14px;
+  }
+}

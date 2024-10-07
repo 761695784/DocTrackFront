@@ -42,30 +42,31 @@
 
 <div class="table-container">
   <table>
-      <thead>
-          <tr>
-              <th>id</th>
-              <th>Expéditeur</th>
-              <th>Destinataire</th>
-              <th>Objet</th>
-              <th>Contenu</th>
-              <th>Date</th>
-              <th>Action</th>
-          </tr>
-      </thead>
-      <tbody>
-          <tr *ngFor="let emailLog of paginatedEmailLogs">
-              <td>{{ emailLog.id }}</td>
-              <td>{{ emailLog.from }}</td>
-              <td>{{ emailLog.to }}</td>
-              <td>{{ emailLog.subject }}</td>
-              <td>{{ emailLog.body }}</td>
-              <td>{{ emailLog.created_at | date:'dd/MM/yyyy' }}</td>
-              <td><span class="delete-icon" style="cursor: pointer; color: red; font-size: 40px;">🗑️</span></td>
-          </tr>
-      </tbody>
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>Expéditeur</th>
+        <th>Destinataire</th>
+        <th>Objet</th>
+        <th>Contenu</th>
+        <th>Date</th>
+        <!-- <th>Action</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let emailLog of paginatedEmailLogs">
+        <td data-label="id">{{ emailLog.id }}</td>
+        <td data-label="Expéditeur">{{ emailLog.from }}</td>
+        <td data-label="Destinataire">{{ emailLog.to }}</td>
+        <td data-label="Objet">{{ emailLog.subject }}</td>
+        <td data-label="Contenu">{{ emailLog.body }}</td>
+        <td data-label="Date">{{ emailLog.created_at | date:'dd/MM/yyyy' }}</td>
+        <!-- <td data-label="Action"><span class="delete-icon">🗑️</span></td> -->
+      </tr>
+    </tbody>
   </table>
 </div>
+
 
 <!-- Pagination Controls -->
 <div class="pagination-controls">
