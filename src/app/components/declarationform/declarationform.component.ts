@@ -78,8 +78,8 @@ export class DeclarationformComponent {
         Swal.fire({
           icon: 'success',
           title: 'Déclaration ajoutée !',
-          text: 'Votre déclaration a été ajoutée avec succès.',
-          timer: 2000,
+          text: 'Votre déclaration de perte a été soumise avec succès.Nous vous notifierons une fois qu"une publication correspondant à votre Déclaration. Sur ce nous vous conseillons de temps en temps verifer votre Boite Mail !!',
+          timer: 8000,
           timerProgressBar: true
         });
         this.declarationForm.reset(); // Réinitialisation du formulaire

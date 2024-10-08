@@ -29,7 +29,7 @@
       Phone: string;
       Adress?: string;
       email: string;
-      email_verified_at?: string; 
+      email_verified_at?: string;
     };
   }
   export interface Commentaire {
@@ -167,8 +167,8 @@
                 Swal.fire({
                   icon: 'success',
                   title: 'Demande envoyée',
-                  text: 'Votre demande de restitution a été envoyée avec succès.',
-                  timer: 2000,
+                  text: 'Votre demande de restitution a été envoyée avec succès. Le publicateur recevra un mail lui notifiant votre demande de restitution de votre document',
+                  timer: 8000,
                   showConfirmButton: false
                 });
               },
