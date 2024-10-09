@@ -8,6 +8,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class DeclarationService {
+  
   private apiUrlGet = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api/declarations'; // URL pour récupérer les déclarations
   private apiUrlPost = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api/declarations'; // URL pour ajouter des déclarations
   private apiUrlGetUserDeclarations = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api/mydec';

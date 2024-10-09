@@ -11,8 +11,8 @@ import { tap } from 'rxjs/operators';
 })
 export class AuthService {
   private apiUrl = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api';
-  private apiUrlGetAll = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api' ;
-  private apiUrlPost = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api/'; // URL pour ajouter des documents
+  // private apiUrlGetAll = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api' ;
+  // private apiUrlPost = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api/'; // URL pour ajouter des documents
 
   // private apiUrlPost = 'http://localhost:8000/api';
   // private apiUrl = 'http://localhost:8000/api';
@@ -97,19 +97,19 @@ export class AuthService {
     // Nouvelle méthode pour récupérer tous les utilisateurs avec leurs rôles
     getAllUsers(): Observable<any> {
       const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
-      return this.http.get(`${this.apiUrlGetAll}/users`, { headers });
+      return this.http.get(`${this.apiUrl}/users`, { headers });
     }
 
     // Nouvelle méthode pour supprimer un utilisateur
     deleteUser(id: number): Observable<any> {
       const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
-      return this.http.delete(`${this.apiUrlGetAll}/users/${id}`, { headers });
+      return this.http.delete(`${this.apiUrl}/users/${id}`, { headers });
     }
 
      // Nouvelle méthode pour ajouter un utilisateur admin
     addUser(userData: any): Observable<any> {
       const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
-      return this.http.post(`${this.apiUrlPost}/create-admin`, userData, { headers });
+      return this.http.post(`${this.apiUrl}/create-admin`, userData, { headers });
     }
 
     // Methode d'affichage des historiques des mails envoyes

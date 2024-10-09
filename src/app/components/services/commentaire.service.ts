@@ -27,3 +27,9 @@ export class CommentairesService {
     return this.http.post<any>(this.apiUrl, commentaire, { headers });
   }
 }
+// updateProfile(profileData: any): Observable<any> {
+//   const userId = localStorage.getItem('userId');
+//   const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+
+//   return this.http.put(`${this.apiUrl}/profil`, profileData, { headers });
+// }

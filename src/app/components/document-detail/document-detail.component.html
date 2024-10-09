@@ -17,8 +17,11 @@
           <p><strong>Nom propriétaire :</strong> {{ documentDetails.OwnerLastName }}</p>
           <p><strong>Lieu :</strong> {{ documentDetails.Location }}</p>
           <p><strong>Identification :</strong> {{ documentDetails.identification }}</p>
-          <button class="btn restore-btn animate-button" (click)="requestRestitution()" [disabled]="isRestitutionRequested || isOwner">Restituer</button>
-        </div>
+          <button class="btn restore-btn animate-button"
+          *ngIf="!isOwner"  
+          (click)="requestRestitution()"
+          [disabled]="isRestitutionRequested">Restituer</button>
+      </div>
 
         <span class="status" style="font-size: 40px;" [ngClass]="documentDetails.statut === 'récupéré' ? 'success' : 'error'">
           {{ documentDetails.statut === 'récupéré' ? '✔️' : '❌' }}
