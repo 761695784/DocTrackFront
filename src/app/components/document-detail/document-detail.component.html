@@ -11,6 +11,12 @@
 
       <div class="col-lg-6 col-md-6 col-sm-12 details-section">
         <div class="document-info animate-content">
+          <!-- Texte encourageant -->
+          <div class="encouragement-container" style="background-color: #F6A500; padding: 15px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 15px;">
+            <p style="font-weight: bold; color: #31287C; font-size: 1.2em;text-align: justify;">
+              Cliquez sur Restituer pour envoyer votre demande de restitution et obtenir le numéro du publicateur !
+            </p>
+          </div>
           <p>Publié par <strong>{{ documentDetails.user.FirstName }} {{ documentDetails.user.LastName }}</strong> | {{ documentDetails.created_at | date }}</p>
           <!-- <p>📞 <strong>{{ documentDetails.user.Phone }}</strong></p> -->
           <p><strong>Prénom propriétaire :</strong> {{ documentDetails.OwnerFirstName }}</p>
@@ -21,7 +27,7 @@
           *ngIf="!isOwner"
           (click)="requestRestitution()"
           [disabled]="isRestitutionRequested">Restituer</button>
-      </div>
+        </div>
 
         <span class="status" style="font-size: 40px;" [ngClass]="documentDetails.statut === 'récupéré' ? 'success' : 'error'">
           {{ documentDetails.statut === 'récupéré' ? '✔️' : '❌' }}
