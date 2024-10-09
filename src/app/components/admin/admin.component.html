@@ -45,9 +45,13 @@
     <thead>
       <tr>
         <th>id</th>
-        <th>Expéditeur</th>
+        <!-- <th>Expéditeur</th> -->
         <th>Destinataire</th>
         <th>Objet</th>
+        <th>document</th>
+        <th>demandeur</th>
+        <th>publicateur</th>
+        <th>Declarant</th>
         <th>Contenu</th>
         <th>Date</th>
         <!-- <th>Action</th> -->
@@ -56,9 +60,13 @@
     <tbody>
       <tr *ngFor="let emailLog of paginatedEmailLogs">
         <td data-label="id">{{ emailLog.id }}</td>
-        <td data-label="Expéditeur">{{ emailLog.from }}</td>
+        <!-- <td data-label="Expéditeur">{{ emailLog.from }}</td> -->
         <td data-label="Destinataire">{{ emailLog.to }}</td>
         <td data-label="Objet">{{ emailLog.subject }}</td>
+        <td data-label="document">{{ emailLog.document_id || 'Neant' }}</td>
+        <td data-label="demandeur">{{ emailLog.requester_user_id || 'Neant' }}</td>
+        <td data-label="publicateur">{{ emailLog.publisher_user_id || 'Neant' }}</td>
+        <td data-label="Declarant">{{ emailLog.declarant_user_id || 'Neant' }}</td>
         <td data-label="Contenu">{{ emailLog.body }}</td>
         <td data-label="Date">{{ emailLog.created_at | date }}</td>
         <!-- <td data-label="Action"><span class="delete-icon">🗑️</span></td> -->
