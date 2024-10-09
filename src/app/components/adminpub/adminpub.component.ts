@@ -46,7 +46,7 @@ export class AdminpubComponent implements OnInit {
         });
         this.filteredDocuments = this.documents; // Initialise filteredDocuments avec tous les documents
       },
-      error: (err) => console.error('Erreur lors de la récupération des publications', err)
+      // error: (err) => console.error('Erreur lors de la récupération des publications', err)
     });
   }
 
@@ -110,7 +110,7 @@ export class AdminpubComponent implements OnInit {
               this.loadAllPublications(); // Recharge la liste des publications après suppression
             },
             error: (err) => {
-              console.error('Erreur lors de la suppression de la publication', err);
+              // console.error('Erreur lors de la suppression de la publication', err);
               Swal.fire({
                 title: 'Erreur',
                 text: 'Une erreur est survenue lors de la suppression.',
@@ -121,7 +121,7 @@ export class AdminpubComponent implements OnInit {
         }
       });
     } else {
-      console.error('L\'ID de la publication est invalide.');
+      // console.error('L\'ID de la publication est invalide.');
     }
   }
 

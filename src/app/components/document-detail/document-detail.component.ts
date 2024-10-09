@@ -74,7 +74,7 @@
           this.getDocumentDetails(documentId);
           this.getCommentaires(documentId); // Charger les commentaires dès que le document est chargé
         } else {
-          console.error('Document ID is null or undefined');
+          // console.error('Document ID is null or undefined');
         }
       });
     }
@@ -92,7 +92,7 @@
         const currentUserId = +localStorage.getItem('userId')!; // ID de l'utilisateur connecté
         this.isOwner = currentUserId === this.documentDetails?.user.id; // Comparer avec l'ID de l'utilisateur qui a publié
         },
-        error: (err) => console.error('Erreur lors de la récupération des détails du document', err)
+        // error: (err) => console.error('Erreur lors de la récupération des détails du document', err)
       });
     }
 
@@ -103,7 +103,7 @@
         next: (comments) => {
           this.commentaires = comments;
         },
-        error: (err) => console.error('Erreur lors de la récupération des commentaires', err)
+        // error: (err) => console.error('Erreur lors de la récupération des commentaires', err)
       });
     }
 
@@ -128,7 +128,7 @@
             });
           },
           error: (err) => {
-            console.error('Erreur lors de l\'ajout du commentaire', err);
+            // console.error('Erreur lors de l\'ajout du commentaire', err);
             Swal.fire({
               icon: 'error',
               title: 'Erreur',

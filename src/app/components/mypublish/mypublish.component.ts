@@ -48,7 +48,7 @@ export class MypublishComponent implements OnInit {
         this.publications = data;
       },
       error => {
-        console.error('Erreur lors de la récupération des publications', error);
+        // console.error('Erreur lors de la récupération des publications', error);
       }
     );
   }
@@ -80,7 +80,7 @@ export class MypublishComponent implements OnInit {
               showConfirmButton: false // Ne pas afficher le bouton de confirmation
             });
           },
-          error: (err) => console.error('Erreur lors de la suppression de la publication', err)
+          // error: (err) => console.error('Erreur lors de la suppression de la publication', err)
         });
       }
     });
@@ -90,8 +90,8 @@ export class MypublishComponent implements OnInit {
     if (publication.user_id === this.getUserId()) {
       const newStatus = publication.statut === 'récupéré' ? 'non récupéré' : 'récupéré';
       const currentUserId = this.getUserId();
-      console.log('publication.user_id:', publication.user_id);
-      console.log('Current user ID:', this.getUserId());
+      // console.log('publication.user_id:', publication.user_id);
+      // console.log('Current user ID:', this.getUserId());
 
       Swal.fire({
         title: 'Êtes-vous sûr ?',
@@ -104,11 +104,11 @@ export class MypublishComponent implements OnInit {
         cancelButtonText: 'Annuler'
       }).then((result) => {
         if (result.isConfirmed) {
-          console.log(`Changement du statut pour la publication ID ${publication.id}: ${newStatus}`);
+          // console.log(`Changement du statut pour la publication ID ${publication.id}: ${newStatus}`);
 
           this.publicationService.updatePublicationStatus(publication.id, newStatus).subscribe({
             next: (response) => {
-              console.log('Réponse de la mise à jour:', response);
+              // console.log('Réponse de la mise à jour:', response);
               publication.statut = response.document.statut;  // Mettre à jour le statut affiché
               Swal.fire({
                 title: 'Mise à jour!',
@@ -119,7 +119,7 @@ export class MypublishComponent implements OnInit {
               });
             },
             error: (err) => {
-              console.error('Erreur lors de la mise à jour:', err);
+              // console.error('Erreur lors de la mise à jour:', err);
               Swal.fire('Erreur!', 'Erreur lors de la mise à jour du statut.', 'error');
             }
           });
@@ -133,7 +133,7 @@ export class MypublishComponent implements OnInit {
   // Méthode pour récupérer l'ID de l'utilisateur connecté (si stocké dans localStorage)
   private getUserId(): number | null {
     const userId = localStorage.getItem('userId');  // Assurez-vous que cet ID est stocké lors de la connexion
-    console.log('User ID:', userId);  // Ajoutez ce log pour le débogage
+    // console.log('User ID:', userId);  // Ajoutez ce log pour le débogage
     return userId ? Number(userId) : null;
   }
 

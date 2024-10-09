@@ -84,7 +84,7 @@ export class DeclarationformComponent {
         });
         this.declarationForm.reset(); // Réinitialisation du formulaire
       }, error => {
-        console.error('Erreur lors de l\'ajout de la déclaration:', error.error);
+        // console.error('Erreur lors de l\'ajout de la déclaration:', error.error);
         Swal.fire({
           icon: 'error',
           title: 'Erreur !',

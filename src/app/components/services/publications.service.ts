@@ -69,7 +69,7 @@ export class PublicationsService {
         });
         return this.http.post<Document>(this.apiUrlPost, document, { headers }).pipe(
             tap(response => {
-                console.log('Réponse du serveur:', response);
+                // console.log('Réponse du serveur:', response);
             })
         );
     }

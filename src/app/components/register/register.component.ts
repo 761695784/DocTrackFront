@@ -43,7 +43,7 @@ export class RegisterComponent {
   }
 
   ngOnInit(): void {
-    console.log('Register component initialized.');
+    // console.log('Register component initialized.');
   }
 /**
  * message d'alertes pour notifier si l'inscription est reussie ou pas

@@ -49,7 +49,7 @@ export class AdminComponent implements OnInit {
         this.totalPages = Math.ceil(this.filteredEmailLogs.length / this.itemsPerPage);
       },
       (error) => {
-        console.error('Erreur lors du chargement des logs d\'emails:', error);
+        // console.error('Erreur lors du chargement des logs d\'emails:', error);
       }
     );
   }
@@ -93,7 +93,7 @@ export class AdminComponent implements OnInit {
         this.restitutionCount = data.count;
       },
       error: (error) => {
-        console.error('Erreur lors de la récupération du compte des restitutions', error);
+        // console.error('Erreur lors de la récupération du compte des restitutions', error);
       }
     });
   }
@@ -108,10 +108,10 @@ export class AdminComponent implements OnInit {
     );
   }
   viewDetails(documentId: number): void {
-    console.log('Voir détails pour', documentId);
+    // console.log('Voir détails pour', documentId);
   }
 
   deletePublication(documentId: number): void {
-    console.log('Suppression de la publication', documentId);
+    // console.log('Suppression de la publication', documentId);
   }
 }

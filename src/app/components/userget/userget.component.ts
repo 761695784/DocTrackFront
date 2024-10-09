@@ -52,7 +52,7 @@ export class UsergetComponent implements OnInit {
           this.totalPages = Math.ceil(this.filteredUsers.length / this.itemsPerPage);
         }
       },
-      error: (err) => console.error('Erreur lors de la récupération des utilisateurs', err)
+      // error: (err) => console.error('Erreur lors de la récupération des utilisateurs', err)
     });
   }
 
@@ -97,7 +97,7 @@ export class UsergetComponent implements OnInit {
               'Une erreur est survenue lors de la suppression.',
               'error'
             );
-            console.error('Erreur lors de la suppression de l\'utilisateur', err);
+            // console.error('Erreur lors de la suppression de l\'utilisateur', err);
           }
         });
       }

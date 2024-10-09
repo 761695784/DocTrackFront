@@ -70,7 +70,7 @@ export class AdminprofilComponent {
       // Mettre à jour les informations de profil
       this.authService.updateProfile(profileData).subscribe(
         (response) => {
-          console.log('Profil mis à jour', response);
+          // console.log('Profil mis à jour', response);
           Swal.fire({
             icon: 'success',
             title: 'Profil mis à jour',
@@ -79,7 +79,7 @@ export class AdminprofilComponent {
           });
         },
         (error) => {
-          console.error(error);
+          // console.error(error);
           Swal.fire({
             icon: 'error',
             title: 'Erreur',
@@ -97,7 +97,7 @@ export class AdminprofilComponent {
           new_password_confirmation: profileData.newPasswordConfirm
         }).subscribe(
           (response) => {
-            console.log('Mot de passe changé', response);
+            // console.log('Mot de passe changé', response);
             Swal.fire({
               icon: 'success',
               title: 'Mot de passe changé',
@@ -106,7 +106,7 @@ export class AdminprofilComponent {
             });
           },
           (error) => {
-            console.error(error);
+            // console.error(error);
             Swal.fire({
               icon: 'error',
               title: 'Erreur',

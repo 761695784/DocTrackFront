@@ -58,11 +58,11 @@ export class AdmindeclarationComponent {
       loadAllDeclarations() {
         this.declarationService.getAllDeclarations().subscribe(
           (response: any) => {
-            console.log('Réponse complète:', response);
+            // console.log('Réponse complète:', response);
             this.declarations = response.data;  // Assigner toutes les déclarations
           },
           (error) => {
-            console.error('Erreur lors du chargement des déclarations', error);
+            // console.error('Erreur lors du chargement des déclarations', error);
           }
         );
       }
@@ -101,7 +101,7 @@ export class AdmindeclarationComponent {
           );
         },
         (error) => {
-          console.error('Erreur lors de la suppression de la déclaration', error);
+          // console.error('Erreur lors de la suppression de la déclaration', error);
           Swal.fire(
             'Erreur!',
             'Une erreur est survenue lors de la suppression.',

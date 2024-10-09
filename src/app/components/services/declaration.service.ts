@@ -8,7 +8,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class DeclarationService {
-  
+
   private apiUrlGet = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api/declarations'; // URL pour récupérer les déclarations
   private apiUrlPost = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api/declarations'; // URL pour ajouter des déclarations
   private apiUrlGetUserDeclarations = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api/mydec';
@@ -24,7 +24,7 @@ export class DeclarationService {
   // Récupérer les déclarations de l'utilisateur connecté
   getUserDeclarations(): Observable<any[]> {
     const token = localStorage.getItem('token');
-    console.log('Token récupéré:', token); // Ajoute cette ligne pour vérifier le token
+    // console.log('Token récupéré:', token); // Ajoute cette ligne pour vérifier le token
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
@@ -43,7 +43,7 @@ export class DeclarationService {
     // Utilisation de FormData pour envoyer les données
     return this.http.post<any>(this.apiUrlPost, declaration, { headers }).pipe(
       tap(response => {
-        console.log('Réponse du serveur:', response);
+        // console.log('Réponse du serveur:', response);
       })
     );
   }

@@ -29,11 +29,11 @@ export class LandingComponent implements OnInit {
   fetchDocuments(): void {
     this.publicationsService.getAllPublications().subscribe({
       next: (data) => {
-        console.log('Documents fetched:', data);
+        // console.log('Documents fetched:', data);
         this.documents = data;
         this.filteredDocuments = data;
       },
-      error: (err) => console.error('Failed to fetch documents', err)
+      // error: (err) => console.error('Failed to fetch documents', err)
     });
   }
 
@@ -43,7 +43,7 @@ export class LandingComponent implements OnInit {
       document.OwnerFirstName.toLowerCase().includes(lowerCaseSearchTerm) ||
       document.OwnerLastName.toLowerCase().includes(lowerCaseSearchTerm)
     );
-    console.log('Filtered Documents:', this.filteredDocuments);
+    // console.log('Filtered Documents:', this.filteredDocuments);
   }
 
   viewDetails(id: number): void {

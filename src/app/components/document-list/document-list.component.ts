@@ -52,27 +52,27 @@ export class DocumentListComponent implements OnInit {
   fetchDocuments(): void {
     this.publicationsService.getAllPublications().subscribe({
       next: (data) => {
-        console.log('Documents fetched:', data); // Vérifiez la réponse de l'API
+        // console.log('Documents fetched:', data); // Vérifiez la réponse de l'API
         // Trier les documents du plus récent au plus ancien
         this.documents = data.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
         this.filteredDocuments = this.documents; // Initialisez filteredDocuments avec tous les documents
       },
-      error: (err) => console.error('Failed to fetch documents', err)
+      // error: (err) => console.error('Failed to fetch documents', err)
     });
   }
 
   filterDocuments(): void {
-    console.log('Search Term:', this.searchTerm); // Affiche le terme de recherche
+    // console.log('Search Term:', this.searchTerm); // Affiche le terme de recherche
     if (this.searchTerm) {
       const lowerCaseSearchTerm = this.searchTerm.toLowerCase();
       this.filteredDocuments = this.documents.filter(document =>
         document.OwnerFirstName.toLowerCase().includes(lowerCaseSearchTerm) ||
         document.OwnerLastName.toLowerCase().includes(lowerCaseSearchTerm)
       );
-      console.log('Filtered Documents:', this.filteredDocuments); // Vérifiez les documents filtrés
+      // console.log('Filtered Documents:', this.filteredDocuments); // Vérifiez les documents filtrés
     } else {
       this.filteredDocuments = this.documents; // Si le champ de recherche est vide, affiche tous les documents
-      console.log('No search term, showing all documents.');
+      // console.log('No search term, showing all documents.');
     }
   }
 

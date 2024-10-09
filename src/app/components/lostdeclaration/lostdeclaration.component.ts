@@ -30,11 +30,11 @@ export class LostdeclarationComponent {
   loadUserDeclarations() {
     this.declarationService.getUserDeclarations().subscribe(
       (response: any) => {
-        console.log('Réponse complète:', response);  // Vérifier le nombre d'éléments dans response.data
+        // console.log('Réponse complète:', response);  // Vérifier le nombre d'éléments dans response.data
         this.declarations = response.data;  // Assigner correctement les déclarations
       },
       (error) => {
-        console.error('Erreur lors du chargement des déclarations', error);
+        // console.error('Erreur lors du chargement des déclarations', error);
       }
     );
   }
@@ -67,7 +67,7 @@ export class LostdeclarationComponent {
           );
         },
         (error) => {
-          console.error('Erreur lors de la suppression de la déclaration', error);
+          // console.error('Erreur lors de la suppression de la déclaration', error);
           Swal.fire(
             'Erreur!',
             'Une erreur est survenue lors de la suppression.',
