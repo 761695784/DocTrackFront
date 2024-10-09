@@ -167,19 +167,30 @@
                 Swal.fire({
                   icon: 'success',
                   title: 'Demande envoyée',
-                  text: 'Votre demande de restitution a été envoyée avec succès. Le publicateur recevra un mail lui notifiant votre demande de restitution de votre document',
+                  text: 'Votre demande de restitution a été envoyée avec succès. Le publicateur recevra un mail lui notifiant votre demande de restitution de votre document.',
                   timer: 8000,
                   showConfirmButton: false
                 });
               },
               error: (err) => {
-                Swal.fire({
-                  icon: 'error',
-                  title: 'Erreur',
-                  text: 'Une erreur est survenue lors de la demande de restitution.',
-                  timer: 2000,
-                  showConfirmButton: false
-                });
+                if (err.status === 400 && err.error.success === false) {
+                  // Si l'erreur indique que la restitution a déjà été demandée
+                  Swal.fire({
+                    icon: 'warning',
+                    title: 'Demande déjà effectuée',
+                    text: 'Vous avez déjà demandé la restitution de ce document.',
+                    timer: 4000,
+                    showConfirmButton: false
+                  });
+                } else {
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Erreur',
+                    text: 'Une erreur est survenue lors de la demande de restitution.',
+                    timer: 2000,
+                    showConfirmButton: false
+                  });
+                }
               }
             });
           }
