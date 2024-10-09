@@ -151,7 +151,7 @@
 
     // Méthode pour demander la restitution d'un document
     requestRestitution(): void {
-      if (!this.isOwner && this.documentDetails) { // Empêche le propriétaire de demander une restitution
+      if (!this.isOwner && this.documentDetails) {
         Swal.fire({
           title: 'Êtes-vous sûr ?',
           text: 'Vous êtes sur le point d\'envoyer une demande de restitution.',
@@ -164,17 +164,19 @@
             this.detailsService.requestRestitution(this.documentDetails!.id).subscribe({
               next: (response) => {
                 this.isRestitutionRequested = true;
+                // Afficher le numéro de téléphone du publicateur dans la SweetAlert
+                const phoneNumber = this.documentDetails?.user.Phone; // Assurez-vous que le numéro de téléphone est accessible
                 Swal.fire({
                   icon: 'success',
                   title: 'Demande envoyée',
-                  text: 'Votre demande de restitution a été envoyée avec succès. Le publicateur recevra un mail lui notifiant votre demande de restitution de votre document.',
-                  timer: 8000,
-                  showConfirmButton: false
+                  text: 'Votre demande de restitution a été envoyée avec succès.',
+                  footer: phoneNumber ? `<p>Vous pouvez l'appeler au :📞  <strong>${phoneNumber}</strong></p>` : '',
+                  // timer: 8000,
+                  showConfirmButton: true
                 });
               },
               error: (err) => {
                 if (err.status === 400 && err.error.success === false) {
-                  // Si l'erreur indique que la restitution a déjà été demandée
                   Swal.fire({
                     icon: 'warning',
                     title: 'Demande déjà effectuée',
@@ -205,5 +207,6 @@
         });
       }
     }
+
 
   }
