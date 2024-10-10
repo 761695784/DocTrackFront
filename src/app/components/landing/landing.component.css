@@ -471,6 +471,7 @@ padding: 3%;
   color: #ffffff;
   margin-left: 7%;
   font-weight: bold;
+  text-align: justify;
 }
 .video {
   width: 700px;
@@ -509,6 +510,7 @@ padding: 3%;
     color: #31287C;
     margin-right: 7%;
     font-weight: bold;
+    text-align: justify;
   }
   .fonctionnement {
     background-image: url('/assets/arriereplan2(1).png');
@@ -542,8 +544,8 @@ padding: 3%;
       margin-top: 0;
       margin-left: 0;
       margin-right: 0;
-      text-align: center;
-    }
+      text-align: justify;
+        }
 
     .video {
       width: 100%;
@@ -687,7 +689,7 @@ padding: 3%;
   justify-content: center;
   margin: 20px;
   padding: 20px;
-  margin-left: 3%;
+  margin-left: 6%;
 }
 
 .partenaire-img {

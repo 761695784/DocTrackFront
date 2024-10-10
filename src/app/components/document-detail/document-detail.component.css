@@ -22,7 +22,7 @@ body {
 }
 
 .image-container {
-  width: 100%; 
+  width: 100%;
   max-height: 400px;
   overflow: hidden;
   position: relative;
@@ -54,14 +54,20 @@ body {
   margin-left: 4rem;
 }
 
-.status-icon {
-  font-size: 70px;
-  color: red;
-  margin-left: -5rem;
-  margin-top: -7rem;
-}
+
 .error {
   color: red;
+}
+.status {
+  margin-top: 30%;
+}
+
+.encouragement-container {
+  background-color: #F6A500;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
 }
 
 .restore-btn {
@@ -115,12 +121,13 @@ body {
     align-items: flex-start;
   }
 
-  .status-icon {
-    margin-bottom: 10px;
-    margin-left: 0;
-    margin-top: 0;
-    font-size: 40px;
-
+  .status {
+    margin-top: 65%;
+    
+  }
+  .encouragement-container {
+    margin-top:15px;
+    width: 300px;
   }
 
 
