@@ -81,6 +81,13 @@
   box-shadow: 0 0 8px rgba(246, 165, 0, 0.3);
 }
 
+/* Error Messages */
+.error-message {
+  color: red; /* Change color to red for error messages */
+  font-size: 12px; /* Optional: Adjust font size */
+  margin-top: 5px; /* Optional: Add some space above */
+}
+
 /* Form Row */
 .form-row {
   display: flex;
@@ -89,8 +96,9 @@
 }
 
 .form-row .form-group {
-  width: 48%;
+  width: 100%;
 }
+
 
 /* Form Buttons */
 .form-buttons {
@@ -131,7 +139,7 @@
 
 /* Full width for email input */
 .full-width {
-  width: 100%;
+  width: 100%; 
 }
 
 /* Form Row */

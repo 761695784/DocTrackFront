@@ -9,29 +9,18 @@ import { AuthService } from './auth.service';
 })
 export class DeclarationService {
 
-  private apiUrlGet = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api/declarations'; // URL pour récupérer les déclarations
-  private apiUrlPost = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api/declarations'; // URL pour ajouter des déclarations
-  private apiUrlGetUserDeclarations = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api/mydec';
-  private apiUrlDelete = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api/declarations';
+    private apiUrl = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api'; // URL de base pour les déclarations
 
-
-  // private apiUrlGet = 'http://localhost:8000/api/declarations'; // URL pour sélectionner les déclarations
-  // private apiUrlPost = 'http://localhost:8000/api/declarations'; // URL pour ajouter des déclarations
-  // private apiUrlGetUserDeclarations = 'http://localhost:8000/api/mydec';
-  // private apiUrlDelete = 'http://localhost:8000/api/declarations';
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   // Récupérer les déclarations de l'utilisateur connecté
   getUserDeclarations(): Observable<any[]> {
     const token = localStorage.getItem('token');
-    // console.log('Token récupéré:', token); // Ajoute cette ligne pour vérifier le token
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get<any[]>(this.apiUrlGetUserDeclarations, { headers });
+    return this.http.get<any[]>(`${this.apiUrl}/mydec`, { headers }); // Route spécifique pour les déclarations de l'utilisateur
   }
-
-
 
   // Ajouter une déclaration
   addDeclaration(declaration: FormData): Observable<any> {
@@ -41,28 +30,28 @@ export class DeclarationService {
     });
 
     // Utilisation de FormData pour envoyer les données
-    return this.http.post<any>(this.apiUrlPost, declaration, { headers }).pipe(
+    return this.http.post<any>(`${this.apiUrl}/declarations`, { headers }).pipe(
       tap(response => {
         // console.log('Réponse du serveur:', response);
       })
     );
   }
 
-  //afficher toutes les declaration pour l'admin uniquement
+  // Afficher toutes les déclarations pour l'admin uniquement
   getAllDeclarations(): Observable<any[]> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get<any[]>(this.apiUrlGet, { headers });
+    return this.http.get<any[]>(`${this.apiUrl}/declarations`, { headers }); // Utilise la même URL de base
   }
 
-    // Supprimer une déclaration
-    deleteDeclaration(id: number): Observable<any> {
-      const token = localStorage.getItem('token');
-      const headers = new HttpHeaders({
-        'Authorization': `Bearer ${token}`
-      });
-      return this.http.delete(`${this.apiUrlDelete}/${id}`, { headers });
-    }
+  // Supprimer une déclaration
+  deleteDeclaration(id: number): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.delete(`${this.apiUrl}/declarations/${id}`, { headers }); // Route spécifique pour la suppression
+  }
 }

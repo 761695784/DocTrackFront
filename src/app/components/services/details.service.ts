@@ -25,7 +25,7 @@ export class DetailsService {
     });
 
     // return this.http.post<any>(`http://localhost:8000/api/documents/${documentId}/restitution`, {}, { headers });
-    return this.http.post<any>(`https://doctrackapi.malang2019marna.simplonfabriques.com/api/documents/${documentId}/restitution`, {}, { headers });
+    return this.http.post<any>(`${this.apiUrl}/${documentId}/restitution`, {}, { headers });
   }
 
 }

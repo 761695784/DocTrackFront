@@ -68,4 +68,9 @@ export class UserAddComponent implements OnInit {
       });
     }
   }
+  //redirection si annulatiion
+  onCancel(): void {
+    this.router.navigate(['/adminuser']);
+  }
+
 }

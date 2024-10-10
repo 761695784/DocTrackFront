@@ -12,22 +12,38 @@
         <option value="Admin">Admin</option>
         <option value="SimpleUser">SimpleUser</option>
       </select>
+      <div *ngIf="userForm.get('role')?.invalid && userForm.get('role')?.touched" class="error-message">
+        <small>Le rôle est requis.</small>
+      </div>
     </div>
 
     <div class="form-row">
       <div class="form-group">
         <label for="FirstName">Nom</label>
         <input type="text" formControlName="FirstName" placeholder="Nom" />
+        <div *ngIf="userForm.get('FirstName')?.invalid && userForm.get('FirstName')?.touched" class="error-message">
+          <small *ngIf="userForm.get('FirstName')?.errors?.['required']">Le nom est requis.</small>
+          <small *ngIf="userForm.get('FirstName')?.errors?.['maxlength']">Le nom ne peut pas dépasser 40 caractères.</small>
+        </div>
       </div>
       <div class="form-group">
         <label for="LastName">Prénom</label>
         <input type="text" formControlName="LastName" placeholder="Prénom" />
+        <div *ngIf="userForm.get('LastName')?.invalid && userForm.get('LastName')?.touched" class="error-message">
+          <small *ngIf="userForm.get('LastName')?.errors?.['required']">Le prénom est requis.</small>
+          <small *ngIf="userForm.get('LastName')?.errors?.['maxlength']">Le prénom ne peut pas dépasser 20 caractères.</small>
+        </div>
       </div>
     </div>
     <div class="form-row">
       <div class="form-group full-width">
         <label for="email">Email</label>
-        <input type="email" formControlName="email" placeholder="Email" />
+        <input type="email" formControlName="email" class="mail full-width" placeholder="Email"/>
+        <div *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched" class="error-message">
+          <small *ngIf="userForm.get('email')?.errors?.['required']">L'email est requis.</small>
+          <small *ngIf="userForm.get('email')?.errors?.['email']">L'email doit être valide.</small>
+          <small *ngIf="userForm.get('email')?.errors?.['maxlength']">L'email ne peut pas dépasser 50 caractères.</small>
+        </div>
       </div>
     </div>
 
@@ -35,27 +51,43 @@
       <div class="form-group">
         <label for="password">Mot de passe</label>
         <input type="password" formControlName="password" placeholder="Mot de passe" />
+        <div *ngIf="userForm.get('password')?.invalid && userForm.get('password')?.touched" class="error-message">
+          <small *ngIf="userForm.get('password')?.errors?.['required']">Le mot de passe est requis.</small>
+          <small *ngIf="userForm.get('password')?.errors?.['minlength']">Le mot de passe doit contenir au moins 8 caractères.</small>
+        </div>
       </div>
       <div class="form-group">
         <label for="password_confirmation">Confirmer le mot de passe</label>
         <input type="password" formControlName="password_confirmation" placeholder="Confirmer le mot de passe" />
+        <div *ngIf="userForm.errors?.['mismatch'] && (userForm.get('password_confirmation')?.touched || userForm.get('password')?.touched)" class="error-message">
+          <small>Les mots de passe ne correspondent pas.</small>
+        </div>
       </div>
     </div>
-
 
     <div class="form-row">
       <div class="form-group">
         <label for="Phone">Téléphone</label>
         <input type="text" formControlName="Phone" placeholder="Téléphone" />
+        <div *ngIf="userForm.get('Phone')?.invalid && userForm.get('Phone')?.touched" class="error-message">
+          <small *ngIf="userForm.get('Phone')?.errors?.['required']">Le numéro de téléphone est requis.</small>
+          <small *ngIf="userForm.get('Phone')?.errors?.['maxlength']">Le numéro de téléphone ne peut pas dépasser 20 caractères.</small>
+        </div>
       </div>
       <div class="form-group">
         <label for="Adress">Adresse</label>
         <input type="text" formControlName="Adress" placeholder="Adresse" />
+        <div *ngIf="userForm.get('Adress')?.invalid && userForm.get('Adress')?.touched" class="error-message">
+          <small *ngIf="userForm.get('Adress')?.errors?.['required']">L'adresse est requise.</small>
+          <small *ngIf="userForm.get('Adress')?.errors?.['maxlength']">L'adresse ne peut pas dépasser 100 caractères.</small>
+        </div>
       </div>
     </div>
 
     <div class="form-buttons">
-      <button type="submit" class="submit-btn" [disabled]="userForm.invalid">Ajouter</button>
+      <button type="button" class="cancel-btn" (click)="onCancel()">Annuler</button>
+      <button type="submit" class="submit-btn">Ajouter</button>
     </div>
+
   </form>
 </div>
