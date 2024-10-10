@@ -17,11 +17,11 @@
               Cliquez sur Restituer pour envoyer votre demande de restitution et obtenir le numéro du publicateur !
             </p>
           </div>
-          <p>Publié par <strong>{{ documentDetails.user.FirstName }} {{ documentDetails.user.LastName }}</strong> | {{ documentDetails.created_at | date }}</p>
-          <p><strong>Prénom propriétaire :</strong> {{ documentDetails.OwnerFirstName }}</p>
-          <p><strong>Nom propriétaire :</strong> {{ documentDetails.OwnerLastName }}</p>
-          <p><strong>Lieu :</strong> {{ documentDetails.Location }}</p>
-          <p><strong>Identification :</strong> {{ documentDetails.identification }}</p>
+          <p>Publié par <strong>{{ documentDetails.user.FirstName }} {{ documentDetails.user.LastName }}</strong> | <strong> {{ documentDetails.created_at | date: 'EEEE dd MMMM yyyy, HH:mm' }} </strong></p>
+          <p>Prénom propriétaire :  <strong>{{ documentDetails.OwnerFirstName }} </strong></p>
+          <p>Nom propriétaire : <strong>{{ documentDetails.OwnerLastName }}</strong></p>
+          <p>Lieu :<strong> {{ documentDetails.Location }} </strong></p>
+          <p>Identification :<strong> {{ documentDetails.identification }}</strong></p>
           <button class="btn restore-btn animate-button"
           *ngIf="!isOwner"
           (click)="requestRestitution()"
