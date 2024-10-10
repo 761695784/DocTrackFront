@@ -34,7 +34,8 @@ export class UserAddComponent implements OnInit {
       password_confirmation: ['', [Validators.required]],
       Phone: ['', [Validators.required, Validators.maxLength(20)]],
       Adress: ['', [Validators.required, Validators.maxLength(100)]],
-    });
+    },
+    { validators: this.passwordMatchValidator });
   }
 
   // Soumission du formulaire
@@ -73,4 +74,9 @@ export class UserAddComponent implements OnInit {
     this.router.navigate(['/adminuser']);
   }
 
+  // Validation personnalisée pour comparer les mots de passe
+passwordMatchValidator(form: FormGroup) {
+  return form.get('password')?.value === form.get('password_confirmation')?.value
+    ? null : { mismatch: true };
+}
 }

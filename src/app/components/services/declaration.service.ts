@@ -23,19 +23,20 @@ export class DeclarationService {
   }
 
   // Ajouter une déclaration
-  addDeclaration(declaration: FormData): Observable<any> {
-    const token = localStorage.getItem('token'); // récupère le token
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}` // ajoute l'en-tête d'authentification
-    });
+addDeclaration(declaration: FormData): Observable<any> {
+  const token = localStorage.getItem('token'); // récupère le token
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}` // ajoute l'en-tête d'authentification
+  });
 
-    // Utilisation de FormData pour envoyer les données
-    return this.http.post<any>(`${this.apiUrl}/declarations`, { headers }).pipe(
-      tap(response => {
-        // console.log('Réponse du serveur:', response);
-      })
-    );
-  }
+  // Utilisation de FormData pour envoyer les données
+  return this.http.post<any>(`${this.apiUrl}/declarations`, declaration, { headers }).pipe( // Remplacez {} par declaration
+    tap(response => {
+      // console.log('Réponse du serveur:', response);
+    })
+  );
+}
+
 
   // Afficher toutes les déclarations pour l'admin uniquement
   getAllDeclarations(): Observable<any[]> {
