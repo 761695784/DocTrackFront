@@ -6,15 +6,6 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PublicationsService } from '../services/publications.service';
-import Echo from 'laravel-echo';
-import Pusher from 'pusher-js';
-
-declare global {
-  interface Window {
-      Pusher: any;
-      Echo: any;
-  }
-}
 
 @Component({
   selector: 'app-sideheaders',
@@ -52,27 +43,7 @@ export class SideheadersComponent implements OnInit {
     this.FirstName = this.authService.getUserName(); // Récupérer le nom de l'utilisateur
     this.startPolling();
 
-    // Initialiser Laravel Echo avec Pusher
-    window.Pusher = Pusher;
-    window.Echo = new Echo({
-      broadcaster: 'pusher',
-      key: 'df333c7328ad4d677330',  // Remplacez par votre clé Pusher
-      cluster: 'us2',  // Remplacez par votre cluster
-      useTLS: true
-    });
 
-    window.Echo.channel('notifications')
-    .listen('NewNotificationEvent', (e: any) => {
-      console.log('Notification:', e);
-
-      // Ajoutez la notification au tableau approprié
-      if (e.message.type === 'publication' || e.message.type === 'declaration') {
-        this.newNotifications.push(e.message);
-        this.hasSeenNotifications = false; // Il y a de nouvelles notifications non vues
-      }
-
-      alert('Nouvelle notification: ' + e.message.title); // Affichez un alert ou utilisez un système de notification
-    });
   }
 
   // Démarrer le polling pour les nouvelles notifications
