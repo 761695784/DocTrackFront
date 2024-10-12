@@ -12,7 +12,6 @@ import { tap } from 'rxjs/operators';
 export class AuthService {
   private apiUrl = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api';
   // private apiUrl = 'http://localhost:8000/api';
-  private lastChecked = new Date().toISOString(); // Date actuelle par défaut
 
 
 
@@ -21,16 +20,21 @@ export class AuthService {
     public router: Router,
     private redirectService: RedirectService
   ) {}
-  checkForNewNotifications(): Observable<any> {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${localStorage.getItem('token')}`
-    });
 
-    return this.http.get(`${this.apiUrl}/notifications`, {
-      headers: headers,
-      params: { lastChecked: this.lastChecked }
-    });
+  getAllNotifications(): Observable<any> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    return this.http.get(`${this.apiUrl}/notifications`, { headers });
   }
+
+  markAllAsRead(): Observable<any> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    return this.http.post(`${this.apiUrl}/notifications/mark-all-as-read`, null, { headers });
+  }
+
+  markNotificationAsRead(notificationId: number): Observable<any> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    return this.http.patch(`${this.apiUrl}/notifications/${notificationId}/mark-as-read`, null, { headers });
+}
 
   //Methode d'inscription d'un user simple
   register(user: User): Observable<any> {
@@ -136,17 +140,5 @@ export class AuthService {
       return this.http.get(`${this.apiUrl}/restitution-count`, { headers }); // Assurez-vous que l'URL correspond à votre API
     }
 
-    // checkForNewNotifications(): Observable<any> {
-    //   return this.http.get('http://localhost:8000/api/notifications', {
-    //     params: { lastChecked: this.lastChecked }
-    //   });
-    // }
-
-
-
-
-    updateLastChecked() {
-      this.lastChecked = new Date().toISOString(); // Mettre à jour l'horodatage après chaque vérification
-    }
 
 }

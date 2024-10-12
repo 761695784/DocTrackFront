@@ -10,22 +10,22 @@
 
   <div class="header-right">
 <!-- Icône de notification -->
-<div class="notification-icon" (click)="toggleDropdown()">
-  <i class="fas fa-bell"></i>
-  <span *ngIf="!hasSeenNotifications && newNotifications.length > 0" class="badge">{{ newNotifications.length }}</span>
-
-  <!-- Dropdown des notifications -->
-  <div *ngIf="isDropdownOpen" class="notification-dropdown">
-    <ul>
-      <li *ngFor="let notification of newNotifications" class="dropdown-item">
-        <!-- Affiche un message basique pour chaque notification -->
-        <span *ngIf="notification.title">Nouvelle publication: {{ notification.title }}</span>
-        <span *ngIf="notification.declaration_id">Nouvelle déclaration: {{ notification.declaration_id }}</span>
-      </li>
-      <li *ngIf="newNotifications.length === 0">Aucune nouvelle notification.</li> <!-- Message si aucune notification -->
-    </ul>
+<div class="notification-icon" ngbDropdown>
+  <button class="btn btn" ngbDropdownToggle style="background-color:#31287C;">
+    <i class="fas fa-bell"></i>
+    <span class="badge badge-light">{{ unreadCount }}</span> <!-- Affichage du nombre de notifications non lues -->
+  </button>
+  <div ngbDropdownMenu>
+    <div *ngFor="let notification of notifications">
+      <a class="dropdown-item" [routerLink]="notification.type === 'document' ? '/adminpub' : '/admindec'" (click)="markNotificationAsRead(notification.id)">
+        {{ notification.message }}
+      </a>
+      <button class="dropdown-item" (click)="deleteNotification(notification.id)">Supprimer</button> <!-- Ajout du bouton supprimer -->
+    </div>
+    <div class="dropdown-divider"></div>
   </div>
 </div>
+
 
 
 
@@ -44,3 +44,5 @@
     </div>
   </div>
 </div>
+
+

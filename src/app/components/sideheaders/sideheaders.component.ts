@@ -3,14 +3,15 @@ import { Component, OnInit,EventEmitter, Output } from '@angular/core';
 import { SidebarComponent } from "../sidebar/sidebar.component";
 import { AuthService } from '../services/auth.service';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PublicationsService } from '../services/publications.service';
+
 
 @Component({
   selector: 'app-sideheaders',
   standalone: true,
-  imports: [SidebarComponent,CommonModule,FormsModule,NgbModule],
+  imports: [SidebarComponent,CommonModule,FormsModule,NgbModule,RouterLink],
   templateUrl: './sideheaders.component.html',
   styleUrl: './sideheaders.component.css'
 })
@@ -19,21 +20,14 @@ export class SideheadersComponent implements OnInit {
   documents: any[] = []; // Pour stocker les documents récupérés
   filteredDocuments: any[] = []; // Documents filtrés par la recherche
   searchQuery: string = ''; // Texte entré dans la barre de recherche
-  newNotifications: any[] = [];
   searchTerm: string = '';
   @Output() searchEvent = new EventEmitter<string>();
-  isDropdownOpen = false; // Contrôler l'ouverture du dropdown
-  hasSeenNotifications = false; // Contrôle si l'utilisateur a vu les notifications
+  notifications: any[] = []; // Pour stocker les notifications
+  unreadCount: number = 0; // Compteur des notifications non lues
+
 
   onSearch() {
     this.searchEvent.emit(this.searchTerm); // Émettre une chaîne de caractères
-    // Ferme le dropdown si l'utilisateur clique en dehors de celui-ci
-    document.addEventListener('click', this.onDocumentClick.bind(this));
-  }
-
-  ngOnDestroy() {
-    // Retire l'écouteur d'événement lorsque le composant est détruit
-    document.removeEventListener('click', this.onDocumentClick.bind(this));
   }
 
 
@@ -41,51 +35,47 @@ export class SideheadersComponent implements OnInit {
 
   ngOnInit() {
     this.FirstName = this.authService.getUserName(); // Récupérer le nom de l'utilisateur
-    this.startPolling();
-
+    this.getNotifications();
 
   }
 
-  // Démarrer le polling pour les nouvelles notifications
-  startPolling() {
-    setInterval(() => {
-      this.authService.checkForNewNotifications().subscribe(response => {
-        const { newDocuments, newDeclarations } = response;
-        console.log('New Documents:', newDocuments);
-        console.log('New Declarations:', newDeclarations);
 
-        // Fusionner les nouveaux documents et déclarations
-        this.newNotifications = [...newDocuments, ...newDeclarations];
-
-        // Si l'utilisateur n'a pas vu les notifications, on garde la notification visible
-        if (this.newNotifications.length > 0) {
-          this.hasSeenNotifications = false; // Rappeler que les notifications ne sont pas vues
-        }
-
-        this.authService.updateLastChecked();
-      });
-    }, 5000); // Vérifier toutes les 5 secondes
+  getNotifications() {
+    this.authService.getAllNotifications().subscribe(response => {
+      this.notifications = response.data; // Supposons que la réponse contient les notifications dans "data"
+      this.unreadCount = this.notifications.filter(n => !n.is_read).length; // Compter les notifications non lues
+    });
   }
 
-  // Méthode pour ouvrir/fermer le dropdown
-  toggleDropdown() {
-    this.isDropdownOpen = !this.isDropdownOpen;
+  markAllAsRead() {
+    this.authService.markAllAsRead().subscribe(() => {
+      this.notifications.forEach(n => n.is_read = true); // Mettre à jour l'état local
+      this.unreadCount = 0; // Réinitialiser le compteur
+    });
+  }
 
-    // Lorsque l'utilisateur ouvre le dropdown, marquer les notifications comme vues
-    if (this.isDropdownOpen) {
-      this.hasSeenNotifications = true; // Marquer comme vu
+  markNotificationAsRead(notificationId: number) {
+    this.authService.markNotificationAsRead(notificationId).subscribe(() => {
+      const notification = this.notifications.find(n => n.id === notificationId);
+      if (notification) {
+        notification.is_read = true; // Mettre à jour l'état local
+        this.unreadCount--; // Décrementer le compteur
+      }
+    });
+  }
+
+   // Méthode pour supprimer une notification
+   deleteNotification(notificationId: number) {
+    // Trouve l'index de la notification
+    const index = this.notifications.findIndex(n => n.id === notificationId);
+    if (index !== -1) {
+      // Supprime la notification de la liste
+      this.notifications.splice(index, 1);
+      // Mettez à jour le compteur si nécessaire
+      this.unreadCount = this.notifications.filter(n => !n.is_read).length;
     }
   }
 
- // Méthode pour fermer le dropdown si on clique en dehors
- onDocumentClick(event: MouseEvent) {
-  const target = event.target as HTMLElement;
-
-  // Si le clic n'est pas à l'intérieur du bouton ou du dropdown, on ferme le dropdown
-  if (!target.closest('.notification-icon')) {
-    this.isDropdownOpen = false;
-  }
-}
 
   // Méthode pour filtrer les documents selon la recherche
   searchDocuments(): void {
