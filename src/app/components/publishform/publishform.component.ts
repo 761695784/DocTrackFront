@@ -15,6 +15,9 @@ import { CommonModule } from '@angular/common';
 })
 export class PublishformComponent {
   publishForm: FormGroup;
+  maxFileSizeInMB = 5; // Taille maximale en Mo
+  allowedFileTypes = ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf']; // Types autorisés
+  fileError: string | null = null; // Message d'erreur pour le fichier
 
   documentTypes = [
     { id: 1, name: "Carte nationale d'identité" },
@@ -48,6 +51,9 @@ export class PublishformComponent {
 
   getErrorMessage(field: string): string {
     const control = this.publishForm.get(field);
+    if (field === 'image') {
+      return this.fileError || ''; // Afficher le message d'erreur du fichier
+    }
     if (control?.hasError('required')) {
       return 'Ce champ est obligatoire';
     } else if (control?.hasError('minlength')) {
@@ -109,7 +115,23 @@ export class PublishformComponent {
 
   onFileChange(event: any) {
     const file = event.target.files[0];
+    this.fileError = null; // Réinitialiser le message d'erreur
+
     if (file) {
+      // Vérifier la taille du fichier
+      const maxSizeInBytes = this.maxFileSizeInMB * 1024 * 1024; // Convertir en octets
+      if (file.size > maxSizeInBytes) {
+        this.fileError = `Le fichier doit être inférieur à ${this.maxFileSizeInMB} Mo.`;
+        return;
+      }
+
+      // Vérifier le type de fichier
+      if (!this.allowedFileTypes.includes(file.type)) {
+        this.fileError = 'Seules les images au format JPEG, JPG, PNG et PDF sont acceptées.';
+        return;
+      }
+
+      // Si tout est valide, mettre à jour le formulaire
       this.publishForm.patchValue({
         image: file
       });

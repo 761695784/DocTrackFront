@@ -4,13 +4,17 @@
         <div class="form-section">
             <img src="/assets/logoo4.png" alt="DocTrack Logo" class="logo">
             <form [formGroup]="publishForm" (ngSubmit)="onSubmit()">
-                <div class="file-input">
-                    <label for="image">Image ou document</label>
-                    <input type="file" id="image" (change)="onFileChange($event)" required>
-                    <div *ngIf="publishForm.get('image')?.invalid && publishForm.get('image')?.touched" class="error-message">
-                        {{ getErrorMessage('image') }}
-                    </div>
+              <div class="file-input">
+                <label for="image">Image ou document</label>
+                <input type="file" id="image" (change)="onFileChange($event)" required>
+                <div *ngIf="fileError" class="error-message">
+                    {{ fileError }}
                 </div>
+                <div *ngIf="publishForm.get('image')?.invalid && publishForm.get('image')?.touched" class="error-message">
+                    {{ getErrorMessage('image') }}
+                </div>
+            </div>
+
                 <div class="double-input">
                     <div>
                         <label for="OwnerLastName">Nom propriétaire</label>
