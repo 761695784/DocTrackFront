@@ -15,7 +15,8 @@
     <!-- Boucle pour afficher toutes les publications -->
     <div class="card" *ngFor="let publication of publications">
       <!-- Affichage dynamique de l'image -->
-      <img [src]="publication.image ? 'https://doctrackapi.malang2019marna.simplonfabriques.com' + publication.image : '/assets/default-image.png'" alt="Document Image" />
+      <!-- <img [src]="publication.image ? 'https://doctrackapi.malang2019marna.simplonfabriques.com' + publication.image : '/assets/default-image.png'" alt="Document Image" /> -->
+      <img [src]="publication.image ? 'http://localhost:8000' + publication.image : '/assets/default-image.png'" alt="Document Image" />
 
       <div class="card-content">
         <!-- Informations dynamiques de la publication -->

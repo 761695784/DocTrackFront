@@ -5,15 +5,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { apiUrl } from './apiUrl';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api';
-  // private apiUrl = 'http://localhost:8000/api';
-
-
 
   constructor(
     private http: HttpClient,
@@ -23,28 +20,28 @@ export class AuthService {
 
   getAllNotifications(): Observable<any> {
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
-    return this.http.get(`${this.apiUrl}/notifications`, { headers });
+    return this.http.get(`${apiUrl}/notifications`, { headers });
   }
 
   markAllAsRead(): Observable<any> {
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
-    return this.http.post(`${this.apiUrl}/notifications/mark-all-as-read`, null, { headers });
+    return this.http.post(`${apiUrl}/notifications/mark-all-as-read`, null, { headers });
   }
 
   markNotificationAsRead(notificationId: number): Observable<any> {
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
-    return this.http.patch(`${this.apiUrl}/notifications/${notificationId}/mark-as-read`, null, { headers });
+    return this.http.patch(`${apiUrl}/notifications/${notificationId}/mark-as-read`, null, { headers });
 }
 
   //Methode d'inscription d'un user simple
   register(user: User): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, user);
+    return this.http.post(`${apiUrl}/register`, user);
   }
 
   // Methode de Connexion d'un user
   login(credentials: any): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post(`${this.apiUrl}/login`, credentials, { headers }).pipe(
+    return this.http.post(`${apiUrl}/login`, credentials, { headers }).pipe(
       tap((response: any) => {
         if (response.token) {
           localStorage.setItem('token', response.token); // stocker le token
@@ -94,50 +91,50 @@ export class AuthService {
     const userId = localStorage.getItem('userId');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
 
-    return this.http.put(`${this.apiUrl}/profil`, profileData, { headers });
+    return this.http.put(`${apiUrl}/profil`, profileData, { headers });
   }
 
   // Methode pour le changement de mot de passe
   changePassword(passwordData: any): Observable<any> {
     const userId = localStorage.getItem('userId');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
-    return this.http.put(`${this.apiUrl}/change-password`, passwordData, { headers });
+    return this.http.put(`${apiUrl}/change-password`, passwordData, { headers });
   }
 
     // Nouvelle méthode pour récupérer tous les utilisateurs avec leurs rôles
     getAllUsers(): Observable<any> {
       const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
-      return this.http.get(`${this.apiUrl}/users`, { headers });
+      return this.http.get(`${apiUrl}/users`, { headers });
     }
 
     // Nouvelle méthode pour supprimer un utilisateur
     deleteUser(id: number): Observable<any> {
       const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
-      return this.http.delete(`${this.apiUrl}/users/${id}`, { headers });
+      return this.http.delete(`${apiUrl}/users/${id}`, { headers });
     }
 
      // Nouvelle méthode pour ajouter un utilisateur admin
     addUser(userData: any): Observable<any> {
       const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
-      return this.http.post(`${this.apiUrl}/create-admin`, userData, { headers });
+      return this.http.post(`${apiUrl}/create-admin`, userData, { headers });
     }
 
     // Methode d'affichage des historiques des mails envoyes
     getAllEmailLogs(): Observable<any> {
       const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
-      return this.http.get(`${this.apiUrl}/emails`, { headers }); // Assurez-vous que l'URL correspond à votre API
+      return this.http.get(`${apiUrl}/emails`, { headers }); // Assurez-vous que l'URL correspond à votre API
     }
 
     //Methode pour recuperer les donnees concerant toutes les mails
     getAllData(): Observable<any> {
       const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
-      return this.http.get(`${this.apiUrl}/notification`, { headers }); // Assurez-vous que l'URL correspond à votre API
+      return this.http.get(`${apiUrl}/notification`, { headers }); // Assurez-vous que l'URL correspond à votre API
     }
 
      // Récupère le nombre de demandes de restitution
     getRestitutionRequestCount(): Observable<any> {
       const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
-      return this.http.get(`${this.apiUrl}/restitution-count`, { headers }); // Assurez-vous que l'URL correspond à votre API
+      return this.http.get(`${apiUrl}/restitution-count`, { headers }); // Assurez-vous que l'URL correspond à votre API
     }
 
 

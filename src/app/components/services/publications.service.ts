@@ -4,14 +4,12 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { AuthService } from './auth.service'; // Chemin correct vers AuthService
 import { Document } from '../document-list/document-list.component';
+import { apiUrl } from './apiUrl'; // Chemin correct vers apiUrl.ts
 
 @Injectable({
   providedIn: 'root'
 })
 export class PublicationsService {
-  private apiUrl = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api';
-  // private apiUrl = 'http://localhost:8000/api';
-  // https://doctrackapi.malang2019marna.simplonfabriques.com/api
 
 
 
@@ -22,11 +20,11 @@ export class PublicationsService {
 
   // Récupérer toutes les publications
   getAllPublications(): Observable<Document[]> {
-    return this.http.get<Document[]>(`${this.apiUrl}/document`).pipe(
+    return this.http.get<Document[]>(`${apiUrl}/document`).pipe(
       tap(documents => this.publicationsSubject.next(documents)), // Met à jour le sujet
       map(documents => documents.map(doc => {
-        // doc.image = doc.image ? `http://localhost:8000${doc.image}` : '';
-        doc.image = doc.image ? `https://doctrackapi.malang2019marna.simplonfabriques.com${doc.image}` : '';
+        doc.image = doc.image ? `http://localhost:8000${doc.image}` : '';
+        // doc.image = doc.image ? `https://doctrackapi.malang2019marna.simplonfabriques.com${doc.image}` : '';
 
         return doc;
       }))
@@ -38,14 +36,14 @@ export class PublicationsService {
   getUserPublications(): Observable<Document[]> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    return this.http.get<Document[]>(`${this.apiUrl}/mypub`, { headers });
+    return this.http.get<Document[]>(`${apiUrl}/mypub`, { headers });
   }
 
   // Méthode pour ajouter une publication
   addPublication(document: FormData): Observable<Document> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    return this.http.post<Document>(`${this.apiUrl}/documents`, document, { headers }).pipe(
+    return this.http.post<Document>(`${apiUrl}/documents`, document, { headers }).pipe(
       tap(response => {
         // Logique après l'ajout de la publication
       })
@@ -57,25 +55,46 @@ export class PublicationsService {
   deletePublication(id: number): Observable<void> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    return this.http.delete<void>(`${this.apiUrl}/document/${id}`, { headers });
+    return this.http.delete<void>(`${apiUrl}/document/${id}`, { headers });
   }
 
- // Méthode pour la modification du statut de sa propre publication
- updatePublicationStatus(id: number, statut: string): Observable<{ success: boolean; message: string; document: Document }> {
-  const token = localStorage.getItem('token');
-  const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+  // Récupérer les documents supprimés (soft deleted)
+  getTrashedDocuments(): Observable<Document[]> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}` // Authentification avec JWT
+    });
+    return this.http.get<Document[]>(`${apiUrl}/trashed`, { headers });
+  }
 
-  return this.http.put<{ success: boolean; message: string; document: Document }>(
-    `${this.apiUrl}/document/${id}`,
-    { statut },
-    { headers }
-  ).pipe(
-    tap(response => {
-      const updatedDocuments = this.publicationsSubject.value.map(doc =>
-        doc.id === id ? { ...doc, statut: response.document.statut } : doc
+  // Restaurer un document supprimé
+  restoreDocument(id: number): Observable<{ success: boolean; message: string }> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}` // Authentification avec JWT
+    });
+    return this.http.patch<{ success: boolean; message: string }>(`${apiUrl}/documents/restore/${id}`, {}, { headers });
+  }
+
+
+ // Méthode pour la modification du statut de sa propre publication
+    updatePublicationStatus(id: number, statut: string): Observable<{ success: boolean; message: string; document: Document }> {
+      const token = localStorage.getItem('token');
+      const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+
+      return this.http.put<{ success: boolean; message: string; document: Document }>(
+        `${apiUrl}/document/${id}`,
+        { statut },
+        { headers }
+      ).pipe(
+        tap(response => {
+          const updatedDocuments = this.publicationsSubject.value.map(doc =>
+            doc.id === id ? { ...doc, statut: response.document.statut } : doc
+          );
+          this.publicationsSubject.next(updatedDocuments);
+        })
       );
-      this.publicationsSubject.next(updatedDocuments);
-    })
-  );
-}
+    }
+
+
 }

@@ -3,13 +3,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AuthService } from './auth.service';
+import { apiUrl } from './apiUrl'; // Chemin correct vers apiUrl.ts
 
 @Injectable({
   providedIn: 'root'
 })
 export class DeclarationService {
 
-    private apiUrl = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api'; // URL de base pour les déclarations
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -19,7 +19,7 @@ export class DeclarationService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get<any[]>(`${this.apiUrl}/mydec`, { headers }); // Route spécifique pour les déclarations de l'utilisateur
+    return this.http.get<any[]>(`${apiUrl}/mydec`, { headers }); // Route spécifique pour les déclarations de l'utilisateur
   }
 
   // Ajouter une déclaration
@@ -30,7 +30,7 @@ addDeclaration(declaration: FormData): Observable<any> {
   });
 
   // Utilisation de FormData pour envoyer les données
-  return this.http.post<any>(`${this.apiUrl}/declarations`, declaration, { headers }).pipe( // Remplacez {} par declaration
+  return this.http.post<any>(`${apiUrl}/declarations`, declaration, { headers }).pipe( // Remplacez {} par declaration
     tap(response => {
       // console.log('Réponse du serveur:', response);
     })
@@ -44,7 +44,7 @@ addDeclaration(declaration: FormData): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get<any[]>(`${this.apiUrl}/declarations`, { headers }); // Utilise la même URL de base
+    return this.http.get<any[]>(`${apiUrl}/declarations`, { headers }); // Utilise la même URL de base
   }
 
   // Supprimer une déclaration
@@ -53,6 +53,26 @@ addDeclaration(declaration: FormData): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.delete(`${this.apiUrl}/declarations/${id}`, { headers }); // Route spécifique pour la suppression
+    return this.http.delete(`${apiUrl}/declarations/${id}`, { headers }); // Route spécifique pour la suppression
   }
+
+  // Récupérer les déclarations supprimées de l'utilisateur connecté
+  getTrashedDeclarations(): Observable<any[]> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}` // Token JWT pour l'authentification
+    });
+    return this.http.get<any[]>(`${apiUrl}/trash`, { headers }); // Appel vers l'endpoint pour les déclarations supprimées
+  }
+
+// Restaurer une déclaration supprimée
+  restoreDeclaration(id: number): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}` // Token JWT pour l'authentification
+    });
+    return this.http.patch(`${apiUrl}/declarations/restore/${id}`, {}, { headers }); // Appel vers l'endpoint pour la restauration
+  }
+
+
 }
