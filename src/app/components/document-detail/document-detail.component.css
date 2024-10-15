@@ -123,7 +123,7 @@ body {
 
   .status {
     margin-top: 65%;
-    
+
   }
   .encouragement-container {
     margin-top:15px;
@@ -148,3 +148,37 @@ body {
 }
 
  }
+ .image-container {
+  position: relative;
+  display: inline-block;
+  overflow: hidden; /* Assurez-vous que tout débordement masqué ne soit pas visible */
+}
+
+.image {
+  display: block;
+  max-width: 100%;
+}
+
+.blur-overlay {
+  position: absolute;
+  top:158px; /* Positionnez à zéro si vous ne voulez pas que cela couvre tout */
+  left: 147px;
+  width: 72%; /* Changez la largeur à 100% pour inclure toute l'image */
+  height: 54%; /* Changez la hauteur à 100% pour inclure toute l'image */
+  background: rgba(199, 196, 196, 0.944); /* Ajustez la couleur et la transparence à votre convenance */
+  pointer-events: none; /* Assurez-vous de permettre aux clics de passer à travers */
+  border-radius: 0 0 10px 0;
+}
+
+/* Media Query pour mobile */
+@media (max-width: 768px) { /* Changez la largeur max si nécessaire */
+  .blur-overlay {
+    top: 94px;
+    left: 90px;
+    background: rgb(199, 196, 196, 0.944);
+
+
+  }
+
+
+}

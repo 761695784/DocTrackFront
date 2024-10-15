@@ -6,6 +6,7 @@
       <div class="col-lg-6 col-md-6 col-sm-12">
         <div class="image-container">
           <img *ngIf="documentDetails.image" class="document-img animate-image" [src]="documentDetails.image" alt="Document Image" />
+          <div class="blur-overlay"></div> <!-- Ajout de l'overlay pour appliquer le flou -->
         </div>
       </div>
 

@@ -1,43 +1,52 @@
-<app-navbar></app-navbar>
+  <app-navbar></app-navbar>
 
-<div class="container">
-  <!-- Section Title with Description -->
-  <div class="section-intro">
-    <h1>Bienvenue sur la page des publications</h1>
-    <p>Explorez les documents publiés, contactez les publicateurs,aider des personnes a retrouver leurs documents, commenter une publication et demander la restitution si vous etes proprietaires. Cette plateforme facilite la recherche et la récupération des documents perdus.</p>
-  </div>
+  <div class="container">
+    <!-- Section Title with Description -->
+    <div class="section-intro">
+      <h1>Bienvenue sur la page des publications</h1>
+      <p>Explorez les documents publiés, contactez les publicateurs, aidez des personnes à retrouver leurs documents, commentez une publication et demandez la restitution si vous êtes propriétaire. Cette plateforme facilite la recherche et la récupération des documents perdus.<br>
+        <span style="color: green;">✔️</span> Cette icône révèle que le document est bien récupéré.
+        <span style="color: red; font-size: 40px;">❌</span> Cette icône indique que le document n'a pas encore été récupéré.
+      </p>
+    </div>
 
-  <div class="search-bar">
-    <input type="text" placeholder="Rechercher en tapant les mots clés" [(ngModel)]="searchTerm" (input)="filterDocuments()" />
-    <button class="search-btn" (click)="filterDocuments()">Chercher un document</button>
-    <button class="my-publications-btn" (click)="goToMyPublications()">Mes publications</button>
-  </div>
 
-  <div class="grid-container">
-    <div *ngFor="let document of paginatedFilteredDocuments" class="card">
-      <img *ngIf="document.image" [src]="document.image" alt="document" />
-      <p *ngIf="!document.image">Image non disponible</p>
-      <div class="card-content">
-        <p class="published-by">Publié par {{ document.user.FirstName }} {{ document.user.LastName }} | {{ document.created_at | date }}</p>
-        <!-- <p class="phone-number">📞 {{ document.user.Phone }}</p> -->
-        <p>Prénom propriétaire : <strong>{{ document.OwnerFirstName }}</strong></p>
-        <p>Nom propriétaire : <strong>{{ document.OwnerLastName }}</strong></p>
-        <div class="card-actions">
-          <button class="details-btn" (click)="viewDetails(document.id)">Voir détails</button>
-          <span class="status" [ngClass]="document.statut === 'récupéré' ? 'success' : 'error'">
-            {{ document.statut === 'récupéré' ? '✔️' : '❌' }}
-          </span>
+    <div class="search-bar">
+      <input type="text" placeholder="Rechercher en tapant les mots clés" [(ngModel)]="searchTerm" (input)="filterDocuments()" />
+      <button class="search-btn" (click)="filterDocuments()">Chercher un document</button>
+      <button class="my-publications-btn" (click)="goToMyPublications()">Mes publications</button>
+    </div>
+
+    <div class="grid-container">
+      <div *ngFor="let document of paginatedFilteredDocuments" class="card">
+        <div class="image-container">
+          <img *ngIf="document.image" [src]="document.image" alt="document" class="image" />
+          <div class="blur-overlay"></div>
+        </div>
+        <p *ngIf="!document.image">Image non disponible</p>
+        <div class="card-content">
+          <p class="published-by">Publié par {{ document.user.FirstName }} {{ document.user.LastName }} | {{ document.created_at | date }}</p>
+          <p>Prénom propriétaire : <strong>{{ document.OwnerFirstName }}</strong></p>
+          <p>Nom propriétaire : <strong>{{ document.OwnerLastName }}</strong></p>
+          <div class="card-actions">
+            <button class="details-btn" (click)="viewDetails(document.id)">Voir détails</button>
+            <span class="status"
+                  [ngClass]="document.statut === 'récupéré' ? 'success' : 'error'"
+                  [title]="document.statut === 'récupéré' ? 'Retrouvé' : 'Non retrouvé'">
+              {{ document.statut === 'récupéré' ? '✔️' : '❌' }}
+            </span>
+          </div>
+
         </div>
       </div>
     </div>
-  </div>
 
 
-  <!-- Pagination controls -->
-  <div class="pagination-controls">
-    <button (click)="pageChanged(currentPage - 1)" [disabled]="currentPage === 1">Précédent</button>
-    <span>Page {{ currentPage }} sur {{ totalPages }}</span>
-    <button (click)="pageChanged(currentPage + 1)" [disabled]="currentPage === totalPages">Suivant</button>
+    <!-- Pagination controls -->
+    <div class="pagination-controls">
+      <button (click)="pageChanged(currentPage - 1)" [disabled]="currentPage === 1">Précédent</button>
+      <span>Page {{ currentPage }} sur {{ totalPages }}</span>
+      <button (click)="pageChanged(currentPage + 1)" [disabled]="currentPage === totalPages">Suivant</button>
+    </div>
   </div>
-</div>
-<app-footer></app-footer>
+  <app-footer></app-footer>
