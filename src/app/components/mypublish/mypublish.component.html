@@ -4,8 +4,26 @@
 
   <div class="header-text">
     <h1 class="animated-title">Découvrez et Gérez Vos Publications</h1>
-    <p class="subtitle">Modifier ici le statut de vos publications de documents perdus en cliquant sur l'icone de la croix une fois la restitution faite, ou bien supprimer simplement en clicquant sur la corbeille.</p>
+    <p class="subtitle">Modifier ici le statut de vos publications de documents perdus en cliquant sur l'icone de la croix une fois la restitution faite, ou bien supprimer simplement en clicquant sur la corbeille.</p><br>
+    <button (click)="showTrashedDocuments()" class="trash-button">🗑️ Corbeille</button>
   </div>
+
+  <div class="grid-container" *ngIf="showTrashed">
+    <div class="card" *ngFor="let trashedPublication of trashedPublications">
+        <!-- <img [src]="trashedPublication.image ? 'http://localhost:8000' + trashedPublication.image : '/assets/default-image.png'" alt="Document Image" /> -->
+        <img [src]="trashedPublication.image ? 'https://doctrackapi.malang2019marna.simplonfabriques.com' + trashedPublication.image : '/assets/default-image.png'" alt="Document Image" />
+        <div class="card-content">
+            <p class="published-by">Publié par {{ trashedPublication.user.FirstName }} {{ trashedPublication.user.LastName }} | {{ trashedPublication.created_at | date:'dd MMM yyyy' }}</p>
+            <p>Prénom propriétaire: <strong>{{ trashedPublication.OwnerFirstName }}</strong></p>
+            <p>Nom propriétaire: <strong>{{ trashedPublication.OwnerLastName }}</strong></p>
+
+            <div class="card-actions">
+                <button class="restore-icon" (click)="restorePublication(trashedPublication.id)" style="cursor: pointer;">🔄 Restaurer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
   <div *ngIf="publications.length === 0">
     <p class="no-publications">Vous n'avez aucune publication pour le moment.</p>

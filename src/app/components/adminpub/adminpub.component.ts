@@ -1,24 +1,38 @@
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { CommentairesService } from './../services/commentaire.service';
 import { Component, OnInit } from '@angular/core';
 import { PublicationsService } from '../services/publications.service';
-import { Document } from '../document-list/document-list.component';
-import { Commentaire, DocumentDetails } from '../document-detail/document-detail.component';
 import { FooterComponent } from '../footer/footer.component';
 import { SideheadersComponent } from '../sideheaders/sideheaders.component';
-import { DetailsService } from '../services/details.service';
 import { CommonModule } from '@angular/common';
-import { NgxPaginationModule } from 'ngx-pagination';
 import Swal from 'sweetalert2';
 
-
-
+export interface Document {
+  id: number;
+  image: string;
+  OwnerFirstName: string;
+  OwnerLastName: string;
+  Location: string;
+  statut: string; // Peut être 'récupéré' ou 'non récupéré'
+  document_type_id: number;
+  user_id: number;
+  created_at: string;
+  updated_at: string;
+  user: {
+    id: number;
+    FirstName: string;
+    LastName: string;
+    Phone: string;
+    Adress?: string;  // Optionnel, selon si tu veux afficher l'adresse ou pas
+    email: string;
+    email_verified_at?: string;  // Optionnel, selon si c'est pertinent pour ton application
+  };
+}
 
 @Component({
   selector: 'app-adminpub',
   standalone: true,
-  imports: [FooterComponent, SideheadersComponent,CommonModule,FormsModule],
+  imports: [FooterComponent, SideheadersComponent, CommonModule, FormsModule],
   templateUrl: './adminpub.component.html',
   styleUrls: ['./adminpub.component.css']
 })
@@ -35,24 +49,26 @@ export class AdminpubComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadAllPublications();
+    this.loadAllPublicationsIncludingDeleted();
   }
 
-  loadAllPublications(): void {
-    this.publicationsService.getAllPublications().subscribe({
+  // Charge toutes les publications (y compris celles supprimées) depuis le service
+  loadAllPublicationsIncludingDeleted(): void {
+    this.publicationsService.getAllDocumentsIncludingDeleted().subscribe({
       next: (docs) => {
         this.documents = docs.sort((a: Document, b: Document) => {
           return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
         });
         this.filteredDocuments = this.documents; // Initialise filteredDocuments avec tous les documents
       },
-      // error: (err) => console.error('Erreur lors de la récupération des publications', err)
+      error: (err) =>
+        console.error('Erreur lors de la récupération des publications', err)
     });
   }
 
-
+  // Filtre les documents en fonction du terme de recherche
   filterDocuments(): void {
-    this.currentPage = 1;  // Réinitialiser à la première page
+    this.currentPage = 1; // Réinitialiser à la première page
     if (this.searchTerm) {
       const lowerCaseSearchTerm = this.searchTerm.toLowerCase();
       this.filteredDocuments = this.documents.filter(document =>
@@ -64,27 +80,29 @@ export class AdminpubComponent implements OnInit {
     }
   }
 
-
+  // Afficher les détails d'un document
   viewDetails(id: number): void {
     this.router.navigate(['/admindetails', id]); // Remplacez '/document' par votre route de détails
   }
 
+  // Changement de page
   pageChanged(page: number): void {
     this.currentPage = page;
   }
 
+  // Documents paginés
   get paginatedDocuments(): Document[] {
     const docsToPaginate = this.filteredDocuments.length > 0 ? this.filteredDocuments : this.documents;
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     return docsToPaginate.slice(startIndex, startIndex + this.itemsPerPage);
   }
 
-
+  // Calcul du nombre total de pages
   get totalPages(): number {
     return Math.ceil(this.documents.length / this.itemsPerPage);
   }
 
-
+  // Supprimer une publication
   deletePublication(id: number): void {
     if (id) {
       Swal.fire({
@@ -107,10 +125,9 @@ export class AdminpubComponent implements OnInit {
                 timer: 2000,
                 showConfirmButton: false
               });
-              this.loadAllPublications(); // Recharge la liste des publications après suppression
+              this.loadAllPublicationsIncludingDeleted(); // Recharge la liste des publications après suppression
             },
             error: (err) => {
-              // console.error('Erreur lors de la suppression de la publication', err);
               Swal.fire({
                 title: 'Erreur',
                 text: 'Une erreur est survenue lors de la suppression.',
@@ -120,11 +137,6 @@ export class AdminpubComponent implements OnInit {
           });
         }
       });
-    } else {
-      // console.error('L\'ID de la publication est invalide.');
     }
   }
-
-
-
 }

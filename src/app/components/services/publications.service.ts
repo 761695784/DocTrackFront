@@ -4,6 +4,8 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { AuthService } from './auth.service'; // Chemin correct vers AuthService
 import { Document } from '../document-list/document-list.component';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 import { apiUrl } from './apiUrl'; // Chemin correct vers apiUrl.ts
 
 @Injectable({
@@ -23,13 +25,37 @@ export class PublicationsService {
     return this.http.get<Document[]>(`${apiUrl}/document`).pipe(
       tap(documents => this.publicationsSubject.next(documents)), // Met à jour le sujet
       map(documents => documents.map(doc => {
-        doc.image = doc.image ? `http://localhost:8000${doc.image}` : '';
-        // doc.image = doc.image ? `https://doctrackapi.malang2019marna.simplonfabriques.com${doc.image}` : '';
+        // doc.image = doc.image ? `http://localhost:8000${doc.image}` : '';
+        doc.image = doc.image ? `https://doctrackapi.malang2019marna.simplonfabriques.com${doc.image}` : '';
 
         return doc;
       }))
     );
   }
+
+// Récupérer toutes les publications (y compris supprimées)
+
+getAllDocumentsIncludingDeleted(): Observable<Document[]> {
+  const token = localStorage.getItem('token');
+  const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+
+  return this.http.get<Document[]>(`${apiUrl}/all`, { headers }).pipe(
+    tap(response => console.log('Réponse du serveur:', response)),
+    map(documents => {
+      // On s'assure que chaque document a l'URL correcte pour l'image
+      return documents.map(doc => {
+        doc.image = doc.image ? `https://doctrackapi.malang2019marna.simplonfabriques.com${doc.image}` : '';
+        // doc.image = doc.image ? `http://localhost:8000${doc.image}` : '';
+        return doc;
+      });
+    }),
+    catchError(err => {
+      console.error('Erreur lors de la récupération des documents', err);
+      return ([]); // Retourne un tableau vide en cas d'erreur
+    })
+  );
+}
+
 
 
   // Méthode d'affichage des publications d'un utilisateur spécifique
@@ -73,7 +99,7 @@ export class PublicationsService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}` // Authentification avec JWT
     });
-    return this.http.patch<{ success: boolean; message: string }>(`${apiUrl}/documents/restore/${id}`, {}, { headers });
+    return this.http.post<{ success: boolean; message: string }>(`${apiUrl}/documents/restore/${id}`, {}, { headers });
   }
 
 

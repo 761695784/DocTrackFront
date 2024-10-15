@@ -3,13 +3,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { DocumentDetails } from '../document-detail/document-detail.component';
 import { apiUrl } from './apiUrl'; // Chemin correct vers apiUrl.ts
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DetailsService {
-  // private apiUrl = 'https://doctrackapi.malang2019marna.simplonfabriques.com/api/documents'; // URL de l'API pour les publications
-  // private apiUrl = 'http://localhost:8000/api/documents';
 
   constructor(private http: HttpClient) {}
 
@@ -17,7 +17,11 @@ export class DetailsService {
   getDocumentDetails(id: number): Observable<DocumentDetails> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<DocumentDetails>(`${apiUrl}/documents/${id}`, { headers });
+    return this.http.get<DocumentDetails>(`${apiUrl}/documents/${id}`, { headers }).pipe(
+      catchError((error) => {
+        return throwError(error); // Propager l'erreur pour le traitement dans le composant
+      })
+    );
   }
 
   requestRestitution(documentId: number): Observable<any> {

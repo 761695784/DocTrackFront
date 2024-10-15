@@ -153,3 +153,33 @@ body {
     font-size: 1.2rem;
   }
 }
+
+.trash-button {
+  background-color: #31287C; /* Rouge pour le bouton de corbeille */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.trash-button:hover {
+  background-color: #d32f2f; /* Une couleur plus foncée au survol */
+}
+
+.restore-icon {
+  background-color: #31287C;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.restore-icon:hover {
+  background-color: #F6A500;
+}

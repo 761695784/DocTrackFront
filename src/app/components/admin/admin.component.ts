@@ -107,11 +107,5 @@ export class AdminComponent implements OnInit {
       doc.user.LastName.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }
-  viewDetails(documentId: number): void {
-    // console.log('Voir détails pour', documentId);
-  }
 
-  deletePublication(documentId: number): void {
-    // console.log('Suppression de la publication', documentId);
-  }
 }

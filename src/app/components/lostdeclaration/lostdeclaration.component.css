@@ -9,6 +9,13 @@ body {
   background: linear-gradient(135deg, #F3F4F7 25%, #E2E5EC 100%);
 }
 
+h2 {
+
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -111,7 +118,36 @@ body {
 }
 
 .delete-btn:hover {
-  background-color: #d32f2f;
+  background-color: #F6A500;
+}
+
+.restore-icon {
+  background-color: #31287C;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.restore-icon:hover {
+  background-color: #F6A500;
+}
+.trash-button {
+  background-color: #31287C; /* Rouge pour le bouton de corbeille */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.trash-button:hover {
+  background-color: #d32f2f; /* Une couleur plus foncée au survol */
 }
 
 /* Media Queries pour la réactivité */
@@ -133,3 +169,19 @@ body {
     margin-bottom: 30px;
   }
 }
+
+
+
+.trash-bin-button .btn-primary {
+  background-color: #31287C;
+  color: white;
+}
+
+
+.restore-btn {
+  background-color: blue;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+}
+

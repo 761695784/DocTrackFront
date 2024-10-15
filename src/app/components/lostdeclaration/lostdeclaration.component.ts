@@ -6,31 +6,28 @@ import { CommonModule } from '@angular/common';
 import { DeclarationService } from '../services/declaration.service';
 import Swal from 'sweetalert2';
 
-
-
-
-
-
 @Component({
   selector: 'app-lostdeclaration',
   standalone: true,
-  imports: [NavbarComponent,FooterComponent, FormsModule, CommonModule],
+  imports: [NavbarComponent, FooterComponent, FormsModule, CommonModule],
   templateUrl: './lostdeclaration.component.html',
-  styleUrl: './lostdeclaration.component.css'
+  styleUrl: './lostdeclaration.component.css' // Correction ici : styleUrls au lieu de styleUrl
 })
 export class LostdeclarationComponent {
   declarations: any[] = [];
+  trashedDeclarations: any[] = [];
+  showTrashedDeclarations: boolean = false; // Flag pour afficher les déclarations supprimées
 
   constructor(private declarationService: DeclarationService) {}
 
   ngOnInit() {
-    this.loadUserDeclarations();
+    this.loadUserDeclarations(); // Charger les déclarations de l'utilisateur à l'initialisation
   }
 
+  // Charger les déclarations de l'utilisateur connecté
   loadUserDeclarations() {
     this.declarationService.getUserDeclarations().subscribe(
       (response: any) => {
-        // console.log('Réponse complète:', response);  // Vérifier le nombre d'éléments dans response.data
         this.declarations = response.data;  // Assigner correctement les déclarations
       },
       (error) => {
@@ -39,43 +36,70 @@ export class LostdeclarationComponent {
     );
   }
 
+  // Nouvelle méthode de suppression avec confirmation
+  deleteDeclaration(id: number) {
+    Swal.fire({
+      title: 'Êtes-vous sûr ?',
+      text: "Cette action est irréversible !",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui, supprimer !',
+      cancelButtonText: 'Annuler'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Si l'utilisateur confirme, effectuer la suppression
+        this.declarationService.deleteDeclaration(id).subscribe(
+          () => {
+            this.declarations = this.declarations.filter(d => d.id !== id);
+            Swal.fire('Supprimé!', 'La déclaration a été supprimée avec succès.', 'success');
+          },
+          (error) => {
+            // console.error('Erreur lors de la suppression de la déclaration', error);
+            Swal.fire('Erreur!', 'Une erreur est survenue lors de la suppression.', 'error');
+          }
+        );
+      }
+    });
+  }
 
+  // Charger les déclarations supprimées
+  loadTrashedDeclarations() {
+    this.declarationService.getTrashedDeclarations().subscribe(
+      (response) => {
+        // console.log('Déclarations supprimées:', response); // Vérifie les données reçues
+        this.trashedDeclarations = response.data;  // Utilise le tableau "data" retourné par l'API
+      },
+      (error) => {
+        // console.error('Erreur lors du chargement des déclarations supprimées', error);
+      }
+    );
+  }
 
- // Nouvelle méthode de suppression avec confirmation
- deleteDeclaration(id: number) {
-  Swal.fire({
-    title: 'Êtes-vous sûr ?',
-    text: "Cette action est irréversible !",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Oui, supprimer !',
-    cancelButtonText: 'Annuler'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      // Si l'utilisateur confirme, effectuer la suppression
-      this.declarationService.deleteDeclaration(id).subscribe(
-        () => {
-          // Supprimer la déclaration localement après confirmation
-          this.declarations = this.declarations.filter(d => d.id !== id);
-          // Afficher une alerte de succès
-          Swal.fire(
-            'Supprimé!',
-            'La déclaration a été supprimée avec succès.',
-            'success'
-          );
-        },
-        (error) => {
-          // console.error('Erreur lors de la suppression de la déclaration', error);
-          Swal.fire(
-            'Erreur!',
-            'Une erreur est survenue lors de la suppression.',
-            'error'
-          );
-        }
-      );
+  // Restaurer une déclaration supprimée
+  restoreDeclaration(id: number) {
+    this.declarationService.restoreDeclaration(id).subscribe(
+      () => {
+        this.loadTrashedDeclarations(); // Recharger après restauration
+        Swal.fire('Restauré!', 'La déclaration a été restaurée avec succès.', 'success');
+      },
+      (error) => {
+        // console.error('Erreur lors de la restauration de la déclaration', error);
+        Swal.fire('Erreur!', 'Une erreur est survenue lors de la restauration.', 'error');
+      }
+    );
+  }
+
+  // Basculer entre les déclarations normales et supprimées
+  toggleTrashedView() {
+    this.showTrashedDeclarations = !this.showTrashedDeclarations;
+    // console.log('Afficher les déclarations supprimées:', this.showTrashedDeclarations); // Vérifie l'état
+
+    if (this.showTrashedDeclarations) {
+      this.loadTrashedDeclarations(); // Charger les déclarations supprimées si on bascule sur la vue corbeille
+    } else {
+      this.loadUserDeclarations(); // Recharger les déclarations normales si on revient à la vue normale
     }
-  });
-}
+  }
 }

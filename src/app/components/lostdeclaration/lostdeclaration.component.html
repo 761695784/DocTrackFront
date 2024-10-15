@@ -2,20 +2,52 @@
 
 <div class="container">
 
+  <!-- Bouton Corbeille à gauche -->
+  <!-- <div class="trash-bin-button">
+    <button class="trash-button" (click)="toggleTrashedView()"> 🗑️ Corbeille </button>
+  </div> -->
+
   <!-- Titre accrocheur avec animation -->
   <div class="header-text">
     <h1 class="animated-title">Gérez vos Déclarations</h1>
-    <p class="subtitle">Acceder a l'historique de toute vos déclarations de perte et  supprimez une fois que vous retrouvez votre document en toute simplicité.</p>
+    <p class="subtitle">
+      Accédez à l'historique de toutes vos déclarations de perte et supprimez celles que vous retrouvez en toute simplicité.
+    </p><br>
+    <div class="trash-bin-button">
+      <button class="trash-button" (click)="toggleTrashedView()"> 🗑️ Corbeille </button>
+    </div>
   </div>
 
-  <!-- Message en cas d'absence de déclarations -->
-  <div *ngIf="declarations.length === 0">
-    <p class="no-declarations">Vous n'avez aucune déclaration pour le moment.</p>
+  <!-- Affichage des déclarations supprimées -->
+  <div *ngIf="showTrashedDeclarations">
+    <h2 class="subtitle one">Voici vos Déclarations Supprimées</h2>
+
+    <!-- Message en cas d'absence de déclarations -->
+    <div *ngIf="trashedDeclarations.length === 0">
+      <p class="no-declarations">Aucune déclaration supprimée pour le moment.</p>
+    </div>
+
+    <div class="grid-container">
+      <div class="card" *ngFor="let declaration of trashedDeclarations">
+        <img src="/assets/declaration.png" alt="Document Image" />
+
+        <div class="card-content">
+          <p><strong>{{ declaration.Title }}</strong></p>
+          <p class="published-by">Supprimé le {{ declaration.deleted_at | date:'dd MMM yyyy' }}</p>
+          <p>Prénom exact: <strong>{{ declaration.FirstNameInDoc }}</strong></p>
+          <p>Nom exact: <strong>{{ declaration.LastNameInDoc }}</strong></p>
+
+          <div class="card-actions">
+            <button class="restore-icon" (click)="restoreDeclaration(declaration.id)" style="cursor: pointer;">🔄 Restaurer</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- Grille d'affichage des cartes -->
-  <div class="grid-container">
-    <div class="card" *ngFor="let declaration of declarations; let i = index">
+  <!-- Grille d'affichage des cartes pour les déclarations non supprimées -->
+  <div class="grid-container" *ngIf="!showTrashedDeclarations">
+    <div class="card" *ngFor="let declaration of declarations">
       <img src="/assets/declaration.png" alt="Document Image" />
 
       <div class="card-content">

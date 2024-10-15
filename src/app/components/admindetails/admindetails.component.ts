@@ -56,15 +56,24 @@ export class AdmindetailsComponent {
   getDocumentDetails(id: number): void {
     this.detailsService.getDocumentDetails(id).subscribe({
       next: (details) => {
-        // Vérifie si l'image existe et ajoute le préfixe pour l'URL complète
-        details.image = details.image ? `https://doctrackapi.malang2019marna.simplonfabriques.com${details.image}` : '';
-        // https://doctrackapi.malang2019marna.simplonfabriques.com
-        // hhtp://localhost:8000
-        this.documentDetails = details; // Assurez-vous de bien utiliser les données comme vous en avez besoin
+         details.image = details.image ? `https://doctrackapi.malang2019marna.simplonfabriques.com${details.image}` : '';
+        // details.image = details.image ? `http://localhost:8000${details.image}` : '';
+        this.documentDetails = details;
       },
-      // error: (err) => console.error('Erreur lors de la récupération des détails du document', err)
+      error: (err) => {
+        if (err.status === 404) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Erreur!',
+            text: 'Ce document a été supprimé par l\'utilisateur et n\'est plus accessible.',
+          });
+        } else {
+          // console.error('Erreur lors de la récupération des détails du document', err);
+        }
+      }
     });
   }
+
   getCommentaires(documentId: number): void {
     this.commentairesService.getCommentairesByDocument(documentId).subscribe({
       next: (comments) => {

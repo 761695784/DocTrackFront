@@ -57,13 +57,14 @@ addDeclaration(declaration: FormData): Observable<any> {
   }
 
   // Récupérer les déclarations supprimées de l'utilisateur connecté
-  getTrashedDeclarations(): Observable<any[]> {
+  getTrashedDeclarations(): Observable<{ success: boolean; message: string; data: any[] }> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}` // Token JWT pour l'authentification
     });
-    return this.http.get<any[]>(`${apiUrl}/trash`, { headers }); // Appel vers l'endpoint pour les déclarations supprimées
+    return this.http.get<{ success: boolean; message: string; data: any[] }>(`${apiUrl}/trash`, { headers });
   }
+
 
 // Restaurer une déclaration supprimée
   restoreDeclaration(id: number): Observable<any> {
@@ -71,7 +72,7 @@ addDeclaration(declaration: FormData): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}` // Token JWT pour l'authentification
     });
-    return this.http.patch(`${apiUrl}/declarations/restore/${id}`, {}, { headers }); // Appel vers l'endpoint pour la restauration
+    return this.http.post(`${apiUrl}/declarations/restore/${id}`, {}, { headers }); // Appel vers l'endpoint pour la restauration
   }
 
 
