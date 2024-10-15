@@ -26,6 +26,7 @@
         <p *ngIf="!document.image">Image non disponible</p>
         <div class="card-content">
           <p class="published-by">Publié par {{ document.user.FirstName }} {{ document.user.LastName }} | {{ document.created_at | date }}</p>
+          <p>Document: <strong>{{ document.document_type.TypeName }}</strong></p>
           <p>Prénom propriétaire : <strong>{{ document.OwnerFirstName }}</strong></p>
           <p>Nom propriétaire : <strong>{{ document.OwnerLastName }}</strong></p>
           <div class="card-actions">
