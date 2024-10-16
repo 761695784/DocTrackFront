@@ -1,0 +1,5 @@
+#publicationTypeChart {
+  max-width: 600px; /* Ajuste la largeur ici */
+  height: 400px;    /* Ajuste la hauteur ici */
+  margin: 0 auto 0 250px;   /* Centrer le graphique */
+}

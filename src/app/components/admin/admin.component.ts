@@ -1,3 +1,4 @@
+import { PublicationTypeChartComponent } from './../publication-type-chart/publication-type-chart.component';
 import { FormsModule } from '@angular/forms';
 import { SideheadersComponent } from './../sideheaders/sideheaders.component';
 import { AuthService } from './../services/auth.service';
@@ -9,7 +10,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [CommonModule, SideheadersComponent, FormsModule],
+  imports: [CommonModule, SideheadersComponent, FormsModule,PublicationTypeChartComponent],
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })

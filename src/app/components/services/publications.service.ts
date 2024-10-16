@@ -33,6 +33,12 @@ export class PublicationsService {
     );
   }
 
+  getPublicationsByType(): Observable<Document[]> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+    return this.http.get<Document[]>(`${apiUrl}/doctype`, { headers });
+  }
+
 // Récupérer toutes les publications (y compris supprimées)
 
 getAllDocumentsIncludingDeleted(): Observable<Document[]> {
@@ -54,6 +60,8 @@ getAllDocumentsIncludingDeleted(): Observable<Document[]> {
       return ([]); // Retourne un tableau vide en cas d'erreur
     })
   );
+
+
 }
 
 
