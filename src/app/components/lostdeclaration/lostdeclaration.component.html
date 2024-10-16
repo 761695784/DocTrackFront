@@ -36,7 +36,6 @@
           <p class="published-by">Supprimé le {{ declaration.deleted_at | date:'dd MMM yyyy' }}</p>
           <p>Prénom exact: <strong>{{ declaration.FirstNameInDoc }}</strong></p>
           <p>Nom exact: <strong>{{ declaration.LastNameInDoc }}</strong></p>
-
           <div class="card-actions">
             <button class="restore-icon" (click)="restoreDeclaration(declaration.id)" style="cursor: pointer;">🔄 Restaurer</button>
           </div>
@@ -52,9 +51,10 @@
 
       <div class="card-content">
         <p><strong>{{ declaration.Title }}</strong></p>
-        <p class="published-by">Déclaré le {{ declaration.created_at | date:'dd MMM yyyy' }}</p>
-        <p>Prénom exact: <strong>{{ declaration.FirstNameInDoc }}</strong></p>
-        <p>Nom exact: <strong>{{ declaration.LastNameInDoc }}</strong></p>
+        <p class="published-by">Déclaré  par <strong>{{ declaration.user.FirstName }} {{ declaration.user.LastName }}le {{ declaration.created_at | date:'dd MMM yyyy' }}</strong></p>
+        <p>document: <strong>{{ declaration.document_type.TypeName }}</strong></p>
+        <p>Prénom exacte : <strong>{{ declaration.FirstNameInDoc }}</strong></p>
+        <p>Nom exacte : <strong>{{ declaration.LastNameInDoc }}</strong></p>
 
         <div class="card-actions">
           <button class="delete-btn" (click)="deleteDeclaration(declaration.id)">Supprimer</button>

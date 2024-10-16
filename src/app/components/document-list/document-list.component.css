@@ -269,6 +269,7 @@ body {
   width: 70%; /* Changez la largeur à 100% pour inclure toute l'image */
   height: 54%; /* Changez la hauteur à 100% pour inclure toute l'image */
   background: rgba(199, 196, 196, 0.944); /* Ajustez la couleur et la transparence à votre convenance */
+  filter:blur(2px);
   pointer-events: none; /* Assurez-vous de permettre aux clics de passer à travers */
 }
 
@@ -278,10 +279,5 @@ body {
     top: 90px;
     left: 90px;
     width: 75%;
-    height: 54%;
-    background: rgb(199, 196, 196, 0.944);
-
   }
-
-
 }

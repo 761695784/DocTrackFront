@@ -26,6 +26,10 @@ export interface Document {
     email: string;
     email_verified_at?: string;  // Optionnel
   };
+  document_type :{
+    id: number;
+    TypeName: string;
+  }
 }
 
 @Component({

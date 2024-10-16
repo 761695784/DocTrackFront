@@ -25,8 +25,8 @@ export class PublicationsService {
     return this.http.get<Document[]>(`${apiUrl}/document`).pipe(
       tap(documents => this.publicationsSubject.next(documents)), // Met à jour le sujet
       map(documents => documents.map(doc => {
-        doc.image = doc.image ? `http://localhost:8000${doc.image}` : '';
-        // doc.image = doc.image ? `https://doctrackapi.malang2019marna.simplonfabriques.com${doc.image}` : '';
+        // doc.image = doc.image ? `http://localhost:8000${doc.image}` : '';
+        doc.image = doc.image ? `https://doctrackapi.malang2019marna.simplonfabriques.com${doc.image}` : '';
 
         return doc;
       }))

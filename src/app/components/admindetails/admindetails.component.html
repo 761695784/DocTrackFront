@@ -6,6 +6,7 @@
     <div class="col-lg-6 col-md-6 col-sm-12">
       <div class="image-container">
         <img *ngIf="documentDetails.image" [src]="documentDetails.image" alt="Document Image" class="image" >
+        <div class="blur-overlay"></div> <!-- Ajout de l'overlay pour appliquer le flou -->
       </div>
     </div>
 
@@ -13,6 +14,7 @@
       <div class="document-info">
         <p>Publié par <strong>{{ documentDetails.user.FirstName }} {{ documentDetails.user.LastName }}</strong> | {{ documentDetails.created_at | date }}</p>
         <p>📞 <strong>{{ documentDetails.user.Phone }}</strong></p>
+        <p><strong>Document :</strong> {{ documentDetails.document_type.TypeName }}</p>
         <p><strong>Prénom propriétaire :</strong> {{ documentDetails.OwnerFirstName }}</p>
         <p><strong>Nom propriétaire :</strong> {{ documentDetails.OwnerLastName }}</p>
         <p><strong>Lieu :</strong> {{ documentDetails.Location }}</p>

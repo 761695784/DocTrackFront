@@ -27,18 +27,15 @@ body {
 }
 
 .image-container {
-  width: 100%; /* S'assure que le conteneur d'image prend toute la largeur disponible */
-  max-height: 400px; /* Limite la hauteur du conteneur */
-  overflow: hidden; /* Cache les parties de l'image qui dépassent */
-  position: relative; /* Positionnement relatif pour pouvoir ajuster l'image */
+  position: relative;
+  display: inline-block;
+  overflow: hidden; /* Assurez-vous que tout débordement masqué ne soit pas visible */
 }
 
 .image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Assure que l'image se redimensionne proportionnellement pour occuper toute la largeur et la hauteur du conteneur */
+  display: block;
+  max-width: 100%;
 }
-
 .details-section {
   display: flex;
   flex-direction:row;
@@ -159,3 +156,23 @@ body {
 }
 
  }
+ .blur-overlay {
+  position: absolute;
+  top:120px; /* Positionnez à zéro si vous ne voulez pas que cela couvre tout */
+  left: 114px;
+  width: 70%; /* Changez la largeur à 100% pour inclure toute l'image */
+  height: 52%; /* Changez la hauteur à 100% pour inclure toute l'image */
+  background: rgba(199, 196, 196, 0.944); /* Ajustez la couleur et la transparence à votre convenance */
+  pointer-events: none; /* Assurez-vous de permettre aux clics de passer à travers */
+  border-radius: 0 0 10px 0;
+}
+
+/* Media Query pour mobile */
+@media (max-width: 768px) { /* Changez la largeur max si nécessaire */
+  .blur-overlay {
+    top: 82px;
+    left: 78px;
+    background: rgb(199, 196, 196, 0.944);
+    border-radius: 0 0 0 0;
+  }
+}

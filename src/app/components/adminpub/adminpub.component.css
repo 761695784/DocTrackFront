@@ -250,3 +250,22 @@ body {
     margin-bottom: 0;
   }
 }
+.blur-overlay {
+  position: absolute;
+  top:92px; /* Positionnez à zéro si vous ne voulez pas que cela couvre tout */
+  left: 94px;
+  width: 70%; /* Changez la largeur à 100% pour inclure toute l'image */
+  height: 24%; /* Changez la hauteur à 100% pour inclure toute l'image */
+  background: rgba(199, 196, 196, 0.944); /* Ajustez la couleur et la transparence à votre convenance */
+  filter:blur(2px);
+  pointer-events: none; /* Assurez-vous de permettre aux clics de passer à travers */
+}
+
+/* Media Query pour mobile */
+@media (max-width: 768px) { /* Changez la largeur max si nécessaire */
+  .blur-overlay {
+    top: 95px;
+    left:70px;
+    height: 20%;
+  }
+}

@@ -31,6 +31,10 @@
       email: string;
       email_verified_at?: string;
     };
+    document_type: {
+      id: number;
+      TypeName: string;
+    };
   }
   export interface Commentaire {
     id: number;
@@ -84,8 +88,8 @@
       this.detailsService.getDocumentDetails(id).subscribe({
         next: (details) => {
           // Vérifie si l'image existe et ajoute le préfixe pour l'URL complète
-          // details.image = details.image ? `https://doctrackapi.malang2019marna.simplonfabriques.com${details.image}` : '';
-           details.image = details.image ? `http://localhost:8000${details.image}` : '';
+          details.image = details.image ? `https://doctrackapi.malang2019marna.simplonfabriques.com${details.image}` : '';
+          //  details.image = details.image ? `http://localhost:8000${details.image}` : '';
           this.documentDetails = details; // Assurez-vous de bien utiliser les données comme vous en avez besoin
 
         // Vérifier si l'utilisateur actuel est le propriétaire du document

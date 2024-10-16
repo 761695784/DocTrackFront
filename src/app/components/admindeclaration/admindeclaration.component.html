@@ -12,8 +12,9 @@
         <p><strong>{{ declaration.Title }}</strong></p>
         <p class="published-by">Déclaré par {{ declaration.user.FirstName }} {{ declaration.user.LastName }} le {{ declaration.created_at | date }}</p>
         <p>📞 : <strong>{{ declaration.user.Phone }}</strong></p>
-        <p>Prénom exacte sur document: <strong>{{ declaration.FirstNameInDoc }}</strong></p>
-        <p>Nom exacte sur document: <strong>{{ declaration.LastNameInDoc }}</strong></p>
+        <p>Document: <strong>{{ declaration.document_type.TypeName }}</strong></p>
+        <p>Prénom exacte : <strong>{{ declaration.FirstNameInDoc }}</strong></p>
+        <p>Nom exacte : <strong>{{ declaration.LastNameInDoc }}</strong></p>
         <div class="card-actions">
           <button class="my-btn" (click)="deleteDeclaration(declaration.id)">Supprimer</button>
         </div>
@@ -22,8 +23,12 @@
   </div>
 </div>
 
-<!-- Contrôles de pagination -->
-<pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+  <!-- Contrôles de pagination -->
+  <div class="pagination-controls">
+    <button (click)="pageChanged(currentPage - 1)" [disabled]="currentPage === 1">Précédent</button>
+    <span>Page {{ currentPage }} sur {{ totalPages }}</span>
+    <button (click)="pageChanged(currentPage + 1)" [disabled]="currentPage === totalPages">Suivant</button>
+  </div>
 
 
 <!-- <app-footer></app-footer> -->

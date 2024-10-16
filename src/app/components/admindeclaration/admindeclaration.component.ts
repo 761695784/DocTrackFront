@@ -12,6 +12,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 export interface Declaration {
   id: number;
+  Title:string;
   user_id: number;
   document_id: number;
   FirstNameInDoc: string;
@@ -26,10 +27,12 @@ export interface Declaration {
     email: string;
     email_verified_at?: string;  // Optionnel, selon si c'est pertinent pour ton application
   };
+  document_type:{
+    id: number;
+    TypeName: string;
+  }
 
 }
-
-
 
 @Component({
   selector: 'app-admindeclaration',
@@ -39,9 +42,10 @@ export interface Declaration {
   styleUrl: './admindeclaration.component.css'
 })
 export class AdmindeclarationComponent {
-  declarations: any[] = [];
+  declarations: Declaration[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 12;
+  totalPages: number = 0;  // Nombre total de pages
 
 
   constructor(
@@ -58,23 +62,35 @@ export class AdmindeclarationComponent {
       loadAllDeclarations() {
         this.declarationService.getAllDeclarations().subscribe(
           (response: any) => {
-            // console.log('Réponse complète:', response);
-            this.declarations = response.data;  // Assigner toutes les déclarations
+            // Tri des déclarations par date de création (du plus récent au plus ancien)
+            this.declarations = response.data.sort((a: Declaration, b: Declaration) => {
+              return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+            });
+
+            // Calcul du nombre total de pages
+            this.totalPages = Math.ceil(this.declarations.length / this.itemsPerPage);
           },
           (error) => {
-            // console.error('Erreur lors du chargement des déclarations', error);
+            console.error('Erreur lors du chargement des déclarations', error);
           }
         );
       }
 
-      pageChanged(event: number): void {
-        this.currentPage = event;
+      pageChanged(newPage: number): void {
+        if (newPage >= 1 && newPage <= this.totalPages) {
+          this.currentPage = newPage;
+        }
       }
 
       get paginatedDeclarations(): Declaration[] {
         const startIndex = (this.currentPage - 1) * this.itemsPerPage;
         return this.declarations.slice(startIndex, startIndex + this.itemsPerPage);
       }
+
+
+
+
+
 
 
 

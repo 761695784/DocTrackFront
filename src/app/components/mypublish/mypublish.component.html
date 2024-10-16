@@ -33,13 +33,15 @@
     <!-- Boucle pour afficher toutes les publications -->
     <div class="card" *ngFor="let publication of publications">
       <!-- Affichage dynamique de l'image -->
-      <!-- <img [src]="publication.image ? 'https://doctrackapi.malang2019marna.simplonfabriques.com' + publication.image : '/assets/default-image.png'" alt="Document Image" /> -->
-      <img [src]="publication.image ? 'http://localhost:8000' + publication.image : '/assets/default-image.png'" alt="Document Image" />
+      <img [src]="publication.image ? 'https://doctrackapi.malang2019marna.simplonfabriques.com' + publication.image : '/assets/default-image.png'" alt="Document Image" />
+      <!-- <img [src]="publication.image ? 'http://localhost:8000' + publication.image : '/assets/default-image.png'" alt="Document Image" /> -->
+      <div class="blur-overlay"></div>
 
       <div class="card-content">
         <!-- Informations dynamiques de la publication -->
-        <p class="published-by">Publié par {{ publication.user.FirstName }} {{ publication.user.LastName }} | {{ publication.created_at | date:'dd MMM yyyy' }}</p>
+        <p class="published-by">Publié par <strong>{{ publication.user.FirstName }} {{ publication.user.LastName }} | {{ publication.created_at | date:'dd MMM yyyy' }}</strong></p>
         <p class="phone-number">📞 {{ publication.user.Phone }}</p>
+        <p>Document: <strong>{{ publication.document_type.TypeName }}</strong></p>
         <p>Prénom propriétaire: <strong>{{ publication.OwnerFirstName }}</strong></p>
         <p>Nom propriétaire: <strong>{{ publication.OwnerLastName }}</strong></p>
 
