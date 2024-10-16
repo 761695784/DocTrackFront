@@ -17,12 +17,15 @@
       <img src="/assets/mail.png" alt="">
       <span>{{ emailsSentCount }} Emails envoyés</span>  </div>
 </div>
-<div class ="graph" style="display: flex; align-items: center; justify-content: space-around;">
+<div class ="graph" style="display: flex; align-items: center; justify-content: space-between;">
 <div class="1er_graph">
   <app-publication-type-chart></app-publication-type-chart>
 </div>
 <div class="2eme_graph">
   <app-restitution-chart></app-restitution-chart>
+</div>
+<div class="3eme_graph">
+  <app-email-activity-chart></app-email-activity-chart>
 </div>
 </div>
 <!-- Afficher les historiques des restitutions -->

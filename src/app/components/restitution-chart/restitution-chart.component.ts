@@ -7,7 +7,7 @@ import { PublicationsService } from '../services/publications.service';
   standalone: true,
   imports: [],
   templateUrl: './restitution-chart.component.html',
-  styleUrl: './restitution-chart.component.css'
+  styleUrls: ['./restitution-chart.component.css'] // Correction ici, c'est 'styleUrls'
 })
 export class RestitutionChartComponent implements OnInit {
 
@@ -32,14 +32,14 @@ export class RestitutionChartComponent implements OnInit {
             label: 'Ratio demandes de restitution',
             data: [restitutionCount, publicationCount - restitutionCount], // Évaluer le pourcentage de demandes
             backgroundColor: [
-              'rgba(12, 209, 31, 0.944)',
-              'rgba(54, 162, 235, 0.2)'
+              'rgba(75, 192, 192, 0.7)', // Couleur pour demandes de restitution
+              'rgba(255, 206, 86, 0.7)'  // Couleur pour publications restantes
             ],
             borderColor: [
-              'rgba(255, 99, 132, 1)',
-              'rgba(54, 162, 235, 1)'
+              'rgba(54, 162, 235, 1)', // Bordure pour demandes de restitution
+              'rgba(255, 99, 132, 1)'  // Bordure pour publications restantes
             ],
-            borderWidth: 1
+            borderWidth: 2 // Une bordure légèrement plus large
           }]
         },
         options: {
@@ -60,5 +60,4 @@ export class RestitutionChartComponent implements OnInit {
       });
     });
   }
-
 }

@@ -6,12 +6,13 @@ import { SidebarComponent } from './../sidebar/sidebar.component';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RestitutionChartComponent } from '../restitution-chart/restitution-chart.component';
+import { EmailActivityChartComponent } from '../email-activity-chart/email-activity-chart.component';
 
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [CommonModule, SideheadersComponent, FormsModule,PublicationTypeChartComponent,RestitutionChartComponent],
+  imports: [CommonModule, SideheadersComponent, FormsModule,PublicationTypeChartComponent,RestitutionChartComponent, EmailActivityChartComponent],
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })

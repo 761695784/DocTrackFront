@@ -1,0 +1,6 @@
+/* email-activity-chart.component.css */
+
+canvas {
+  width: 100% !important; /* Prend toute la largeur disponible */
+  height: 400px !important; /* Hauteur souhaitée pour le graphique */
+}
