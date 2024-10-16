@@ -39,6 +39,17 @@ export class PublicationsService {
     return this.http.get<Document[]>(`${apiUrl}/doctype`, { headers });
   }
 
+  getRestitutionData(): Observable<Document[]> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+    return this.http.get<Document[]>(`${apiUrl}/taux`, { headers });
+  }
+
+  getEmailActivity(): Observable<Document[]> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+    return this.http.get<Document[]>(`${apiUrl}/mail`, { headers });
+  }
 // Récupérer toutes les publications (y compris supprimées)
 
 getAllDocumentsIncludingDeleted(): Observable<Document[]> {
