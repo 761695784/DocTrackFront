@@ -20,6 +20,7 @@ import { AdminpubComponent } from './components/adminpub/adminpub.component';
 import { AdmindetailsComponent } from './components/admindetails/admindetails.component';
 import { AdmindeclarationComponent } from './components/admindeclaration/admindeclaration.component';
 import { UsergetComponent } from './components/userget/userget.component';
+import { EvolutionChartComponent } from './components/evolution-chart/evolution-chart.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -37,6 +38,7 @@ export const routes: Routes = [
   { path: 'modify', component:ChangeprofilComponent ,canActivate: [AuthGuard]},
   { path: 'sidebar', component:SidebarComponent },
   { path: 'head', component: SideheadersComponent},
+  { path: 'stat', component: EvolutionChartComponent},
   { path : 'admin', component: AdminComponent ,canActivate: [AuthGuard]},
   { path: 'adminpub', component: AdminpubComponent ,canActivate: [AuthGuard]},
   { path: 'admindetails/:id', component:AdmindetailsComponent ,canActivate: [AuthGuard]},
