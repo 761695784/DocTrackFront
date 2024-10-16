@@ -39,8 +39,8 @@ export class PublicationsService {
         map(documents => {
           // On s'assure que chaque document a l'URL correcte pour l'image
           return documents.map(doc => {
-            //  doc.image = doc.image ? `https://doctrackapi.malang2019marna.simplonfabriques.com${doc.image}` : '';
-            doc.image = doc.image ? `http://localhost:8000${doc.image}` : '';
+             doc.image = doc.image ? `https://doctrackapi.malang2019marna.simplonfabriques.com${doc.image}` : '';
+            // doc.image = doc.image ? `http://localhost:8000${doc.image}` : '';
             return doc;
           });
         }),
