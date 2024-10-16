@@ -51,8 +51,8 @@
 
       <div class="card-content">
         <p><strong>{{ declaration.Title }}</strong></p>
-        <p class="published-by">Déclaré  par <strong>{{ declaration.user.FirstName }} {{ declaration.user.LastName }}le {{ declaration.created_at | date:'dd MMM yyyy' }}</strong></p>
-        <p>document: <strong>{{ declaration.document_type.TypeName }}</strong></p>
+        <p class="published-by">Déclaré  par <strong>{{ declaration.user.FirstName }} {{ declaration.user.LastName }} le {{ declaration.created_at | date:'dd MMM yyyy' }}</strong></p>
+        <p>document : <strong>{{ declaration.document_type.TypeName }}</strong></p>
         <p>Prénom exacte : <strong>{{ declaration.FirstNameInDoc }}</strong></p>
         <p>Nom exacte : <strong>{{ declaration.LastNameInDoc }}</strong></p>
 

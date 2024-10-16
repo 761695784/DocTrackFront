@@ -12,12 +12,12 @@
 
     <div class="col-lg-6 col-md-6 col-sm-12 details-section">
       <div class="document-info">
-        <p>Publié par <strong>{{ documentDetails.user.FirstName }} {{ documentDetails.user.LastName }}</strong> | {{ documentDetails.created_at | date }}</p>
+        <p>Publié par <strong>{{ documentDetails.user.FirstName }} {{ documentDetails.user.LastName }} le {{ documentDetails.created_at | date }}</strong> </p>
         <p>📞 <strong>{{ documentDetails.user.Phone }}</strong></p>
-        <p><strong>Document :</strong> {{ documentDetails.document_type.TypeName }}</p>
-        <p><strong>Prénom propriétaire :</strong> {{ documentDetails.OwnerFirstName }}</p>
-        <p><strong>Nom propriétaire :</strong> {{ documentDetails.OwnerLastName }}</p>
-        <p><strong>Lieu :</strong> {{ documentDetails.Location }}</p>
+        <p>Document :<strong>{{ documentDetails.document_type.TypeName }}</strong></p>
+        <p>Prénom propriétaire :<strong> {{ documentDetails.OwnerFirstName }}</strong></p>
+        <p>Nom propriétaire :<strong> {{ documentDetails.OwnerLastName }} </strong></p>
+        <p>Lieu :<strong> {{ documentDetails.Location }}</strong></p>
         <p><strong>Identification :</strong> {{ documentDetails.identification }}</p>
       </div>
 
