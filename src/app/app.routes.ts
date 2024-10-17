@@ -25,6 +25,7 @@ import { AdminstatsComponent } from './components/adminstats/adminstats.componen
 import { EmailActivityChartComponent } from './components/email-activity-chart/email-activity-chart.component';
 import { PublicationTypeChartComponent } from './components/publication-type-chart/publication-type-chart.component';
 import { RestitutionChartComponent } from './components/restitution-chart/restitution-chart.component';
+import { MapComponent } from './components/map/map.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -53,6 +54,10 @@ export const routes: Routes = [
   { path: 'adminstats', component:AdminstatsComponent ,} , //canActivate: [AuthGuard],
   { path: 'activity', component: EmailActivityChartComponent },
   { path: 'push', component: PublicationTypeChartComponent},
-  { path: 'resti', component: RestitutionChartComponent }
+  { path: 'resti', component: RestitutionChartComponent },
+  {
+    path: 'map',
+    loadComponent: () => import('./components/map/map.component').then(m => m.MapComponent) // Lazy loading du composant autonome
+  }
 
 ];

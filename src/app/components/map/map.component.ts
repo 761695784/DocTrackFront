@@ -1,13 +1,14 @@
 import { AfterViewInit, Component } from '@angular/core';
 import * as maplibregl from 'maplibre-gl';
+import { CommonModule } from '@angular/common';
 import { PublicationsService } from '../services/publications.service';
 
 @Component({
   selector: 'app-map',
   standalone: true,
-  imports: [],
+  imports: [CommonModule], // Ajout du module requis pour les fonctionnalités Angular
   templateUrl: './map.component.html',
-  styleUrl: './map.component.css'
+  styleUrls: ['./map.component.css'] // Correction: styleUrls au lieu de styleUrl
 })
 export class MapComponent implements AfterViewInit {
 
