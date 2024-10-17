@@ -4,8 +4,9 @@ body {
 .graph {
   display: flex;
   flex-direction: row;
-  margin-left: 15%;
-  
+  margin-left: 12%;
+  padding: 60px;
+
 }
 
 /* Ajout d'une animation d'entrée lors du chargement des stats */

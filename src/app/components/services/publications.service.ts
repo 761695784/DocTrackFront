@@ -58,6 +58,12 @@ export class PublicationsService {
         return this.http.get<Document[]>(`${apiUrl}/doctype`, { headers });
       }
 
+      // Diagramme en barre mmontrant le nombre de pub dont le satut est recuperé par rapport aux non recupere
+      getDocumentStatusCount(): Observable<Document[]>{
+        const token = localStorage.getItem('token');
+        const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+        return this.http.get<Document[]>(`${apiUrl}/status-count`, { headers });
+      }
     // Fonction pour le diagrame circulaire du demande de restitution par rapport aux publications restantes
       getRestitutionData(): Observable<Document[]> {
         const token = localStorage.getItem('token');

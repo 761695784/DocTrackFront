@@ -31,9 +31,14 @@ export class PublicationTypeChartComponent implements OnInit {
         'rgba(54, 162, 235, 1)', // Passeport
         'rgba(255, 206, 86, 0.2)', // Carte grise
         'rgba(75, 192, 192, 1)', // Diplômes Baccalauréat
-        'rgba(153, 102, 255, 1)', // Carte bancaire
+        'rgba(0, 191, 64, 1)', // Carte bancaire
         'rgba(255, 159, 64, 1)', // Attestation d'assurance
-        'rgba(255, 99, 132, 1)' // Carte d'étudiant
+        'rgba(254, 0, 246, 1)' ,// Carte d'étudiant
+        'rgba(255, 229, 14, 1)', // Carte professionnelle
+        'rgba(0, 9, 180, 1)', // Carnet de santé
+        'rgba(168, 116, 3, 1)', // Carte d'étudiant
+        'rgba(255, 49, 132, 1)', // permis de conduire
+
       ];
 
       // Créer un tableau de couleurs basé sur le nombre de publications

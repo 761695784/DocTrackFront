@@ -21,6 +21,10 @@ import { AdmindetailsComponent } from './components/admindetails/admindetails.co
 import { AdmindeclarationComponent } from './components/admindeclaration/admindeclaration.component';
 import { UsergetComponent } from './components/userget/userget.component';
 import { EvolutionChartComponent } from './components/evolution-chart/evolution-chart.component';
+import { AdminstatsComponent } from './components/adminstats/adminstats.component';
+import { EmailActivityChartComponent } from './components/email-activity-chart/email-activity-chart.component';
+import { PublicationTypeChartComponent } from './components/publication-type-chart/publication-type-chart.component';
+import { RestitutionChartComponent } from './components/restitution-chart/restitution-chart.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -45,6 +49,10 @@ export const routes: Routes = [
   { path: 'admindec', component:AdmindeclarationComponent, canActivate: [AuthGuard]},
   { path: 'adminuser', component: UsergetComponent, canActivate: [AuthGuard]},
   { path: 'adminadd', component: UserAddComponent, canActivate: [AuthGuard] },
-  { path: 'profil', component:AdminprofilComponent,  canActivate: [AuthGuard]}
+  { path: 'profil', component:AdminprofilComponent,  canActivate: [AuthGuard]},
+  { path: 'adminstats', component:AdminstatsComponent ,} , //canActivate: [AuthGuard],
+  { path: 'activity', component: EmailActivityChartComponent },
+  { path: 'push', component: PublicationTypeChartComponent},
+  { path: 'resti', component: RestitutionChartComponent }
 
 ];

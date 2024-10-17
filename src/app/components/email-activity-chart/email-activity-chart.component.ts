@@ -32,8 +32,8 @@ export class EmailActivityChartComponent implements OnInit {
             label: 'Nombre d\'emails envoyés',
             data: counts, // Fréquence de chaque sujet
             backgroundColor: [
-              'rgba(255, 99, 132, 0.7)', // Rouge
-              'rgba(54, 162, 235, 0.7)', // Bleu
+              'rgba(122, 146, 0, 1)', // Rouge
+              'rgba(252, 78, 0, 1)', // Bleu
               'rgba(255, 206, 86, 0.7)', // Jaune
               'rgba(75, 192, 192, 0.7)', // Turquoise
               'rgba(153, 102, 255, 0.7)', // Violet
@@ -63,4 +63,3 @@ export class EmailActivityChartComponent implements OnInit {
     });
   }
 }
-  
