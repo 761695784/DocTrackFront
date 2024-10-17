@@ -7,6 +7,7 @@ import { Document } from '../document-list/document-list.component';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { apiUrl } from './apiUrl';
+import { Location } from './location.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -85,6 +86,12 @@ export class PublicationsService {
         return this.http.get<Document[]>(`${apiUrl}/stat`, { headers });
       }
 
+      //Methode pour afficher les pubications par lieux
+      getPublicationsByLocation(): Observable<Location[]> { // Utilisez Location au lieu de Document
+        const token = localStorage.getItem('token');
+        const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+        return this.http.get<Location[]>(`${apiUrl}/lieu`, { headers });
+      }
       // Méthode d'affichage des publications d'un utilisateur spécifique
       getUserPublications(): Observable<Document[]> {
         const token = localStorage.getItem('token');
