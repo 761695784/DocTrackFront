@@ -5,7 +5,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { FooterComponent } from '../footer/footer.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router'; // Importez Router ici
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-landing',
@@ -19,13 +19,14 @@ export class LandingComponent implements OnInit {
   documents: Document[] = [];
   filteredDocuments: Document[] = [];
 
-  // Injectez Router dans le constructeur
   constructor(private publicationsService: PublicationsService, private router: Router) {}
+
 
   ngOnInit(): void {
     this.fetchDocuments();
   }
 
+  // Méthode pour charger tous les documents
   fetchDocuments(): void {
     this.publicationsService.getAllPublications().subscribe({
       next: (data) => {
@@ -37,6 +38,7 @@ export class LandingComponent implements OnInit {
     });
   }
 
+  // Méthode pour filtrer les documents
   filterDocuments(): void {
     const lowerCaseSearchTerm = this.searchTerm.toLowerCase();
     this.filteredDocuments = this.documents.filter(document =>
@@ -46,7 +48,8 @@ export class LandingComponent implements OnInit {
     // console.log('Filtered Documents:', this.filteredDocuments);
   }
 
+  // Methode pour la redirection vers les details de la publications
   viewDetails(id: number): void {
-    this.router.navigate(['/document', id]); // Assurez-vous que votre route est correcte
+    this.router.navigate(['/document', id]);
   }
 }

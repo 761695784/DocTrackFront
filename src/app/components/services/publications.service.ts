@@ -25,7 +25,6 @@ export class PublicationsService {
         map(documents => documents.map(doc => {
           // doc.image = doc.image ? `http://localhost:8000${doc.image}` : '';
           doc.image = doc.image ? `https://doctrackapi.malang2019marna.simplonfabriques.com${doc.image}` : '';
-
           return doc;
         }))
       );
@@ -120,22 +119,18 @@ export class PublicationsService {
       // Récupérer les documents supprimés (soft deleted)
       getTrashedDocuments(): Observable<Document[]> {
         const token = localStorage.getItem('token');
-        const headers = new HttpHeaders({
-          'Authorization': `Bearer ${token}` // Authentification avec JWT
-        });
+        const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
         return this.http.get<Document[]>(`${apiUrl}/trashed`, { headers });
       }
 
       // Restaurer un document supprimé
       restoreDocument(id: number): Observable<{ success: boolean; message: string }> {
         const token = localStorage.getItem('token');
-        const headers = new HttpHeaders({
-          'Authorization': `Bearer ${token}` // Authentification avec JWT
-        });
+        const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}`});
         return this.http.post<{ success: boolean; message: string }>(`${apiUrl}/documents/restore/${id}`, {}, { headers });
       }
 
-    // Méthode pour la modification du statut de sa propre publication
+      // Méthode pour la modification du statut de sa propre publication
         updatePublicationStatus(id: number, statut: string): Observable<{ success: boolean; message: string; document: Document }> {
           const token = localStorage.getItem('token');
           const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });

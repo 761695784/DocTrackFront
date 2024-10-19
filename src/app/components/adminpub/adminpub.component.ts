@@ -47,10 +47,7 @@ export class AdminpubComponent implements OnInit {
   itemsPerPage: number = 12;
   filteredDocuments: Document[] = [];
 
-  constructor(
-    private publicationsService: PublicationsService,
-    private router: Router
-  ) {}
+  constructor(private publicationsService: PublicationsService,private router: Router) {}
 
   ngOnInit(): void {
     this.loadAllPublicationsIncludingDeleted();
@@ -86,7 +83,7 @@ export class AdminpubComponent implements OnInit {
 
   // Afficher les détails d'un document
   viewDetails(id: number): void {
-    this.router.navigate(['/admindetails', id]); // Remplacez '/document' par votre route de détails
+    this.router.navigate(['/admindetails', id]); 
   }
 
   // Changement de page

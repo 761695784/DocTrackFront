@@ -81,7 +81,7 @@ export class AdminComponent implements OnInit {
     this.totalPages = Math.ceil(this.filteredEmailLogs.length / this.itemsPerPage);
   }
 
-  // Méthode pour charger toutes les données
+  // Méthode pour charger toutes les données au niveau des stat-box
   loadAllData(): void {
     this.authService.getAllData().subscribe(data => {
       this.declarationsCount = data.declarations.length;
@@ -90,7 +90,7 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  // Méthode pour charger le nombre de demandes de restitution
+  // Méthode pour charger le nombre de demandes de restitution au niveau du stat-box
   loadRestitutionCount(): void {
     this.authService.getRestitutionRequestCount().subscribe({
       next: (data) => {
@@ -101,8 +101,6 @@ export class AdminComponent implements OnInit {
       }
     });
   }
-
-
 
   // Méthode pour filtrer les publications par nom ou prénom
   onSearch(searchTerm: string): void {

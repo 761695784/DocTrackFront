@@ -15,9 +15,9 @@ body {
 }
 
 .grid-container {
-  display: grid;                    /* Utilisation de la grille CSS */
-  grid-template-columns: repeat(3, 1fr); /* Trois cartes par ligne */
-  gap: 20px;                       /* Espacement entre les cartes */
+  display: grid;                    
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
   margin-top: 20px;
 }
 
@@ -31,8 +31,8 @@ body {
 
 .card img {
   width: 100%;
-  height: 200px;                   /* Hauteur constante pour les images */
-  object-fit: cover;               /* Adapter l'image sans déformation */
+  height: 200px;
+  object-fit: cover;
 }
 
 .card-content {
@@ -56,7 +56,7 @@ body {
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
-  background-color: #31287C;       /* Couleur personnalisée pour le bouton */
+  background-color: #31287C;
 }
 
 /* Media Queries pour la réactivité */
@@ -78,7 +78,7 @@ body {
 
 @media (max-width: 480px) {
   .grid-container {
-    grid-template-columns: 1fr; /* Une carte par ligne */
+    grid-template-columns: 1fr;
   }
 }
 

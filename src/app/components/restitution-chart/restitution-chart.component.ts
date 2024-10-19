@@ -19,6 +19,7 @@ export class RestitutionChartComponent implements OnInit {
     this.loadChartData();
   }
 
+  // Chargement des données pour affiicher le graphe
   loadChartData() {
     this.publicationService.getRestitutionData().subscribe((data: any) => {
       const restitutionCount = data.restitutionCount;

@@ -37,7 +37,11 @@ export class PublishformComponent {
     private publicationsService: PublicationsService,
     private authService: AuthService,
     private fb: FormBuilder
-  ) {
+  )
+   /**
+     * Construction du regles de validations des champs du formulaire de publication
+     */
+{
     this.publishForm = this.fb.group({
       image: ['', Validators.required],
       OwnerLastName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25), this.noSpecialCharsValidator]],
@@ -49,6 +53,7 @@ export class PublishformComponent {
     });
   }
 
+  // methode pour l'affichage des messages d'erreurs
   getErrorMessage(field: string): string {
     const control = this.publishForm.get(field);
     if (field === 'image') {
@@ -74,6 +79,7 @@ export class PublishformComponent {
       return; // Ne pas afficher le SweetAlert tant que le formulaire est invalide
     }
 
+ // Préparation des données pour l'envoi
     const formData = new FormData();
     formData.append('image', this.publishForm.get('image')?.value);
     formData.append('OwnerLastName', this.publishForm.get('OwnerLastName')?.value);
@@ -83,6 +89,7 @@ export class PublishformComponent {
     formData.append('document_type_id', this.publishForm.get('documentType')?.value);
     formData.append('statut', this.publishForm.get('statut')?.value);
 
+    // Vérification de l'authentification avant de soumettre
     if (this.authService.isAuthenticated()) {
       this.publicationsService.addPublication(formData).subscribe(response => {
         Swal.fire({
@@ -113,6 +120,7 @@ export class PublishformComponent {
     }
   }
 
+  // Methode pour la validation de l'image fourni
   onFileChange(event: any) {
     const file = event.target.files[0];
     this.fileError = null; // Réinitialiser le message d'erreur
@@ -138,6 +146,7 @@ export class PublishformComponent {
     }
   }
 
+  // Validation avec les regex
   noSpecialCharsValidator(control: any) {
     const regex = /^[a-zA-Z\s]+$/;
     if (control.value && !regex.test(control.value)) {

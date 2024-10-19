@@ -9,7 +9,7 @@
   import { FormsModule } from '@angular/forms';
   import Swal from 'sweetalert2';
 
-  // Assurez-vous d'utiliser une interface pour décrire les données du document
+  // Interface pour décrire les données du document
   export interface DocumentDetails {
     id: number;
     image: string | null;
@@ -36,6 +36,7 @@
       TypeName: string;
     };
   }
+// Interface pour décrire les données du commentaire
   export interface Commentaire {
     id: number;
     contenu: string;
@@ -46,8 +47,6 @@
     };
     created_at: string;
   }
-
-
 
   @Component({
     selector: 'app-document-detail',
@@ -66,22 +65,22 @@
     constructor(
       private route: ActivatedRoute,
       private detailsService: DetailsService,
-      private commentairesService: CommentairesService, // Ajout du service Commentaires
-      private authService: AuthService // Ajout du service AuthService
+      private commentairesService: CommentairesService,
+      private authService: AuthService
     ) { }
 
-    ngOnInit(): void {
-      this.route.paramMap.subscribe(paramMap => {
-        const documentIdString = paramMap.get('id');
-        if (documentIdString) {
-          const documentId = +documentIdString; // Convertir en nombre
-          this.getDocumentDetails(documentId);
-          this.getCommentaires(documentId); // Charger les commentaires dès que le document est chargé
-        } else {
-          // console.error('Document ID is null or undefined');
-        }
-      });
-    }
+      ngOnInit(): void {
+        this.route.paramMap.subscribe(paramMap => {
+          const documentIdString = paramMap.get('id');
+          if (documentIdString) {
+            const documentId = +documentIdString; // Conversion en nombre
+            this.getDocumentDetails(documentId);
+            this.getCommentaires(documentId); // Charger les commentaires dès que le document est chargé
+          } else {
+            // console.error('Document ID is null or undefined');
+          }
+        });
+      }
 
 
     getDocumentDetails(id: number): void {
@@ -90,7 +89,7 @@
           // Vérifie si l'image existe et ajoute le préfixe pour l'URL complète
           details.image = details.image ? `https://doctrackapi.malang2019marna.simplonfabriques.com${details.image}` : '';
           //  details.image = details.image ? `http://localhost:8000${details.image}` : '';
-          this.documentDetails = details; // Assurez-vous de bien utiliser les données comme vous en avez besoin
+          this.documentDetails = details;
 
         // Vérifier si l'utilisateur actuel est le propriétaire du document
         const currentUserId = +localStorage.getItem('userId')!; // ID de l'utilisateur connecté
@@ -101,7 +100,7 @@
     }
 
 
-//Methode d'affichage de commentaire
+    //Methode d'affichage de commentaire
     getCommentaires(documentId: number): void {
       this.commentairesService.getCommentairesByDocument(documentId).subscribe({
         next: (comments) => {
@@ -127,8 +126,8 @@
               icon: 'success',
               title: 'Commentaire ajouté',
               text: 'Votre commentaire a été ajouté avec succès.',
-              timer: 2000, // Durée de l'alerte en millisecondes
-              showConfirmButton: false // Ne pas afficher le bouton de confirmation
+              timer: 2000,
+              showConfirmButton: true
             });
           },
           error: (err) => {
@@ -137,8 +136,8 @@
               icon: 'error',
               title: 'Erreur',
               text: 'Une erreur est survenue lors de l\'ajout de votre commentaire.',
-              timer: 2000, // Durée de l'alerte en millisecondes
-              showConfirmButton: false // Ne pas afficher le bouton de confirmation
+              timer: 2000,
+              showConfirmButton: false
             });
           }
         });
@@ -147,8 +146,8 @@
           icon: 'warning',
           title: 'Non authentifié',
           text: 'Vous devez être authentifié pour ajouter un commentaire.',
-          timer: 2000, // Durée de l'alerte en millisecondes
-          showConfirmButton: false // Ne pas afficher le bouton de confirmation
+          timer: 2000,
+          showConfirmButton: true
         });
       }
     }
@@ -169,7 +168,7 @@
               next: (response) => {
                 this.isRestitutionRequested = true;
                 // Afficher le numéro de téléphone du publicateur dans la SweetAlert
-                const phoneNumber = this.documentDetails?.user.Phone; // Assurez-vous que le numéro de téléphone est accessible
+                const phoneNumber = this.documentDetails?.user.Phone;
                 Swal.fire({
                   icon: 'success',
                   title: 'Demande envoyée',
@@ -186,7 +185,7 @@
                     title: 'Demande déjà effectuée',
                     text: 'Vous avez déjà demandé la restitution de ce document.',
                     timer: 4000,
-                    showConfirmButton: false
+                    showConfirmButton: true
                   });
                 } else {
                   Swal.fire({

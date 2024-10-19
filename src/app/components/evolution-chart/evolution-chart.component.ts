@@ -19,6 +19,7 @@ export class EvolutionChartComponent implements OnInit {
     this.loadChartData();
   }
 
+  // 
   loadChartData() {
     this.publicationService.getEvolutionData().subscribe((data: any) => {
       const dates = data.map((item: any) => item.date);

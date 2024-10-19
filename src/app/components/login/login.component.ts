@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private redirectService: RedirectService // Injection de RedirectService
+    private redirectService: RedirectService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
     // Vous pouvez effectuer des tâches d'initialisation ici
   }
 
+  // Methode appelé lors du click du bouton submit
   onSubmit() {
     if (this.loginForm.valid) {
       const loginData = this.loginForm.value;

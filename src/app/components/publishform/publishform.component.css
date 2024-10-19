@@ -137,7 +137,7 @@ button:hover {
   }
   input[type="file"], input[type="text"], select {
     padding-top: 10px;
-    margin-top: 2px; /* Réduit l'espace entre le label et l'input */
+    margin-top: 2px; 
   }
 
 }

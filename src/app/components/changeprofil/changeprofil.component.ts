@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { AuthService } from '../services/auth.service';
 import { CommonModule } from '@angular/common';
-import Swal from 'sweetalert2'; // Import de SweetAlert2
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-changeprofil',
@@ -16,11 +16,10 @@ import Swal from 'sweetalert2'; // Import de SweetAlert2
 export class ChangeprofilComponent implements OnInit {
   profileForm: FormGroup;
 
-  constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private router: Router
-  ) {
+  constructor(private fb: FormBuilder,private authService: AuthService,private router: Router) {
+  /**
+  * Construction du regles de validations des champs du formulaire de publication
+  */
     this.profileForm = this.fb.group({
       FirstName: ['', Validators.required],
       LastName: ['', Validators.required],
@@ -29,10 +28,8 @@ export class ChangeprofilComponent implements OnInit {
       Phone: ['', Validators.required],
       oldPassword: [''],
       newPassword: [''],
-      newPasswordConfirm: ['']
-    }, {
-      validator: this.passwordMatchValidator // Ajout du validateur personnalisé
-    });
+      newPasswordConfirm: ['']},
+     { validator: this.passwordMatchValidator });// Ajout du validateur personnalisé
   }
 
   ngOnInit() {

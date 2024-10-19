@@ -17,11 +17,10 @@ export class AdminprofilComponent {
 
   profileForm: FormGroup;
 
-  constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private router: Router
-  ) {
+  constructor(private fb: FormBuilder,private authService: AuthService,private router: Router) {
+  /**
+  * Construction du regles de validations des champs du formulaire de publication
+  */
     this.profileForm = this.fb.group({
       FirstName: ['', Validators.required],
       LastName: ['', Validators.required],
@@ -40,6 +39,7 @@ export class AdminprofilComponent {
     this.loadUserProfile();
   }
 
+  // Charger les informations de profil de l'utilisateur connecté
   loadUserProfile() {
     const user = localStorage.getItem('user');
     if (user) {
