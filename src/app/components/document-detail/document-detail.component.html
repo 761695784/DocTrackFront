@@ -19,7 +19,7 @@
             </p>
           </div>
           <p>Publié par <strong>{{ documentDetails.user.FirstName }} {{ documentDetails.user.LastName }}</strong> | <strong> {{ documentDetails.created_at | date: 'EEEE dd MMMM yyyy, HH:mm' }} </strong></p>
-          <p>Document: <strong>{{ documentDetails.document_type.TypeName }}</strong></p>
+          <p>Document : <strong>{{ documentDetails.document_type.TypeName }}</strong></p>
           <p>Prénom propriétaire :  <strong>{{ documentDetails.OwnerFirstName }} </strong></p>
           <p>Nom propriétaire : <strong>{{ documentDetails.OwnerLastName }}</strong></p>
           <p>Lieu :<strong> {{ documentDetails.Location }} </strong></p>

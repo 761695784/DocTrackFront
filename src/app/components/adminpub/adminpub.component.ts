@@ -23,9 +23,9 @@ export interface Document {
     FirstName: string;
     LastName: string;
     Phone: string;
-    Adress?: string;  // Optionnel, selon si tu veux afficher l'adresse ou pas
+    Adress?: string;
     email: string;
-    email_verified_at?: string;  // Optionnel, selon si c'est pertinent pour ton application
+    email_verified_at?: string;
   };
   document_type: {
     id: number;
@@ -83,7 +83,7 @@ export class AdminpubComponent implements OnInit {
 
   // Afficher les détails d'un document
   viewDetails(id: number): void {
-    this.router.navigate(['/admindetails', id]); 
+    this.router.navigate(['/admindetails', id]);
   }
 
   // Changement de page
