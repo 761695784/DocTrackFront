@@ -136,7 +136,7 @@ h2 {
   background-color: #F6A500;
 }
 .trash-button {
-  background-color: #31287C; /* Rouge pour le bouton de corbeille */
+  background-color: #31287C;
   color: white;
   border: none;
   padding: 10px 15px;
@@ -147,7 +147,7 @@ h2 {
 }
 
 .trash-button:hover {
-  background-color: #d32f2f; /* Une couleur plus foncée au survol */
+  background-color: #d32f2f; 
 }
 
 /* Media Queries pour la réactivité */

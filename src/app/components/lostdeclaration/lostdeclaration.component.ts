@@ -11,24 +11,25 @@ import Swal from 'sweetalert2';
   standalone: true,
   imports: [NavbarComponent, FooterComponent, FormsModule, CommonModule],
   templateUrl: './lostdeclaration.component.html',
-  styleUrl: './lostdeclaration.component.css' // Correction ici : styleUrls au lieu de styleUrl
+  styleUrl: './lostdeclaration.component.css'
 })
 export class LostdeclarationComponent {
   declarations: any[] = [];
   trashedDeclarations: any[] = [];
-  showTrashedDeclarations: boolean = false; // Flag pour afficher les déclarations supprimées
+  showTrashedDeclarations: boolean = false;
 
   constructor(private declarationService: DeclarationService) {}
 
+  // Charger les déclarations de l'utilisateur à l'initialisation
   ngOnInit() {
-    this.loadUserDeclarations(); // Charger les déclarations de l'utilisateur à l'initialisation
+    this.loadUserDeclarations();
   }
 
   // Charger les déclarations de l'utilisateur connecté
   loadUserDeclarations() {
     this.declarationService.getUserDeclarations().subscribe(
       (response: any) => {
-        this.declarations = response.data;  // Assigner correctement les déclarations
+        this.declarations = response.data; 
       },
       (error) => {
         // console.error('Erreur lors du chargement des déclarations', error);

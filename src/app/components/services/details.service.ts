@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { DocumentDetails } from '../document-detail/document-detail.component';
-import { apiUrl } from './apiUrl'; // Chemin correct vers apiUrl.ts
+import { apiUrl } from './apiUrl'; 
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
@@ -24,11 +24,10 @@ export class DetailsService {
     );
   }
 
+  //Methode pour envoyer une demande de restitution
   requestRestitution(documentId: number): Observable<any> {
-    const token = localStorage.getItem('token'); // Récupère le token
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}` // Ajoute l'en-tête d'authentification
-    });
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
     return this.http.post<any>(`${apiUrl}/documents/${documentId}/restitution`, {}, { headers });
   }
 

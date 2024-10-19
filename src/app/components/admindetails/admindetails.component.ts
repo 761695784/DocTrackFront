@@ -12,7 +12,6 @@ import Swal from'sweetalert2';
 import { AuthService } from '../services/auth.service';
 
 
-
 @Component({
   selector: 'app-admindetails',
   standalone: true,
@@ -22,28 +21,24 @@ import { AuthService } from '../services/auth.service';
 })
 export class AdmindetailsComponent {
   // Déclaration des variables pour les données du document et des commentaires
-  selectedDocumentId: number | null = null; // Utiliser le type number pour stocker l'ID du document sélectionné
-  selectedCommentId: number | null = null; // Utiliser le type number pour stocker l'ID du commentaire sélectionné
-  document: any; // Utiliser le type any pour stocker les données du document
-  documentDetails: DocumentDetails | null = null; // Utiliser le type DocumentDetails
+  selectedDocumentId: number | null = null; // Utilisation du type number pour stocker l'ID du document sélectionné
+  selectedCommentId: number | null = null; // Utilisation du type number pour stocker l'ID du commentaire sélectionné
+  document: any; // Utilisation du type any pour stocker les données du document
+  documentDetails: DocumentDetails | null = null; //Utilisation du type DocumentDetails
   selectedDocumentDetails: DocumentDetails | null = null;
-  commentaires: Commentaire[] = []; // Ajout pour stocker les commentaires
+  commentaires: Commentaire[] = []; // Ajouté pour stocker les commentaires
   newComment: string = ''; // Pour stocker le contenu du nouveau commentaire
   publications: Document[] = [];
 
 
-  constructor(
-    private publicationsService: PublicationsService,
-    private detailsService: DetailsService,
-    private commentairesService: CommentairesService,
-    private route: ActivatedRoute,  // Ajout du service ActivatedRoute
-    private authService: AuthService // Ajout du service AuthService
-  ) {}
+  constructor(private publicationsService: PublicationsService,private detailsService: DetailsService,private commentairesService: CommentairesService,private route: ActivatedRoute, private authService: AuthService) {}
+
+  //rechargement du composant
   ngOnInit(): void {
     this.route.paramMap.subscribe(paramMap => {
       const documentIdString = paramMap.get('id');
       if (documentIdString) {
-        const documentId = +documentIdString; // Convertir en nombre
+        const documentId = +documentIdString; // Conversion en nombre
         this.getDocumentDetails(documentId);
         this.getCommentaires(documentId); // Charger les commentaires dès que le document est chargé
       } else {
@@ -52,7 +47,7 @@ export class AdmindetailsComponent {
     });
   }
 
-
+  // Methode pour affichage des details d'un document
   getDocumentDetails(id: number): void {
     this.detailsService.getDocumentDetails(id).subscribe({
       next: (details) => {
@@ -74,6 +69,7 @@ export class AdmindetailsComponent {
     });
   }
 
+  // Methode pour affichage des commentaires d'un document
   getCommentaires(documentId: number): void {
     this.commentairesService.getCommentairesByDocument(documentId).subscribe({
       next: (comments) => {
@@ -100,8 +96,8 @@ export class AdmindetailsComponent {
             icon: 'success',
             title: 'Commentaire ajouté',
             text: 'Votre commentaire a été ajouté avec succès.',
-            timer: 2000, // Durée de l'alerte en millisecondes
-            showConfirmButton: false // Ne pas afficher le bouton de confirmation
+            timer: 2000,
+            showConfirmButton: true
           });
         },
         error: (err) => {
@@ -110,8 +106,8 @@ export class AdmindetailsComponent {
             icon: 'error',
             title: 'Erreur',
             text: 'Une erreur est survenue lors de l\'ajout de votre commentaire.',
-            timer: 2000, // Durée de l'alerte en millisecondes
-            showConfirmButton: false // Ne pas afficher le bouton de confirmation
+            timer: 2000,
+            showConfirmButton: false
           });
         }
       });
@@ -120,13 +116,10 @@ export class AdmindetailsComponent {
         icon: 'warning',
         title: 'Non authentifié',
         text: 'Vous devez être authentifié pour ajouter un commentaire.',
-        timer: 2000, // Durée de l'alerte en millisecondes
-        showConfirmButton: false // Ne pas afficher le bouton de confirmation
+        timer: 2000,
+        showConfirmButton: true
       });
     }
   }
-
-
-
 
 }

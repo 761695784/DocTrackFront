@@ -82,8 +82,8 @@ table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  border-radius: 20px; /* To add border-radius to the whole table */
-  overflow: hidden; /* Ensures the border-radius is applied */
+  border-radius: 20px;
+  overflow: hidden;
   background-color: #fff;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
@@ -175,7 +175,7 @@ tbody tr:hover {
 
 .email-list-header h2 {
   font-size: 2rem;
-  color: #31287C; /* Couleur bleu foncé */
+  color: #31287C;
   font-weight: bold;
   margin-bottom: 10px;
   text-transform: uppercase;
@@ -281,19 +281,19 @@ tbody tr:hover {
   /* Chaque stat-box prend toute la largeur disponible et s'aligne verticalement */
   .stat-box {
     width: 65%;
-    margin-bottom: 20px; /* Ajout d'espace entre les boîtes */
-    flex-direction: column; /* Pour aligner le texte et l'image verticalement */
+    margin-bottom: 20px;
+    flex-direction: column;
   }
 
   /* Les images à l'intérieur des stat-box */
   .stat-box img {
-    width: 40px; /* Réduire la taille des images pour les petits écrans */
+    width: 40px;
     margin-right: 10px;
   }
 
   /* Texte à l'intérieur des stat-box */
   .stat-box span {
-    font-size: 1.2rem; /* Réduire légèrement la taille de la police pour mobile */
+    font-size: 1.2rem;
   }
 
   /* Ajustement des contrôles de pagination */
@@ -305,32 +305,28 @@ tbody tr:hover {
   }
 
   .pagination-controls button {
-    margin-bottom: 10px; /* Ajout d'espacement entre les boutons de pagination */
+    margin-bottom: 10px;
   }
-
-
-
 
 }
 /* Responsivité pour les petits écrans (tablettes et mobiles) */
 @media only screen and (max-width: 768px) {
-  /* Rendre le tableau plus compact et lisible */
- /* Remove margin and padding for compact appearance */
+/* Rendre le tableau plus compact et lisible */
  tbody tr {
   display: block;
-  margin-bottom: 10px; /* Réduire l'espace entre les lignes */
+  margin-bottom: 10px;
   border: 1px solid #ddd;
-  border-radius: 5px; /* Réduction de l'effet de carte */
+  border-radius: 5px;
 }
 
 tbody td {
   display: block;
   text-align: left;
-  font-size: 0.85rem; /* Taille de texte légèrement réduite */
-  padding: 8px 10px; /* Moins d'espace interne */
+  font-size: 0.85rem;
+  padding: 8px 10px;
   position: relative;
-  padding-left: 40%; /* Moins d'espace pour le label */
-  border-bottom: 1px solid #ddd; /* Ligne de séparation entre les cellules */
+  padding-left: 40%;
+  border-bottom: 1px solid #ddd;
 }
 
 tbody td::before {
@@ -340,7 +336,7 @@ tbody td::before {
   font-weight: bold;
   text-transform: uppercase;
   font-size: 0.75rem;
-  color: #31287C; /* Couleur des labels */
+  color: #31287C;
 }
 
 /* Supprimer les bordures du dernier élément de chaque ligne */
@@ -373,27 +369,26 @@ thead {
     margin-bottom: 10px;
   }
 
-
   .email-list-header {
     padding: 10px;
     text-align: center;
   }
 
   .email-list-header h2 {
-    font-size: 1rem; /* Réduire la taille du titre */
+    font-size: 1rem;
     margin-bottom: 10px;
     margin-left: 16%;
   }
 
   .email-list-header p {
-    font-size: 0.8rem; /* Réduire la taille du texte explicatif */
+    font-size: 0.8rem;
     margin: 0 auto;
     line-height: 1.4;
-    max-width: 100%; /* S'assurer que le texte occupe tout l'espace disponible */
+    max-width: 100%;
     margin-left: 3%;
   }
-  .btn-history {
 
+  .btn-history {
     margin-left: 28%;
   }
 }

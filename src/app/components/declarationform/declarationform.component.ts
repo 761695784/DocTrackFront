@@ -30,20 +30,21 @@ export class DeclarationformComponent {
     { id: 11, name: "Carte d'étudiant" }
   ];
 
-  constructor(
-    private fb: FormBuilder,
-    private declarationService: DeclarationService,
-    private authService: AuthService
-  ) {
+  constructor(private fb: FormBuilder,private declarationService: DeclarationService,private authService: AuthService)
+  /**
+  * Construction du regles de validations des champs du formulaire de publication
+  */
+  {
     this.declarationForm = this.fb.group({
       Title: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
       FirstNameInDoc: ['', [Validators.required, Validators.minLength(3), Validators.pattern('[a-zA-Z ]*')]],
       LastNameInDoc: ['', [Validators.required, Validators.minLength(2), Validators.pattern('[a-zA-Z ]*')]],
       documentType: ['', Validators.required],
-      DocIdentification: [''] // Numéro d'identification optionnel
+      DocIdentification: ['']
     });
   }
-
+  
+  // methode pour l'affichage des messages d'erreurs
   getErrorMessage(field: string): string {
     const control = this.declarationForm.get(field);
     if (control?.hasError('required')) {

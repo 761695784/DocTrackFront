@@ -1,6 +1,6 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #F6A500; /* Couleur de fond */
+  background-color: #F6A500;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,7 +11,7 @@ body {
 .Formulaire {
   display: flex;
   flex-wrap: wrap;
-  margin: 120px; /* Marge autour du container */
+  margin: 120px;
   margin-left: 27%;
   margin-top: 80px;
 }
@@ -23,56 +23,56 @@ body {
   padding: 20px;
   width: 100%;
   justify-content: center;
-  max-width: 732px; /* Largeur maximale pour le formulaire */
-  height: auto; /* Hauteur automatique pour s'adapter au contenu */
+  max-width: 732px;
+  height: auto;
   margin: auto;
   margin-top: 2rem;
   font-family: 'Open Sans';
   font-weight: bold;
-  margin-left: 5%; /* Margin left pour le desktop */
+  margin-left: 5%;
 }
 
 .form-container h2 {
   text-align: center;
-  color: #31287C; /* Couleur du texte */
+  color: #31287C;
   font-weight: bold;
 }
 
 
 .label-container {
   display: flex;
-  justify-content: space-between; /* Espacement entre les champs */
-  margin-bottom: 15px; /* Espacement entre les lignes */
+  justify-content: space-between;
+  margin-bottom: 15px;
 }
 
 label {
   display: block;
   margin: 15px 14px 2px;
-  color: black; /* Couleur du texte */
+  color: black;
 }
 
 input {
-  width: 300px; /* Largeur du champ de saisie */
-  height: 56px; /* Hauteur du champ de saisie */
+  width: 300px;
+  height: 56px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 12px;
   box-sizing: border-box;
-  margin: 8px; /* Espacement autour des champs */
+  margin: 8px;
 }
 .question {
   margin-left: 14px;
 }
 
 a {
-  color: #31287C; /* Couleur du lien */
+  color: #31287C;
 }
 
 button {
   display: block;
-  width: 229px; /* Largeur du bouton */
-  height: 40px; /* Hauteur du bouton */
-  background-color: #31287C; /* Couleur du bouton */
+  width: 229px;
+  height: 40px;
+  background-color: #31287C;
   color: white;
   border: none;
   border-radius: 7px;
@@ -86,7 +86,7 @@ button {
 }
 
 button:hover {
-  background-color: #F6A500; /* Couleur au survol */
+  background-color: #F6A500;
   color: black !important;
 }
 .error {
@@ -113,16 +113,16 @@ body{
 
   }
   .label-container {
-    flex-direction: column; /* Un champ par ligne sur mobile */
+    flex-direction: column;
   }
 
   input {
-    width: 90%; /* Réduction de la largeur pour ajustement mobile */
+    width: 90%;
   }
 
   button {
-    width: 90%; /* Bouton adapté à la largeur mobile */
-    margin-left: 5%; /* Centrage du bouton sur mobile */
+    width: 90%;
+    margin-left: 5%;
   }
 
 
@@ -131,8 +131,8 @@ body{
     padding: 0;
     width: 90%;
     justify-content: center;
-    max-width: 100%; /* Largeur maximale pour le formulaire */
-    height: auto; /* Hauteur automatique pour s'adapter au contenu */
+    max-width: 100%;
+    height: auto;
     margin: 0;
     margin-top: 2rem;
     margin-left:0;
@@ -144,7 +144,7 @@ body{
     justify-content: center;
     margin: 0;
     margin-left: 0;
-    width: 100%;/* Pour aligner le formulaire sur desktop */
+    width: 100%;
   }
 
 

@@ -46,10 +46,12 @@ export class MypublishComponent implements OnInit {
 
   constructor(private publicationService: PublicationsService) {}
 
+  // Au chargement du composant, on charge les publications de l'utilisateur connecté
   ngOnInit() {
-    this.loadUserPublications(); // Charge les publications de l'utilisateur
+    this.loadUserPublications();
   }
 
+  // Charger les publications de l'utilisateur connecté
   loadUserPublications() {
     this.publicationService.getUserPublications().subscribe(
       (data: Document[]) => {
@@ -61,11 +63,13 @@ export class MypublishComponent implements OnInit {
     );
   }
 
+  // affichage de la liste des publications supprimées
   showTrashedDocuments() {
     this.showTrashed = true;
     this.loadTrashedDocuments();
   }
 
+  // Charger les documents supprimés
   loadTrashedDocuments() {
     this.publicationService.getTrashedDocuments().subscribe(
       (response: any) => {
@@ -80,6 +84,7 @@ export class MypublishComponent implements OnInit {
     );
   }
 
+  // Restaurer un document supprimé
   restorePublication(id: number): void {
     Swal.fire({
       title: 'Êtes-vous sûr de vouloir restaurer cette publication ?',
@@ -103,6 +108,7 @@ export class MypublishComponent implements OnInit {
     });
   }
 
+  // Supprimer une publication
   deletePublication(id: number): void {
     Swal.fire({
       title: 'Êtes-vous sûr de vouloir supprimer cette publication ?',
@@ -134,6 +140,7 @@ export class MypublishComponent implements OnInit {
     });
   }
 
+  // methode pour le changement de statut
   toggleStatus(publication: Document): void {
     if (publication.user_id === this.getUserId()) {
       const newStatus = publication.statut === 'récupéré' ? 'non récupéré' : 'récupéré';
@@ -172,7 +179,7 @@ export class MypublishComponent implements OnInit {
     }
   }
 
-  // Méthode pour récupérer l'ID de l'utilisateur connecté (si stocké dans localStorage)
+  // Méthode pour récupérer l'ID de l'utilisateur connecté stocké dans localStorage
   private getUserId(): number | null {
     const userId = localStorage.getItem('userId');
     return userId ? Number(userId) : null;

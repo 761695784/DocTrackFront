@@ -155,7 +155,7 @@ body {
 }
 
 .trash-button {
-  background-color: #31287C; /* Rouge pour le bouton de corbeille */
+  background-color: #31287C; 
   color: white;
   border: none;
   padding: 10px 15px;
@@ -166,7 +166,7 @@ body {
 }
 
 .trash-button:hover {
-  background-color: #d32f2f; /* Une couleur plus foncée au survol */
+  background-color: #d32f2f;
 }
 
 .restore-icon {
@@ -185,17 +185,17 @@ body {
 }
 .blur-overlay {
   position: absolute;
-  top:92px; /* Positionnez à zéro si vous ne voulez pas que cela couvre tout */
+  top:92px;
   left: 110px;
-  width: 70%; /* Changez la largeur à 100% pour inclure toute l'image */
-  height: 25%; /* Changez la hauteur à 100% pour inclure toute l'image */
-  background: rgba(199, 196, 196, 0.944); /* Ajustez la couleur et la transparence à votre convenance */
+  width: 70%;
+  height: 25%;
+  background: rgba(199, 196, 196, 0.944);
   filter:blur(2px);
-  pointer-events: none; /* Assurez-vous de permettre aux clics de passer à travers */
+  pointer-events: none;
 }
 
 /* Media Query pour mobile */
-@media (max-width: 768px) { /* Changez la largeur max si nécessaire */
+@media (max-width: 768px) {
   .blur-overlay {
     top: 90px;
     left: 90px;

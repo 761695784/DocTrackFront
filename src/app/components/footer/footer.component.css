@@ -10,7 +10,7 @@ html, body {
 
 /* Le contenu de la page occupe tout l'espace restant */
 .content {
-  flex: 1; /* Permet au contenu de s'étendre */
+  flex: 1; 
 }
 
 /* Votre footer */

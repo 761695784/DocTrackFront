@@ -11,8 +11,8 @@
   text-align: left;
   position: relative;
   height: 550px;
-  overflow: hidden; /* Prevents overflow of animated elements */
-  animation: fadeIn 1.5s ease; /* Fade-in animation for the whole section */
+  overflow: hidden;
+  animation: fadeIn 1.5s ease;
 }
 
 @keyframes fadeIn {
@@ -21,9 +21,9 @@
 }
 
 h1, .text {
-  opacity: 0; /* Initially hidden for animation */
-  transform: translateY(20px); /* Slightly move down */
-  animation: slideUp 0.5s ease forwards; /* Slide up animation */
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUp 0.5s ease forwards;
 }
 
 @keyframes slideUp {
@@ -38,7 +38,7 @@ h1 {
   font-family: 'Roboto';
   font-weight: bold;
   margin-left: -35rem;
-  animation-delay: 0.5s; /* Delay for h1 */
+  animation-delay: 0.5s;
 }
 
 .text {
@@ -46,7 +46,7 @@ h1 {
   font-family: 'Roboto';
   margin-top: 45px;
   margin-right: 30rem;
-  animation-delay: 0.75s; /* Delay for paragraph text */
+  animation-delay: 0.75s;
 }
 
 .hero-section::before {
@@ -72,9 +72,9 @@ h1 {
 
 .hero-section .btn {
   font-weight: bold;
-  opacity: 0; /* Initially hidden for animation */
+  opacity: 0;
   transform: translateY(20px);
-  animation: fadeInUp 0.5s ease forwards; /* Fade-in up animation for buttons */
+  animation: fadeInUp 0.5s ease forwards;
 }
 
 @keyframes fadeInUp {
@@ -111,7 +111,7 @@ h1 {
 }
 
 .mb-4 .btn {
-  animation-delay: 1s; /* Delay for buttons */
+  animation-delay: 1s; 
 }
 
 
@@ -163,6 +163,27 @@ h1 {
   justify-content: space-between;
   align-items: center;
   margin-top: 10px;
+}
+.blur-overlay {
+  position: absolute;
+  top:92px;
+  left: 75px;
+  width: 80%;
+  height: 21%;
+  /* background: rgba(199, 196, 196, 0.944);  */
+  background: rgba(199, 196, 196, 0.944);
+  filter:blur(2px);
+  pointer-events: none;
+}
+
+/* Media Query pour mobile */
+@media (max-width: 768px) {
+  .blur-overlay {
+    top: 90px;
+    left: 90px;
+    width: 75%;
+    height: 24%;
+  }
 }
 
 .details-btn {
@@ -287,8 +308,8 @@ h1 {
   height: auto;
   margin-bottom: 20px;
   max-width: 100%;
-  opacity: 0; /* Initially hidden for animation */
-  transform: translateY(20px); /* Slightly move down */
+  opacity: 0;
+  transform: translateY(20px);
   animation: fadeInUp 0.6s ease forwards; /* Fade-in up animation for images */
 }
 
@@ -296,8 +317,8 @@ h1 {
   margin-top: 10px;
   font-weight: lighter;
   font-family: 'Roboto', sans-serif;
-  opacity: 0; /* Initially hidden for animation */
-  transform: translateY(20px); /* Slightly move down */
+  opacity: 0;
+  transform: translateY(20px);
   animation: fadeInUp 0.6s ease forwards; /* Fade-in up animation for text */
 }
 
@@ -306,7 +327,7 @@ h1 {
   font-family: 'Roboto', sans-serif;
   font-weight: bolder;
   color: #31287C;
-  opacity: 0; /* Initially hidden for animation */
+  opacity: 0;
   transform: translateY(-20px); /* Slightly move up */
   animation: fadeIn 0.8s ease forwards; /* Fade-in animation for title */
 }
