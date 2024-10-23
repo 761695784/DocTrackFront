@@ -1,12 +1,31 @@
 body {
   font-family: Arial, sans-serif;
 }
+
 .graph {
   display: flex;
   flex-direction: row;
   margin-left: 12%;
   padding: 60px;
+}
 
+/* Pour les petits écrans, mise en page en colonne */
+@media (max-width: 768px) {
+  .graph {
+    flex-direction: column;
+    margin-left: 0;
+    padding: 20px;
+  }
+
+  .graphone, .graphtwo {
+    margin-bottom: 20px;
+  }
+
+  h3 {
+    font-size: 1rem;
+    margin-left: 65px;
+
+  }
 }
 
 /* Ajout d'une animation d'entrée lors du chargement des stats */

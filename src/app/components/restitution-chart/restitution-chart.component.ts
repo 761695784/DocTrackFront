@@ -7,7 +7,7 @@ import { PublicationsService } from '../services/publications.service';
   standalone: true,
   imports: [],
   templateUrl: './restitution-chart.component.html',
-  styleUrls: ['./restitution-chart.component.css'] // Correction ici, c'est 'styleUrls'
+  styleUrls: ['./restitution-chart.component.css'] 
 })
 export class RestitutionChartComponent implements OnInit {
 

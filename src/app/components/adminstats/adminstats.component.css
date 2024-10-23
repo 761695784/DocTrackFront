@@ -1,4 +1,36 @@
-.container {
-margin-bottom: 20px;
-padding:40px;
+/* Desktop styles */
+.graph {
+  display: flex;
+  flex-direction: row;
+  margin-left: 12%;
+  padding: 60px;
+}
+
+/* Mobile styles */
+@media only screen and (max-width: 768px) {
+  .graph {
+    flex-direction: column;
+    margin-left: 0;
+    padding: 20px;
+  }
+
+   .graphtwo {
+    margin-bottom: 20px;
+    margin-left: 65px;
+  }
+  .graphone {
+    margin-left: 45px;
+    margin-bottom: 20px;
+
+  }
+
+  h3 {
+    font-size: 1rem;
+
+  }
+
+  .carte {
+    margin-left: 0; /* Center the map for mobile */
+    padding: 20px 0;
+  }
 }
