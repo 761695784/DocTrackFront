@@ -6,11 +6,12 @@ import { FooterComponent } from '../footer/footer.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { MapComponent } from '../map/map.component';
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent, FormsModule, CommonModule],
+  imports: [NavbarComponent, FooterComponent, FormsModule, CommonModule,MapComponent],
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.css']
 })

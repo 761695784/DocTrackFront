@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-adminstats',
   standalone: true,
-  imports: [StatusBarChartComponent, SideheadersComponent,EvolutionChartComponent, EmailActivityChartComponent,PublicationTypeChartComponent, RestitutionChartComponent,MapComponent ],
+  imports: [StatusBarChartComponent, SideheadersComponent,EvolutionChartComponent, EmailActivityChartComponent,PublicationTypeChartComponent, RestitutionChartComponent,MapComponent],
   templateUrl: './adminstats.component.html',
   styleUrl: './adminstats.component.css'
 })

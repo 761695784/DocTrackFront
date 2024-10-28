@@ -18,6 +18,7 @@ export class PublicationsService {
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
+
     // Récupérer toutes les publications pour un SimpleUser
     getAllPublications(): Observable<Document[]> {
       return this.http.get<Document[]>(`${apiUrl}/document`).pipe(
@@ -86,11 +87,17 @@ export class PublicationsService {
       }
 
       //Methode pour afficher les pubications par lieux
-      getPublicationsByLocation(): Observable<Location[]> { // Utilisez Location au lieu de Document
-        const token = localStorage.getItem('token');
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-        return this.http.get<Location[]>(`${apiUrl}/lieu`, { headers });
+      getPublicationsByLocation(): Observable<Location[]> {
+        // const token = localStorage.getItem('token');
+        // const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+        return this.http.get<Location[]>(`${apiUrl}/lieu`,).pipe(
+          catchError(error => {
+            console.error("Erreur lors de la récupération des données :", error);
+            return throwError(error);
+          })
+        );
       }
+
       // Méthode d'affichage des publications d'un utilisateur spécifique
       getUserPublications(): Observable<Document[]> {
         const token = localStorage.getItem('token');

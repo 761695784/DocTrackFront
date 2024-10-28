@@ -20,6 +20,7 @@ export class MapComponent implements AfterViewInit {
     this.loadMap();
   }
 
+
   loadMap(): void {
     this.map = new maplibregl.Map({
       container: 'map', // ID de l'élément HTML où la carte sera rendue
@@ -28,15 +29,17 @@ export class MapComponent implements AfterViewInit {
       zoom: 6 // Niveau de zoom initial
     });
 
-    // Récupérer et afficher les publications par région
+    // Récupérer et afficher les publications par région ou localité
     this.publicationsService.getPublicationsByLocation().subscribe(data => {
+      console.log("Données récupérées :", data); // Vérifier le format des données
       data.forEach(location => {
         new maplibregl.Marker()
           .setLngLat([+location.longitude, +location.latitude])
           .setPopup(new maplibregl.Popup().setHTML(`<h5>${location.name}</h5><p>Publications: ${location.publications}</p>`))
           .addTo(this.map);
       });
-    });
+    }, error => console.error("Erreur lors de la récupération des données :", error));
+
   }
 
 }

@@ -12,7 +12,7 @@
   <div class="grid-container">
     <div *ngFor="let document of paginatedDocuments" class="card">
       <!-- Affiche l'image du document si elle est disponible -->
-      <img *ngIf="document.image" [src]="document.image" alt="document" />
+      <img *ngIf="document.image" loading="lazy" [src]="document.image" alt="document" />
       <div class="blur-overlay"></div> <!-- Ajout de l'overlay pour appliquer le flou -->
       <p *ngIf="!document.image">Image non disponible</p>
 

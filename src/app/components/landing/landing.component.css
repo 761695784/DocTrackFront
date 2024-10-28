@@ -111,7 +111,7 @@ h1 {
 }
 
 .mb-4 .btn {
-  animation-delay: 1s; 
+  animation-delay: 1s;
 }
 
 
@@ -574,6 +574,8 @@ padding: 3%;
       margin-top: 0;
     }
   }
+
+
 
 /* CSS de la partie Témoignage**/
 .titre-temoin {

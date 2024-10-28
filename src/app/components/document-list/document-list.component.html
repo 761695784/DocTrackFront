@@ -20,7 +20,7 @@
     <div class="grid-container">
       <div *ngFor="let document of paginatedFilteredDocuments" class="card">
         <div class="image-container">
-          <img *ngIf="document.image" [src]="document.image" alt="document" class="image" />
+          <img *ngIf="document.image"  loading="lazy" [src]="document.image" alt="document" class="image" />
           <div class="blur-overlay"></div>
         </div>
         <p *ngIf="!document.image">Image non disponible</p>
