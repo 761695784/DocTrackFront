@@ -11,6 +11,8 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-devkit/core": "^17.3.8",
+    "@angular-devkit/schematics": "^17.3.8",
     "@angular/animations": "^17.3.0",
     "@angular/common": "^17.3.12",
     "@angular/compiler": "^17.3.0",
@@ -25,6 +27,7 @@
     "@auth0/angular-jwt": "^5.2.0",
     "@googlemaps/google-maps-services-js": "^3.4.0",
     "@ng-bootstrap/ng-bootstrap": "^16.0.0",
+    "@nguniversal/express-engine": "^7.0.2",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.2",
     "bootstrap-icons": "^1.11.3",

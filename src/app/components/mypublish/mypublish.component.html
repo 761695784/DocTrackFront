@@ -10,7 +10,7 @@
 
   <div class="grid-container" *ngIf="showTrashed">
     <div class="card" *ngFor="let trashedPublication of trashedPublications">
-        <!-- <img loading="lazy" [src]="trashedPublication.image ? 'http://localhost:8000' + trashedPublication.image : '/assets/default-image.png'" alt="Document Image" /> -->
+        <!-- <img loading="lazy" [src]="trashedPublication.image ? 'http://localhost:8003' + trashedPublication.image : '/assets/default-image.png'" alt="Document Image" /> -->
         <img loading="lazy" [src]="trashedPublication.image ? 'https://doctrackapi.malang2019marna.simplonfabriques.com' + trashedPublication.image : '/assets/default-image.png'" alt="Document Image" />
         <div class="card-content">
             <p class="published-by">Publié par {{ trashedPublication.user.FirstName }} {{ trashedPublication.user.LastName }} | {{ trashedPublication.created_at | date:'dd MMM yyyy' }}</p>
@@ -34,7 +34,7 @@
     <div class="card" *ngFor="let publication of publications">
       <!-- Affichage dynamique de l'image -->
       <img loading="lazy" [src]="publication.image ? 'https://doctrackapi.malang2019marna.simplonfabriques.com' + publication.image : '/assets/default-image.png'" alt="Document Image" />
-      <!-- <img loading="lazy" [src]="publication.image ? 'http://localhost:8000' + publication.image : '/assets/default-image.png'" alt="Document Image" /> -->
+      <!-- <img loading="lazy" [src]="publication.image ? 'http://localhost:8003' + publication.image : '/assets/default-image.png'" alt="Document Image" /> -->
       <div class="blur-overlay"></div>
 
       <div class="card-content">

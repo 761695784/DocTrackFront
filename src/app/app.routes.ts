@@ -23,6 +23,7 @@ import { UsergetComponent } from './components/userget/userget.component';
 import { UserAddComponent } from './components/user-add/user-add.component';
 import { AdminprofilComponent } from './components/adminprofil/adminprofil.component';
 import { AdminstatsComponent } from './components/adminstats/adminstats.component';
+import { AProposComponent } from './components/a-propos/a-propos.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -31,6 +32,7 @@ export const routes: Routes = [
   { path: 'connexion', component: LoginComponent },
   { path: 'inscription', component: RegisterComponent },
   { path: 'liste', component: DocumentListComponent },
+  { path: 'apropos', component: AProposComponent},
 
   // Routes avec Authentification pour un user simple
   { path: 'publier', component: PublishformComponent, canActivate: [AuthGuard] },
@@ -62,7 +64,7 @@ export const routes: Routes = [
   { path: 'publication-types', component: PublicationTypeChartComponent, canActivate: [AuthGuard] },
   { path: 'email-activity', component: EmailActivityChartComponent, canActivate: [AuthGuard] },
 
-  // Lazy Loading pour la carte 
+  // Lazy Loading pour la carte
   {
     path: 'map',
     loadComponent: () => import('./components/map/map.component').then(m => m.MapComponent)

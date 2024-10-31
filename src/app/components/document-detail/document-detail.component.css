@@ -11,6 +11,7 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  margin-top: 80px;
 }
 
 .card-document {
@@ -171,7 +172,7 @@ body {
 }
 
 /* Media Query pour mobile */
-@media (max-width: 768px) { 
+@media (max-width: 768px) {
   .blur-overlay {
     top: 94px;
     left: 90px;

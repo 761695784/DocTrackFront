@@ -13,6 +13,8 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  margin-top: 80px;
+
 }
 
 .header-text {
@@ -155,7 +157,7 @@ body {
 }
 
 .trash-button {
-  background-color: #31287C; 
+  background-color: #31287C;
   color: white;
   border: none;
   padding: 10px 15px;

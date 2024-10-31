@@ -37,9 +37,6 @@ body {
 }
 
 .menu-item {
-  padding: 15px 10px;
-  display: flex;
-  align-items: center;
   transition: background-color 0.3s;
   cursor: pointer;
   font-size: 18px;
@@ -48,23 +45,20 @@ body {
   width: 100%;
 }
 
-/* Styles for links */
 .menu-item a {
-  text-decoration: none;  /* Supprimer le soulignement des liens */
-  color: white;           /* Couleur blanche pour le texte */
-  width: 100%;            /* Prendre toute la largeur disponible */
-  display: inline-block;  /* Permet de cliquer sur tout l'élément */
+  padding: 15px 10px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  width: 100%;
+  transition: color 0.3s;
 }
 
-/* Change link color and icon color when menu-item is hovered */
+/* Changement de couleur au survol */
 .menu-item:hover a,
 .menu-item.active a {
-  color: black;  /* Couleur du texte noir pour l'élément actif ou au survol */
-}
-
-.menu-item:hover i,
-.menu-item.active i {
-  color: black;  /* Couleur de l'icône noir pour l'élément actif ou au survol */
+  color: black;
 }
 
 .menu-item i {
@@ -75,10 +69,10 @@ body {
 
 .menu-item:hover,
 .menu-item.active {
-  background-color: #F6A500;  /* Fond jaune pour l'élément actif ou au survol */
+  background-color: #F6A500;
 }
 
-/* Responsive Sidebar for Mobile */
+/* Responsive Sidebar pour Mobile */
 @media (max-width: 768px) {
   .sidebar {
       width: 80px;
@@ -96,3 +90,4 @@ body {
       width: 50px;
   }
 }
+

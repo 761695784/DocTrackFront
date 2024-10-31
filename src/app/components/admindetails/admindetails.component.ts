@@ -52,7 +52,7 @@ export class AdmindetailsComponent {
     this.detailsService.getDocumentDetails(id).subscribe({
       next: (details) => {
           details.image = details.image ? `https://doctrackapi.malang2019marna.simplonfabriques.com${details.image}` : '';
-        //  details.image = details.image ? `http://localhost:8000${details.image}` : '';
+        //  details.image = details.image ? `http://localhost:8003${details.image}` : '';
         this.documentDetails = details;
       },
       error: (err) => {

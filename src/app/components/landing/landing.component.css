@@ -2,6 +2,7 @@
 
 /* CSS du HeroSection **/
 .hero-section {
+  margin-top: 80px;
   background-image: url('/assets/Imagebanniere.png');
   background-size: cover;
   background-position: center;

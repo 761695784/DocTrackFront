@@ -1,0 +1,606 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* CSS du HeroSection **/
+.hero-section {
+  background-image: url('/assets/Imagebanniere.png');
+  background-size: cover;
+  background-position: center;
+  background-color: #000000;
+  color: white;
+  padding: 20px 0;
+  text-align: left;
+  position: relative;
+  height: 550px;
+  overflow: hidden;
+  animation: fadeIn 1.5s ease;
+  z-index: 1;
+
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+h1, .text {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUp 0.5s ease forwards;
+}
+
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+h1 {
+  color: #ffff;
+  font-family: 'Roboto';
+  font-weight: bold;
+  animation-delay: 0.5s;
+  align-content: center;
+  font-size: 64px;
+  margin-top: 35px;
+}
+
+.text {
+  font-size: 25px;
+  font-family: 'Roboto';
+  margin-top: 0;
+  top: 0;
+  animation-delay: 0.75s;
+  color: #F6A500;
+  font-weight: bold;
+}
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+}
+
+.hero-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+.titre {
+  font-weight: bold;
+  color: white;
+  text-align: start;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Structure de la section principale */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+}
+
+.section {
+  position: relative;
+  width: 80%;
+  margin-top: -15rem;
+  z-index: 2;
+}
+
+
+/* Style pour Contexte et Problématique */
+.section1 {
+  display: flex;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.contexte, .problematique {
+  width: 48%;
+  height: 430px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background: #FFF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+/* Style pour Objectifs */
+.section2 {
+  width: 50%;
+  height: 430px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background: #FFF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  margin-top: -2rem;
+}
+
+/* Titres */
+.propriete1, .propriete2 {
+  text-align: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-size: 2.6rem;
+  color: #31287C;
+}
+
+/* Séparateurs */
+.trait1, .trait2 {
+  width: 150px;
+  height: 7px;
+  background-color: #F6A500;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  border-radius: 2px;
+}
+
+/* Paragraphes */
+.parg1, .parg2, .tex {
+  text-align: justify;
+  font-size: 1.5rem;
+  line-height: 1.6;
+  margin: 1.5rem;
+  color: #838282;
+  font-weight: bold;
+  font-family: 'Inter';
+}
+
+     /* Responsivité */
+     @media (max-width: 1024px) {
+
+      h1 {
+        font-size: 34px;
+        margin-top: 15px;
+      }
+
+
+      .section1 {
+          flex-direction: column;
+          align-items: center;
+      }
+
+      .contexte, .problematique {
+          width: 100%;
+          margin-bottom: 20px;
+          height: auto;
+      }
+
+      .section2 {
+          width: 80%;
+          height: auto;
+      }
+  }
+
+  @media (max-width: 768px) {
+      .propriete1, .propriete2 {
+          font-size: 2rem;
+      }
+
+      .parg1, .parg2 {
+          font-size: 1rem;
+      }
+  }
+
+  @media (max-width: 576px) {
+      .section {
+          width: 90%;
+      }
+
+      .trait1, .trait2 {
+          width: 100px;
+      }
+
+      .propriete1, .propriete2 {
+          font-size: 1.8rem;
+      }
+
+      .parg1, .parg2 {
+          font-size: 0.9rem;
+          margin: 1rem;
+      }
+
+      .section2 {
+          width: 100%;
+          height: auto;
+          margin-top: 20px;
+      }
+  }
+
+  .titre-temoin {
+    font-size: 45px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bolder;
+    color: #31287C;
+    text-align: start;
+    margin-left: 2%;
+  }
+
+  .trait {
+    width: 8%;
+    height: 7px;
+    background-color: #F6A500;
+    margin-left: 2%;
+    border-radius: 2px;
+  }
+
+  .container-nous {
+    display: flex;
+    justify-content: space-between;
+    /* align-items: center; */
+    width: 100%;
+    height: 80vh;
+    background-color: #31287C;
+    /* margin-top: 30px; */
+    /* padding-bottom: 50px; */
+  }
+.texto {
+  color: #FFFFFF;
+  font-weight: bold;
+  font-size:20px ;
+  text-align: justify;
+  font-size: 1.7rem;
+  line-height: 1.6;
+  margin: 40px;
+  font-family: 'Inter';
+}
+span{
+  color: #F6A500;
+}
+
+  /* Style pour l'image */
+  .image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* Responsivité */
+@media (max-width: 1024px) {
+    .container-nous {
+        flex-direction:column-reverse;
+        align-items: center;
+        height: auto;
+        padding: 20px;
+    }
+
+    .texto {
+        width: 90%;
+        font-size: 1.4rem;
+        margin: 20px;
+    }
+
+    .image img{
+        width: 90%;
+        margin: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .titre-temoin {
+        font-size: 35px;
+        text-align: center;
+        margin-left: 0;
+    }
+
+    .trait {
+        width: 50%;
+        height: 7px;
+        margin: 0 auto;
+    }
+
+    .texto {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .titre-temoin {
+        font-size: 28px;
+        margin-left: 0;
+    }
+
+    .texto {
+        font-size: 1rem;
+        margin: 10px;
+    }
+
+    .trait {
+        width: 50%;
+        height: 7px;
+    }
+
+    .container-nous {
+        padding: 10px;
+    }
+}
+/* Général */
+.titre-temoin.princ {
+  font-size: 45px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bolder;
+  color: #31287C;
+  text-align: center;
+}
+
+.trait2 {
+  width: 8%;
+  height: 7px;
+  background-color: #F6A500;
+  margin: 0 auto;
+  border-radius: 2px;
+}
+
+/* Containers principaux */
+.global, .plus {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  gap: 20px; /* Espace horizontal */
+  margin-bottom: 20px; /* Réduit l'espace vertical */
+}
+
+.princ1 img {
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+}
+
+.princ2 {
+  flex: 1;
+  padding: 20px;
+}
+
+.tex {
+  font-size: 1.7rem;
+  line-height: 1.5;
+  color: #838282;
+  text-align: justify;
+}
+
+/* Texte et titres */
+.title, .tit {
+  text-align: center;
+  color: #F6A500;
+  font-size: 1.9rem;
+  font-weight: bold;
+  font-family: 'Inter';
+}
+
+/* Responsivité */
+@media screen and (max-width: 1024px) {
+  .global, .plus {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* Réduit l'espacement entre les sections */
+    padding: 0 20px;
+  }
+.plus {
+  flex-direction: column-reverse;
+}
+  .tex,.title, .tit {
+    font-size: 1.6rem;
+  }
+  .trait2 {
+    width: 40%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .titre-temoin.princ {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+
+
+  .plus {
+    flex-direction: column-reverse;
+  }
+
+  .tex,.title, .tit {
+    font-size: 1.4rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .titre-temoin.princ {
+    font-size: 1.8rem;
+  }
+
+  .tex {
+    font-size: 1rem;
+  }
+
+  .title, .tit {
+    font-size: 1.2rem;
+  }
+
+  .princ1 img {
+    max-width: 100%;
+    height: auto;
+  }
+  .plus {
+    flex-direction: column-reverse;
+  }
+}
+
+.perspective {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.generale {
+  position: relative;
+  width: 100%;
+}
+
+.pers {
+  width: 100%;
+  height: 800px; /* Taille augmentée pour mobiles */
+  object-fit: cover;
+  display: block;
+}
+
+.overlay-text {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem;
+  color: white;
+  font-weight: bold;
+  z-index: 3;
+}
+
+.cards {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  width: 90%;
+  z-index: 2;
+}
+
+.card {
+  background-color: #3A2C84;
+  color: white;
+  padding: 20px;
+  width: 30%;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card h5 {
+  font-size: 1.5rem;
+  color: #F6A500;
+  margin: 15px 0;
+  font-weight: bolder;
+}
+
+.card-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  font-weight: bold;
+  text-align: justify;
+}
+
+.card-img img {
+  width: 60px;
+  height: 60px;
+}
+
+.card:hover {
+  transform: translateY(-10px) scale(1.05); /* Légère élévation et zoom */
+  background-color:#FFFFFF; /* Changement de couleur */
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.35); /* Ombre plus prononcée */
+}
+
+/* Effet de zoom sur les images de carte */
+.card-img img {
+  width: 60px;
+  height: 60px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .card-img img {
+  transform: scale(1.2); /* Agrandissement de l'image au survol */
+}
+
+/* Transition de couleur du texte */
+.card h5, .card-text {
+  transition: color 0.3s ease;
+}
+
+.card:hover h5 {
+  color:#000000; /* Changement de couleur pour le titre au survol */
+}
+
+.card:hover .card-text {
+  color:#31287C; /* Légère variation de couleur pour le texte au survol */
+}
+
+/* Animation supplémentaire pour un effet de légère rotation */
+.card:hover {
+  transform: translateY(-10px) scale(1.05) ;
+}
+
+/* Responsivité */
+@media screen and (max-width: 1024px) {
+  .pers {
+    height: 900px; /* Augmente la taille de l'image sur tablettes */
+  }
+
+  .cards {
+    flex-direction: column;
+    top: 10%;
+  }
+
+  .card {
+    width: 80%;
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .pers {
+    height: 1300px; /* Augmente la taille de l'image sur mobiles */
+  }
+
+  .overlay-text {
+    font-size: 1.2rem;
+    top: 1%;
+  }
+
+  .card h5 {
+    font-size: 1.3rem;
+  }
+
+  .card-text {
+    font-size: 0.9rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .pers {
+    height: 1300px; /* Encore plus d'espace pour l'image sur petits écrans */
+  }
+
+  .overlay-text {
+    font-size: 1.2rem;
+    top: 1%;
+
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  .card h5 {
+    font-size: 1.1rem;
+  }
+
+  .card-text {
+    font-size: 0.8rem;
+  }
+}

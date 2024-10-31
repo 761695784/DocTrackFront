@@ -1,47 +1,45 @@
 <app-sidebar></app-sidebar>
 
 <div class="header">
-  <!-- Section de défilement du texte -->
-  <div class="scroll-text" style="flex-grow: 1; margin-right: 20px;">
-    <marquee direction="left" scrollamount="6" behavior="scroll" style="font-size: 40px; color: #31287C; font-weight: bold;">
-      Bienvenue sur DocTrack - Simplifiez la gestion de vos documents perdus et retrouvés ! Ensemble, nous construisons un monde où chaque document trouve sa place.
-    </marquee>
-  </div>
+      <!-- Section de défilement du texte -->
+      <div class="scroll-text" style="flex-grow: 1; margin-right: 20px;">
+        <marquee direction="left" scrollamount="6" behavior="scroll" style="font-size: 40px; color: #31287C; font-weight: bold;">
+          Bienvenue sur DocTrack - Simplifiez la gestion de vos documents perdus et retrouvés ! Ensemble, nous construisons un monde où chaque document trouve sa place.
+        </marquee>
+      </div>
 
   <div class="header-right">
-<!-- Icône de notification -->
-<div class="notification-icon" ngbDropdown>
-  <button class="btn btn" ngbDropdownToggle style="background-color:#31287C;">
-    <i class="fas fa-bell"></i>
-    <span class="badge badge-light">{{ unreadCount }}</span> <!-- Affichage du nombre de notifications non lues -->
-  </button>
-  <div ngbDropdownMenu>
-    <div *ngFor="let notification of notifications">
-      <a class="dropdown-item" [routerLink]="notification.type === 'document' ? '/adminpub' : '/admindec'" (click)="markNotificationAsRead(notification.id)">
-        {{ notification.message }}
-      </a>
-      <button class="dropdown-item" (click)="deleteNotification(notification.id)">Supprimer</button> <!-- Ajout du bouton supprimer -->
-    </div>
-    <div class="dropdown-divider"></div>
-  </div>
-</div>
-
-
-
-
-    <!-- Dropdown utilisateur -->
-    <div *ngIf="authService.isAuthenticated()" ngbDropdown>
-      <button class="btn btn" ngbDropdownToggle style="background-color:#31287C;">
-        <i class="fas fa-user"></i>
-        <span class="user-name mr-2" style="color: white; font-weight: bold;">
-          {{ authService.getUserName() }}
-        </span>
-      </button>
-      <div ngbDropdownMenu>
-        <a class="dropdown-item" href="/profil" (click)="goToChangePassword()">Modifier mon profil</a>
-        <a class="dropdown-item" href="/connexion" (click)="logout()">Déconnexion</a>
+      <!-- Icône de notification -->
+      <div class="notification-icon" ngbDropdown>
+        <button class="btn btn" ngbDropdownToggle style="background-color:#31287C;">
+            <i class="fas fa-bell"></i>
+            <span class="badge badge-light">{{ unreadCount }}</span> <!-- Affichage du nombre de notifications non lues -->
+            </button>
+          <div ngbDropdownMenu>
+            <div *ngFor="let notification of notifications">
+              <a class="dropdown-item" [routerLink]="notification.type === 'document' ? '/adminpub' : '/admindec'" (click)="markNotificationAsRead(notification.id)">
+                {{ notification.message }}
+              </a>
+              <button class="dropdown-item" (click)="deleteNotification(notification.id)">Supprimer</button> <!-- Ajout du bouton supprimer -->
+            </div>
+            <div class="dropdown-divider"></div>
+          </div>
       </div>
-    </div>
+
+
+          <!-- Dropdown utilisateur -->
+          <div *ngIf="authService.isAuthenticated()" ngbDropdown>
+            <button class="btn btn" ngbDropdownToggle style="background-color:#31287C;">
+              <i class="fas fa-user"></i>
+              <span class="user-name mr-2" style="color: white; font-weight: bold;">
+                {{ authService.getUserName() }}
+              </span>
+            </button>
+            <div ngbDropdownMenu>
+              <a class="dropdown-item" href="/profil" (click)="goToChangePassword()">Modifier mon profil</a>
+              <a class="dropdown-item" href="/connexion" (click)="logout()">Déconnexion</a>
+            </div>
+          </div>
   </div>
 </div>
 

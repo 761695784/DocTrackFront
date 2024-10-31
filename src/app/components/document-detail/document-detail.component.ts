@@ -88,7 +88,7 @@
         next: (details) => {
           // Vérifie si l'image existe et ajoute le préfixe pour l'URL complète
           details.image = details.image ? `https://doctrackapi.malang2019marna.simplonfabriques.com${details.image}` : '';
-          //  details.image = details.image ? `http://localhost:8000${details.image}` : '';
+          //  details.image = details.image ? `http://localhost:8003${details.image}` : '';
           this.documentDetails = details;
 
         // Vérifier si l'utilisateur actuel est le propriétaire du document
