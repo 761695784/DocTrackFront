@@ -11,8 +11,7 @@ body {
 .Formulaire {
   display: flex;
   flex-wrap: wrap;
-  margin: 120px;
-  margin-top: 150px;
+  margin: 200px 200px  0;
 }
 
 .container {
@@ -120,7 +119,7 @@ margin-left: 45%;}
 
   .Formulaire {
     flex-direction: column;
-    margin: 0;
+    margin: 115px 0 0 0;
     padding: 20px;
   }
 

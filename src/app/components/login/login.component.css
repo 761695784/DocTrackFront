@@ -5,13 +5,12 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  margin: 0;
 }
 
 .Formulaire {
   display: flex;
   flex-wrap: wrap;
-  margin: 120px;
+  margin: 200px 200px 0 0;
 }
 
 .container {
@@ -104,7 +103,7 @@ button:hover {
   .Formulaire {
     flex-direction: column;
     align-items: center;
-    margin: 20px;
+    margin: 150px 0 0 0;
   }
 
   .container {
@@ -129,6 +128,6 @@ button:hover {
   }
 
   .question {
-    text-align: center; 
+    text-align: center;
   }
 }
