@@ -7,6 +7,7 @@ import { Document } from '../document-list/document-list.component';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { apiUrl } from './apiUrl';
+import { IMAGE_URL_BASE } from './imageUrl';
 import { Location } from './location.model';
 @Injectable({
   providedIn: 'root'
@@ -18,39 +19,64 @@ export class PublicationsService {
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
+// Récupérer toutes les publications pour un SimpleUser
+getAllPublications(): Observable<Document[]> {
+  return this.http.get<Document[]>(`${apiUrl}/document`).pipe(
+    tap(documents => this.publicationsSubject.next(documents)), // Met à jour le sujet
+    map(documents => documents.map(doc => {
+      doc.image = doc.image ? `${IMAGE_URL_BASE}${doc.image}` : ''; // Utilise la constante d'URL d'image
+      return doc;
+    }))
+  );
+}
 
-    // Récupérer toutes les publications pour un SimpleUser
-    getAllPublications(): Observable<Document[]> {
-      return this.http.get<Document[]>(`${apiUrl}/document`).pipe(
-        tap(documents => this.publicationsSubject.next(documents)), // Met à jour le sujet
-        map(documents => documents.map(doc => {
-          // doc.image = doc.image ? `http://localhost:8003${doc.image}` : '';
-          doc.image = doc.image ? `https://doctrackapi.malang2019marna.simplonfabriques.com${doc.image}` : '';
-          return doc;
-        }))
-      );
-    }
+// Fonction récupérant toutes les publications (y compris supprimées) pour l'admin
+getAllDocumentsIncludingDeleted(): Observable<Document[]> {
+  const token = localStorage.getItem('token');
+  const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+  return this.http.get<Document[]>(`${apiUrl}/all`, { headers }).pipe(
+    tap(response => console.log('Réponse du serveur:', response)),
+    map(documents => {
+      return documents.map(doc => {
+        doc.image = doc.image ? `${IMAGE_URL_BASE}${doc.image}` : ''; // Utilise la constante d'URL d'image
+        return doc;
+      });
+    }),
+    catchError(err => {
+      console.error('Erreur lors de la récupération des documents', err);
+      return ([]); // Retourne un tableau vide en cas d'erreur
+    })
+  );
+}
 
-    // Fonction récupérant toutes les publications (y compris supprimées) pour l'admin
-    getAllDocumentsIncludingDeleted(): Observable<Document[]> {
-      const token = localStorage.getItem('token');
-      const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-      return this.http.get<Document[]>(`${apiUrl}/all`, { headers }).pipe(
-        tap(response => console.log('Réponse du serveur:', response)),
-        map(documents => {
-          // On s'assure que chaque document a l'URL correcte pour l'image
-          return documents.map(doc => {
-             doc.image = doc.image ? `https://doctrackapi.malang2019marna.simplonfabriques.com${doc.image}` : '';
-            // doc.image = doc.image ? `http://localhost:8003${doc.image}` : '';
-            return doc;
-          });
-        }),
-        catchError(err => {
-          console.error('Erreur lors de la récupération des documents', err);
-          return ([]); // Retourne un tableau vide en cas d'erreur
-        })
-      );
-    }
+// Récupérer les documents supprimés (soft deleted)
+getTrashedDocuments(): Observable<Document[]> {
+  const token = localStorage.getItem('token');
+  const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+
+  return this.http.get<{ data: Document[] }>(`${apiUrl}/trashed`, { headers }).pipe(
+    map(response => {
+      const trashedDocuments: Document[] = Array.isArray(response.data) ? response.data : [];
+      trashedDocuments.forEach((doc: Document) => {
+        doc.image = doc.image ? `${IMAGE_URL_BASE}${doc.image}` : ''; // Utilise la constante d'URL d'image
+      });
+      return trashedDocuments;
+    }),
+    catchError(error => throwError(error)) // Gestion de l'erreur
+  );
+}
+
+// Méthode d'affichage des publications d'un utilisateur spécifique
+getUserPublications(): Observable<Document[]> {
+  const token = localStorage.getItem('token');
+  const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+  return this.http.get<Document[]>(`${apiUrl}/mypub`, { headers }).pipe(
+    map(publications => publications.map(pub => {
+      pub.image = pub.image ? `${IMAGE_URL_BASE}${pub.image}` : ''; // Utilise la constante d'URL d'image
+      return pub;
+    }))
+  );
+}
 
       // Diagramme en barre montrant le nombre de publication selon le type de document
       getPublicationsByType(): Observable<Document[]> {
@@ -98,12 +124,7 @@ export class PublicationsService {
         );
       }
 
-      // Méthode d'affichage des publications d'un utilisateur spécifique
-      getUserPublications(): Observable<Document[]> {
-        const token = localStorage.getItem('token');
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-        return this.http.get<Document[]>(`${apiUrl}/mypub`, { headers });
-      }
+
 
       // Méthode pour ajouter une publication
       addPublication(document: FormData): Observable<Document> {
@@ -123,12 +144,7 @@ export class PublicationsService {
         return this.http.delete<void>(`${apiUrl}/document/${id}`, { headers });
       }
 
-      // Récupérer les documents supprimés (soft deleted)
-      getTrashedDocuments(): Observable<Document[]> {
-        const token = localStorage.getItem('token');
-        const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
-        return this.http.get<Document[]>(`${apiUrl}/trashed`, { headers });
-      }
+
 
       // Restaurer un document supprimé
       restoreDocument(id: number): Observable<{ success: boolean; message: string }> {

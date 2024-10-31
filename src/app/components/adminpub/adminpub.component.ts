@@ -83,7 +83,7 @@ export class AdminpubComponent implements OnInit {
 
   // Afficher les détails d'un document
   viewDetails(id: number): void {
-    this.router.navigate(['/admindetails', id]);
+    this.router.navigate(['/admin/admindetails', id]);
   }
 
   // Changement de page

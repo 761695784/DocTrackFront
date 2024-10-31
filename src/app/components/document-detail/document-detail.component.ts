@@ -82,22 +82,19 @@
         });
       }
 
+      //Methode pour recuperer les details d'une publications 
+      getDocumentDetails(id: number): void {
+        this.detailsService.getDocumentDetails(id).subscribe({
+          next: (details) => {
+            this.documentDetails = details;
 
-    getDocumentDetails(id: number): void {
-      this.detailsService.getDocumentDetails(id).subscribe({
-        next: (details) => {
-          // Vérifie si l'image existe et ajoute le préfixe pour l'URL complète
-          details.image = details.image ? `https://doctrackapi.malang2019marna.simplonfabriques.com${details.image}` : '';
-          //  details.image = details.image ? `http://localhost:8003${details.image}` : '';
-          this.documentDetails = details;
-
-        // Vérifier si l'utilisateur actuel est le propriétaire du document
-        const currentUserId = +localStorage.getItem('userId')!; // ID de l'utilisateur connecté
-        this.isOwner = currentUserId === this.documentDetails?.user.id; // Comparer avec l'ID de l'utilisateur qui a publié
-        },
-        // error: (err) => console.error('Erreur lors de la récupération des détails du document', err)
-      });
-    }
+            // Vérifier si l'utilisateur actuel est le propriétaire du document
+            const currentUserId = +localStorage.getItem('userId')!; // ID de l'utilisateur connecté
+            this.isOwner = currentUserId === this.documentDetails?.user.id; // Comparer avec l'ID de l'utilisateur qui a publié
+          },
+          // error: (err) => console.error('Erreur lors de la récupération des détails du document', err)
+        });
+      }
 
 
     //Methode d'affichage de commentaire

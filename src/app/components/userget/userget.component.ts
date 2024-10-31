@@ -117,6 +117,6 @@ export class UsergetComponent implements OnInit {
 
   // Méthode pour rediriger vers la page d'ajout
   addUser(): void {
-    this.router.navigate(['/adminadd']);
+    this.router.navigate(['admin/adminadd']);
   }
 }

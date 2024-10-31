@@ -47,26 +47,13 @@ export class AdmindetailsComponent {
     });
   }
 
-  // Methode pour affichage des details d'un document
+  // Methode pour affichage des details d'un document pour l'admin
   getDocumentDetails(id: number): void {
     this.detailsService.getDocumentDetails(id).subscribe({
       next: (details) => {
-          details.image = details.image ? `https://doctrackapi.malang2019marna.simplonfabriques.com${details.image}` : '';
-        //  details.image = details.image ? `http://localhost:8003${details.image}` : '';
         this.documentDetails = details;
-      },
-      error: (err) => {
-        if (err.status === 404) {
-          Swal.fire({
-            icon: 'error',
-            title: 'Erreur!',
-            text: 'Ce document a été supprimé par l\'utilisateur et n\'est plus accessible.',
-          });
-        } else {
-          // console.error('Erreur lors de la récupération des détails du document', err);
-        }
       }
-    });
+    })
   }
 
   // Methode pour affichage des commentaires d'un document

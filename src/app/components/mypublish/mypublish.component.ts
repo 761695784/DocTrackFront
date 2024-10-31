@@ -69,20 +69,18 @@ export class MypublishComponent implements OnInit {
     this.loadTrashedDocuments();
   }
 
-  // Charger les documents supprimés
-  loadTrashedDocuments() {
-    this.publicationService.getTrashedDocuments().subscribe(
-      (response: any) => {
-        // console.log('Réponse de l\'API:', response);
-        // Accéder aux données réelles
-        this.trashedPublications = Array.isArray(response.data) ? response.data : [];
-        // console.log('Documents supprimés après vérification:', this.trashedPublications);
-      },
-      error => {
-        // console.error('Erreur lors du chargement des documents supprimés:', error);
-      }
-    );
-  }
+ // Charger les documents supprimés
+loadTrashedDocuments() {
+  this.publicationService.getTrashedDocuments().subscribe(
+    (data: Document[]) => {
+      this.trashedPublications = data;
+    },
+    error => {
+      // console.error('Erreur lors du chargement des documents supprimés:', error);
+    }
+  );
+}
+
 
   // Restaurer un document supprimé
   restorePublication(id: number): void {
