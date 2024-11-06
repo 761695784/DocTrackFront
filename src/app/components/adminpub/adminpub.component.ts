@@ -46,69 +46,94 @@ export class AdminpubComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 12;
   filteredDocuments: Document[] = [];
+  deletedDocuments: Document[] = [];
+  recoveredDocuments: Document[] = [];
+  notRecoveredDocuments: Document[] = [];
+  selectedFilter: string = 'all'; // Filtre sélectionné: 'all', 'softdeleted', 'recovered', 'notrecovered'
 
-  constructor(private publicationsService: PublicationsService,private router: Router) {}
+  constructor(private publicationsService: PublicationsService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadAllPublicationsIncludingDeleted();
+    this.publicationsService.getDeletedDocuments().subscribe({
+      next: (documents) => (this.deletedDocuments = documents),
+      error: (err) => console.error('Erreur lors de la récupération des documents supprimés:', err)
+    });
+
+    this.publicationsService.getRecoveredDocuments().subscribe({
+      next: (documents) => (this.recoveredDocuments = documents),
+      error: (err) => console.error('Erreur lors de la récupération des documents récupérés:', err)
+    });
+
+    this.publicationsService.getNotRecoveredDocuments().subscribe({
+      next: (documents) => (this.notRecoveredDocuments = documents),
+      error: (err) => console.error('Erreur lors de la récupération des documents non récupérés:', err)
+    });
   }
 
-  // Charge toutes les publications (y compris celles supprimées) depuis le service
   loadAllPublicationsIncludingDeleted(): void {
     this.publicationsService.getAllDocumentsIncludingDeleted().subscribe({
       next: (docs) => {
         this.documents = docs.sort((a: Document, b: Document) => {
           return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
         });
-        this.filteredDocuments = this.documents; // Initialise filteredDocuments avec tous les documents
+        this.filteredDocuments = this.documents;
       },
-      error: (err) =>
-        console.error('Erreur lors de la récupération des publications', err)
+      error: (err) => console.error('Erreur lors de la récupération des publications', err)
     });
   }
 
-  // Filtre les documents en fonction du terme de recherche
   filterDocuments(): void {
     this.currentPage = 1; // Réinitialiser à la première page
+
+    // Filtrer les documents en fonction du terme de recherche
+    let documents = this.documents;
     if (this.searchTerm) {
       const lowerCaseSearchTerm = this.searchTerm.toLowerCase();
-      this.filteredDocuments = this.documents.filter(document =>
+      documents = documents.filter(document =>
         document.OwnerFirstName.toLowerCase().includes(lowerCaseSearchTerm) ||
         document.OwnerLastName.toLowerCase().includes(lowerCaseSearchTerm)
       );
-    } else {
-      this.filteredDocuments = this.documents;
     }
+
+    // Filtrer en fonction du statut sélectionné
+    if (this.selectedFilter) {
+      if (this.selectedFilter === 'softdeleted') {
+        documents = this.deletedDocuments;
+      } else if (this.selectedFilter === 'récupéré') {
+        documents = this.recoveredDocuments;
+      } else if (this.selectedFilter === 'non récupéré') {
+        documents = this.notRecoveredDocuments;
+      }
+    }
+
+    // Mettre à jour les documents filtrés
+    this.filteredDocuments = documents;
   }
 
-  // Afficher les détails d'un document
   viewDetails(id: number): void {
     this.router.navigate(['/admin/admindetails', id]);
   }
 
-  // Changement de page
   pageChanged(page: number): void {
     this.currentPage = page;
   }
 
-  // Documents paginés
   get paginatedDocuments(): Document[] {
     const docsToPaginate = this.filteredDocuments.length > 0 ? this.filteredDocuments : this.documents;
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     return docsToPaginate.slice(startIndex, startIndex + this.itemsPerPage);
   }
 
-  // Calcul du nombre total de pages
   get totalPages(): number {
     return Math.ceil(this.documents.length / this.itemsPerPage);
   }
 
-  // Supprimer une publication
   deletePublication(id: number): void {
     if (id) {
       Swal.fire({
         title: 'Êtes-vous sûr de vouloir supprimer cette publication ?',
-        text: "Cette action est irréversible !",
+        text: 'Cette action est irréversible !',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -126,7 +151,7 @@ export class AdminpubComponent implements OnInit {
                 timer: 2000,
                 showConfirmButton: false
               });
-              this.loadAllPublicationsIncludingDeleted(); // Recharge la liste des publications après suppression
+              this.loadAllPublicationsIncludingDeleted();
             },
             error: (err) => {
               Swal.fire({

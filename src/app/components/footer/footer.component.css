@@ -10,7 +10,7 @@ html, body {
 
 /* Le contenu de la page occupe tout l'espace restant */
 .content {
-  flex: 1; 
+  flex: 1;
 }
 
 /* Votre footer */
@@ -64,8 +64,9 @@ html, body {
   }
 
   .footer-links, .social-icons {
-    margin-top: 10px;
+    margin-top: 40px;
     justify-content: center;
+    margin-block:initial;
   }
 
   .footer-links a, .social-icons a {

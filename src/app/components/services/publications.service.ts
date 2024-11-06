@@ -19,6 +19,57 @@ export class PublicationsService {
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
+
+    // Récupérer les documents supprimés
+    getDeletedDocuments(): Observable<Document[]> {
+      const token = localStorage.getItem('token');
+      const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+      return this.http.get<Document[]>(`${apiUrl}/supp`, { headers }).pipe(
+        tap(documents => this.publicationsSubject.next(documents)), // Met à jour le sujet
+        map(documents => documents.map(doc => {
+          doc.image = doc.image ? `${IMAGE_URL_BASE}${doc.image}` : ''; // Utilise la constante d'URL d'image
+          return doc;
+        })),
+        catchError(this.handleError)
+      );
+    }
+
+    // Récupérer les documents "récupérés"
+    getRecoveredDocuments(): Observable<Document[]> {
+      const token = localStorage.getItem('token');
+      const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+      return this.http.get<Document[]>(`${apiUrl}/recup`, { headers }).pipe(
+        tap(documents => this.publicationsSubject.next(documents)), // Met à jour le sujet
+        map(documents => documents.map(doc => {
+          doc.image = doc.image ? `${IMAGE_URL_BASE}${doc.image}` : ''; // Utilise la constante d'URL d'image
+          return doc;
+        })),
+        catchError(this.handleError)
+      );
+    }
+
+    // Récupérer les documents "non récupérés"
+    getNotRecoveredDocuments(): Observable<Document[]> {
+      const token = localStorage.getItem('token');
+      const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+      return this.http.get<Document[]>(`${apiUrl}/nonrecup`, { headers }).pipe(
+        tap(documents => this.publicationsSubject.next(documents)), // Met à jour le sujet
+        map(documents => documents.map(doc => {
+          doc.image = doc.image ? `${IMAGE_URL_BASE}${doc.image}` : ''; // Utilise la constante d'URL d'image
+          return doc;
+        })),
+        catchError(this.handleError)
+      );
+    }
+
+      // Gestion des erreurs
+  private handleError(error: any): Observable<never> {
+    console.error('Une erreur est survenue:', error);
+    return throwError(() => new Error('Une erreur est survenue, veuillez réessayer plus tard.'));
+  }
+
+
+
 // Récupérer toutes les publications pour un SimpleUser
 getAllPublications(): Observable<Document[]> {
   return this.http.get<Document[]>(`${apiUrl}/document`).pipe(

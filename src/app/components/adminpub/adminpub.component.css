@@ -76,17 +76,19 @@ body {
   align-items: center;
   margin-top: 10px;
 }
-/* Search bar styling */
+/* Container de la barre de recherche et de filtrage */
 .search-bar {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   margin-top: 40px;
   margin-left: 22%;
-  gap: 10px;
+  gap: 15px;
   width: 60%;
+  flex-wrap: wrap;
 }
 
+/* Champ de saisie de recherche */
 .search-bar input {
   padding: 12px;
   flex: 1;
@@ -94,11 +96,54 @@ body {
   border: 2px solid #ccc;
   border-radius: 8px;
   font-size: 1.1rem;
+  width: 100%;
+  max-width: 630px;
+  transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
-.search-btn{
+/* Effet au survol du champ de recherche */
+.search-bar input:hover {
+  border-color: #F6A500;
+  box-shadow: 0 0 8px rgba(246, 165, 0, 0.3);
+}
+
+/* Effet au focus du champ de recherche */
+.search-bar input:focus {
+  outline: none;
+  border-color: #F6A500;
+  box-shadow: 0 0 8px rgba(246, 165, 0, 0.5);
+}
+
+/* Menu déroulant pour filtrer par statut */
+.search-bar select {
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 1.1rem;
+  width: 100%;
+  max-width: 240px;
+  cursor: pointer;
+  transition: border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+/* Effet au survol du menu déroulant */
+.search-bar select:hover {
+  border-color: #F6A500;
+  background-color: #fff3e0;
+}
+
+/* Effet au focus sur le menu déroulant */
+.search-bar select:focus {
+  outline: none;
+  border-color: #F6A500;
+  box-shadow: 0 0 8px rgba(246, 165, 0, 0.5);
+}
+
+/* Bouton de recherche */
+.search-btn {
   background-color: #F6A500;
-  color:black;
+  color: black;
   padding: 12px 25px;
   border: none;
   border-radius: 8px;
@@ -109,11 +154,12 @@ body {
   transition: background-color 0.3s ease-in-out, transform 0.3s;
 }
 
-.search-btn:hover,
-.my-publications-btn:hover {
+/* Effet au survol du bouton de recherche */
+.search-btn:hover {
   background-color: #d18e00;
-  transform: translateY(-2px);
+  transform: translateY(-2px); 
 }
+
 
 .details-btn {
   color: white;
@@ -262,7 +308,7 @@ body {
 }
 
 /* Media Query pour mobile */
-@media (max-width: 768px) { 
+@media (max-width: 768px) {
   .blur-overlay {
     top: 95px;
     left:70px;

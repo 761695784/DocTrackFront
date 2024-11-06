@@ -12,7 +12,7 @@ export interface Document {
   OwnerFirstName: string;
   OwnerLastName: string;
   Location: string;
-  statut: string; 
+  statut: string;
   document_type_id: number;
   user_id: number;
   created_at: string;
