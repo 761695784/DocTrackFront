@@ -1,4 +1,4 @@
-<app-sidebar></app-sidebar>
+<app-sidebar style="position: absolute; z-index: 2;"></app-sidebar>
 
 <div class="header">
       <!-- Section de défilement du texte -->
@@ -9,22 +9,32 @@
       </div>
 
   <div class="header-right">
-      <!-- Icône de notification -->
+    <!-- Icône de notification -->
       <div class="notification-icon" ngbDropdown>
-        <button class="btn btn" ngbDropdownToggle style="background-color:#31287C;">
+          <button class="btn btn" ngbDropdownToggle style="background-color:#31287C;">
             <i class="fas fa-bell"></i>
             <span class="badge badge-light">{{ unreadCount }}</span> <!-- Affichage du nombre de notifications non lues -->
-            </button>
-          <div ngbDropdownMenu>
+          </button>
+        <div ngbDropdownMenu>
             <div *ngFor="let notification of notifications">
-              <a class="dropdown-item" [routerLink]="notification.type === 'document' ? '/adminpub' : '/admindec'" (click)="markNotificationAsRead(notification.id)">
-                {{ notification.message }}
-              </a>
-              <button class="dropdown-item" (click)="deleteNotification(notification.id)">Supprimer</button> <!-- Ajout du bouton supprimer -->
+                <ng-container *ngIf="notification.type === 'document'; else declarationTemplate">
+                    <!-- Redirection avec routerLink et marquer comme lue -->
+                    <a class="dropdown-item"
+                      [routerLink]="['/admin/adminpub']"
+                      (click)="markNotificationAsRead(notification.id);">
+                        {{ notification.message }}
+                    </a>
+                </ng-container>
+                <ng-template #declarationTemplate>
+                    <a class="dropdown-item"
+                      [routerLink]="['/admin/admindec']"
+                      (click)="markNotificationAsRead(notification.id);">
+                        {{ notification.message }}
+                    </a>
+                </ng-template>
             </div>
-            <div class="dropdown-divider"></div>
-          </div>
-      </div>
+        </div>
+    </div>
 
 
           <!-- Dropdown utilisateur -->

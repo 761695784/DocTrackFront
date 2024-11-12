@@ -29,7 +29,9 @@
 </div>
 
 <!-- Afficher les historiques des restitutions -->
-<button class="btn-history" (click)="showRestitutionHistory()">Historiques des Restitutions</button>
+<button class="btn-history" (click)="showRestitutionHistory()">
+  {{ isShowingRestitutionHistory ? 'Afficher tous les Emails' : 'Historiques des Restitutions' }}
+</button>
 
 <!-- Afficher les résultats de recherche -->
 <div *ngIf="filteredDocuments.length > 0" class="search-results">

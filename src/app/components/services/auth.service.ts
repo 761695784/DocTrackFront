@@ -67,12 +67,13 @@ export class AuthService {
 
     // Vérifier si l'utilisateur est authentifié
     isAuthenticated(): boolean {
-      if (typeof window !== 'undefined' && window.localStorage) {
-          const token = localStorage.getItem('token');
-          return !!token;
+      if (typeof window === 'undefined' || !window.localStorage) {
+        return false; // Retourne false si l'environnement est non-navigateur
       }
-      return false; // Retourne false si l'environnement est non-navigateur
+      const token = localStorage.getItem('token');
+      return !!token;
     }
+
 
     //Methode pour récupérer le Prénom de l'utilisateur connecté
     getUserName(): string {

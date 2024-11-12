@@ -95,33 +95,39 @@ nav ul li a:hover {
   font-weight: bold;
 }
 
-@media (max-width: 768px) {
+.navbar-toggler {
+  margin-right: auto; /* Assure que le bouton est à l'extrémité droite */
+}
+
+/* Styles pour l'apparence responsive */
+@media (max-width: 1280px) {
   .navbar-collapse {
-      background-color: #31287C;
-      position: absolute;
-      top: 60px;
-      left: 180px;
-      z-index: 1000;
-      display: none;
+    background-color: #31287C;
+    position: absolute;
+    top: 60px;
+    right: 0; /* Assure que la barre commence à l'extrémité droite */
+    left: auto; /* Pour s'assurer qu'elle ne dépasse pas vers la gauche */
+    z-index: 1000;
+    display: none;
   }
 
   .navbar-collapse.show {
-      display: block;
+    display: block;
   }
 
   nav ul {
-      flex-direction: column;
-      margin: 0;
-      padding: 15px 0;
+    flex-direction: column;
+    margin: 0;
+    padding: 15px 0;
+    text-align: center;
   }
 
   nav ul li {
-      margin: 10px 0;
+    margin: 10px 0;
   }
 
   nav ul li a {
-      padding: 10px;
-      width: 100%;
-      text-align: center;
+    padding: 10px;
+    width: 100%;
   }
 }

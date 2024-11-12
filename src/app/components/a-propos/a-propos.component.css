@@ -180,19 +180,41 @@ h1 {
           width: 80%;
           height: auto;
       }
+      .section {
+        width: 90%;
+    }
+
+    .trait1, .trait2 {
+        width: 100px;
+    }
+
+    .propriete1, .propriete2 {
+        font-size: 1.8rem;
+    }
+
+    .parg1, .parg2 {
+        font-size: 0.9rem;
+        margin: 1rem;
+    }
+
+    .section2 {
+        width: 100%;
+        height: auto;
+        margin-top: 20px;
+    }
   }
 
-  @media (max-width: 768px) {
+  /* @media (max-width: 850px) {
       .propriete1, .propriete2 {
-          font-size: 2rem;
+          font-size: 3rem;
       }
 
       .parg1, .parg2 {
-          font-size: 1rem;
+          font-size: 1.8rem;
       }
   }
 
-  @media (max-width: 576px) {
+  @media (max-width: 850px) {
       .section {
           width: 90%;
       }
@@ -215,7 +237,7 @@ h1 {
           height: auto;
           margin-top: 20px;
       }
-  }
+  } */
 
   .titre-temoin {
     font-size: 45px;
@@ -548,12 +570,18 @@ span{
 /* Responsivité */
 @media screen and (max-width: 1024px) {
   .pers {
-    height: 900px; /* Augmente la taille de l'image sur tablettes */
+    height: 120vh; /* Augmente la taille de l'image sur tablettes */
+
   }
 
   .cards {
     flex-direction: column;
-    top: 10%;
+    top: 15%;
+    align-items: center;
+
+  }
+  .overlay-text {
+    top: 0;
   }
 
   .card {

@@ -73,7 +73,7 @@ body {
 }
 
 /* Responsive Sidebar pour Mobile */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .sidebar {
       width: 80px;
   }

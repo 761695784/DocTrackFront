@@ -99,8 +99,46 @@ button:hover {
   }
 
 
-@media (max-width: 768px) {
-  .Formulaire {
+@media (max-width: 1024px) {
+  /* .Formulaire {
+    flex-direction: column;
+    align-items: center;
+    margin: 150px 0 0 0;
+  } */
+
+  /* .container {
+    width: 90%;
+    height: auto;
+    margin: 0;
+  } */
+
+  input, button {
+    width: 100%;
+    max-width: none;
+    margin-left: 0;
+  }
+
+  .test {
+    align-items: center;
+    margin-left: 0;
+  }
+
+  .carteImage {
+    margin-left: 25%;
+    }
+
+  .question {
+    text-align: center;
+  }
+
+  #form{
+    background-color: rgba(247, 244, 244, 0.801)
+  }
+
+}
+
+@media (max-width: 500px) {
+   .Formulaire {
     flex-direction: column;
     align-items: center;
     margin: 150px 0 0 0;
@@ -117,17 +155,12 @@ button:hover {
     max-width: none;
     margin-left: 0;
   }
-
-  .test {
-    align-items: center;
-    margin-left: 0;
-  }
-
-  .carteImage {
+   .carteImage {
     display: none;
   }
 
-  .question {
-    text-align: center;
+  #form{
+    background-color: rgba(255, 255, 255, 0.274)
   }
+
 }

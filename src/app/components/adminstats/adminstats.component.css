@@ -7,7 +7,7 @@
 }
 
 /* Mobile styles */
-@media only screen and (max-width: 768px) {
+@media (max-width: 1024px) {
   .graph {
     flex-direction: column;
     margin-left: 0;

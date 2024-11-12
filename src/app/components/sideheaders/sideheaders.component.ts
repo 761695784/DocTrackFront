@@ -1,17 +1,29 @@
-import { FormsModule } from '@angular/forms';
 import { Component, OnInit,EventEmitter, Output } from '@angular/core';
 import { SidebarComponent } from "../sidebar/sidebar.component";
 import { AuthService } from '../services/auth.service';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PublicationsService } from '../services/publications.service';
+import { Observable, of } from 'rxjs'; // Pour Observable et l'observable vide
+import { tap, catchError } from 'rxjs/operators'; // Pour les opérateurs tap et catchError
 
+export interface Notifications {
+  id: number;
+  message: string;
+  is_read: boolean;
+  document: {
+    id: number;
+  };
+  declaration : {
+    id: number;
+  }
+  }
 
 @Component({
   selector: 'app-sideheaders',
   standalone: true,
-  imports: [SidebarComponent,CommonModule,FormsModule,NgbModule,RouterLink],
+  imports: [SidebarComponent,CommonModule,NgbModule,RouterModule],
   templateUrl: './sideheaders.component.html',
   styleUrl: './sideheaders.component.css'
 })
@@ -54,27 +66,45 @@ export class SideheadersComponent implements OnInit {
     });
   }
 
-  markNotificationAsRead(notificationId: number) {
-    this.authService.markNotificationAsRead(notificationId).subscribe(() => {
-      const notification = this.notifications.find(n => n.id === notificationId);
-      if (notification) {
-        notification.is_read = true; // Mettre à jour l'état local
-        this.unreadCount--; // Décrementer le compteur
-      }
-    });
-  }
+  markNotificationAsRead(notificationId: number): Observable<void> {
+    return this.authService.markNotificationAsRead(notificationId).pipe(
+        tap(() => {
+            const notificationIndex = this.notifications.findIndex(n => n.id === notificationId);
+            if (notificationIndex !== -1) {
+                this.notifications[notificationIndex].is_read = true;
+                this.unreadCount--; // Décrementer le compteur
+                // Supprimer la notification de la liste
+                this.notifications.splice(notificationIndex, 1);
+            }
+        }),
+        catchError(error => {
+            console.error('Erreur lors de la mise à jour de la notification:', error);
+            return of(); // Retourner un observable vide en cas d'erreur
+        })
+    );
+}
 
-   // Méthode pour supprimer une notification
-   deleteNotification(notificationId: number) {
-    // Trouve l'index de la notification
-    const index = this.notifications.findIndex(n => n.id === notificationId);
-    if (index !== -1) {
-      // Supprime la notification de la liste
-      this.notifications.splice(index, 1);
-      // Mettez à jour le compteur si nécessaire
-      this.unreadCount = this.notifications.filter(n => !n.is_read).length;
-    }
-  }
+// onNotificationClick(notification: any) {
+//   this.markNotificationAsRead(notification.id).subscribe(() => {
+//       // Redirection vers la publication ou la déclaration
+//       // if (notification.type === 'document') {
+//       //     this.router.navigate(['/admin/adminpub']);
+//       // } else if (notification.type === 'declaration') {
+//       //     this.router.navigate(['/admin/admindec']);
+//       // }
+//   });
+// }
+  //  // Méthode pour supprimer une notification
+  //  deleteNotification(notificationId: number) {
+  //   // Trouve l'index de la notification
+  //   const index = this.notifications.findIndex(n => n.id === notificationId);
+  //   if (index !== -1) {
+  //     // Supprime la notification de la liste
+  //     this.notifications.splice(index, 1);
+  //     // Mettez à jour le compteur si nécessaire
+  //     this.unreadCount = this.notifications.filter(n => !n.is_read).length;
+  //   }
+  // }
 
 
   // Méthode pour filtrer les documents selon la recherche

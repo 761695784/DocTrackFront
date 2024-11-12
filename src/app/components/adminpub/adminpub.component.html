@@ -25,6 +25,9 @@
 
 <!-- Conteneur principal pour les documents -->
 <div class="container">
+  <div *ngIf="pasderesultat" class="error-message">
+    Aucun document trouvé pour votre recherche.
+  </div>
   <!-- Grille des cartes de documents -->
   <div class="grid-container">
     <div *ngFor="let document of paginatedDocuments" class="card">

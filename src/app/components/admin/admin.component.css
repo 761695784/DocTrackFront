@@ -10,7 +10,7 @@ body {
 }
 
 /* Pour les petits écrans, mise en page en colonne */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .graph {
     flex-direction: column;
     margin-left: 0;
@@ -288,12 +288,12 @@ tbody tr:hover {
   font-size: 16px;
   color: #333;
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1024px) {
   /* Container pour les statistiques */
   .stats-container {
     flex-direction: column;
     align-items: center;
-    margin-left: 60px;
+    /* margin-left: 60px; */
     margin-right: 0;
   }
 
@@ -329,7 +329,7 @@ tbody tr:hover {
 
 }
 /* Responsivité pour les petits écrans (tablettes et mobiles) */
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1024px) {
 /* Rendre le tableau plus compact et lisible */
  tbody tr {
   display: block;
@@ -370,7 +370,7 @@ thead {
 
 /* Remove top margins */
 .table-container {
-  margin-left: 15%;
+  margin-left: 18%;
 }
   /* Améliorer la disposition des boutons d'action (icône de suppression) */
   .delete-icon {
@@ -408,6 +408,8 @@ thead {
   }
 
   .btn-history {
-    margin-left: 28%;
+    justify-content: center;
+    align-items: center;
+    margin-left: 30%;
   }
 }

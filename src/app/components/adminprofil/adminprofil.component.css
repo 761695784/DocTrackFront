@@ -81,8 +81,6 @@ button {
   margin-top: 40px;
   font-size: 20px;
   font-weight: bold;
-  /* ;
-  margin-left: 12rem; Alignement du bouton sur desktop */
 }
 
 button:hover {
@@ -99,9 +97,6 @@ button:hover {
 
 
 @media (max-width: 480px) {
-body{
-  overflow-x: hidden;
-}
   .Formulaire {
    width: 400px;
    overflow-x: hidden;
@@ -127,7 +122,6 @@ body{
 
 
   .container{
-
     padding: 0;
     width: 90%;
     justify-content: center;
@@ -145,6 +139,29 @@ body{
     margin: 0;
     margin-left: 0;
     width: 100%;
+  }
+
+
+}
+
+@media (max-width: 1024px) {
+  .Formulaire {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 20px;
+    margin-top: 4rem;
+    margin-left: 5%;
+
+  }
+
+  .container {
+    padding: 20px;  
+    width: 90%;
+    max-width: 732px;
+    margin: 0 auto;
   }
 
 

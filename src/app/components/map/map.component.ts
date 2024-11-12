@@ -2,6 +2,8 @@ import { AfterViewInit, Component } from '@angular/core';
 import * as maplibregl from 'maplibre-gl';
 import { CommonModule } from '@angular/common';
 import { PublicationsService } from '../services/publications.service';
+import { isPlatformBrowser } from '@angular/common';
+import { Inject, PLATFORM_ID } from '@angular/core';
 
 @Component({
   selector: 'app-map',
@@ -14,11 +16,14 @@ export class MapComponent implements AfterViewInit {
 
   private map!: maplibregl.Map;
 
-  constructor(private publicationsService: PublicationsService) {}
+  constructor(@Inject(PLATFORM_ID) private platformId: object, private publicationsService: PublicationsService) {}
 
   ngAfterViewInit(): void {
-    this.loadMap();
+    if (isPlatformBrowser(this.platformId)) {
+      this.loadMap();
+    }
   }
+
 
 
   loadMap(): void {
@@ -31,7 +36,7 @@ export class MapComponent implements AfterViewInit {
 
     // Récupérer et afficher les publications par région ou localité
     this.publicationsService.getPublicationsByLocation().subscribe(data => {
-      console.log("Données récupérées :", data); // Vérifier le format des données
+      // console.log("Données récupérées :", data); // Vérifier le format des données
       data.forEach(location => {
         new maplibregl.Marker()
           .setLngLat([+location.longitude, +location.latitude])

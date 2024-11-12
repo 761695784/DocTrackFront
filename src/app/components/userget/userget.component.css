@@ -87,11 +87,11 @@ body {
 }
 
 .user-table th:first-child {
-  border-top-left-radius: 20px; /* Rounded top left corner */
+  border-top-left-radius: 20px;
 }
 
 .user-table th:last-child {
-  border-top-right-radius: 20px; /* Rounded top right corner */
+  border-top-right-radius: 20px;
 }
 
 .user-table td {
@@ -116,12 +116,7 @@ body {
 }
 
 /* Responsive for Mobile */
-@media (max-width: 768px) {
-
-  /* .header h1 {
-    font-size: 15px;
-    margin-left: 0;
-  } */
+ @media (max-width: 450px) {
 
   .header {
     justify-content:flex-start;
@@ -191,6 +186,59 @@ body {
     margin-right: 2%;
   }
 }
+
+/* Responsivité pour les tablettes */
+@media (max-width: 1024px) {
+  .container {
+    max-width: 90%; /* Réduit la largeur du conteneur pour les tablettes */
+    padding: 15px;
+    margin-left: 80px;
+    overflow-x: auto;
+  }
+
+  .header h1 {
+    font-size: 24px; /* Réduit la taille de la police pour le titre */
+  }
+
+  .add-user-btn {
+    font-size: 14px; /* Réduit la taille du bouton */
+    padding: 10px 20px;
+  }
+
+  .user-table {
+    font-size: 14px; /* Réduit la taille de la police des cellules */
+    width: 100%; /* S'assure que la table utilise toute la largeur du conteneur */
+    margin-left: 0;
+    border-radius: 15px;
+  }
+
+  .user-table th,
+  .user-table td {
+    padding: 15px; /* Diminue le padding pour les cellules */
+  }
+
+  .user-table thead tr {
+    background-color: #31287C;
+  }
+
+  .user-table th {
+    font-size: 0.9rem; /* Taille de police ajustée */
+  }
+
+  .user-table td {
+    font-size: 0.85rem; /* Taille de police ajustée */
+    font-weight: normal; /* Allège le texte */
+  }
+
+  .pagination-controls {
+    margin-top: 20px; /* Diminue l'espacement du haut */
+  }
+
+  .delete-icon {
+    font-size: 18px; /* Diminue légèrement la taille de l'icône */
+  }
+}
+
 
 /* Pagination controls */
 .pagination-controls {

@@ -112,24 +112,22 @@ button:hover {
 margin-left: 45%;}
 
 /* Mobile Styles */
-@media screen and (max-width: 768px) {
+@media (max-width: 1024px) {
   body {
     font-size: 14px;
   }
 
   .Formulaire {
-    flex-direction: column;
     margin: 115px 0 0 0;
-    padding: 20px;
   }
 
-  .container {
+/*   .container {
     margin: 0;
     padding: 20px;
     width: 100%;
     position: relative;
     box-shadow: none;
-  }
+  } */
 
   .form-container h2 {
     font-size: 1.5rem;
@@ -140,13 +138,13 @@ margin-left: 45%;}
     margin: 10px 0 5px;
   }
 
-  input, .single-input {
+  /* input, .single-input {
     width: 100%;
     margin: 5px 0;
-  }
+  } */
 
   .label-container {
-    flex-direction: column;
+    /* flex-direction: column; */
     margin-bottom: 20px;
   }
 
@@ -161,11 +159,47 @@ margin-left: 45%;}
   }
 
   .carteImage {
-display: none;
+    margin-left: 0;
   }
 
-  .carte {
+
+
+  /* .carte {
     width: 80%;
     height: auto;
+  } */
+}
+
+@media (max-width: 500px) {
+  .Formulaire {
+   flex-direction: column;
+   align-items: center;
+   /* margin: 150px 0 0 0; */
+
+ }
+
+ .container {
+   width: 90%;
+   height: auto;
+   margin: 0;
+ }
+   input, .single-input {
+    width: 100%;
+    margin: 5px 0;
   }
+
+  .label-container {
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+
+
+  .carteImage {
+   display: none;
+ }
+
+ #form{
+   background-color: rgba(255, 255, 255, 0.274)
+ }
+
 }

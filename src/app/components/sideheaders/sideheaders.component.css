@@ -5,8 +5,8 @@
   padding: 15px 30px;
   color: white;
   position: relative;
-  width: 87%;
-  margin-left: 13%;
+  width: 100%;
+  z-index: 1;
 }
 
 .header-right {
@@ -57,13 +57,10 @@
   background-color: #F6A500;
   font-weight: bold;
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1024px) {
   /* Header responsif pour mobile */
   .header {
-    width: 78.5%;
-    margin-left: 20.5%;
     flex-direction: column;
-    align-items: flex-start;
   }
 
   .scroll-text {
@@ -84,7 +81,7 @@
 
   .notification-icon {
     font-size: 18px;
-    margin-right: 10px;
+    margin-left: 5rem;
   }
 
   .user-name {

@@ -71,8 +71,16 @@ export class AdminComponent implements OnInit {
     }
   }
 
-  // Méthode pour afficher uniquement les emails de demandes de restitution
-  showRestitutionHistory(): void {
+  // Méthode pour afficher uniquement les emails de demandes de restitution// Méthode pour afficher ou masquer les emails de demandes de restitution
+showRestitutionHistory(): void {
+  if (this.isShowingRestitutionHistory) {
+    // Si actuellement en mode restitution, revenir à l'état initial
+    this.isShowingRestitutionHistory = false;
+    this.filteredEmailLogs = this.emailLogs; // Réinitialise les emails filtrés
+    this.currentPage = 1; // Réinitialise à la première page
+    this.totalPages = Math.ceil(this.filteredEmailLogs.length / this.itemsPerPage);
+  } else {
+    // Afficher l'historique des restitutions
     this.isShowingRestitutionHistory = true;
     this.filteredEmailLogs = this.emailLogs.filter((email) => {
       return email.subject.includes('Demande de restitution');
@@ -80,6 +88,7 @@ export class AdminComponent implements OnInit {
     this.currentPage = 1; // Réinitialise à la première page
     this.totalPages = Math.ceil(this.filteredEmailLogs.length / this.itemsPerPage);
   }
+}
 
   // Méthode pour charger toutes les données au niveau des stat-box
   loadAllData(): void {

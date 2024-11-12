@@ -50,6 +50,7 @@ export class AdminpubComponent implements OnInit {
   recoveredDocuments: Document[] = [];
   notRecoveredDocuments: Document[] = [];
   selectedFilter: string = 'all'; // Filtre sélectionné: 'all', 'softdeleted', 'recovered', 'notrecovered'
+  pasderesultat: boolean = false;
 
   constructor(private publicationsService: PublicationsService, private router: Router) {}
 
@@ -85,6 +86,7 @@ export class AdminpubComponent implements OnInit {
 
   filterDocuments(): void {
     this.currentPage = 1; // Réinitialiser à la première page
+    this.pasderesultat = false; // Reset the pasderesultat flag
 
     // Filtrer les documents en fonction du terme de recherche
     let documents = this.documents;
@@ -109,6 +111,9 @@ export class AdminpubComponent implements OnInit {
 
     // Mettre à jour les documents filtrés
     this.filteredDocuments = documents;
+
+      // Vérifier s'il y a des résultats filtrés et mettre à jour pasderesultat
+      this.pasderesultat = this.filteredDocuments.length === 0;
   }
 
   viewDetails(id: number): void {

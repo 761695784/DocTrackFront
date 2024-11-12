@@ -210,7 +210,7 @@ h1 {
 }
 
 /* Responsivité HeroSection **/
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .hero-section {
       height: auto;
       padding: 20px 15px;
@@ -366,7 +366,7 @@ h1 {
 }
 
 /* Responsivité de la partie Avantages **/
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .titre-avantage {
     font-size: 32px;
   }
@@ -425,7 +425,7 @@ h1 {
 }
 
 /* Responsive de la partie Statistique **/
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .titre-avantage {
     font-size: 24px;
   }
@@ -543,7 +543,7 @@ padding: 3%;
     z-index: 0;
   }
   /* Responsivité de la partie Comment ca marche **/
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 1024px) {
     .fonctionnement {
       padding: 10px;
     }
@@ -649,7 +649,7 @@ padding: 3%;
 }
 
 /* Responsive de la partie temoignage */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .titre-temoin {
     font-size: 24px;
     margin-left: 5%;
@@ -731,7 +731,7 @@ padding: 3%;
 }
 
 /* Responsivité pour la section Partenaire */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .partenaire-img {
     flex: 1 1 48%;
     margin: 3%;
