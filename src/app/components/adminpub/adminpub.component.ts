@@ -55,7 +55,7 @@ export class AdminpubComponent implements OnInit {
   constructor(private publicationsService: PublicationsService, private router: Router) {}
 
   ngOnInit(): void {
-    this.loadAllPublicationsIncludingDeleted();
+    this.loadAllPublications();
     this.publicationsService.getDeletedDocuments().subscribe({
       next: (documents) => (this.deletedDocuments = documents),
       error: (err) => console.error('Erreur lors de la récupération des documents supprimés:', err)
@@ -72,8 +72,8 @@ export class AdminpubComponent implements OnInit {
     });
   }
 
-  loadAllPublicationsIncludingDeleted(): void {
-    this.publicationsService.getAllDocumentsIncludingDeleted().subscribe({
+  loadAllPublications(): void {
+    this.publicationsService.getAllPublications().subscribe({
       next: (docs) => {
         this.documents = docs.sort((a: Document, b: Document) => {
           return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
@@ -156,7 +156,7 @@ export class AdminpubComponent implements OnInit {
                 timer: 2000,
                 showConfirmButton: false
               });
-              this.loadAllPublicationsIncludingDeleted();
+              this.loadAllPublications();
             },
             error: (err) => {
               Swal.fire({

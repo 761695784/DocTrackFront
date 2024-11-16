@@ -10,31 +10,36 @@
 
   <div class="header-right">
     <!-- Icône de notification -->
-      <div class="notification-icon" ngbDropdown>
-          <button class="btn btn" ngbDropdownToggle style="background-color:#31287C;">
-            <i class="fas fa-bell"></i>
-            <span class="badge badge-light">{{ unreadCount }}</span> <!-- Affichage du nombre de notifications non lues -->
-          </button>
-        <div ngbDropdownMenu>
-            <div *ngFor="let notification of notifications">
-                <ng-container *ngIf="notification.type === 'document'; else declarationTemplate">
-                    <!-- Redirection avec routerLink et marquer comme lue -->
-                    <a class="dropdown-item"
-                      [routerLink]="['/admin/adminpub']"
-                      (click)="markNotificationAsRead(notification.id);">
-                        {{ notification.message }}
-                    </a>
-                </ng-container>
-                <ng-template #declarationTemplate>
-                    <a class="dropdown-item"
-                      [routerLink]="['/admin/admindec']"
-                      (click)="markNotificationAsRead(notification.id);">
-                        {{ notification.message }}
-                    </a>
-                </ng-template>
-            </div>
+    <div class="notification-icon" ngbDropdown>
+      <button class="btn" ngbDropdownToggle style="background-color:#31287C;">
+        <i class="fas fa-bell"></i>
+        <span class="badge badge-light">{{ unreadCount }}</span>
+      </button>
+      <div ngbDropdownMenu>
+        <div *ngIf="notifications.length > 0; else noNotifications">
+          <div *ngFor="let notification of notifications">
+            <ng-container *ngIf="notification.type === 'document'; else declarationTemplate">
+              <a class="dropdown-item"
+                 [routerLink]="['/admin/adminpub']"
+                 (click)="markNotificationAsRead(notification.id)">
+                {{ notification.message }}
+              </a>
+            </ng-container>
+            <ng-template #declarationTemplate>
+              <a class="dropdown-item"
+                 [routerLink]="['/admin/admindec']"
+                 (click)="markNotificationAsRead(notification.id)">
+                {{ notification.message }}
+              </a>
+            </ng-template>
+          </div>
         </div>
+        <ng-template #noNotifications>
+          <div class="dropdown-item text-muted">Aucune notification</div>
+        </ng-template>
+      </div>
     </div>
+
 
 
           <!-- Dropdown utilisateur -->

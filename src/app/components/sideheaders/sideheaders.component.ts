@@ -5,8 +5,6 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PublicationsService } from '../services/publications.service';
-import { Observable, of } from 'rxjs'; // Pour Observable et l'observable vide
-import { tap, catchError } from 'rxjs/operators'; // Pour les opérateurs tap et catchError
 
 export interface Notifications {
   id: number;
@@ -51,81 +49,57 @@ export class SideheadersComponent implements OnInit {
 
   }
 
+      // Methode pour l'affichage des notifications et la decrementations du compteur
+        getNotifications() {
+          this.authService.getAllNotifications().subscribe(response => {
+            this.notifications = response.data;
+            this.unreadCount = this.notifications.filter(n => !n.is_read).length;
+          });
+        }
 
-  getNotifications() {
-    this.authService.getAllNotifications().subscribe(response => {
-      this.notifications = response.data; // Supposons que la réponse contient les notifications dans "data"
-      this.unreadCount = this.notifications.filter(n => !n.is_read).length; // Compter les notifications non lues
-    });
-  }
-
-  markAllAsRead() {
-    this.authService.markAllAsRead().subscribe(() => {
-      this.notifications.forEach(n => n.is_read = true); // Mettre à jour l'état local
-      this.unreadCount = 0; // Réinitialiser le compteur
-    });
-  }
-
-  markNotificationAsRead(notificationId: number): Observable<void> {
-    return this.authService.markNotificationAsRead(notificationId).pipe(
-        tap(() => {
+        // Methode pour marquer une notification comme lue
+        markNotificationAsRead(notificationId: number) {
+          this.authService.markNotificationAsRead(notificationId).subscribe(() => {
             const notificationIndex = this.notifications.findIndex(n => n.id === notificationId);
-            if (notificationIndex !== -1) {
-                this.notifications[notificationIndex].is_read = true;
-                this.unreadCount--; // Décrementer le compteur
-                // Supprimer la notification de la liste
-                this.notifications.splice(notificationIndex, 1);
+            if (notificationIndex !== -1 && !this.notifications[notificationIndex].is_read) {
+              this.notifications[notificationIndex].is_read = true;
+              this.unreadCount--;
             }
-        }),
-        catchError(error => {
-            console.error('Erreur lors de la mise à jour de la notification:', error);
-            return of(); // Retourner un observable vide en cas d'erreur
-        })
-    );
-}
-
-// onNotificationClick(notification: any) {
-//   this.markNotificationAsRead(notification.id).subscribe(() => {
-//       // Redirection vers la publication ou la déclaration
-//       // if (notification.type === 'document') {
-//       //     this.router.navigate(['/admin/adminpub']);
-//       // } else if (notification.type === 'declaration') {
-//       //     this.router.navigate(['/admin/admindec']);
-//       // }
-//   });
-// }
-  //  // Méthode pour supprimer une notification
-  //  deleteNotification(notificationId: number) {
-  //   // Trouve l'index de la notification
-  //   const index = this.notifications.findIndex(n => n.id === notificationId);
-  //   if (index !== -1) {
-  //     // Supprime la notification de la liste
-  //     this.notifications.splice(index, 1);
-  //     // Mettez à jour le compteur si nécessaire
-  //     this.unreadCount = this.notifications.filter(n => !n.is_read).length;
-  //   }
-  // }
+          });
+        }
 
 
-  // Méthode pour filtrer les documents selon la recherche
-  searchDocuments(): void {
-    const query = this.searchQuery.toLowerCase();
-    this.filteredDocuments = this.documents.filter(document =>
-      document.Title.toLowerCase().includes(query) || // Cherche dans le titre
-      document.OwnerFirstName.toLowerCase().includes(query) || // Cherche dans le prénom
-      document.OwnerLastName.toLowerCase().includes(query) // Cherche dans le nom
-    );
-  }
-
-  goToChangePassword(): void {
-    this.router.navigate(['/change-password']);
-  }
-
-  // Méthode pour se déconnecter
-  logout() {
-    this.authService.logout();
-  }
+    // Méthode pour supprimer une notification
+      deleteNotification(notificationId: number) {
+          // Trouve l'index de la notification
+          const index = this.notifications.findIndex(n => n.id === notificationId);
+          if (index !== -1) {
+              // Supprime la notification de la liste
+              this.notifications.splice(index, 1);
+              // Mettez à jour le compteur si nécessaire
+              this.unreadCount = this.notifications.filter(n => !n.is_read).length;
+          }
+      }
 
 
+      // Méthode pour filtrer les documents selon la recherche
+      searchDocuments(): void {
+        const query = this.searchQuery.toLowerCase();
+        this.filteredDocuments = this.documents.filter(document =>
+          document.Title.toLowerCase().includes(query) || // Cherche dans le titre
+          document.OwnerFirstName.toLowerCase().includes(query) || // Cherche dans le prénom
+          document.OwnerLastName.toLowerCase().includes(query) // Cherche dans le nom
+        );
+      }
+
+    // Méthode pour rediriger vers la page de changement de mot de passe
+      goToChangePassword(): void {
+        this.router.navigate(['/change-password']);
+      }
+
+    // Méthode pour se déconnecter
+      logout() {
+        this.authService.logout();
+      }
 
 }

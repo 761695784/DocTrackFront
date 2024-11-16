@@ -94,7 +94,7 @@ export class UsergetComponent implements OnInit {
           error: (err) => {
             Swal.fire(
               'Erreur !',
-              'Une erreur est survenue lors de la suppression.',
+              'Vous ne pouvez pas supprimer un utilisateur de role Admin.',
               'error'
             );
             // console.error('Erreur lors de la suppression de l\'utilisateur', err);
