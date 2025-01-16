@@ -26,6 +26,7 @@ import { AdminstatsComponent } from './components/adminstats/adminstats.componen
 import { AProposComponent } from './components/a-propos/a-propos.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { NewpassComponent } from './components/newpass/newpass.component';
+import { PrivatePolicyComponent } from './components/private-policy/private-policy.component';
 
 
 export const routes: Routes = [
@@ -38,6 +39,7 @@ export const routes: Routes = [
   { path: 'apropos', component: AProposComponent},
   { path: 'reset',component: ResetPasswordComponent},
   { path: 'newpass', component: NewpassComponent },
+  { path: 'private-policy', component: PrivatePolicyComponent },
 
   // Routes avec Authentification pour un user simple
   { path: 'publier', component: PublishformComponent, canActivate: [AuthGuard] },

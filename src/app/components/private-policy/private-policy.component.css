@@ -1,0 +1,69 @@
+/* Style général */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+/* Section principale */
+.policy-section {
+  background-color: #f9f9f9;
+  padding: 20px 15px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Titres */
+.policy-title {
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #31287C; /* Couleur du titre */
+}
+
+.policy-item h2 {
+  font-size: 20px;
+  color: #F6A500; /* Couleur des sous-titres */
+  margin-top: 15px;
+}
+
+.policy-intro, .policy-note {
+  font-size: 16px;
+  margin-bottom: 15px;
+  text-align: justify;
+}
+
+/* Listes */
+ul {
+  list-style: disc;
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
+
+ul li {
+  margin-bottom: 10px;
+}
+
+/* Responsivité */
+@media (max-width: 600px) {
+  .policy-title {
+    font-size: 20px;
+  }
+
+  .policy-item h2 {
+    font-size: 18px;
+  }
+
+  .policy-intro, .policy-note {
+    font-size: 14px;
+  }
+}

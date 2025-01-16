@@ -39,6 +39,7 @@ export class RegisterComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       password_confirmation: ['', Validators.required],
+      acceptPolicy: [false, Validators.requiredTrue], // La case doit être cochée
     });
   }
 
