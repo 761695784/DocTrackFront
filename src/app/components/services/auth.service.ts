@@ -137,7 +137,14 @@ export class AuthService {
       return this.http.get(`${apiUrl}/restitution-count`, { headers });
     }
 
+    // Methode pour envoyer un mail de reinitialisation du mot de passe oublié
     sendResetPasswordEmail(email: string): Observable<any> {
       return this.http.get(`${apiUrl}/forgot-password`, { params: { email } });
     }
+
+    // Methode pour réinitialiser le mot de passe
+    resetPassword(data: { token: string; email: string; password: string; password_confirmation: string }): Observable<any> {
+      return this.http.post(`${apiUrl}/reset-password`, data);
+    }
+
 }
