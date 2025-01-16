@@ -24,6 +24,9 @@ import { UserAddComponent } from './components/user-add/user-add.component';
 import { AdminprofilComponent } from './components/adminprofil/adminprofil.component';
 import { AdminstatsComponent } from './components/adminstats/adminstats.component';
 import { AProposComponent } from './components/a-propos/a-propos.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { NewpassComponent } from './components/newpass/newpass.component';
+
 
 export const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -33,6 +36,8 @@ export const routes: Routes = [
   { path: 'inscription', component: RegisterComponent },
   { path: 'liste', component: DocumentListComponent },
   { path: 'apropos', component: AProposComponent},
+  { path: 'reset',component: ResetPasswordComponent},
+  { path: 'newpass', component: NewpassComponent },
 
   // Routes avec Authentification pour un user simple
   { path: 'publier', component: PublishformComponent, canActivate: [AuthGuard] },

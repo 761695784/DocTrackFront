@@ -137,5 +137,7 @@ export class AuthService {
       return this.http.get(`${apiUrl}/restitution-count`, { headers });
     }
 
-
+    sendResetPasswordEmail(email: string): Observable<any> {
+      return this.http.get(`${apiUrl}/forgot-password`, { params: { email } });
+    }
 }
