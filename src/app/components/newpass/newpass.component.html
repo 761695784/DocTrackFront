@@ -4,7 +4,7 @@
     <div class="form-container">
       <h2>Nouveau mot de passe</h2>
       <form [formGroup]="newPasswordForm" (ngSubmit)="onSubmit()">
-        <label for="password">Mot de passe</label>
+        <label for="password" class="required">Mot de passe</label>
         <input
           type="password"
           id="password"
@@ -15,8 +15,12 @@
         <div *ngIf="newPasswordForm.get('password')?.invalid && newPasswordForm.get('password')?.touched">
           <small>Le mot de passe doit contenir au moins 8 caractères.</small>
         </div>
+        <div *ngIf="newPasswordForm.hasError('passwordsMismatch') && newPasswordForm.get('password_confirmation')?.touched">
+          <small>Les mots de passe ne correspondent pas.</small>
+        </div>
 
-        <label for="password_confirmation">Confirmer le mot de passe</label>
+
+        <label for="password_confirmation" class="required">Confirmer le mot de passe</label>
         <input
           type="password"
           id="password_confirmation"
