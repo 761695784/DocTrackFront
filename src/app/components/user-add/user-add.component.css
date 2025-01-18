@@ -139,7 +139,7 @@
 
 /* Full width for email input */
 .full-width {
-  width: 100%; 
+  width: 100%;
 }
 
 /* Form Row */
@@ -153,10 +153,21 @@
   width: 48%;
 }
 
+label.required::after {
+  content: '*';
+  color: red;
+  margin-left: 5px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .form-container {
+    width: 75%;
     padding: 20px;
+    margin-right: 5%;
   }
 
   .form-header h2 {

@@ -5,7 +5,7 @@
       <img src="/assets/logoo4.png" alt="DocTrack Logo" class="logo">
       <form [formGroup]="declarationForm" (ngSubmit)="onSubmit()" method="post">
         <div class="single-input">
-            <label for="Title">Titre</label>
+            <label for="Title" class="required">Titre</label>
             <input type="text" id="Title" formControlName="Title" placeholder="Saisir le titre de votre déclaration">
             <div *ngIf="declarationForm.get('Title')?.invalid && declarationForm.get('Title')?.touched" class="error-message">
                 {{ getErrorMessage('Title') }}
@@ -13,14 +13,14 @@
         </div>
         <div class="double-input">
             <div>
-                <label for="FirstNameInDoc">Prénom exact dans le document</label>
+                <label for="FirstNameInDoc" class="required">Prénom exact dans le document</label>
                 <input type="text" id="FirstNameInDoc" formControlName="FirstNameInDoc" placeholder="Saisir prénom">
                 <div *ngIf="declarationForm.get('FirstNameInDoc')?.invalid && declarationForm.get('FirstNameInDoc')?.touched" class="error-message">
                     {{ getErrorMessage('FirstNameInDoc') }}
                 </div>
             </div>
             <div>
-                <label for="LastNameInDoc">Nom exact dans le document</label>
+                <label for="LastNameInDoc" class="required"class="required">Nom exact dans le document</label>
                 <input type="text" id="LastNameInDoc" formControlName="LastNameInDoc" placeholder="Saisir nom">
                 <div *ngIf="declarationForm.get('LastNameInDoc')?.invalid && declarationForm.get('LastNameInDoc')?.touched" class="error-message">
                     {{ getErrorMessage('LastNameInDoc') }}
@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="single-input">
-            <label for="documentType">Type de Document</label>
+            <label for="documentType" class="required">Type de Document</label>
             <select id="documentType" formControlName="documentType">
                 <option value="">Sélectionner un type</option>
                 <option *ngFor="let type of documentTypes" [value]="type.id">{{ type.name }}</option>

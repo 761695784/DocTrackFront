@@ -5,7 +5,7 @@
             <img src="/assets/logoo4.png" alt="DocTrack Logo" class="logo">
             <form [formGroup]="publishForm" (ngSubmit)="onSubmit()">
               <div class="file-input">
-                <label for="image">Image ou document</label>
+                <label for="image" class="required">Image ou document</label>
                 <input type="file" id="image" (change)="onFileChange($event)" required>
                 <div *ngIf="fileError" class="error-message">
                     {{ fileError }}
@@ -17,14 +17,14 @@
 
                 <div class="double-input">
                     <div>
-                        <label for="OwnerLastName">Nom propriétaire</label>
+                        <label for="OwnerLastName" class="required">Nom propriétaire</label>
                         <input type="text" id="OwnerLastName" formControlName="OwnerLastName" placeholder="Saisir nom">
                         <div *ngIf="publishForm.get('OwnerLastName')?.invalid && publishForm.get('OwnerLastName')?.touched" class="error-message">
                             {{ getErrorMessage('OwnerLastName') }}
                         </div>
                     </div>
                     <div>
-                        <label for="OwnerFirstName">Prénom propriétaire</label>
+                        <label for="OwnerFirstName" class="required">Prénom propriétaire</label>
                         <input type="text" id="OwnerFirstName" formControlName="OwnerFirstName" placeholder="Saisir prénom">
                         <div *ngIf="publishForm.get('OwnerFirstName')?.invalid && publishForm.get('OwnerFirstName')?.touched" class="error-message">
                             {{ getErrorMessage('OwnerFirstName') }}
@@ -40,7 +40,7 @@
                         </div>
                     </div>
                     <div>
-                        <label for="Location">Lieu de Trouvaille</label>
+                        <label for="Location" class="required">Lieu de Trouvaille</label>
                         <input type="text" id="Location" formControlName="Location" placeholder="Saisir lieu">
                         <div *ngIf="publishForm.get('Location')?.invalid && publishForm.get('Location')?.touched" class="error-message">
                             {{ getErrorMessage('Location') }}
@@ -48,7 +48,7 @@
                     </div>
                 </div>
                 <div class="single-input">
-                    <label for="documentType">Type de Document</label>
+                    <label for="documentType" class="required">Type de Document</label>
                     <select id="documentType" formControlName="documentType">
                         <option value="" disabled>Sélectionner un type</option>
                         <option *ngFor="let type of documentTypes" [value]="type.id">{{ type.name }}</option>
@@ -58,7 +58,7 @@
                     </div>
                 </div>
                 <div class="single-input">
-                    <label for="statut">Statut</label>
+                    <label for="statut" class="required">Statut</label>
                     <select id="statut" formControlName="statut">
                         <option value="non récupéré">Non récupéré (par défaut)</option>
                         <!-- Autres statuts ici -->

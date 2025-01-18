@@ -6,14 +6,14 @@
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="test">
         <div class="label-container">
           <div>
-            <label for="LastName">Nom</label>
+            <label for="LastName" class="required">Nom</label>
             <input type="text" id="LastName" formControlName="LastName" placeholder="Saisir le nom" required>
             <div *ngIf="registerForm.get('LastName')?.invalid && (registerForm.get('LastName')?.touched || registerForm.get('LastName')?.dirty)">
               <small class="error">{{ getErrorMessage('LastName') }}</small>
             </div>
           </div>
           <div>
-            <label for="FirstName">Prénom</label>
+            <label for="FirstName" class="required">Prénom</label>
             <input type="text" id="FirstName" formControlName="FirstName" placeholder="Saisir le prenom" required>
             <div *ngIf="registerForm.get('FirstName')?.invalid && (registerForm.get('FirstName')?.touched || registerForm.get('FirstName')?.dirty)">
               <small class="error">{{ getErrorMessage('FirstName') }}</small>
@@ -22,7 +22,7 @@
         </div>
 
         <div class="single">
-          <label for="email">Email</label>
+          <label for="email" class="required">Email</label>
           <input class="single-input" type="email" id="email" formControlName="email" placeholder="Saisir mon email" required>
           <div *ngIf="registerForm.get('email')?.invalid && (registerForm.get('email')?.touched || registerForm.get('email')?.dirty)">
             <small class="error">{{ getErrorMessage('email') }}</small>
@@ -31,7 +31,7 @@
 
         <div class="label-container">
           <div>
-            <label for="password">Mot de passe</label>
+            <label for="password" class="required">Mot de passe</label>
             <input type="password" id="password" formControlName="password" placeholder="********" required>
             <div *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.touched || registerForm.get('password')?.dirty)">
               <small class="error">{{ getErrorMessage('password') }}</small>
@@ -39,7 +39,7 @@
           </div>
           <div class="label-container">
             <div>
-              <label for="password_confirmation">Confirmer le mot de passe</label>
+              <label for="password_confirmation" class="required">Confirmer le mot de passe</label>
               <input type="password" id="password_confirmation" formControlName="password_confirmation" placeholder="********" required>
               <div *ngIf="registerForm.get('password_confirmation')?.invalid && (registerForm.get('password_confirmation')?.touched || registerForm.get('password_confirmation')?.dirty)">
                 <small class="error">{{ getErrorMessage('password_confirmation') }}</small>
@@ -50,14 +50,14 @@
 
         <div class="label-container">
           <div>
-            <label for="Adress">Adresse</label>
+            <label for="Adress" class="required">Adresse</label>
             <input type="text" id="Adress" formControlName="Adress" placeholder="Saisir l'adresse" required>
             <div *ngIf="registerForm.get('Adress')?.invalid && (registerForm.get('Adress')?.touched || registerForm.get('Adress')?.dirty)">
               <small class="error">{{ getErrorMessage('Adress') }}</small>
             </div>
           </div>
           <div>
-            <label for="Phone">Numéro de téléphone</label>
+            <label for="Phone" class="required">Numéro de téléphone</label>
             <input type="tel" id="Phone" formControlName="Phone" placeholder="Entrer votre numero sous format +221" required>
             <div *ngIf="registerForm.get('Phone')?.invalid && (registerForm.get('Phone')?.touched || registerForm.get('Phone')?.dirty)">
               <small class="error">{{ getErrorMessage('Phone') }}</small>

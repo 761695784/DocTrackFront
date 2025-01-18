@@ -6,7 +6,7 @@
 
   <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
-      <label for="role">Rôle</label>
+      <label for="role" class="required">Rôle</label>
       <select formControlName="role" required>
         <option value="" disabled selected>Sélectionner un rôle</option>
         <option value="Admin">Admin</option>
@@ -18,7 +18,7 @@
 
     <div class="form-row">
       <div class="form-group">
-        <label for="FirstName">Nom</label>
+        <label for="FirstName" class="required">Nom</label>
         <input type="text" formControlName="FirstName" placeholder="Nom" />
         <div *ngIf="userForm.get('FirstName')?.invalid && userForm.get('FirstName')?.touched" class="error-message">
           <small *ngIf="userForm.get('FirstName')?.errors?.['required']">Le nom est requis.</small>
@@ -26,7 +26,7 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="LastName">Prénom</label>
+        <label for="LastName" class="required">Prénom</label>
         <input type="text" formControlName="LastName" placeholder="Prénom" />
         <div *ngIf="userForm.get('LastName')?.invalid && userForm.get('LastName')?.touched" class="error-message">
           <small *ngIf="userForm.get('LastName')?.errors?.['required']">Le prénom est requis.</small>
@@ -36,7 +36,7 @@
     </div>
     <div class="form-row">
       <div class="form-group full-width">
-        <label for="email">Email</label>
+        <label for="email" class="required">Email</label>
         <input type="email" formControlName="email" class="mail full-width" placeholder="Email"/>
         <div *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched" class="error-message">
           <small *ngIf="userForm.get('email')?.errors?.['required']">L'email est requis.</small>
@@ -48,7 +48,7 @@
 
     <div class="form-row">
       <div class="form-group">
-        <label for="password">Mot de passe</label>
+        <label for="password" class="required">Mot de passe</label>
         <input type="password" formControlName="password" placeholder="Mot de passe" />
         <div *ngIf="userForm.get('password')?.invalid && userForm.get('password')?.touched" class="error-message">
           <small *ngIf="userForm.get('password')?.errors?.['required']">Le mot de passe est requis.</small>
@@ -56,7 +56,7 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="password_confirmation">Confirmer le mot de passe</label>
+        <label for="password_confirmation" class="required">Confirmer le mot de passe</label>
         <input type="password" formControlName="password_confirmation" placeholder="Confirmer le mot de passe" />
         <div *ngIf="userForm.errors?.['mismatch'] && (userForm.get('password_confirmation')?.touched || userForm.get('password')?.touched)" class="error-message">
           <small>Les mots de passe ne correspondent pas.</small>
@@ -67,7 +67,7 @@
 
     <div class="form-row">
       <div class="form-group">
-        <label for="Phone">Téléphone</label>
+        <label for="Phone" class="required">Téléphone</label>
         <input type="text" formControlName="Phone" placeholder="Téléphone" />
         <div *ngIf="userForm.get('Phone')?.invalid && userForm.get('Phone')?.touched" class="error-message">
           <small *ngIf="userForm.get('Phone')?.errors?.['required']">Le numéro de téléphone est requis.</small>
@@ -75,7 +75,7 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="Adress">Adresse</label>
+        <label for="Adress" class="required">Adresse</label>
         <input type="text" formControlName="Adress" placeholder="Adresse" />
         <div *ngIf="userForm.get('Adress')?.invalid && userForm.get('Adress')?.touched" class="error-message">
           <small *ngIf="userForm.get('Adress')?.errors?.['required']">L'adresse est requise.</small>
