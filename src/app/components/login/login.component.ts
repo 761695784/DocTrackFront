@@ -31,6 +31,20 @@ export class LoginComponent implements OnInit {
     // Vous pouvez effectuer des tâches d'initialisation ici
   }
 
+  async loginWithGoogle() {  
+    try {  
+      const provider = new GoogleAuthProvider();  
+      const result = await signInWithPopup(this.auth, provider);  
+      const user = result.user;  
+      console.log('Utilisateur connecté :', user);  
+
+      // Redirige vers la page d'accueil après connexion réussie  
+      this.router.navigate(['/accueil']);  
+    } catch (error) {  
+      console.error('Erreur de connexion Google :', error);  
+      Swal.fire('Erreur', 'La connexion Google a échoué', 'error');  
+    }  
+  }  
   // Methode appelé lors du click du bouton submit
   onSubmit() {
     if (this.loginForm.valid) {

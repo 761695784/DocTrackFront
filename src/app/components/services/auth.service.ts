@@ -14,6 +14,14 @@ export class AuthService {
 
   constructor(private http: HttpClient,public router: Router,private redirectService: RedirectService) {}
 
+  loginWithGoogle(idToken: string): Observable<any> {
+    return this.http.post(`${apiUrl}/auth/google`, { token: idToken });
+  }
+
+  finalizeGoogleAccount(data: any): Observable<any> {
+    return this.http.post(`${apiUrl}/auth/google/finalize`, data);
+  }
+
     //methode pour recuperer toutes les notifications
     getAllNotifications(): Observable<any> {
       const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
