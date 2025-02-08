@@ -36,7 +36,7 @@ export interface Document {
 @Component({
   selector: 'app-adminpub',
   standalone: true,
-  imports: [FooterComponent, SideheadersComponent, CommonModule, FormsModule],
+  imports: [SideheadersComponent, CommonModule, FormsModule],
   templateUrl: './adminpub.component.html',
   styleUrls: ['./adminpub.component.css']
 })

@@ -1,6 +1,5 @@
 import { AuthService } from './../services/auth.service';
 import { Component } from '@angular/core';
-import { FooterComponent } from '../footer/footer.component';
 import { SideheadersComponent } from '../sideheaders/sideheaders.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -37,7 +36,7 @@ export interface Declaration {
 @Component({
   selector: 'app-admindeclaration',
   standalone: true,
-  imports: [FooterComponent, SideheadersComponent,CommonModule,FormsModule,NgxPaginationModule],
+  imports: [SideheadersComponent,CommonModule,FormsModule,NgxPaginationModule],
   templateUrl: './admindeclaration.component.html',
   styleUrl: './admindeclaration.component.css'
 })

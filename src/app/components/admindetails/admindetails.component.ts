@@ -15,7 +15,7 @@ import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-admindetails',
   standalone: true,
-  imports: [FooterComponent, SideheadersComponent,CommonModule,FormsModule],
+  imports: [SideheadersComponent,CommonModule,FormsModule],
   templateUrl: './admindetails.component.html',
   styleUrl: './admindetails.component.css'
 })
