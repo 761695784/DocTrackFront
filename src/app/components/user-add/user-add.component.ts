@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { SidebarComponent } from '../sidebar/sidebar.component';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SideheadersComponent } from '../sideheaders/sideheaders.component';
@@ -10,7 +9,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-user-add',
   standalone: true,
-  imports: [SidebarComponent, CommonModule, FormsModule, SideheadersComponent,  ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, SideheadersComponent,  ReactiveFormsModule],
   templateUrl: './user-add.component.html',
   styleUrl: './user-add.component.css'
 })
