@@ -3,7 +3,7 @@ import { SidebarComponent } from "../sidebar/sidebar.component";
 import { AuthService } from '../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterModule } from '@angular/router';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PublicationsService } from '../services/publications.service';
 
 export interface Notifications {
@@ -21,7 +21,7 @@ export interface Notifications {
 @Component({
   selector: 'app-sideheaders',
   standalone: true,
-  imports: [SidebarComponent,CommonModule,NgbModule,RouterModule],
+  imports: [SidebarComponent,CommonModule,RouterModule],
   templateUrl: './sideheaders.component.html',
   styleUrl: './sideheaders.component.css'
 })
