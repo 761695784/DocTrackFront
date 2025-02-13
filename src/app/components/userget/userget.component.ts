@@ -1,5 +1,6 @@
 import { AuthService } from './../services/auth.service';
 import { Component, OnInit } from '@angular/core';
+import { SidebarComponent } from '../sidebar/sidebar.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -20,7 +21,7 @@ interface User {
 @Component({
   selector: 'app-userget',
   standalone: true,
-  imports: [CommonModule, FormsModule, NgbModule, SideheadersComponent],
+  imports: [SidebarComponent, CommonModule, FormsModule, NgbModule, SideheadersComponent],
   templateUrl: './userget.component.html',
   styleUrls: ['./userget.component.css']
 })
