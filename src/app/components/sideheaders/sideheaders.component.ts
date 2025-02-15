@@ -1,9 +1,9 @@
-import { Component, OnInit,EventEmitter, Output } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, EventEmitter, Output, NgModule } from '@angular/core';
 import { SidebarComponent } from "../sidebar/sidebar.component";
 import { AuthService } from '../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterModule } from '@angular/router';
-// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PublicationsService } from '../services/publications.service';
 
 export interface Notifications {
@@ -21,7 +21,7 @@ export interface Notifications {
 @Component({
   selector: 'app-sideheaders',
   standalone: true,
-  imports: [SidebarComponent,CommonModule,RouterModule],
+  imports: [SidebarComponent,CommonModule,RouterModule, NgbModule],
   templateUrl: './sideheaders.component.html',
   styleUrl: './sideheaders.component.css'
 })
