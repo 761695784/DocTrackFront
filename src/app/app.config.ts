@@ -6,9 +6,6 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideServiceWorker } from '@angular/service-worker';
 import { routes } from './app.routes';
 
-import { SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
-import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
-
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
