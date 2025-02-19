@@ -1,7 +1,8 @@
+<!-- login.component.html -->
 <app-navbar></app-navbar>
 <section class="Formulaire">
   <div class="container" id="form">
-    <div class="form-container" >
+    <div class="form-container">
       <h2>Connexion</h2>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="test">
         <label for="email">Email</label>
@@ -10,12 +11,9 @@
         <label for="password">Mot de passe</label>
         <input type="password" id="password" formControlName="password" placeholder="ne98hjoij@" required>
 
-        <p class="question"> Mot de passe oublié? <a href="/reset">Réinitialiser.</a></p>
+        <p class="question">Mot de passe oublié? <a href="/reset">Réinitialiser.</a></p>
         <p class="question">Pas de compte? <a href="/inscription">Créer un compte.</a></p>
         <button type="submit">Connexion</button>
-        <button type="button">  
-          <i class="fab fa-google"></i> Connexion avec Google  
-        </button>
       </form>
     </div>
   </div>
@@ -23,5 +21,37 @@
   <div class="carteImage">
     <img src="/assets/Drapeau_national1.png" alt="CBAO" class="carte">
   </div>
-</section>
 
+  <!-- Bouton Google généré par la librairie (celui-ci déclenche le flux d'authentification Google) -->
+  <asl-google-signin-button *ngIf="!showFinalizeForm" type="icon" size="medium"></asl-google-signin-button>
+
+  <!-- Formulaire de finalisation (s'affiche si le backend demande des infos complémentaires) -->
+  <form *ngIf="showFinalizeForm" (ngSubmit)="submitFinalizeForm()">
+    <div>
+      <label>Email</label>
+      <input type="email" [(ngModel)]="formData.email" name="email" disabled>
+    </div>
+
+    <div>
+      <label>Prénom</label>
+      <input type="text" [(ngModel)]="formData.first_name" name="first_name" required>
+    </div>
+
+    <div>
+      <label>Nom</label>
+      <input type="text" [(ngModel)]="formData.last_name" name="last_name" required>
+    </div>
+
+    <div>
+      <label>Adresse</label>
+      <input type="text" [(ngModel)]="formData.Adress" name="Adress" required>
+    </div>
+
+    <div>
+      <label>Téléphone</label>
+      <input type="tel" [(ngModel)]="formData.Phone" name="Phone" required>
+    </div>
+
+    <button type="submit">Finaliser l'inscription</button>
+  </form>
+</section>
