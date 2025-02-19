@@ -17,18 +17,6 @@ export const appConfig: ApplicationConfig = {
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000'
-    }),
-    {
-      provide: 'SocialAuthServiceConfig',
-      useValue: {
-        autoLogin: false,
-        providers: [
-          {
-            id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider('934724846465-spu9h5nkvmoo7954bgft6n8sqrpb54i5.apps.googleusercontent.com')
-          }
-        ]
-      } as SocialAuthServiceConfig,
-    }
+    })
   ]
 };

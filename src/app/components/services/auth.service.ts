@@ -15,26 +15,16 @@ export class AuthService {
   constructor(private http: HttpClient,public router: Router,private redirectService: RedirectService) {}
 
 
-  /**
-   * Envoi du token Google pour la connexion via Google
-   */
-  handleGoogleLogin(token: string): Observable<any> {
-    return this.http.post<any>(`${apiUrl}/google/callback`, { token });
-  }
 
-  /**
-   * Finalisation de la création de compte pour les utilisateurs Google nécessitant des informations complémentaires
-   */
-  finalizeAccountCreation(payload: {
-    email: string;
-    Adress: string;
-    Phone: string;
-    first_name: string;
-    last_name: string;
-    token?: string;
-  }): Observable<any> {
-    return this.http.post<any>(`${apiUrl}/finalize-account-creation`, payload);
-  }
+
+  // loginWithGoogle(idToken: string): Observable<any> {
+  //   return this.http.post(`${apiUrl}/auth/google`, { token: idToken });
+  // }
+
+  // finalizeGoogleAccount(data: any): Observable<any> {
+  //   return this.http.post(`${apiUrl}/auth/google/finalize`, data);
+  // }
+
 
     //methode pour recuperer toutes les notifications
     getAllNotifications(): Observable<any> {

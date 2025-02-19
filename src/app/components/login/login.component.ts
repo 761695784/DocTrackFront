@@ -1,42 +1,28 @@
-// login.component.ts
-import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { SocialAuthService, SocialUser, SocialLoginModule } from '@abacritt/angularx-social-login';
-import { NavbarComponent } from '../navbar/navbar.component';
-import { Router } from '@angular/router';
+
+
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
-import { RedirectService } from '../services/redirection.service';
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2'; // Importer SweetAlert2
+import { NavbarComponent } from '../navbar/navbar.component';
+import { RedirectService } from '../services/redirection.service'; // Importer RedirectService
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [
-    NavbarComponent,
-    ReactiveFormsModule,
-    CommonModule,
-    NgbModule,
-    SocialLoginModule,
-    FormsModule,
-  ],
+  imports: [NavbarComponent, ReactiveFormsModule],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  showFinalizeForm = false;
-  googleUser: any = {};
-  formData: any = {};
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private redirectService: RedirectService,
-    private router: Router,
-    private socialAuthService: SocialAuthService,
+    private router: Router
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -45,68 +31,27 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // On s'abonne à l'état d'authentification.
-    // Lorsque l'utilisateur se connecte via Google, la librairie renvoie un SocialUser.
-    this.socialAuthService.authState.subscribe((user: SocialUser) => {
-      if (user && user.authToken) {  // Utilisez 'authToken' (et non idToken) pour Google
-        // Vous pouvez stocker le token dans googleUser pour usage ultérieur (ex. finalisation)
-        this.googleUser.token = user.authToken;
-        this.handleGoogleLogin(user.authToken);
-      }
-    });
+    // Vous pouvez effectuer des tâches d'initialisation ici
   }
 
-  /**
-   * Envoie le token Google au backend pour tenter une connexion.
-   */
-  handleGoogleLogin(token: string): void {
-    this.authService.handleGoogleLogin(token).subscribe({
-      next: (response: any) => {
-        if (response.success) {
-          // Si la connexion est validée par le backend, on stocke le token JWT et on redirige.
-          localStorage.setItem('token', response.token);
-          this.router.navigate(['/accueil']);
-        } else if (response.required_fields) {
-          // Si des informations complémentaires sont requises, on affiche le formulaire de finalisation.
-          this.showFinalizeForm = true;
-          this.googleUser = response.google_user;
-          this.formData = {
-            email: this.googleUser.email,
-            first_name: this.googleUser.first_name,
-            last_name: this.googleUser.last_name
-          };
-        }
-      },
-      error: (err) => {
-        console.error('Erreur de connexion Google:', err);
-        Swal.fire({
-          title: 'Erreur',
-          text: 'Échec de la connexion avec Google. Veuillez réessayer.',
-          icon: 'error',
-          timer: 2000,
-        });
-      }
-    });
+  async loginWithGoogle() {
   }
-
-  /**
-   * Connexion classique par email/mot de passe.
-   */
-  onSubmit(): void {
+  // Methode appelé lors du click du bouton submit
+  onSubmit() {
     if (this.loginForm.valid) {
       const loginData = this.loginForm.value;
-      this.authService.login(loginData).subscribe({
-        next: (response: any) => {
+
+      // Appel au service de connexion
+      this.authService.login(loginData).subscribe(
+        response => {
           Swal.fire({
             title: 'Connexion réussie',
             text: 'Bienvenue !',
             icon: 'success',
             timer: 2000,
           });
-          localStorage.setItem('token', response.token);
-          this.router.navigate(['/accueil']);
         },
-        error: (err) => {
+        error => {
           Swal.fire({
             title: 'Échec de la connexion',
             text: 'Email ou mot de passe incorrect.',
@@ -114,7 +59,7 @@ export class LoginComponent implements OnInit {
             timer: 2000,
           });
         }
-      });
+      );
     } else {
       Swal.fire({
         title: 'Erreur',
@@ -125,33 +70,4 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  /**
-   * Envoi du formulaire de finalisation pour créer le compte.
-   */
-  submitFinalizeForm(): void {
-    const payload = {
-      email: this.formData.email,
-      Adress: this.formData.Adress,
-      Phone: this.formData.Phone,
-      first_name: this.formData.first_name,
-      last_name: this.formData.last_name,
-      token: this.googleUser.token  // On renvoie le token initial pour revalider l'utilisateur Google
-    };
-
-    this.authService.finalizeAccountCreation(payload).subscribe({
-      next: (response: any) => {
-        localStorage.setItem('token', response.token);
-        this.router.navigate(['/accueil']);
-      },
-      error: (err) => {
-        console.error('Erreur lors de la finalisation:', err);
-        Swal.fire({
-          title: 'Erreur',
-          text: 'Échec de la finalisation de l\'inscription. Veuillez réessayer.',
-          icon: 'error',
-          timer: 2000,
-        });
-      }
-    });
-  }
 }
