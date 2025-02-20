@@ -1,6 +1,19 @@
 <app-navbar></app-navbar>
 <main>
   <div class="container">
+
+        <!-- Loader overlay -->
+        <div *ngIf="isLoading" class="loader-overlay">
+          <l-ring-2
+            size="40"
+            stroke="5"
+            stroke-length="0.55"
+            bg-opacity="0.1"
+            speed="0.8"
+            color="#F6A500"
+          ></l-ring-2>
+        </div>
+
     <div class="form-container">
       <img src="/assets/logoo4.png" alt="DocTrack Logo" class="logo">
       <form [formGroup]="declarationForm" (ngSubmit)="onSubmit()" method="post">

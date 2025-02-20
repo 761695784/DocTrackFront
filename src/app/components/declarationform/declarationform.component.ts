@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { DeclarationService } from '../services/declaration.service';
@@ -11,10 +11,15 @@ import { CommonModule } from '@angular/common';
   imports: [NavbarComponent, ReactiveFormsModule, CommonModule],
   standalone: true,
   templateUrl: './declarationform.component.html',
-  styleUrls: ['./declarationform.component.css']
+  styleUrls: ['./declarationform.component.css'],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA], // Ajoutez cette ligne
+
+
 })
 export class DeclarationformComponent {
   declarationForm: FormGroup;
+  isLoading: boolean = false; // Variable pour contrôler l'affichage du loader
+
 
   documentTypes = [
     { id: 1, name: "Carte nationale d'identité" },
@@ -43,7 +48,7 @@ export class DeclarationformComponent {
       DocIdentification: ['']
     });
   }
-  
+
   // methode pour l'affichage des messages d'erreurs
   getErrorMessage(field: string): string {
     const control = this.declarationForm.get(field);
@@ -65,6 +70,10 @@ export class DeclarationformComponent {
       return;
     }
 
+    // Afficher le loader
+    this.isLoading = true;
+
+
     // Préparation des données pour l'envoi
     const formData = new FormData();
     formData.append('Title', this.declarationForm.get('Title')?.value);
@@ -76,6 +85,7 @@ export class DeclarationformComponent {
     // Vérification de l'authentification avant de soumettre
     if (this.authService.isAuthenticated()) {
       this.declarationService.addDeclaration(formData).subscribe(response => {
+        this.isLoading = false; // Masquer le loader une fois l'opération terminée
         Swal.fire({
           icon: 'success',
           title: 'Déclaration ajoutée !',
@@ -86,6 +96,7 @@ export class DeclarationformComponent {
         this.declarationForm.reset(); // Réinitialisation du formulaire
       }, error => {
         // console.error('Erreur lors de l\'ajout de la déclaration:', error.error);
+        this.isLoading = false; // Masquer le loader en cas d'erreur
         Swal.fire({
           icon: 'error',
           title: 'Erreur !',
@@ -95,6 +106,7 @@ export class DeclarationformComponent {
         });
       });
     } else {
+      this.isLoading = false; // Masquer le loader si l'utilisateur n'est pas authentifié
       Swal.fire({
         icon: 'warning',
         title: 'Non authentifié !',

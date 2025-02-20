@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { PublicationsService } from '../services/publications.service';
@@ -11,13 +11,16 @@ import { CommonModule } from '@angular/common';
   imports: [NavbarComponent, ReactiveFormsModule, CommonModule],
   standalone: true,
   templateUrl: './publishform.component.html',
-  styleUrls: ['./publishform.component.css']
+  styleUrls: ['./publishform.component.css'],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA], // Ajoutez cette ligne
+
 })
 export class PublishformComponent {
   publishForm: FormGroup;
   maxFileSizeInMB = 5; // Taille maximale en Mo
   allowedFileTypes = ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf']; // Types autorisés
   fileError: string | null = null; // Message d'erreur pour le fichier
+  isLoading: boolean = false; // Variable pour afficher le loader
 
   documentTypes = [
     { id: 1, name: "Carte nationale d'identité" },
@@ -79,6 +82,10 @@ export class PublishformComponent {
       return; // Ne pas afficher le SweetAlert tant que le formulaire est invalide
     }
 
+  // Afficher le loader
+    this.isLoading = true;
+
+
  // Préparation des données pour l'envoi
     const formData = new FormData();
     formData.append('image', this.publishForm.get('image')?.value);
@@ -92,6 +99,8 @@ export class PublishformComponent {
     // Vérification de l'authentification avant de soumettre
     if (this.authService.isAuthenticated()) {
       this.publicationsService.addPublication(formData).subscribe(response => {
+          // Masquer le loader après la réussite
+          this.isLoading = false;
         Swal.fire({
           icon: 'success',
           title: 'Publication ajoutée !',
@@ -101,6 +110,8 @@ export class PublishformComponent {
         });
         this.publishForm.reset();
       }, error => {
+          // Masquer le loader en cas d'erreur
+          this.isLoading = false;
         Swal.fire({
           icon: 'error',
           title: 'Erreur !',
@@ -110,6 +121,7 @@ export class PublishformComponent {
         });
       });
     } else {
+      this.isLoading = false;
       Swal.fire({
         icon: 'warning',
         title: 'Non authentifié !',

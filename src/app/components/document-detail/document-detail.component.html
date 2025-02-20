@@ -39,6 +39,18 @@
 
     <br><br>
 
+      <!-- Loader overlay, visible pendant le chargement -->
+      <div *ngIf="isLoading" class="loader-overlay">
+        <l-ring-2
+          size="40"
+          stroke="5"
+          stroke-length="0.55"
+          bg-opacity="0.1"
+          speed="0.8"
+          color="#F6A500"
+        ></l-ring-2>
+      </div>
+
     <div class="comments-list animate-comments">
       <h3>Commentaires</h3><br>
       <div *ngFor="let commentaire of commentaires" class="comment animate-comment">

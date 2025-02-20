@@ -1,6 +1,6 @@
   import { AuthService } from './../services/auth.service';
   import { FooterComponent } from './../footer/footer.component';
-  import { Component, OnInit } from '@angular/core';
+  import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
   import { ActivatedRoute } from '@angular/router';
   import { DetailsService } from '../services/details.service';
   import { NavbarComponent } from '../navbar/navbar.component';
@@ -53,7 +53,8 @@
     standalone: true,
     imports: [NavbarComponent, FooterComponent, CommonModule, FormsModule],
     templateUrl: './document-detail.component.html',
-    styleUrls: ['./document-detail.component.css']
+    styleUrls: ['./document-detail.component.css'],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA], // Ajoutez cette ligne
   })
   export class DocumentDetailComponent implements OnInit {
     documentDetails: DocumentDetails | null = null; // Utiliser le type DocumentDetails
@@ -61,6 +62,7 @@
     newComment: string = ''; // Pour stocker le contenu du nouveau commentaire
     isRestitutionRequested: boolean = false; // Ajout pour suivre l'état de la demande de restitution
     isOwner: boolean = false; // Variable pour suivre si l'utilisateur est le propriétaire
+    isLoading: boolean = false;
 
     constructor(
       private route: ActivatedRoute,
@@ -82,7 +84,7 @@
         });
       }
 
-      //Methode pour recuperer les details d'une publications 
+      //Methode pour recuperer les details d'une publications
       getDocumentDetails(id: number): void {
         this.detailsService.getDocumentDetails(id).subscribe({
           next: (details) => {
@@ -152,6 +154,8 @@
     // Méthode pour demander la restitution d'un document
     requestRestitution(): void {
       if (!this.isOwner && this.documentDetails) {
+          // On affiche le loader dès le début
+        this.isLoading = true;
         Swal.fire({
           title: 'Êtes-vous sûr ?',
           text: 'Vous êtes sur le point d\'envoyer une demande de restitution.',
@@ -163,6 +167,7 @@
           if (result.isConfirmed) {
             this.detailsService.requestRestitution(this.documentDetails!.id).subscribe({
               next: (response) => {
+                this.isLoading = false;
                 this.isRestitutionRequested = true;
                 // Afficher le numéro de téléphone du publicateur dans la SweetAlert
                 const phoneNumber = this.documentDetails?.user.Phone;
@@ -176,6 +181,7 @@
                 });
               },
               error: (err) => {
+                this.isLoading = false;
                 if (err.status === 400 && err.error.success === false) {
                   Swal.fire({
                     icon: 'warning',
@@ -195,6 +201,9 @@
                 }
               }
             });
+          } else {
+            // En cas d'annulation, on cache le loader
+            this.isLoading = false;
           }
         });
       } else {
