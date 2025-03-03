@@ -5,11 +5,12 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { AuthService } from '../services/auth.service';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
+import { QrcodeComponent } from "../qrcode/qrcode.component";
 
 @Component({
   selector: 'app-changeprofil',
   standalone: true,
-  imports: [NavbarComponent, FormsModule, ReactiveFormsModule, CommonModule],
+  imports: [NavbarComponent, FormsModule, ReactiveFormsModule, CommonModule,],
   templateUrl: './changeprofil.component.html',
   styleUrls: ['./changeprofil.component.css']
 })
@@ -121,6 +122,10 @@ export class ChangeprofilComponent implements OnInit {
         confirmButtonText: 'Ok'
       });
     }
+  }
+
+  redirectToFoundQR() {
+    this.router.navigate(['/code']);
   }
 
 }

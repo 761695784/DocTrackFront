@@ -1,0 +1,15 @@
+<div class="qr-container" *ngIf="user">
+  <i class="fas fa-times-circle close-icon" (click)="navigateToModify()"></i>
+  <h2>Votre QR Code</h2>
+  <p>Ce QR code est valable jusqu'au {{ user.qr_code_expires_at | date }}</p>
+  <div class="qr-code-print">
+    <img [src]="qrCodeUrl" alt="Votre QR Code" *ngIf="qrCodeUrl" />
+  </div><br><br>
+  <button (click)="printQrCode()">
+    <i class="fas fa-print"></i>
+    Imprimer le QR Code
+  </button>
+</div>
+<div *ngIf="!user">
+  Vous devez vous connecter pour générer votre QR Code.
+</div>

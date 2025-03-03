@@ -1,3 +1,4 @@
+import { FoundQrComponent } from './components/found-qr/found-qr.component';
 import { Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 import { LandingComponent } from './components/landing/landing.component';
@@ -27,6 +28,7 @@ import { AProposComponent } from './components/a-propos/a-propos.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { NewpassComponent } from './components/newpass/newpass.component';
 import { PrivatePolicyComponent } from './components/private-policy/private-policy.component';
+import { QrcodeComponent } from './components/qrcode/qrcode.component';
 
 
 export const routes: Routes = [
@@ -40,6 +42,9 @@ export const routes: Routes = [
   { path: 'reset',component: ResetPasswordComponent},
   { path: 'newpass', component: NewpassComponent },
   { path: 'private-policy', component: PrivatePolicyComponent },
+  { path: 'found-qr', component: FoundQrComponent },
+  
+
 
   // Routes avec Authentification pour un user simple
   { path: 'publier', component: PublishformComponent, canActivate: [AuthGuard] },
@@ -48,6 +53,7 @@ export const routes: Routes = [
   { path: 'lost', component: LostdeclarationComponent, canActivate: [AuthGuard] },
   { path: 'mypub', component: MypublishComponent, canActivate: [AuthGuard] },
   { path: 'modify', component: ChangeprofilComponent, canActivate: [AuthGuard] },
+  { path: 'code', component: QrcodeComponent,canActivate: [AuthGuard] },
 
   // Routes pour un Administrateur
   {

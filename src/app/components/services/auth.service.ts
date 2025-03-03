@@ -15,7 +15,11 @@ export class AuthService {
   constructor(private http: HttpClient,public router: Router,private redirectService: RedirectService) {}
 
 
-
+      // Récupérer le profil utilisateur (incluant l'URL du QR code)
+  getUserProfile(): Observable<any> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    return this.http.get(`${apiUrl}/me`, { headers });
+  }
 
   // loginWithGoogle(idToken: string): Observable<any> {
   //   return this.http.post(`${apiUrl}/auth/google`, { token: idToken });
