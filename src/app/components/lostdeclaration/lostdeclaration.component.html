@@ -24,7 +24,7 @@
 
     <div class="grid-container">
       <div class="card" *ngFor="let declaration of trashedDeclarations">
-        <img src="/assets/declaration.png" alt="Document Image" />
+        <img src="/assets/declaration.webp" alt="Document Image" />
 
         <div class="card-content">
           <p><strong>{{ declaration.Title }}</strong></p>
@@ -42,7 +42,7 @@
   <!-- Grille d'affichage des cartes pour les déclarations non supprimées -->
   <div class="grid-container" *ngIf="!showTrashedDeclarations">
     <div class="card" *ngFor="let declaration of declarations">
-      <img src="/assets/declaration.png" alt="Document Image" />
+      <img src="/assets/declaration.webp" alt="Document Image" />
 
       <div class="card-content">
         <p><strong>{{ declaration.Title }}</strong></p>

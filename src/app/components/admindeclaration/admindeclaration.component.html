@@ -7,7 +7,7 @@
 <div class="container" *ngIf="declarations.length > 0">
   <div class="grid-container">
     <div *ngFor="let declaration of declarations; let i = index" class="card">
-      <img src="/assets/declaration.png" alt="Document Image" />
+      <img src="/assets/declaration.webp" alt="Document Image" />
       <div class="card-content">
         <p><strong>{{ declaration.Title }}</strong></p>
         <p class="published-by">Déclaré par {{ declaration.user.FirstName }} {{ declaration.user.LastName }} le {{ declaration.created_at | date }}</p>
