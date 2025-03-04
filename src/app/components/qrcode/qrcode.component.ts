@@ -21,8 +21,8 @@ export class QrcodeComponent implements OnInit {
     this.authService.getUserProfile().subscribe({
       next: (response) => {
         this.user = response.user;
-        // const backendUrl = 'http://localhost:8000'; // URL de ton backend
-        const backendUrl = ' https://doctrackapi.malang2019marna.simplonfabriques.com/api'; // URL de ton backend
+        const backendUrl = 'http://localhost:8000'; // URL de ton backend
+        // const backendUrl = ' https://doctrackapi.malang2019marna.simplonfabriques.com/api'; // URL de ton backend
         this.qrCodeUrl = `${backendUrl}${response.qr_code_url}`; // Combine le domaine et l'URL relative
       },
       error: (error) => {
