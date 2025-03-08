@@ -1,22 +1,26 @@
-
-
-import { Component, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import Swal from 'sweetalert2'; // Importer SweetAlert2
 import { NavbarComponent } from '../navbar/navbar.component';
 import { RedirectService } from '../services/redirection.service'; // Importer RedirectService
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [NavbarComponent, ReactiveFormsModule],
+  imports: [NavbarComponent, ReactiveFormsModule,CommonModule],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA], // Ajoutez cette ligne
+
+
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  isLoading: boolean = false; // Variable pour contrôler l'affichage du loader
+
 
   constructor(
     private fb: FormBuilder,
@@ -39,11 +43,14 @@ export class LoginComponent implements OnInit {
   // Methode appelé lors du click du bouton submit
   onSubmit() {
     if (this.loginForm.valid) {
+       // Afficher le loader
+       this.isLoading = true;
+       // Récupérer les données du formulaire pour la connexion
       const loginData = this.loginForm.value;
-
       // Appel au service de connexion
       this.authService.login(loginData).subscribe(
         response => {
+          this.isLoading = false; // Masquer le loader une fois l'opération terminée
           Swal.fire({
             title: 'Connexion réussie',
             text: 'Bienvenue !',
@@ -52,6 +59,7 @@ export class LoginComponent implements OnInit {
           });
         },
         error => {
+          this.isLoading = false; // Masquer le loader une fois l'opération terminée
           Swal.fire({
             title: 'Échec de la connexion',
             text: 'Email ou mot de passe incorrect.',

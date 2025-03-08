@@ -5,10 +5,18 @@
   <div class="qr-code-print">
     <img [src]="qrCodeUrl" alt="Votre QR Code" *ngIf="qrCodeUrl" />
   </div><br><br>
-  <button (click)="printQrCode()">
-    <i class="fas fa-print"></i>
-    Imprimer le QR Code
-  </button>
+  <div class="button-group">
+    <button class="print-button" (click)="printQrCode()">
+      <i class="fas fa-print"></i>
+      Imprimer
+    </button>
+    <button class="renew-button">
+      <!-- (click)="renewQRCode()" -->
+      <i class="fas fa-sync-alt"></i>
+      Renouveller
+    </button>
+  </div>
+
 </div>
 <div *ngIf="!user">
   Vous devez vous connecter pour générer votre QR Code.

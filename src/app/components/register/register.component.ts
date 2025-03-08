@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
@@ -21,10 +21,14 @@ export interface User {
   standalone: true,
   imports: [NavbarComponent, ReactiveFormsModule, CommonModule],
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA], // Ajoutez cette ligne
+  
 })
 export class RegisterComponent {
   registerForm: FormGroup;
+  isLoading: boolean = false; // Variable pour contrôler l'affichage du loader
+
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     /**
@@ -52,6 +56,7 @@ export class RegisterComponent {
  */
   onSubmit(): void {
     if (this.registerForm.valid) {
+      this.isLoading = true; // Début du chargement
       const userData: User = {
         ...this.registerForm.value,
         confirmation_password: this.registerForm.value.password
@@ -59,6 +64,7 @@ export class RegisterComponent {
 
       this.authService.register(userData).subscribe({
         next: (response) => {
+          this.isLoading = false; // Fin du chargement
           Swal.fire({
             title: 'Succès!',
             text: 'Inscription réussie!',
@@ -67,11 +73,12 @@ export class RegisterComponent {
           });
 
           setTimeout(() => {
-            this.router.navigate(['/accueil']);
+            this.router.navigate(['/connexion']);
           }, 2000);
           this.registerForm.reset();
         },
         error: (error) => {
+          this.isLoading = false; // Fin du chargement
           let errorMessage = 'Erreur lors de l\'inscription.';
           if (error.error?.errors) {
             errorMessage += ' Détails : ' + JSON.stringify(error.error.errors);

@@ -4,7 +4,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 450px;
+  width: 750px;
   height: 520px;
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
   padding: 2rem;
@@ -45,7 +45,7 @@ h2 {
   -webkit-text-fill-color: transparent;
   position: relative;
   display: inline-block;
- margin-left: 2.5rem;
+ margin-left: 7.5rem;
 
 }
 
@@ -65,6 +65,7 @@ p {
   color: #6c757d;
   font-size: 1.1rem;
   margin-bottom: 2rem;
+  text-align: center;
 }
 
 /* Conteneur QR Code */
@@ -75,7 +76,7 @@ p {
   display: inline-block;
   border: 2px solid #e9ecef;
   transition: transform 0.3s ease;
-  margin-left: 3.4rem;
+  margin-left: 7.3rem;
 
 }
 
@@ -142,6 +143,19 @@ button i {
   font-size: 1.3rem;
 }
 
+.button-group {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.8rem;
+  justify-content:space-around;
+}
+
+.renew-button {
+  background: linear-gradient(135deg, #F6A500 0%, #FFD700 100%) !important;
+  color: black !important;
+  cursor: pointer;
+}
+
 /* Message non connecté */
 div[ngIf="!user"] {
   text-align: center;
@@ -197,6 +211,7 @@ div[ngIf="!user"] {
 
   h2 {
     font-size: 1.8rem;
+    margin-left: 2.5rem;
   }
 
   img {
@@ -214,6 +229,16 @@ div[ngIf="!user"] {
     top: 15px;
     right: 15px;
     font-size: 1.3rem;
+  }
+
+  .button-group {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  button {
+    width: 100%;
+    margin-left: 0 !important;
   }
 }
 
