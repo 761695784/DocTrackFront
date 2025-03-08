@@ -3,7 +3,7 @@ import { User } from '../register/register.component';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { apiUrl } from './apiUrl';
 
@@ -40,6 +40,16 @@ export class AuthService {
     markAllAsRead(): Observable<any> {
       const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
       return this.http.post(`${apiUrl}/notifications/mark-all-as-read`, null, { headers });
+    }
+
+    renewQrCode(): Observable<any> {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.error('Aucun token trouvé dans localStorage');
+        return throwError('Aucun token disponible');
+      }
+      const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+      return this.http.post(`${apiUrl}/renew-qr-code`, {}, { headers });
     }
 
     // Methode pour marquer une notification comme lue
