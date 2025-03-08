@@ -1,11 +1,10 @@
+import { IMAGE_URL_BASE } from './../services/imageUrl';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from './../services/auth.service';
 import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-
-const backendUrl = 'http://localhost:8000'; // URL de ton backend
 
 
 @Component({
@@ -14,7 +13,7 @@ const backendUrl = 'http://localhost:8000'; // URL de ton backend
   standalone: true,
   templateUrl: './qrcode.component.html',
   styleUrl: './qrcode.component.css',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA], // Ajoutez cette ligne
+  schemas: [CUSTOM_ELEMENTS_SCHEMA], 
   
 })
 
@@ -22,12 +21,7 @@ export class QrcodeComponent implements OnInit {
   qrCodeUrl: string | null = null;
   user: any;
   isLoading: boolean = false;
-  // backendUrl = 'http://localhost:8000';
-  backendUrl = 'https://doctrackapi.malang2019marna.simplonfabriques.com';
-
   
-  
-
   constructor(private authService: AuthService , private router: Router) {}
 
   ngOnInit(): void {
@@ -38,7 +32,7 @@ export class QrcodeComponent implements OnInit {
     this.authService.getUserProfile().subscribe({
       next: (response) => {
         this.user = response.user;
-        this.qrCodeUrl = `${this.backendUrl}${response.qr_code_url}`;
+        this.qrCodeUrl = `${IMAGE_URL_BASE}${response.qr_code_url}`;
       },
       error: (error) => {
         console.error('Erreur lors de la récupération du profil:', error);
@@ -75,7 +69,7 @@ export class QrcodeComponent implements OnInit {
 
   private handleRenewalSuccess(response: any): void {
     this.isLoading = false;
-    this.qrCodeUrl = `${this.backendUrl}${response.new_qr_code_url}`;
+    this.qrCodeUrl = `${IMAGE_URL_BASE}${response.new_qr_code_url}`;
     this.user.qr_code_expires_at = response.new_expiration;
     
     Swal.fire({
