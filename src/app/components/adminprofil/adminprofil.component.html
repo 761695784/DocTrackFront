@@ -1,10 +1,21 @@
 <app-sideheaders></app-sideheaders>
 <section class="Formulaire">
+     <!-- Loader overlay, visible pendant le chargement -->
+     <div *ngIf="isLoading" class="loader-overlay">
+      <l-ring-2
+        size="40"
+        stroke="5"
+        stroke-length="0.55"
+        bg-opacity="0.1"
+        speed="0.8"
+        color="#F6A500"
+      ></l-ring-2>
+    </div>
+
   <div class="container">
     <div class="form-container">
       <h2>Modifier mon Profil</h2>
       <form class="test" [formGroup]="profileForm" (ngSubmit)="onSubmit()" >
-        <!--  -->
 
         <!-- Champ Nom et Prénom -->
         <div class="label-container">
@@ -57,7 +68,7 @@
           </div>
         </div>
 
-        <button type="submit">Enregistrer</button>
+        <button type="submit">{{ isLoading  ? 'Enregistrement en cours...' : 'Enregistrer' }}</button>
       </form>
     </div>
   </div>

@@ -11,6 +11,7 @@ export class FoundQrService {
 
   constructor(private http: HttpClient) {}
 
+  // Méthode pour l'envoie du numéro de téléphone du trouver au owner du document
   submitFinderPhone(token: string, finderPhone: string): Observable<any> {
     const data = { token, finder_phone: finderPhone };
     return this.http.post(this.apiEndpoint, data, );

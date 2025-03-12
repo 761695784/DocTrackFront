@@ -48,7 +48,7 @@ export const routes: Routes = [
 
   // Routes avec Authentification pour un user simple
   { path: 'publier', component: PublishformComponent, canActivate: [AuthGuard] },
-  { path: 'document/:id', component: DocumentDetailComponent, canActivate: [AuthGuard] },
+  { path: 'document/:uuid', component: DocumentDetailComponent, canActivate: [AuthGuard] },
   { path: 'declarer', component: DeclarationformComponent, canActivate: [AuthGuard] },
   { path: 'lost', component: LostdeclarationComponent, canActivate: [AuthGuard] },
   { path: 'mypub', component: MypublishComponent, canActivate: [AuthGuard] },
@@ -67,7 +67,7 @@ export const routes: Routes = [
       { path: 'adminuser', component: UsergetComponent },
       { path: 'adminadd', component: UserAddComponent },
       { path: 'adminstats', component: AdminstatsComponent },
-      { path: 'admindetails/:id', component: AdmindetailsComponent }
+      { path: 'admindetails/:uuid', component: AdmindetailsComponent }
     ]
   },
 

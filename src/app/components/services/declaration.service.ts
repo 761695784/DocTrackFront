@@ -16,14 +16,13 @@ export class DeclarationService {
   getUserDeclarations(): Observable<any[]> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
-    return this.http.get<any[]>(`${apiUrl}/mydec`, { headers });
+    return this.http.get<any[]>(`${apiUrl}/my-declarations`, { headers });
   }
 
-  // Ajouter une déclaration
+  // Ajouter une déclaration 
   addDeclaration(declaration: FormData): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
-    // Utilisation de FormData pour envoyer les données
     return this.http.post<any>(`${apiUrl}/declarations`, declaration, { headers }).pipe(
       tap(response => {
         // console.log('Réponse du serveur:', response);
@@ -31,32 +30,31 @@ export class DeclarationService {
     );
   }
 
-  // Afficher toutes les déclarations pour l'admin uniquement
+  // Afficher toutes les déclarations pour l'admin 
   getAllDeclarations(): Observable<any[]> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
     return this.http.get<any[]>(`${apiUrl}/declarations`, { headers });
   }
 
-  // Supprimer une déclaration
-  deleteDeclaration(id: number): Observable<any> {
+  // Supprimer une déclaration 
+  deleteDeclaration(uuid: string): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
-    return this.http.delete(`${apiUrl}/declarations/${id}`, { headers });
+    return this.http.delete(`${apiUrl}/declarations/${uuid}`, { headers });
   }
 
-  // Récupérer les déclarations supprimées de l'utilisateur connecté
+  // Récupérer les déclarations supprimées 
   getTrashedDeclarations(): Observable<{ success: boolean; message: string; data: any[] }> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
-    return this.http.get<{ success: boolean; message: string; data: any[] }>(`${apiUrl}/trash`, { headers });
+    return this.http.get<{ success: boolean; message: string; data: any[] }>(`${apiUrl}/trashed-declarations`, { headers });
   }
 
-  // Restaurer une déclaration supprimée
+  // Restaurer une déclaration supprimée 
   restoreDeclaration(id: number): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
     return this.http.post(`${apiUrl}/declarations/restore/${id}`, {}, { headers });
   }
-
 }

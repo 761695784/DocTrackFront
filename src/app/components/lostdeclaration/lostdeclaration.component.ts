@@ -38,7 +38,7 @@ export class LostdeclarationComponent {
   }
 
   // Nouvelle méthode de suppression avec confirmation
-  deleteDeclaration(id: number) {
+  deleteDeclaration(uuid: string) {
     Swal.fire({
       title: 'Êtes-vous sûr ?',
       text: "Cette action est irréversible !",
@@ -51,9 +51,9 @@ export class LostdeclarationComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         // Si l'utilisateur confirme, effectuer la suppression
-        this.declarationService.deleteDeclaration(id).subscribe(
+        this.declarationService.deleteDeclaration(uuid).subscribe(
           () => {
-            this.declarations = this.declarations.filter(d => d.id !== id);
+            this.declarations = this.declarations.filter(d => d.uuid !== uuid);
             Swal.fire('Supprimé!', 'La déclaration a été supprimée avec succès.', 'success');
           },
           (error) => {

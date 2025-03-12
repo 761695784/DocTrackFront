@@ -11,6 +11,7 @@
       <thead>
         <tr>
           <th (click)="sortUsers('id')">id</th>
+          <!-- <th (click)="sortUsers('uuid')">uuid</th> -->
           <th (click)="sortUsers('LastName')">Noms</th>
           <th (click)="sortUsers('FirstName')">Prénoms</th>
           <th (click)="sortUsers('email')">Email</th>
@@ -23,6 +24,7 @@
       <tbody>
         <tr *ngFor="let user of paginatedUsers">
           <td data-label="id">{{user.id}}</td>
+          <!-- <td data-label="uuid">{{user.uuid}}</td> -->
           <td data-label="Noms">{{ user.LastName }}</td>
           <td data-label="Prénoms">{{ user.FirstName }}</td>
           <td data-label="Email">{{ user.email }}</td>

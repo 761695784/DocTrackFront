@@ -32,7 +32,7 @@
           <p>Prénom exact: <strong>{{ declaration.FirstNameInDoc }}</strong></p>
           <p>Nom exact: <strong>{{ declaration.LastNameInDoc }}</strong></p>
           <div class="card-actions">
-            <button class="restore-icon" (click)="restoreDeclaration(declaration.id)" style="cursor: pointer;">🔄 Restaurer</button>
+            <button class="restore-icon" (click)="restoreDeclaration(declaration.uuid)" style="cursor: pointer;">🔄 Restaurer</button>
           </div>
         </div>
       </div>
@@ -52,7 +52,7 @@
         <p>Nom exacte : <strong>{{ declaration.LastNameInDoc }}</strong></p>
 
         <div class="card-actions">
-          <button class="delete-btn" (click)="deleteDeclaration(declaration.id)">Supprimer</button>
+          <button class="delete-btn" (click)="deleteDeclaration(declaration.uuid)">Supprimer</button>
         </div>
       </div>
     </div>

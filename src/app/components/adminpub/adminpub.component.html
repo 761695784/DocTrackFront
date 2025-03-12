@@ -6,7 +6,7 @@
 
     <!-- Menu déroulant pour filtrer par statut -->
     <select [(ngModel)]="selectedFilter" (change)="filterDocuments()">
-      <option value="all">Tous les documents</option>
+      <option value="all-publications">Tous les documents</option>
       <option value="softdeleted">Supprimés</option>
       <option value="récupéré">Récupérés</option>
       <option value="non récupéré">Non récupérés</option>
@@ -53,7 +53,7 @@
             >🗑️</span
           >
 
-          <button class="details-btn" (click)="viewDetails(document.id)">Voir détails</button>
+          <button class="details-btn" (click)="viewDetails(document.uuid)">Voir détails</button>
 
           <span class="status" [ngClass]="document.statut === 'récupéré' ? 'success' : 'error'">
             {{ document.statut === 'récupéré' ? '✔️' : '❌' }}

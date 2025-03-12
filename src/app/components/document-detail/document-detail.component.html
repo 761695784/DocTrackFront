@@ -61,7 +61,7 @@
 
     <div class="comment-section animate-comments">
       <input class="comment-input" [(ngModel)]="newComment" placeholder="Écrire un commentaire...">
-      <button class="btn submit-btn animate-button" (click)="addCommentaire()">Envoyer</button>
+      <button class="btn submit-btn animate-button" (click)="addCommentaire()">{{ isLoading  ? 'Envoi en cours...' : 'Envoyer' }}</button>
     </div>
   </div>
 </div>

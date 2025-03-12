@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 
 export interface Document {
   id: number;
+  uuid:string;
   image: string;
   OwnerFirstName: string;
   OwnerLastName: string;
@@ -49,8 +50,9 @@ export class AdminpubComponent implements OnInit {
   deletedDocuments: Document[] = [];
   recoveredDocuments: Document[] = [];
   notRecoveredDocuments: Document[] = [];
-  selectedFilter: string = 'all'; // Filtre sélectionné: 'all', 'softdeleted', 'recovered', 'notrecovered'
+  selectedFilter: string = 'all-publications'; // Filtre sélectionné: 'all', 'softdeleted', 'recovered', 'notrecovered'
   pasderesultat: boolean = false;
+  
 
   constructor(private publicationsService: PublicationsService, private router: Router) {}
 
@@ -73,7 +75,7 @@ export class AdminpubComponent implements OnInit {
   }
 
   loadAllPublications(): void {
-    this.publicationsService.getAllPublications().subscribe({
+    this.publicationsService.getAllDocumentsIncludingDeleted().subscribe({
       next: (docs) => {
         this.documents = docs.sort((a: Document, b: Document) => {
           return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
@@ -116,8 +118,8 @@ export class AdminpubComponent implements OnInit {
       this.pasderesultat = this.filteredDocuments.length === 0;
   }
 
-  viewDetails(id: number): void {
-    this.router.navigate(['/admin/admindetails', id]);
+  viewDetails(uuid: string): void {
+    this.router.navigate(['/admin/admindetails', uuid]);
   }
 
   pageChanged(page: number): void {
