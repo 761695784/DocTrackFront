@@ -14,25 +14,25 @@ export class AuthService {
 
   constructor(private http: HttpClient, public router: Router, private redirectService: RedirectService) {}
 
-  // Récupérer le profil utilisateur 
+  // Récupérer le profil utilisateur
   getUserProfile(): Observable<any> {
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
     return this.http.get(`${apiUrl}/me`, { headers });
   }
 
-  // Récupérer toutes les notifications 
+  // Récupérer toutes les notifications
   getAllNotifications(): Observable<any> {
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
     return this.http.get(`${apiUrl}/notifications`, { headers });
   }
 
-  // Marquer toutes les notifications comme lues 
+  // Marquer toutes les notifications comme lues
   markAllAsRead(): Observable<any> {
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
     return this.http.post(`${apiUrl}/notifications/mark-all-as-read`, null, { headers });
   }
 
-  // Renouveler le QR code 
+  // Renouveler le QR code
   renewQrCode(): Observable<any> {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -43,7 +43,7 @@ export class AuthService {
     return this.http.post(`${apiUrl}/renew-qr-code`, {}, { headers });
   }
 
-  // Marquer une notification comme lue 
+  // Marquer une notification comme lue
   markNotificationAsRead(notificationId: number): Observable<any> {
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
     return this.http.patch(`${apiUrl}/notifications/${notificationId}/mark-as-read`, null, { headers });
@@ -86,74 +86,79 @@ export class AuthService {
     return !!token;
   }
 
+  // Fonction de verification du code de validation
+  verifyEmailCode(email: string, code: string): Observable<any> {
+  return this.http.post(`${apiUrl}/verify-email`, { email, code });
+}
+
   // Récupérer le prénom de l'utilisateur
   getUserName(): string {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     return user?.FirstName || 'Utilisateur';
   }
 
-  // Déconnexion 
+  // Déconnexion
   logout(): void {
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
   }
 
-  // Modifier le profil 
+  // Modifier le profil
   updateProfile(profileData: any): Observable<any> {
     const userId = localStorage.getItem('userId');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
     return this.http.put(`${apiUrl}/profil`, profileData, { headers });
   }
 
-  // Changer le mot de passe 
+  // Changer le mot de passe
   changePassword(passwordData: any): Observable<any> {
     const userId = localStorage.getItem('userId');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
     return this.http.put(`${apiUrl}/change-password`, passwordData, { headers });
   }
 
-  // Récupérer tous les utilisateurs 
+  // Récupérer tous les utilisateurs
   getAllUsers(): Observable<any> {
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
     return this.http.get(`${apiUrl}/users`, { headers });
   }
 
-  // Supprimer un utilisateur 
+  // Supprimer un utilisateur
   deleteUser(id: number): Observable<any> {
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
     return this.http.delete(`${apiUrl}/users/${id}`, { headers });
   }
 
-  // Ajouter un administrateur 
+  // Ajouter un administrateur
   addUser(userData: any): Observable<any> {
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
     return this.http.post(`${apiUrl}/create-admin`, userData, { headers });
   }
 
-  // Récupérer tous les logs d'emails 
+  // Récupérer tous les logs d'emails
   getAllEmailLogs(): Observable<any> {
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
     return this.http.get(`${apiUrl}/all-emails`, { headers });
   }
 
-  // Récupérer toutes les données 
+  // Récupérer toutes les données
   getAllData(): Observable<any> {
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
     return this.http.get(`${apiUrl}/all-notifications`, { headers });
   }
 
-  // Récupérer le nombre de demandes de restitution 
+  // Récupérer le nombre de demandes de restitution
   getRestitutionRequestCount(): Observable<any> {
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
     return this.http.get(`${apiUrl}/restitution-count`, { headers });
   }
 
-  // Envoyer un email de réinitialisation de mot de passe 
+  // Envoyer un email de réinitialisation de mot de passe
   sendResetPasswordEmail(email: string): Observable<any> {
     return this.http.get(`${apiUrl}/forgot-password`, { params: { email } });
   }
 
-  // Réinitialiser le mot de passe 
+  // Réinitialiser le mot de passe
   resetPassword(data: { token: string; email: string; password: string; password_confirmation: string }): Observable<any> {
     return this.http.post(`${apiUrl}/reset-password`, data);
   }
