@@ -1,0 +1,19 @@
+<app-sideheaders></app-sideheaders>
+<div class="container">
+  <h2>📄 Certificats de perte</h2>
+
+  <div *ngIf="certificats.length === 0">
+    Aucun certificat disponible.
+  </div>
+
+  <ul class="certificat-list">
+    <li *ngFor="let certif of certificats" class="certificat-item">
+      <span>
+        Certificat #{{ certif.id }} — {{ certif.created_at | date:'short' }}
+      </span>
+      <!-- <button (click)="telechargerCertificat(certif.id)" title="Télécharger">
+        ⬇️
+      </button> -->
+    </li>
+  </ul>
+</div>

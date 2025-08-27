@@ -19,7 +19,7 @@ export class DeclarationService {
     return this.http.get<any[]>(`${apiUrl}/my-declarations`, { headers });
   }
 
-  // Ajouter une déclaration 
+  // Ajouter une déclaration
   addDeclaration(declaration: FormData): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
@@ -30,31 +30,50 @@ export class DeclarationService {
     );
   }
 
-  // Afficher toutes les déclarations pour l'admin 
+  // Afficher toutes les déclarations pour l'admin
   getAllDeclarations(): Observable<any[]> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
     return this.http.get<any[]>(`${apiUrl}/declarations`, { headers });
   }
 
-  // Supprimer une déclaration 
+  // Supprimer une déclaration
   deleteDeclaration(uuid: string): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
     return this.http.delete(`${apiUrl}/declarations/${uuid}`, { headers });
   }
 
-  // Récupérer les déclarations supprimées 
+  // Récupérer les déclarations supprimées
   getTrashedDeclarations(): Observable<{ success: boolean; message: string; data: any[] }> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
     return this.http.get<{ success: boolean; message: string; data: any[] }>(`${apiUrl}/trashed-declarations`, { headers });
   }
 
-  // Restaurer une déclaration supprimée 
+  // Restaurer une déclaration supprimée
   restoreDeclaration(id: number): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
     return this.http.post(`${apiUrl}/declarations/restore/${id}`, {}, { headers });
   }
+
+  // Afficher tous les certificats de pertes
+  getCertificates(): Observable<any[]> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
+    return this.http.get<any[]>(`${apiUrl}/admin/certificats`, { headers });
+  }
+
+  // Telecharger les certificats de pertes
+  downloadCertificate(id: number): Observable<Blob> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
+    return this.http.get(`${apiUrl}/certificats/{id}/telecharger`, { headers, responseType: 'blob' });
+  }
+
+//   <a [href]="'https://ton-backend.com/api/certificats/' + certificat.id + '/telecharger'" target="_blank" download>
+//     <i class="fa fa-download"></i>
+// </a>
+
 }

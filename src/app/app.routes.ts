@@ -29,6 +29,7 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
 import { NewpassComponent } from './components/newpass/newpass.component';
 import { PrivatePolicyComponent } from './components/private-policy/private-policy.component';
 import { QrcodeComponent } from './components/qrcode/qrcode.component';
+import { AdmincertifComponent } from './components/admincertif/admincertif.component';
 
 
 export const routes: Routes = [
@@ -43,7 +44,7 @@ export const routes: Routes = [
   { path: 'newpass', component: NewpassComponent },
   { path: 'private-policy', component: PrivatePolicyComponent },
   { path: 'found-qr', component: FoundQrComponent },
-  
+
 
 
   // Routes avec Authentification pour un user simple
@@ -67,7 +68,8 @@ export const routes: Routes = [
       { path: 'adminuser', component: UsergetComponent },
       { path: 'adminadd', component: UserAddComponent },
       { path: 'adminstats', component: AdminstatsComponent },
-      { path: 'admindetails/:uuid', component: AdmindetailsComponent }
+      { path: 'admindetails/:uuid', component: AdmindetailsComponent },
+      { path: 'admincertif', component: AdmincertifComponent },
     ]
   },
 
