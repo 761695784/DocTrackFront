@@ -3,7 +3,7 @@ import { User } from '../register/register.component';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { apiUrl } from './apiUrl';
 
@@ -12,151 +12,154 @@ import { apiUrl } from './apiUrl';
 })
 export class AuthService {
 
-  constructor(private http: HttpClient,public router: Router,private redirectService: RedirectService) {}
+  constructor(private http: HttpClient, public router: Router, private redirectService: RedirectService) {}
 
+  // Récupérer le profil utilisateur
+  getUserProfile(): Observable<any> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    return this.http.get(`${apiUrl}/me`, { headers });
+  }
 
+  // Récupérer toutes les notifications
+  getAllNotifications(): Observable<any> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    return this.http.get(`${apiUrl}/notifications`, { headers });
+  }
 
+  // Marquer toutes les notifications comme lues
+  markAllAsRead(): Observable<any> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    return this.http.post(`${apiUrl}/notifications/mark-all-as-read`, null, { headers });
+  }
 
-  // loginWithGoogle(idToken: string): Observable<any> {
-  //   return this.http.post(`${apiUrl}/auth/google`, { token: idToken });
-  // }
-
-  // finalizeGoogleAccount(data: any): Observable<any> {
-  //   return this.http.post(`${apiUrl}/auth/google/finalize`, data);
-  // }
-
-
-    //methode pour recuperer toutes les notifications
-    getAllNotifications(): Observable<any> {
-      const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
-      return this.http.get(`${apiUrl}/notifications`, { headers });
+  // Renouveler le QR code
+  renewQrCode(): Observable<any> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('Aucun token trouvé dans localStorage');
+      return throwError('Aucun token disponible');
     }
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+    return this.http.post(`${apiUrl}/renew-qr-code`, {}, { headers });
+  }
 
-    // methode pour marquer que toutes les notifications sont lues
-    markAllAsRead(): Observable<any> {
-      const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
-      return this.http.post(`${apiUrl}/notifications/mark-all-as-read`, null, { headers });
-    }
+  // Marquer une notification comme lue
+  markNotificationAsRead(notificationId: number): Observable<any> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    return this.http.patch(`${apiUrl}/notifications/${notificationId}/mark-as-read`, null, { headers });
+  }
 
-    // Methode pour marquer une notification comme lue
-    markNotificationAsRead(notificationId: number): Observable<any> {
-      const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
-      return this.http.patch(`${apiUrl}/notifications/${notificationId}/mark-as-read`, null, { headers });
-    }
+  // Inscription d'un utilisateur
+  register(user: User): Observable<any> {
+    return this.http.post(`${apiUrl}/register`, user);
+  }
 
-    //Methode d'inscription d'un user simple
-    register(user: User): Observable<any> {
-      return this.http.post(`${apiUrl}/register`, user);
-    }
-
-    // Methode de Connexion d'un user
-    login(credentials: any): Observable<any> {
-      const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-      return this.http.post(`${apiUrl}/login`, credentials, { headers }).pipe(
-        tap((response: any) => {
-          if (response.token) {
-            localStorage.setItem('token', response.token); // stocker le token
-            localStorage.setItem('user', JSON.stringify(response.user)); // stocker les informations de l'utilisateur
-            localStorage.setItem('userId', response.user.id); // stocker l'ID de l'utilisateur
-
-            // Rediriger en fonction du rôle de l'utilisateur
-            const roles = response.user.roles || []; // Assurez-vous que l'API renvoie les rôles de l'utilisateur
-            const isAdmin = roles.some((role: any) => role.name === 'Admin');
-
-            if (isAdmin) {
-              this.router.navigate(['/admin']); // Redirection pour l'admin
-            } else {
-              // Rediriger l'utilisateur vers l'URL qu'il a demandée ou vers /accueil
-              const redirectUrl = this.redirectService.getRedirectUrl();
-              this.redirectService.clearRedirectUrl(); // Effacer l'URL
-              this.router.navigate([redirectUrl || '/accueil']); // Redirection pour utilisateur simple
-            }
+  // Connexion d'un utilisateur
+  login(credentials: any): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post(`${apiUrl}/login`, credentials, { headers }).pipe(
+      tap((response: any) => {
+        if (response.token) {
+          localStorage.setItem('token', response.token);
+          localStorage.setItem('user', JSON.stringify(response.user));
+          localStorage.setItem('userId', response.user.id);
+          const roles = response.user.roles || [];
+          const isAdmin = roles.some((role: any) => role.name === 'Admin');
+          if (isAdmin) {
+            this.router.navigate(['/admin']);
+          } else {
+            const redirectUrl = this.redirectService.getRedirectUrl();
+            this.redirectService.clearRedirectUrl();
+            this.router.navigate([redirectUrl || '/accueil']);
           }
-        })
-      );
+        }
+      })
+    );
+  }
+
+  // Vérifier si l'utilisateur est authentifié
+  isAuthenticated(): boolean {
+    if (typeof window === 'undefined' || !window.localStorage) {
+      return false;
     }
+    const token = localStorage.getItem('token');
+    return !!token;
+  }
 
+  // Fonction de verification du code de validation
+  verifyEmailCode(email: string, code: string): Observable<any> {
+  return this.http.post(`${apiUrl}/verify-email`, { email, code });
+}
 
-    // Vérifier si l'utilisateur est authentifié
-    isAuthenticated(): boolean {
-      if (typeof window === 'undefined' || !window.localStorage) {
-        return false; // Retourne false si l'environnement est non-navigateur
-      }
-      const token = localStorage.getItem('token');
-      return !!token;
-    }
-
-
-    //Methode pour récupérer le Prénom de l'utilisateur connecté
-    getUserName(): string {
+  // Récupérer le prénom de l'utilisateur
+  getUserName(): string {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     return user?.FirstName || 'Utilisateur';
-    }
+  }
 
-    //Methode de la deconnexion
-    logout(): void {
-      localStorage.removeItem('token');
-      this.router.navigate(['/login']);
-    }
+  // Déconnexion
+  logout(): void {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
+  }
 
-    //methode pour la modifications des infos du profil
-    updateProfile(profileData: any): Observable<any> {
-      const userId = localStorage.getItem('userId');
-      const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
-      return this.http.put(`${apiUrl}/profil`, profileData, { headers });
-    }
+  // Modifier le profil
+  updateProfile(profileData: any): Observable<any> {
+    const userId = localStorage.getItem('userId');
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    return this.http.put(`${apiUrl}/profil`, profileData, { headers });
+  }
 
-    // Methode pour le changement de mot de passe
-    changePassword(passwordData: any): Observable<any> {
-      const userId = localStorage.getItem('userId');
-      const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
-      return this.http.put(`${apiUrl}/change-password`, passwordData, { headers });
-    }
+  // Changer le mot de passe
+  changePassword(passwordData: any): Observable<any> {
+    const userId = localStorage.getItem('userId');
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    return this.http.put(`${apiUrl}/change-password`, passwordData, { headers });
+  }
 
-    // Nouvelle méthode pour récupérer tous les utilisateurs avec leurs rôles
-    getAllUsers(): Observable<any> {
-      const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
-      return this.http.get(`${apiUrl}/users`, { headers });
-    }
+  // Récupérer tous les utilisateurs
+  getAllUsers(): Observable<any> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    return this.http.get(`${apiUrl}/users`, { headers });
+  }
 
-    // Nouvelle méthode pour supprimer un utilisateur
-    deleteUser(id: number): Observable<any> {
-      const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
-      return this.http.delete(`${apiUrl}/users/${id}`, { headers });
-    }
+  // Supprimer un utilisateur
+  deleteUser(id: number): Observable<any> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    return this.http.delete(`${apiUrl}/users/${id}`, { headers });
+  }
 
-     // Nouvelle méthode pour ajouter un utilisateur admin
-    addUser(userData: any): Observable<any> {
-      const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
-      return this.http.post(`${apiUrl}/create-admin`, userData, { headers });
-    }
+  // Ajouter un administrateur
+  addUser(userData: any): Observable<any> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    return this.http.post(`${apiUrl}/create-admin`, userData, { headers });
+  }
 
-    // Methode d'affichage des historiques des mails envoyes
-    getAllEmailLogs(): Observable<any> {
-      const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
-      return this.http.get(`${apiUrl}/emails`, { headers });
-    }
+  // Récupérer tous les logs d'emails
+  getAllEmailLogs(): Observable<any> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    return this.http.get(`${apiUrl}/all-emails`, { headers });
+  }
 
-    //Methode pour recuperer les donnees concerant toutes les mails
-    getAllData(): Observable<any> {
-      const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
-      return this.http.get(`${apiUrl}/notification`, { headers });
-    }
+  // Récupérer toutes les données
+  getAllData(): Observable<any> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    return this.http.get(`${apiUrl}/all-notifications`, { headers });
+  }
 
-     // Récupère le nombre de demandes de restitution
-    getRestitutionRequestCount(): Observable<any> {
-      const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
-      return this.http.get(`${apiUrl}/restitution-count`, { headers });
-    }
+  // Récupérer le nombre de demandes de restitution
+  getRestitutionRequestCount(): Observable<any> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    return this.http.get(`${apiUrl}/restitution-count`, { headers });
+  }
 
-    // Methode pour envoyer un mail de reinitialisation du mot de passe oublié
-    sendResetPasswordEmail(email: string): Observable<any> {
-      return this.http.get(`${apiUrl}/forgot-password`, { params: { email } });
-    }
+  // Envoyer un email de réinitialisation de mot de passe
+  sendResetPasswordEmail(email: string): Observable<any> {
+    return this.http.get(`${apiUrl}/forgot-password`, { params: { email } });
+  }
 
-    // Methode pour réinitialiser le mot de passe
-    resetPassword(data: { token: string; email: string; password: string; password_confirmation: string }): Observable<any> {
-      return this.http.post(`${apiUrl}/reset-password`, data);
-    }
-
+  // Réinitialiser le mot de passe
+  resetPassword(data: { token: string; email: string; password: string; password_confirmation: string }): Observable<any> {
+    return this.http.post(`${apiUrl}/reset-password`, data);
+  }
 }

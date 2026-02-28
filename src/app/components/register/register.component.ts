@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
@@ -21,10 +21,14 @@ export interface User {
   standalone: true,
   imports: [NavbarComponent, ReactiveFormsModule, CommonModule],
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA], // Ajoutez cette ligne
+
 })
 export class RegisterComponent {
   registerForm: FormGroup;
+  isLoading: boolean = false; // Variable pour contrôler l'affichage du loader
+
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     /**
@@ -50,42 +54,126 @@ export class RegisterComponent {
  * message d'alertes pour notifier si l'inscription est reussie ou pas
  * accompagné de la redirection
  */
-  onSubmit(): void {
-    if (this.registerForm.valid) {
-      const userData: User = {
-        ...this.registerForm.value,
-        confirmation_password: this.registerForm.value.password
-      };
+  // onSubmit(): void {
+  //   if (this.registerForm.valid) {
+  //     this.isLoading = true; // Début du chargement
+  //     const userData: User = {
+  //       ...this.registerForm.value,
+  //       confirmation_password: this.registerForm.value.password
+  //     };
 
-      this.authService.register(userData).subscribe({
-        next: (response) => {
-          Swal.fire({
-            title: 'Succès!',
-            text: 'Inscription réussie!',
-            icon: 'success',
-            confirmButtonText: 'OK'
-          });
+  //     this.authService.register(userData).subscribe({
+  //       next: (response) => {
+  //         this.isLoading = false; // Fin du chargement
+  //         Swal.fire({
+  //           title: 'Succès!',
+  //           text: 'Inscription réussie!',
+  //           icon: 'success',
+  //           confirmButtonText: 'OK'
+  //         });
 
-          setTimeout(() => {
-            this.router.navigate(['/accueil']);
-          }, 2000);
-          this.registerForm.reset();
-        },
-        error: (error) => {
-          let errorMessage = 'Erreur lors de l\'inscription.';
-          if (error.error?.errors) {
-            errorMessage += ' Détails : ' + JSON.stringify(error.error.errors);
-          }
+  //         setTimeout(() => {
+  //           this.router.navigate(['/connexion']);
+  //         }, 2000);
+  //         this.registerForm.reset();
+  //       },
+  //       error: (error) => {
+  //         this.isLoading = false; // Fin du chargement
+  //         let errorMessage = 'Erreur lors de l\'inscription.';
+  //         if (error.error?.errors) {
+  //           errorMessage += ' Détails : ' + JSON.stringify(error.error.errors);
+  //         }
+  //         Swal.fire({
+  //           title: 'Erreur!',
+  //           text: errorMessage,
+  //           icon: 'error',
+  //           confirmButtonText: 'OK'
+  //         });
+  //       }
+  //     });
+  //   }
+  // }
+
+onSubmit(): void {
+  if (this.registerForm.valid) {
+    this.isLoading = true;
+    const userData: User = {
+      ...this.registerForm.value,
+      confirmation_password: this.registerForm.value.password
+    };
+
+    this.authService.register(userData).subscribe({
+      next: (response) => {
+        this.isLoading = false;
+
+        const email = this.registerForm.get('email')?.value;
+
+        // ✅ Attendre une petite seconde (important dans certains cas de latence backend)
+        setTimeout(() => {
           Swal.fire({
-            title: 'Erreur!',
-            text: errorMessage,
-            icon: 'error',
-            confirmButtonText: 'OK'
+            title: 'Vérification de l\'email',
+            text: 'Veuillez entrer le code que vous avez reçu par mail.',
+            input: 'text',
+            inputLabel: 'Code de vérification',
+            inputPlaceholder: 'Ex: 123456',
+            showCancelButton: true,
+            confirmButtonText: 'Vérifier',
+            cancelButtonText: 'Annuler',
+            inputValidator: (value) => {
+              if (!value) return 'Le code est requis !';
+              return null;
+            }
+          }).then((result) => {
+            if (result.isConfirmed && result.value) {
+              this.authService.verifyEmailCode(email, result.value).subscribe({
+                next: (res: any) => {
+                  localStorage.setItem('token', res.access_token);
+                  localStorage.setItem('user', JSON.stringify(res.user));
+                  localStorage.setItem('userId', res.user.id);
+
+                  Swal.fire({
+                    icon: 'success',
+                    title: 'Inscription terminée',
+                    text: 'Votre compte est vérifié et vous êtes connecté.',
+                    timer: 2000
+                  }).then(() => {
+                    this.router.navigate(['/accueil']);
+                  });
+                },
+                error: (err) => {
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Code invalide',
+                    text: 'Le code de vérification est incorrect.',
+                    timer: 2000
+                  });
+                }
+              });
+            }
           });
+        }, 1000); // 🕒 1 seconde d'attente
+
+        this.registerForm.reset();
+      },
+
+      error: (error) => {
+        this.isLoading = false;
+        let errorMessage = 'Erreur lors de l\'inscription.';
+        if (error.error?.errors) {
+          errorMessage += ' Détails : ' + JSON.stringify(error.error.errors);
         }
-      });
-    }
+        Swal.fire({
+          title: 'Erreur!',
+          text: errorMessage,
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
+      }
+    });
   }
+}
+
+
 
   /**Methodes permettant l'affichage des messages d'erreur en dessous de chaque champ du formulaire */
   public getErrorMessage(controlName: string): string {

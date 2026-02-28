@@ -1,5 +1,16 @@
-<app-navbar></app-navbar>
+<app-navbar></app-navbar><!--
 <section class="Formulaire">
+        Loader overlay
+        <div *ngIf="isLoading" class="loader-overlay">
+          <l-ring-2
+            size="40"
+            stroke="5"
+            stroke-length="0.55"
+            bg-opacity="0.1"
+            speed="0.8"
+            color="#F6A500"
+          ></l-ring-2>
+        </div>
   <div class="container" id="form">
     <div class="form-container" >
       <h2>Connexion</h2>
@@ -23,4 +34,62 @@
   <div class="carteImage">
     <img src="/assets/Drapeau_national1.png" alt="CBAO" class="carte">
   </div>
+</section> -->
+<section class="Formulaire">
+  <div *ngIf="isLoading" class="loader-overlay">
+    <l-ring-2
+      size="40"
+      stroke="5"
+      stroke-length="0.55"
+      bg-opacity="0.1"
+      speed="0.8"
+      color="#F6A500"
+    ></l-ring-2>
+  </div>
+  <div class="container" id="form">
+    <div class="form-container">
+      <h2>Connexion</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="test">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          placeholder="malangmarna@gmail.com"
+          required
+        />
+
+        <label for="password">Mot de passe</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          placeholder="ne98hjoij@"
+          required
+        />
+
+        <p class="question">
+          Mot de passe oublié? <a href="/reset">Réinitialiser.</a>
+        </p>
+        <p class="question">
+          Pas de compte? <a href="/inscription">Créer un compte.</a>
+        </p>
+        <button type="submit" [disabled]="isLocked || isLoading">
+          Connexion
+        </button>
+        <button type="button" [disabled]="isLocked || isLoading">
+          <i class="fab fa-google"></i> Connexion avec Google
+        </button>
+        <div *ngIf="isLocked" class="lockout-message">
+          Compte bloqué. Temps restant : {{ lockoutTimeRemaining }} secondes.
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="carteImage">
+    <img src="/assets/Drapeau_national1.png" alt="CBAO" class="carte" />
+  </div>
 </section>
+
+

@@ -1,5 +1,5 @@
 import { SideheadersComponent } from './../sideheaders/sideheaders.component';
-import { Component } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Router, RouterModule } from '@angular/router';
@@ -11,11 +11,14 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [SideheadersComponent,RouterModule, ReactiveFormsModule, CommonModule],
   templateUrl: './adminprofil.component.html',
-  styleUrl: './adminprofil.component.css'
+  styleUrl: './adminprofil.component.css',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  
 })
 export class AdminprofilComponent {
 
   profileForm: FormGroup;
+  isLoading: boolean = false;
 
   constructor(private fb: FormBuilder,private authService: AuthService,private router: Router) {
   /**
@@ -64,12 +67,14 @@ export class AdminprofilComponent {
 
   onSubmit() {
     if (this.profileForm.valid) {
+      this.isLoading = true;
       const profileData = this.profileForm.value;
       const { oldPassword, newPassword } = profileData;
 
       // Mettre à jour les informations de profil
       this.authService.updateProfile(profileData).subscribe(
         (response) => {
+          this.isLoading = false;
           // console.log('Profil mis à jour', response);
           Swal.fire({
             icon: 'success',
@@ -79,6 +84,7 @@ export class AdminprofilComponent {
           });
         },
         (error) => {
+          this.isLoading = false;
           // console.error(error);
           Swal.fire({
             icon: 'error',
@@ -91,12 +97,14 @@ export class AdminprofilComponent {
 
       // Vérifier si l'utilisateur souhaite changer son mot de passe
       if (oldPassword && newPassword) {
+        this.isLoading = true;
         this.authService.changePassword({
           current_password: oldPassword,
           new_password: newPassword,
           new_password_confirmation: profileData.newPasswordConfirm
         }).subscribe(
           (response) => {
+            this.isLoading = false;
             // console.log('Mot de passe changé', response);
             Swal.fire({
               icon: 'success',
@@ -106,6 +114,7 @@ export class AdminprofilComponent {
             });
           },
           (error) => {
+            this.isLoading = false;
             // console.error(error);
             Swal.fire({
               icon: 'error',
@@ -117,6 +126,7 @@ export class AdminprofilComponent {
         );
       }
     } else {
+      this.isLoading = false;
       Swal.fire({
         icon: 'warning',
         title: 'Formulaire invalide',

@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 
 export interface Document {
   id: number;
+  uuid:string;
   image: string;
   OwnerFirstName: string;
   OwnerLastName: string;
@@ -83,7 +84,7 @@ loadTrashedDocuments() {
 
 
   // Restaurer un document supprimé
-  restorePublication(id: number): void {
+  restorePublication(uuid: string): void {
     Swal.fire({
       title: 'Êtes-vous sûr de vouloir restaurer cette publication ?',
       icon: 'warning',
@@ -92,7 +93,7 @@ loadTrashedDocuments() {
       cancelButtonText: 'Annuler'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.publicationService.restoreDocument(id).subscribe({
+        this.publicationService.restoreDocument(uuid).subscribe({
           next: (response) => {
             Swal.fire('Restauré!', response.message, 'success');
             this.loadTrashedDocuments(); // Recharger les documents supprimés
@@ -154,7 +155,7 @@ loadTrashedDocuments() {
         cancelButtonText: 'Annuler'
       }).then((result) => {
         if (result.isConfirmed) {
-          this.publicationService.updatePublicationStatus(publication.id, newStatus).subscribe({
+          this.publicationService.updatePublicationStatus(publication.uuid, newStatus).subscribe({
             next: (response) => {
               publication.statut = response.document.statut;  // Mettre à jour le statut affiché
               Swal.fire({

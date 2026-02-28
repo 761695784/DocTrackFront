@@ -11,6 +11,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 export interface Declaration {
   id: number;
+  uuid:string;
   Title:string;
   user_id: number;
   document_id: number;
@@ -94,7 +95,7 @@ export class AdmindeclarationComponent {
 
 
  // Nouvelle méthode de suppression avec confirmation
- deleteDeclaration(id: number) {
+ deleteDeclaration(uuid: string) {
   Swal.fire({
     title: 'Êtes-vous sûr ?',
     text: "Cette action est irréversible !",
@@ -106,9 +107,9 @@ export class AdmindeclarationComponent {
     cancelButtonText: 'Annuler'
   }).then((result) => {
     if (result.isConfirmed) {
-      this.declarationService.deleteDeclaration(id).subscribe(
+      this.declarationService.deleteDeclaration(uuid).subscribe(
         () => {
-          this.declarations = this.declarations.filter(d => d.id !== id);
+          this.declarations = this.declarations.filter(d => d.uuid !== uuid);
           Swal.fire(
             'Supprimé!',
             'La déclaration a été supprimée avec succès.',

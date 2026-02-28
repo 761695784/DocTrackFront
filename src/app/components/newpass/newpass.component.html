@@ -1,5 +1,16 @@
 <app-navbar></app-navbar>
 <section class="Formulaire">
+     <!-- Loader overlay -->
+     <div *ngIf="isLoading" class="loader-overlay">
+      <l-ring-2
+        size="40"
+        stroke="5"
+        stroke-length="0.55"
+        bg-opacity="0.1"
+        speed="0.8"
+        color="#F6A500"
+      ></l-ring-2>
+    </div>
   <div class="container" id="form">
     <div class="form-container">
       <h2>Nouveau mot de passe</h2>

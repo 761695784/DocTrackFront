@@ -16,14 +16,13 @@ export class DeclarationService {
   getUserDeclarations(): Observable<any[]> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
-    return this.http.get<any[]>(`${apiUrl}/mydec`, { headers });
+    return this.http.get<any[]>(`${apiUrl}/my-declarations`, { headers });
   }
 
   // Ajouter une déclaration
   addDeclaration(declaration: FormData): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
-    // Utilisation de FormData pour envoyer les données
     return this.http.post<any>(`${apiUrl}/declarations`, declaration, { headers }).pipe(
       tap(response => {
         // console.log('Réponse du serveur:', response);
@@ -31,7 +30,7 @@ export class DeclarationService {
     );
   }
 
-  // Afficher toutes les déclarations pour l'admin uniquement
+  // Afficher toutes les déclarations pour l'admin
   getAllDeclarations(): Observable<any[]> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
@@ -39,17 +38,17 @@ export class DeclarationService {
   }
 
   // Supprimer une déclaration
-  deleteDeclaration(id: number): Observable<any> {
+  deleteDeclaration(uuid: string): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
-    return this.http.delete(`${apiUrl}/declarations/${id}`, { headers });
+    return this.http.delete(`${apiUrl}/declarations/${uuid}`, { headers });
   }
 
-  // Récupérer les déclarations supprimées de l'utilisateur connecté
+  // Récupérer les déclarations supprimées
   getTrashedDeclarations(): Observable<{ success: boolean; message: string; data: any[] }> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
-    return this.http.get<{ success: boolean; message: string; data: any[] }>(`${apiUrl}/trash`, { headers });
+    return this.http.get<{ success: boolean; message: string; data: any[] }>(`${apiUrl}/trashed-declarations`, { headers });
   }
 
   // Restaurer une déclaration supprimée
@@ -58,5 +57,23 @@ export class DeclarationService {
     const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
     return this.http.post(`${apiUrl}/declarations/restore/${id}`, {}, { headers });
   }
+
+  // Afficher tous les certificats de pertes
+  getCertificates(): Observable<any[]> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
+    return this.http.get<any[]>(`${apiUrl}/admin/certificats`, { headers });
+  }
+
+  // Telecharger les certificats de pertes
+  downloadCertificate(id: number): Observable<Blob> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
+    return this.http.get(`${apiUrl}/certificats/{id}/telecharger`, { headers, responseType: 'blob' });
+  }
+
+//   <a [href]="'https://ton-backend.com/api/certificats/' + certificat.id + '/telecharger'" target="_blank" download>
+//     <i class="fa fa-download"></i>
+// </a>
 
 }

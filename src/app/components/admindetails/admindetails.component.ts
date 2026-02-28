@@ -1,6 +1,6 @@
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SideheadersComponent } from '../sideheaders/sideheaders.component';
 import { FooterComponent } from '../footer/footer.component';
@@ -17,7 +17,8 @@ import { AuthService } from '../services/auth.service';
   standalone: true,
   imports: [SideheadersComponent,CommonModule,FormsModule],
   templateUrl: './admindetails.component.html',
-  styleUrl: './admindetails.component.css'
+  styleUrl: './admindetails.component.css',
+   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AdmindetailsComponent {
   // Déclaration des variables pour les données du document et des commentaires
@@ -29,27 +30,27 @@ export class AdmindetailsComponent {
   commentaires: Commentaire[] = []; // Ajouté pour stocker les commentaires
   newComment: string = ''; // Pour stocker le contenu du nouveau commentaire
   publications: Document[] = [];
-
+  isLoading: boolean = false;
 
   constructor(private publicationsService: PublicationsService,private detailsService: DetailsService,private commentairesService: CommentairesService,private route: ActivatedRoute, private authService: AuthService) {}
 
   //rechargement du composant
   ngOnInit(): void {
     this.route.paramMap.subscribe(paramMap => {
-      const documentIdString = paramMap.get('id');
-      if (documentIdString) {
-        const documentId = +documentIdString; // Conversion en nombre
-        this.getDocumentDetails(documentId);
-        this.getCommentaires(documentId); // Charger les commentaires dès que le document est chargé
+      const documentUuid = paramMap.get('uuid'); // Change 'id' en 'uuid'
+      if (documentUuid) {
+        this.getDocumentDetails(documentUuid); // Passe directement le uuid (string)
+        this.getCommentaires(documentUuid); // Idem pour les commentaires
       } else {
-        // console.error('Document ID is null or undefined');
+        console.error('Document UUID is null or undefined');
       }
     });
   }
 
+
   // Methode pour affichage des details d'un document pour l'admin
-  getDocumentDetails(id: number): void {
-    this.detailsService.getDocumentDetails(id).subscribe({
+  getDocumentDetails(uuid: string): void {
+    this.detailsService.getDocumentDetails(uuid).subscribe({
       next: (details) => {
         this.documentDetails = details;
       }
@@ -57,8 +58,8 @@ export class AdmindetailsComponent {
   }
 
   // Methode pour affichage des commentaires d'un document
-  getCommentaires(documentId: number): void {
-    this.commentairesService.getCommentairesByDocument(documentId).subscribe({
+  getCommentaires(uuid: string): void {
+    this.commentairesService.getCommentairesByDocument(uuid).subscribe({
       next: (comments) => {
         this.commentaires = comments;
       },
@@ -70,6 +71,8 @@ export class AdmindetailsComponent {
   // Méthode pour ajouter un commentaire
   addCommentaire(): void {
     if (this.authService.isAuthenticated() && this.newComment.trim() !== '' && this.documentDetails?.id !== undefined) {
+      this.isLoading = true; // Affiche le loader
+      // Création du commentaire avec son contenu et son ID du document
       const commentaireData = {
         contenu: this.newComment,
         document_id: this.documentDetails!.id // Utilisation de l'opérateur non-null assertion '!'
@@ -78,7 +81,8 @@ export class AdmindetailsComponent {
       this.commentairesService.addCommentaire(commentaireData).subscribe({
         next: () => {
           this.newComment = '';
-          this.getCommentaires(this.documentDetails?.id!); // Utilisation de l'opérateur non-null assertion '!'
+          this.getCommentaires(this.documentDetails?.uuid!); // Utilisation de l'opérateur non-null assertion '!'
+          this.isLoading = false; // Cache le loader
           Swal.fire({
             icon: 'success',
             title: 'Commentaire ajouté',
@@ -89,6 +93,7 @@ export class AdmindetailsComponent {
         },
         error: (err) => {
           // console.error('Erreur lors de l\'ajout du commentaire', err);
+          this.isLoading = false; // Cache le loader
           Swal.fire({
             icon: 'error',
             title: 'Erreur',

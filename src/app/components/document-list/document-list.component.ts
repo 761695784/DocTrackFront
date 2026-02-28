@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 
 export interface Document {
   id: number;
+  uuid:string;
   image: string;
   OwnerFirstName: string;
   OwnerLastName: string;
@@ -55,6 +56,7 @@ export class DocumentListComponent implements OnInit {
     this.fetchDocuments();
   }
 
+  // Methode pour charger tous les documents
   fetchDocuments(): void {
     this.publicationsService.getAllPublications().subscribe({
       next: (data) => {
@@ -64,7 +66,8 @@ export class DocumentListComponent implements OnInit {
           (a, b) =>
             new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
         );
-        this.filteredDocuments = this.documents; // Initialisez filteredDocuments avec tous les documents
+        // Initialisez filteredDocuments avec tous les documents
+        this.filteredDocuments = this.documents; 
       },
       // error: (err) => console.error('Failed to fetch documents', err)
     });
@@ -82,14 +85,15 @@ export class DocumentListComponent implements OnInit {
       );
       // console.log('Filtered Documents:', this.filteredDocuments);
     } else {
-      this.filteredDocuments = this.documents; // Si le champ de recherche est vide, affiche tous les documents
+      // Si le champ de recherche est vide, affiche tous les documents
+      this.filteredDocuments = this.documents; 
       // console.log('No search term, showing all documents.');
     }
   }
 
   //Methode pour la redirection vers un document specific
-  viewDetails(id: number): void {
-    this.router.navigate(['/document', id]);
+  viewDetails(uuid: string): void {
+    this.router.navigate(['/document', uuid]);
   }
 
   // Methode pour la redirection vers mes publications

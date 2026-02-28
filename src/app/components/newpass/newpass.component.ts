@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -12,11 +12,15 @@ import { NavbarComponent } from '../navbar/navbar.component';
   imports: [NavbarComponent, CommonModule, ReactiveFormsModule],
   templateUrl: './newpass.component.html',
   styleUrls: ['./newpass.component.css'],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA], 
+  
 })
 export class NewpassComponent implements OnInit {
   newPasswordForm!: FormGroup;
   token!: string; // Pour capturer le token dans l'URL
   email!: string; // Si besoin, capturer l'email
+  isLoading: boolean = false; // Variable pour contrôler l'affichage du loader
+
 
   constructor(
     private fb: FormBuilder,
@@ -55,6 +59,7 @@ export class NewpassComponent implements OnInit {
     if (this.newPasswordForm.invalid) {
       return;
     }
+    this.isLoading = true; // Activation du loader
 
     // Préparer les données à envoyer au backend
     const formData = {
@@ -66,6 +71,7 @@ export class NewpassComponent implements OnInit {
     // Appeler le service pour réinitialiser le mot de passe
     this.authService.resetPassword(formData).subscribe(
       (response) => {
+        this.isLoading = false; // Désactivation du loader
         Swal.fire({
           icon: 'success',
           title: 'Mot de passe réinitialisé',
@@ -77,6 +83,7 @@ export class NewpassComponent implements OnInit {
         });
       },
       (error) => {
+        this.isLoading = false; // Désactivation du loader
         Swal.fire({
           icon: 'error',
           title: 'Erreur',

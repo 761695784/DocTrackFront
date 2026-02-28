@@ -12,6 +12,7 @@
   // Interface pour décrire les données du document
   export interface DocumentDetails {
     id: number;
+    uuid: string; 
     image: string | null;
     OwnerFirstName: string;
     OwnerLastName: string;
@@ -39,6 +40,7 @@
 // Interface pour décrire les données du commentaire
   export interface Commentaire {
     id: number;
+    uuid: string; 
     contenu: string;
     document_id: number;
     user: {
@@ -54,7 +56,7 @@
     imports: [NavbarComponent, FooterComponent, CommonModule, FormsModule],
     templateUrl: './document-detail.component.html',
     styleUrls: ['./document-detail.component.css'],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA], // Ajoutez cette ligne
+    schemas: [CUSTOM_ELEMENTS_SCHEMA], 
   })
   export class DocumentDetailComponent implements OnInit {
     documentDetails: DocumentDetails | null = null; // Utiliser le type DocumentDetails
@@ -62,7 +64,7 @@
     newComment: string = ''; // Pour stocker le contenu du nouveau commentaire
     isRestitutionRequested: boolean = false; // Ajout pour suivre l'état de la demande de restitution
     isOwner: boolean = false; // Variable pour suivre si l'utilisateur est le propriétaire
-    isLoading: boolean = false;
+    isLoading: boolean = false; // Variable pour suivre l'état de chargement
 
     constructor(
       private route: ActivatedRoute,
@@ -71,56 +73,60 @@
       private authService: AuthService
     ) { }
 
-      ngOnInit(): void {
-        this.route.paramMap.subscribe(paramMap => {
-          const documentIdString = paramMap.get('id');
-          if (documentIdString) {
-            const documentId = +documentIdString; // Conversion en nombre
-            this.getDocumentDetails(documentId);
-            this.getCommentaires(documentId); // Charger les commentaires dès que le document est chargé
-          } else {
-            // console.error('Document ID is null or undefined');
-          }
-        });
-      }
+    ngOnInit(): void {
+      this.route.paramMap.subscribe(paramMap => {
+        const documentUuid = paramMap.get('uuid'); 
+        if (documentUuid) {
+          this.getDocumentDetails(documentUuid); 
+          this.getCommentaires(documentUuid); 
+        } else {
+          // console.error('Document UUID is null or undefined');
+        }
+      });
+    }
 
       //Methode pour recuperer les details d'une publications
-      getDocumentDetails(id: number): void {
-        this.detailsService.getDocumentDetails(id).subscribe({
+    getDocumentDetails(uuid: string): void {
+        this.detailsService.getDocumentDetails(uuid).subscribe({
           next: (details) => {
             this.documentDetails = details;
-
-            // Vérifier si l'utilisateur actuel est le propriétaire du document
-            const currentUserId = +localStorage.getItem('userId')!; // ID de l'utilisateur connecté
-            this.isOwner = currentUserId === this.documentDetails?.user.id; // Comparer avec l'ID de l'utilisateur qui a publié
+            const currentUserId = +localStorage.getItem('userId')!;
+            this.isOwner = currentUserId === this.documentDetails?.user.id;
           },
-          // error: (err) => console.error('Erreur lors de la récupération des détails du document', err)
+          error: (err) =>
+             console.error('Erreur lors de la récupération des détails du document', err)
         });
-      }
+    }
 
 
     //Methode d'affichage de commentaire
-    getCommentaires(documentId: number): void {
-      this.commentairesService.getCommentairesByDocument(documentId).subscribe({
+    getCommentaires(uuid: string): void {
+      this.commentairesService.getCommentairesByDocument(uuid).subscribe({
         next: (comments) => {
+          // console.log('Comments received:', comments);
           this.commentaires = comments;
         },
-        // error: (err) => console.error('Erreur lors de la récupération des commentaires', err)
+        error: (err) =>
+           console.error('Erreur lors de la récupération des commentaires', err)
       });
     }
 
     // Méthode pour ajouter un commentaire
     addCommentaire(): void {
-      if (this.authService.isAuthenticated() && this.newComment.trim() !== '' && this.documentDetails?.id !== undefined) {
+      if (this.authService.isAuthenticated() && this.newComment.trim() !== '' && this.documentDetails?.uuid !== undefined) {
+        this.isLoading = true; // Affiche le loader
         const commentaireData = {
           contenu: this.newComment,
-          document_id: this.documentDetails!.id // Utilisation de l'opérateur non-null assertion '!'
+           // Utilisation de l'opérateur non-null assertion '!'
+          document_id: this.documentDetails!.id
         };
 
         this.commentairesService.addCommentaire(commentaireData).subscribe({
           next: () => {
             this.newComment = '';
-            this.getCommentaires(this.documentDetails?.id!); // Utilisation de l'opérateur non-null assertion '!'
+             // Utilisation de l'opérateur non-null assertion '!'
+            this.getCommentaires(this.documentDetails?.uuid!); 
+            this.isLoading = false; 
             Swal.fire({
               icon: 'success',
               title: 'Commentaire ajouté',
@@ -131,6 +137,7 @@
           },
           error: (err) => {
             // console.error('Erreur lors de l\'ajout du commentaire', err);
+            this.isLoading = false; 
             Swal.fire({
               icon: 'error',
               title: 'Erreur',
@@ -154,7 +161,7 @@
     // Méthode pour demander la restitution d'un document
     requestRestitution(): void {
       if (!this.isOwner && this.documentDetails) {
-          // On affiche le loader dès le début
+        // On affiche le loader dès le début
         this.isLoading = true;
         Swal.fire({
           title: 'Êtes-vous sûr ?',
@@ -165,7 +172,7 @@
           cancelButtonText: 'Annuler'
         }).then((result) => {
           if (result.isConfirmed) {
-            this.detailsService.requestRestitution(this.documentDetails!.id).subscribe({
+            this.detailsService.requestRestitution(this.documentDetails!.uuid).subscribe({
               next: (response) => {
                 this.isLoading = false;
                 this.isRestitutionRequested = true;

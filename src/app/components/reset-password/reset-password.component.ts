@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { AuthService } from '../services/auth.service';
@@ -11,11 +11,15 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [NavbarComponent, ReactiveFormsModule, CommonModule],
   templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.css'] // Correction: 'styleUrl' => 'styleUrls'
+  styleUrls: ['./reset-password.component.css'], // Correction: 'styleUrl' => 'styleUrls'
+  schemas: [CUSTOM_ELEMENTS_SCHEMA], // Ajoutez cette ligne
+  
 })
 export class ResetPasswordComponent {
   resetPasswordForm: FormGroup; // FormGroup pour le formulaire
   isSubmitting: boolean = false; // Indicateur pour éviter des soumissions multiples
+  isLoading: boolean = false; // Variable pour contrôler l'affichage du loader
+
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     // Initialisation du formulaire
@@ -25,10 +29,14 @@ export class ResetPasswordComponent {
   }
 
   onSubmit(): void {
+
     // Si le formulaire n'est pas valide, ne pas soumettre
     if (this.resetPasswordForm.invalid) {
       return;
     }
+    
+    // Afficher le loader
+    this.isLoading = true;
 
     // Récupérer l'email depuis le formulaire
     const email = this.resetPasswordForm.value.email;
@@ -37,6 +45,8 @@ export class ResetPasswordComponent {
     // Appel au service pour envoyer l'email
     this.authService.sendResetPasswordEmail(email).subscribe({
       next: () => {
+        // Masquer le loader
+        this.isLoading = false;
         // Affichage d'une alerte SweetAlert en cas de succès
         Swal.fire({
           icon: 'success',
@@ -49,6 +59,8 @@ export class ResetPasswordComponent {
         this.resetPasswordForm.reset(); // Réinitialiser le formulaire
       },
       error: (error) => {
+        // Masquer le loader
+        this.isLoading = false;
         // Affichage d'une alerte SweetAlert en cas d'erreur
         Swal.fire({
           icon: 'error',

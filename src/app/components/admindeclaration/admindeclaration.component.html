@@ -7,7 +7,7 @@
 <div class="container" *ngIf="declarations.length > 0">
   <div class="grid-container">
     <div *ngFor="let declaration of declarations; let i = index" class="card">
-      <img src="/assets/declaration.png" alt="Document Image" />
+      <img src="/assets/declaration.webp" alt="Document Image" />
       <div class="card-content">
         <p><strong>{{ declaration.Title }}</strong></p>
         <p class="published-by">Déclaré par {{ declaration.user.FirstName }} {{ declaration.user.LastName }} le {{ declaration.created_at | date }}</p>
@@ -16,7 +16,7 @@
         <p>Prénom exacte : <strong>{{ declaration.FirstNameInDoc }}</strong></p>
         <p>Nom exacte : <strong>{{ declaration.LastNameInDoc }}</strong></p>
         <div class="card-actions">
-          <button class="my-btn" (click)="deleteDeclaration(declaration.id)">Supprimer</button>
+          <button class="my-btn" (click)="deleteDeclaration(declaration.uuid)">Supprimer</button>
         </div>
       </div>
     </div>

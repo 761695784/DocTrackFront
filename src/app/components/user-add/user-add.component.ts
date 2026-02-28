@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SideheadersComponent } from '../sideheaders/sideheaders.component';
@@ -11,11 +11,15 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [CommonModule, FormsModule, SideheadersComponent,  ReactiveFormsModule],
   templateUrl: './user-add.component.html',
-  styleUrl: './user-add.component.css'
+  styleUrl: './user-add.component.css',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA], // Ajoutez cette ligne
+  
 })
 export class UserAddComponent implements OnInit {
 
   userForm!: FormGroup; // Formulaire pour ajouter un utilisateur
+  isLoading: boolean = false; // Variable pour contrôler l'affichage du loader
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -42,9 +46,12 @@ export class UserAddComponent implements OnInit {
     if (this.userForm.valid) {
       const formData = this.userForm.value;
 
+      this.isLoading = true; // Activer le loader
+
       // Appel du service pour créer un utilisateur
       this.authService.addUser(formData).subscribe({
         next: (response) => {
+          this.isLoading = false; // Désactiver le loader
           Swal.fire({
             icon: 'success',
             title: 'Utilisateur ajouté',
@@ -53,6 +60,7 @@ export class UserAddComponent implements OnInit {
           this.router.navigate(['/adminuser']); // Redirection après succès
         },
         error: (err) => {
+          this.isLoading = false; // Désactiver le loader
           Swal.fire({
             icon: 'error',
             title: 'Erreur',

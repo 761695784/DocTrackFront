@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 
 interface User {
   id: number;
+  uuid:string;
   LastName: string;
   FirstName: string;
   email: string;

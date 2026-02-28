@@ -1,20 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { AuthService } from '../services/auth.service';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
+import { QrcodeComponent } from "../qrcode/qrcode.component";
 
 @Component({
   selector: 'app-changeprofil',
   standalone: true,
-  imports: [NavbarComponent, FormsModule, ReactiveFormsModule, CommonModule],
+  imports: [NavbarComponent, FormsModule, ReactiveFormsModule, CommonModule,],
   templateUrl: './changeprofil.component.html',
-  styleUrls: ['./changeprofil.component.css']
+  styleUrls: ['./changeprofil.component.css'],
+   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ChangeprofilComponent implements OnInit {
   profileForm: FormGroup;
+  isLoading: boolean = false;
 
   constructor(private fb: FormBuilder,private authService: AuthService,private router: Router) {
   /**
@@ -60,11 +63,13 @@ export class ChangeprofilComponent implements OnInit {
 
   onSubmit() {
     if (this.profileForm.valid) {
+      this.isLoading = true; // Chargement du spinner
       const profileData = this.profileForm.value;
 
       // Mettre à jour les informations de profil
       this.authService.updateProfile(profileData).subscribe(
         (response) => {
+          this.isLoading = false; // Arrêt du spinner
           Swal.fire({
             icon: 'success',
             title: 'Profil mis à jour',
@@ -76,6 +81,7 @@ export class ChangeprofilComponent implements OnInit {
           });
         },
         (error) => {
+          this.isLoading = false; // Arrêt du spinner
           Swal.fire({
             icon: 'error',
             title: 'Erreur',
@@ -87,12 +93,15 @@ export class ChangeprofilComponent implements OnInit {
 
       // Vérifier si l'utilisateur souhaite changer son mot de passe
       if (profileData.oldPassword && profileData.newPassword) {
+        // Chargement du spinner
+        this.isLoading = true;
         this.authService.changePassword({
           current_password: profileData.oldPassword,
           new_password: profileData.newPassword,
           new_password_confirmation: profileData.newPasswordConfirm
         }).subscribe(
           (response) => {
+            this.isLoading = false; // Arrêt du spinner
             Swal.fire({
               icon: 'success',
               title: 'Mot de passe changé',
@@ -104,6 +113,7 @@ export class ChangeprofilComponent implements OnInit {
             });
           },
           (error) => {
+            this.isLoading = false; // Arrêt du spinner
             Swal.fire({
               icon: 'error',
               title: 'Erreur',
@@ -121,6 +131,10 @@ export class ChangeprofilComponent implements OnInit {
         confirmButtonText: 'Ok'
       });
     }
+  }
+
+  redirectToFoundQR() {
+    this.router.navigate(['/code']);
   }
 
 }
