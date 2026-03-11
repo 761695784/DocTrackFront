@@ -53,19 +53,19 @@
 
         <div class="card-actions">
           <button class="delete-btn" (click)="deleteDeclaration(declaration.uuid)">Supprimer</button>
-          <button
-            *ngIf="declaration.certificat_id"
+         <button
+            *ngIf="declaration.certificat?.id"
             class="view-btn"
-            (click)="viewCertificate(declaration.certificat_id)">
+            (click)="viewCertificate(declaration.certificat.id)">
             👁 Voir certificat
-          </button>
-
+        </button>
+<!--
           <button
-            *ngIf="declaration.certificat_id"
-            class="download-btn"
-            (click)="downloadCertificate(declaration.certificat_id)">
-            ⬇ Télécharger
-          </button>
+              *ngIf="declaration.certificat?.id"
+              class="download-btn"
+              (click)="downloadCertificate(declaration.certificat.id)">
+              ⬇ Télécharger
+          </button> -->
         </div>
       </div>
     </div>

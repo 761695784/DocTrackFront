@@ -60,16 +60,16 @@ export class DocumentListComponent implements OnInit {
   fetchDocuments(): void {
     this.publicationsService.getAllPublications().subscribe({
       next: (data) => {
-        // console.log('Documents fetched:', data); // Vérifiez la réponse de l'API
+        console.log('Documents fetched:', data); // Vérifiez la réponse de l'API
         // Trier les documents du plus récent au plus ancien
         this.documents = data.sort(
           (a, b) =>
             new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
         );
         // Initialisez filteredDocuments avec tous les documents
-        this.filteredDocuments = this.documents; 
+        this.filteredDocuments = this.documents;
       },
-      // error: (err) => console.error('Failed to fetch documents', err)
+      error: (err) => console.error('Failed to fetch documents', err)
     });
   }
 
@@ -86,7 +86,7 @@ export class DocumentListComponent implements OnInit {
       // console.log('Filtered Documents:', this.filteredDocuments);
     } else {
       // Si le champ de recherche est vide, affiche tous les documents
-      this.filteredDocuments = this.documents; 
+      this.filteredDocuments = this.documents;
       // console.log('No search term, showing all documents.');
     }
   }
