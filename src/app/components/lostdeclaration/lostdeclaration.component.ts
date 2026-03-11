@@ -4,6 +4,7 @@ import { NavbarComponent } from './../navbar/navbar.component';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DeclarationService } from '../services/declaration.service';
+import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -18,7 +19,7 @@ export class LostdeclarationComponent {
   trashedDeclarations: any[] = [];
   showTrashedDeclarations: boolean = false;
 
-  constructor(private declarationService: DeclarationService) {}
+  constructor(private declarationService: DeclarationService, private http: HttpClient) {}
 
   // Charger les déclarations de l'utilisateur à l'initialisation
   ngOnInit() {
@@ -29,7 +30,7 @@ export class LostdeclarationComponent {
   loadUserDeclarations() {
     this.declarationService.getUserDeclarations().subscribe(
       (response: any) => {
-        this.declarations = response.data; 
+        this.declarations = response.data;
       },
       (error) => {
         // console.error('Erreur lors du chargement des déclarations', error);
@@ -103,4 +104,33 @@ export class LostdeclarationComponent {
       this.loadUserDeclarations(); // Recharger les déclarations normales si on revient à la vue normale
     }
   }
+
+  // Afficher le certificat de perte
+  viewCertificate(id: number) {
+  this.declarationService.viewCertificate(id).subscribe(
+    (blob: Blob) => {
+      const fileURL = window.URL.createObjectURL(blob);
+      window.open(fileURL);
+    },
+    () => {
+      Swal.fire('Erreur', 'Impossible d’ouvrir le certificat.', 'error');
+    }
+  );
+}
+  // Télécharger le certificat de perte
+  downloadCertificate(id: number) {
+  this.declarationService.downloadCertificate(id).subscribe(
+    (blob: Blob) => {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `certificat-${id}.pdf`;
+      a.click();
+      window.URL.revokeObjectURL(url);
+    },
+    () => {
+      Swal.fire('Erreur', 'Impossible de télécharger le certificat.', 'error');
+    }
+  );
+}
 }
