@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
   isLocked: boolean = false; // Indique si l'utilisateur est bloqué
   lockoutTimeRemaining: number = 0; // Temps restant en secondes
   countdownInterval: any; // Pour le compte à rebours
+  showPassword = false;
 
   constructor(
     private fb: FormBuilder,

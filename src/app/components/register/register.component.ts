@@ -28,7 +28,8 @@ export interface User {
 export class RegisterComponent {
   registerForm: FormGroup;
   isLoading: boolean = false; // Variable pour contrôler l'affichage du loader
-
+  showPassword = false;
+  showConfirmPassword = false;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     /**

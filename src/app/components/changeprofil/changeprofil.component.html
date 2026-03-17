@@ -19,7 +19,7 @@
         {{ profileForm.get('FirstName')?.value }} {{ profileForm.get('LastName')?.value }}
       </div>
       <div class="profile-email">{{ profileForm.get('email')?.value }}</div>
-      <div class="profile-role-badge">Utilisateur Simple</div>
+      <div class="profile-role-badge">Membre DocTrack</div>
 
       <div class="profile-meta">
         <div class="meta-item">
@@ -32,10 +32,43 @@
         </div>
       </div>
 
-      <button class="qr-button" type="button" (click)="redirectToFoundQR()">
-        <i class="fas fa-qrcode"></i>
-        Voir mon QR Code
-      </button>
+      <!-- QR Code intégré -->
+      <div class="qr-section">
+        <div class="qr-section-title">
+          <i class="fas fa-qrcode"></i>
+          <span>Mon QR Code personnel</span>
+        </div>
+
+        <div class="qr-image-wrap qr-code-print" *ngIf="qrCodeUrl">
+          <img [src]="qrCodeUrl" alt="QR Code DocTrack" />
+          <div class="qr-validity-badge" *ngIf="user?.qr_code_expires_at">
+            <i class="fas fa-clock"></i>
+            Valide jusqu'au {{ user.qr_code_expires_at | date:'dd/MM/yyyy' }}
+          </div>
+        </div>
+
+        <div class="qr-placeholder" *ngIf="!qrCodeUrl">
+          <i class="fas fa-spinner fa-spin"></i>
+          <span>Chargement du QR code...</span>
+        </div>
+
+        <div class="qr-info">
+          <i class="fas fa-info-circle"></i>
+          <span>Imprimez et plastifiez ce QR code</span>
+        </div>
+
+        <div class="qr-actions">
+          <button class="btn-qr-print" (click)="printQrCode()" type="button"
+                  aria-label="Imprimer le QR code">
+            <i class="fas fa-print"></i> Imprimer
+          </button>
+          <button class="btn-qr-renew" (click)="renewQrCode()" type="button"
+                  aria-label="Renouveler le QR code">
+            <i class="fas fa-sync-alt"></i> Renouveler
+          </button>
+        </div>
+      </div>
+
     </div>
 
     <!-- Formulaire droite -->
@@ -52,29 +85,39 @@
         <div class="form-row">
           <div class="field-group">
             <label for="LastName">Nom</label>
-            <input type="text" id="LastName" formControlName="LastName" placeholder="Votre nom">
+            <input type="text" id="LastName"
+                   formControlName="LastName"
+                   placeholder="Votre nom">
           </div>
           <div class="field-group">
             <label for="FirstName">Prénom</label>
-            <input type="text" id="FirstName" formControlName="FirstName" placeholder="Votre prénom">
+            <input type="text" id="FirstName"
+                   formControlName="FirstName"
+                   placeholder="Votre prénom">
           </div>
         </div>
 
         <div class="form-row">
           <div class="field-group">
             <label for="email">Email</label>
-            <input type="email" id="email" formControlName="email" placeholder="votre@email.com">
+            <input type="email" id="email"
+                   formControlName="email"
+                   placeholder="votre@email.com">
           </div>
           <div class="field-group">
             <label for="Phone">Téléphone</label>
-            <input type="tel" id="Phone" formControlName="Phone" placeholder="+221 XX XXX XX XX">
+            <input type="tel" id="Phone"
+                   formControlName="Phone"
+                   placeholder="+221 XX XXX XX XX">
           </div>
         </div>
 
         <div class="form-row">
           <div class="field-group full">
             <label for="Adress">Adresse</label>
-            <input type="text" id="Adress" formControlName="Adress" placeholder="Votre adresse">
+            <input type="text" id="Adress"
+                   formControlName="Adress"
+                   placeholder="Votre adresse">
           </div>
         </div>
 
@@ -84,19 +127,26 @@
         <div class="form-row">
           <div class="field-group">
             <label for="oldPassword">Ancien mot de passe</label>
-            <input type="password" id="oldPassword" formControlName="oldPassword" placeholder="••••••••">
+            <input type="password" id="oldPassword"
+                   formControlName="oldPassword"
+                   placeholder="••••••••">
           </div>
         </div>
 
         <div class="form-row">
           <div class="field-group">
             <label for="newPassword">Nouveau mot de passe</label>
-            <input type="password" id="newPassword" formControlName="newPassword" placeholder="••••••••">
+            <input type="password" id="newPassword"
+                   formControlName="newPassword"
+                   placeholder="••••••••">
           </div>
           <div class="field-group">
             <label for="newPasswordConfirm">Confirmation</label>
-            <input type="password" id="newPasswordConfirm" formControlName="newPasswordConfirm" placeholder="••••••••">
-            <small class="error-text" *ngIf="profileForm.hasError('passwordMismatch')">
+            <input type="password" id="newPasswordConfirm"
+                   formControlName="newPasswordConfirm"
+                   placeholder="••••••••">
+            <small class="error-text"
+                   *ngIf="profileForm.hasError('passwordMismatch')">
               Les mots de passe ne correspondent pas.
             </small>
           </div>

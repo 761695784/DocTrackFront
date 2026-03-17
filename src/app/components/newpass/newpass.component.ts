@@ -12,14 +12,37 @@ import { NavbarComponent } from '../navbar/navbar.component';
   imports: [NavbarComponent, CommonModule, ReactiveFormsModule],
   templateUrl: './newpass.component.html',
   styleUrls: ['./newpass.component.css'],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA], 
-  
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+
 })
 export class NewpassComponent implements OnInit {
   newPasswordForm!: FormGroup;
   token!: string; // Pour capturer le token dans l'URL
   email!: string; // Si besoin, capturer l'email
   isLoading: boolean = false; // Variable pour contrôler l'affichage du loader
+  showPassword = false;
+  showConfirm = false;
+  get passwordStrength(): number {
+  const pw = this.newPasswordForm.get('password')?.value || '';
+  if (pw.length === 0) return 0;
+  if (pw.length < 6) return 25;
+  if (pw.length < 10) return 60;
+  return 100;
+}
+
+get strengthClass(): string {
+  const s = this.passwordStrength;
+  if (s <= 25) return 'weak';
+  if (s <= 60) return 'medium';
+  return 'strong';
+}
+
+get strengthLabel(): string {
+  const s = this.passwordStrength;
+  if (s <= 25) return 'Faible';
+  if (s <= 60) return 'Moyen';
+  return 'Fort';
+}
 
 
   constructor(

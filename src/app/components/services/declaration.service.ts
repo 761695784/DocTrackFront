@@ -92,8 +92,5 @@ viewCertificate(uuid: string): Observable<Blob> {
   });
 }
 
-//   <a [href]="'https://ton-backend.com/api/certificats/' + certificat.id + '/telecharger'" target="_blank" download>
-//     <i class="fa fa-download"></i>
-// </a>
 
 }

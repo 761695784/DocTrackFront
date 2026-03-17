@@ -1,29 +1,86 @@
+<footer class="footer">
 
+  <!-- Top section -->
+  <div class="footer-top">
 
-  <footer class="footer">
-    <div class="footer-top">
-      <img src="/assets/logoo2.webp" alt="Logo" class="footer-logo">
-      <div class="footer-links">
-        <a href="/apropos"><strong>À propos</strong></a>
-        <a href="#commentcamarche"><strong>Comment ça marche</strong></a>
-        <a href="#stat"><strong>Statistiques</strong> </a>
-          <!-- WhatsApp (premier numéro) -->
-          <a href="https://wa.me/221761695784" target="_blank"  rel="noopener noreferrer">
-            <strong>Contact WhatsApp : +221 76 169 57 84</strong>
+    <!-- Logo + Brand -->
+    <div class="footer-brand">
+      <a routerLink="/" class="brand-link">
+        <img src="/assets/logoo2.webp" alt="DocTrack Logo" class="footer-logo">
+        <div class="brand-text">
+          <span class="brand-name">DocTrack</span>
+          <span class="brand-sub">Sénégal</span>
+        </div>
+      </a>
+      <p class="brand-desc">
+        Plateforme nationale de gestion des documents perdus et retrouvés au Sénégal.
+      </p>
+    </div>
+
+    <!-- Navigation -->
+    <div class="footer-nav">
+      <h4 class="footer-heading">Navigation</h4>
+      <ul>
+        <li><a routerLink="/accueil"><i class="fas fa-chevron-right"></i> Accueil</a></li>
+        <li><a routerLink="/liste"><i class="fas fa-chevron-right"></i> Publications</a></li>
+        <li><a routerLink="/lost"><i class="fas fa-chevron-right"></i> Déclaration de perte</a></li>
+        <li><a routerLink="/apropos"><i class="fas fa-chevron-right"></i> À propos</a></li>
+        <li><a routerLink="/private-policy"><i class="fas fa-chevron-right"></i> Politique de confidentialité</a></li>
+      </ul>
+    </div>
+
+    <!-- Contact -->
+    <div class="footer-contact">
+      <h4 class="footer-heading">Contact</h4>
+      <ul>
+        <li>
+          <a href="https://wa.me/221761695784" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-whatsapp"></i>
+            +221 76 169 57 84
           </a>
-          <a><strong>Email : </strong></a>
-        <a href="mailto:sendoctrack@gmail.com"><strong>sendoctrack&#64;gmail.com </strong></a>
-      </div>
-      <div class="social-icons">
-        <a href="#"><img src="/assets/facebook.png" alt="Facebook"></a>
-        <a href="#"><img src="/assets/tweeter.png" alt="Twitter"></a>
-        <a href="#"><img src="/assets/Linkedin.png" alt="Linkedin"></a>
-      </div>
-    </div>
-    <div class="footer-separator"></div>
-    <div class="footer-bottom">
-      <p><strong>&copy; 2024 Sénégal DocTrack. Tous droits réservés</strong></p>
-      <p><strong>Designé et Implementé par Malang Marna</strong> </p>
-    </div>
-  </footer>
+        </li>
+        <li>
+          <a href="mailto:sendoctrack@gmail.com">
+            <i class="fas fa-envelope"></i>
+            sendoctrack&#64;gmail.com
+          </a>
+        </li>
+        <li>
+          <span class="contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            Dakar, Sénégal
+          </span>
+        </li>
+      </ul>
 
+      <!-- Réseaux sociaux -->
+      <div class="social-icons">
+        <a href="#" class="social-btn facebook"
+           aria-label="Facebook" target="_blank">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="#" class="social-btn twitter"
+           aria-label="Twitter" target="_blank">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#" class="social-btn linkedin"
+           aria-label="LinkedIn" target="_blank">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Séparateur -->
+  <div class="footer-separator">
+    <span class="separator-dot"></span>
+  </div>
+
+  <!-- Bottom -->
+  <div class="footer-bottom">
+    <p>&copy; 2024 Sénégal DocTrack. Tous droits réservés.</p>
+    <p>Conçu et développé par <strong>Malang Marna</strong></p>
+  </div>
+
+</footer>
