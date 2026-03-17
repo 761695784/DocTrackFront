@@ -66,14 +66,14 @@ export class DeclarationService {
   }
 
   // Telecharger les certificats de pertes
-  downloadCertificate(id: number): Observable<Blob> {
+  downloadCertificate(uuid: number): Observable<Blob> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
 
     return this.http.get(
-      `${apiUrl}/certificats/${id}/telecharger`,
+      `${apiUrl}/certificats/${uuid}/telecharger`,
       {
         headers,
         responseType: 'blob'
@@ -82,20 +82,15 @@ export class DeclarationService {
   }
 
   // Voir un certificat (ouvrir en PDF)
-  viewCertificate(uuid: number): Observable<Blob> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-
-    return this.http.get(
-      `${apiUrl}/certificats/${uuid}/voir`,
-      {
-        headers,
-        responseType: 'blob'
-      }
-    );
-  }
+viewCertificate(uuid: string): Observable<Blob> {
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${localStorage.getItem('token')}`
+  });
+  return this.http.get(`${apiUrl}/certificats/${uuid}/voir`, {
+    headers,
+    responseType: 'blob'
+  });
+}
 
 //   <a [href]="'https://ton-backend.com/api/certificats/' + certificat.id + '/telecharger'" target="_blank" download>
 //     <i class="fa fa-download"></i>

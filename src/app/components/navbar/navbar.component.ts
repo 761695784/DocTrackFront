@@ -1,31 +1,58 @@
 import { Router } from '@angular/router';
 import { AuthService } from './../services/auth.service';
-import { Component } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-// import { ChangeprofilComponent } from '../changeprofil/changeprofil.component';
-
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule,FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
+
+  menuOpen = false;
+  userDropdownOpen = false;
+  userInitial = '';
+
   constructor(public authService: AuthService, private router: Router) {}
 
-  // Fonction pour rediriger vers la page de modification du mot de passe
+  ngOnInit() {
+    try {
+      const name = this.authService.getUserName();
+      this.userInitial = name ? name.charAt(0).toUpperCase() : 'U';
+    } catch (e) {
+      this.userInitial = 'U';
+    }
+  }
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+  }
+
+  toggleUserDropdown() {
+    this.userDropdownOpen = !this.userDropdownOpen;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.user-dropdown')) {
+      this.userDropdownOpen = false;
+    }
+  }
+
   goToChangePassword(): void {
-    this.router.navigate(['/modify']); // Correction de l'URL
+    this.userDropdownOpen = false;
+    this.router.navigate(['/modify']);
   }
 
-  // Fonction pour se déconnecter
   logout(): void {
+    this.userDropdownOpen = false;
     this.authService.logout();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/connexion']);
   }
-
 }

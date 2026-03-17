@@ -1,72 +1,55 @@
 <app-sideheaders></app-sideheaders>
 
-<!-- Barre de recherche et de filtrage -->
-<!-- Barre de recherche -->
-<div class="search-bar">
-
-    <!-- Menu déroulant pour filtrer par statut -->
+<div class="page-content">
+  <!-- Barre de recherche -->
+  <div class="search-bar">
     <select [(ngModel)]="selectedFilter" (change)="filterDocuments()">
       <option value="all-publications">Tous les documents</option>
       <option value="softdeleted">Supprimés</option>
       <option value="récupéré">Récupérés</option>
       <option value="non récupéré">Non récupérés</option>
     </select>
-  <input
-    type="text"
-    placeholder="Rechercher en tapant les mots clés"
-    [(ngModel)]="searchTerm"
-    (input)="filterDocuments()"
-  />
-  <button class="search-btn" (click)="filterDocuments()">Chercher un document</button>
-
-
-</div>
-
-
-<!-- Conteneur principal pour les documents -->
-<div class="container">
-  <div *ngIf="pasderesultat" class="error-message">
-    Aucun document trouvé pour votre recherche.
+    <input
+      type="text"
+      placeholder="Rechercher en tapant les mots clés"
+      [(ngModel)]="searchTerm"
+      (input)="filterDocuments()"
+    />
+    <button class="search-btn" (click)="filterDocuments()">Chercher un document</button>
   </div>
-  <!-- Grille des cartes de documents -->
-  <div class="grid-container">
-    <div *ngFor="let document of paginatedDocuments" class="card">
-      <img *ngIf="document.image" loading="lazy" [src]="document.image" alt="document" />
-      <div class="blur-overlay"></div>
-      <p *ngIf="!document.image">Image non disponible</p>
 
-      <div class="card-content">
-        <p class="published-by">
-          Publié par {{ document.user.FirstName }} {{ document.user.LastName }} | {{ document.created_at | date }}
-        </p>
-        <p class="phone-number">📞 {{ document.user.Phone }}</p>
-        <p>Document : <strong>{{ document.document_type.TypeName }}</strong></p>
-
-        <p>Prénom propriétaire : <strong>{{ document.OwnerFirstName }}</strong></p>
-        <p>Nom propriétaire : <strong>{{ document.OwnerLastName }}</strong></p>
-
-        <div class="card-actions">
-          <span
-            class="delete-icon"
-            (click)="deletePublication(document.id)"
-            style="cursor: pointer; color: red; font-size: 40px;"
-            >🗑️</span
-          >
-
-          <button class="details-btn" (click)="viewDetails(document.uuid)">Voir détails</button>
-
-          <span class="status" [ngClass]="document.statut === 'récupéré' ? 'success' : 'error'">
-            {{ document.statut === 'récupéré' ? '✔️' : '❌' }}
-          </span>
+  <div class="container">
+    <div *ngIf="pasderesultat" class="error-message">
+      Aucun document trouvé pour votre recherche.
+    </div>
+    <div class="grid-container">
+      <div *ngFor="let document of paginatedDocuments" class="card">
+        <img *ngIf="document.image" loading="lazy" [src]="document.image" alt="document" />
+        <div class="blur-overlay"></div>
+        <p *ngIf="!document.image" class="no-image">Image non disponible</p>
+        <div class="card-content">
+          <p class="published-by">
+            Publié par {{ document.user.FirstName }} {{ document.user.LastName }} | {{ document.created_at | date }}
+          </p>
+          <p class="phone-number">📞 {{ document.user.Phone }}</p>
+          <p class="doc-info">Type : <strong>{{ document.document_type.TypeName }}</strong></p>
+          <p class="doc-info">Prénom : <strong>{{ document.OwnerFirstName }}</strong></p>
+          <p class="doc-info">Nom : <strong>{{ document.OwnerLastName }}</strong></p>
+          <div class="card-actions">
+            <span class="delete-icon" (click)="deletePublication(document.id)">🗑️</span>
+            <button class="details-btn" (click)="viewDetails(document.uuid)">Voir détails</button>
+            <span class="status" [ngClass]="document.statut === 'récupéré' ? 'success' : 'error'">
+              {{ document.statut === 'récupéré' ? '✔️' : '❌' }}
+            </span>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Contrôles de pagination -->
-  <div class="pagination-controls">
-    <button (click)="pageChanged(currentPage - 1)" [disabled]="currentPage === 1">Précédent</button>
-    <span>Page {{ currentPage }} sur {{ totalPages }}</span>
-    <button (click)="pageChanged(currentPage + 1)" [disabled]="currentPage === totalPages">Suivant</button>
+    <div class="pagination-controls">
+      <button (click)="pageChanged(currentPage - 1)" [disabled]="currentPage === 1">Précédent</button>
+      <span>Page {{ currentPage }} sur {{ totalPages }}</span>
+      <button (click)="pageChanged(currentPage + 1)" [disabled]="currentPage === totalPages">Suivant</button>
+    </div>
   </div>
 </div>

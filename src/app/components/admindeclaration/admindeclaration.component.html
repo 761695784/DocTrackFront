@@ -1,34 +1,96 @@
 <app-sideheaders></app-sideheaders>
 
-<div *ngIf="declarations.length === 0">
-  <p>Aucune déclaration disponible.</p>
-</div>
+<div class="page-content">
 
-<div class="container" *ngIf="declarations.length > 0">
-  <div class="grid-container">
-    <div *ngFor="let declaration of declarations; let i = index" class="card">
-      <img src="/assets/declaration.webp" alt="Document Image" />
-      <div class="card-content">
-        <p><strong>{{ declaration.Title }}</strong></p>
-        <p class="published-by">Déclaré par {{ declaration.user.FirstName }} {{ declaration.user.LastName }} le {{ declaration.created_at | date }}</p>
-        <p>📞 : <strong>{{ declaration.user.Phone }}</strong></p>
-        <p>Document: <strong>{{ declaration.document_type.TypeName }}</strong></p>
-        <p>Prénom exacte : <strong>{{ declaration.FirstNameInDoc }}</strong></p>
-        <p>Nom exacte : <strong>{{ declaration.LastNameInDoc }}</strong></p>
-        <div class="card-actions">
-          <button class="my-btn" (click)="deleteDeclaration(declaration.uuid)">Supprimer</button>
-        </div>
+  <!-- Page header -->
+  <div class="page-header">
+    <div class="page-title-wrap">
+      <div class="page-title-icon">
+        <i class="fas fa-file-alt"></i>
+      </div>
+      <div>
+        <h1 class="page-title">Déclarations de perte</h1>
+        <p class="page-subtitle">{{ declarations.length }} déclaration(s) enregistrée(s)</p>
       </div>
     </div>
   </div>
-</div>
 
-  <!-- Contrôles de pagination -->
-  <div class="pagination-controls">
-    <button (click)="pageChanged(currentPage - 1)" [disabled]="currentPage === 1">Précédent</button>
-    <span>Page {{ currentPage }} sur {{ totalPages }}</span>
-    <button (click)="pageChanged(currentPage + 1)" [disabled]="currentPage === totalPages">Suivant</button>
+  <!-- Etat vide -->
+  <div *ngIf="declarations.length === 0" class="empty-state">
+    <div class="empty-icon">📋</div>
+    <h3>Aucune déclaration disponible</h3>
+    <p>Les déclarations de perte apparaîtront ici.</p>
   </div>
 
+  <!-- Grid -->
+  <div class="grid-container" *ngIf="declarations.length > 0">
+    <div *ngFor="let declaration of paginatedDeclarations; let i = index"
+         class="card"
+         [style.animation-delay]="i * 0.05 + 's'">
 
-<!-- <app-footer></app-footer> -->
+      <!-- Badge type document -->
+      <div class="card-badge">{{ declaration.document_type.TypeName }}</div>
+
+      <!-- Image -->
+      <div class="card-image-wrap">
+        <img src="/assets/declaration.webp" alt="Déclaration" />
+        <div class="card-image-overlay"></div>
+      </div>
+
+      <div class="card-content">
+
+        <!-- Titre -->
+        <h3 class="card-title">{{ declaration.Title }}</h3>
+
+        <!-- Déclarant -->
+        <div class="card-meta">
+          <span class="meta-label">Déclaré par</span>
+          <span class="meta-value">
+            {{ declaration.user.FirstName }} {{ declaration.user.LastName }}
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="meta-label">Date</span>
+          <span class="meta-value">{{ declaration.created_at | date:'dd/MM/yyyy' }}</span>
+        </div>
+        <div class="card-meta">
+          <span class="meta-label">Téléphone</span>
+          <span class="meta-value">📞 {{ declaration.user.Phone }}</span>
+        </div>
+
+        <div class="card-divider"></div>
+
+        <!-- Infos document -->
+        <div class="card-meta">
+          <span class="meta-label">Prénom</span>
+          <span class="meta-value highlight">{{ declaration.FirstNameInDoc }}</span>
+        </div>
+        <div class="card-meta">
+          <span class="meta-label">Nom</span>
+          <span class="meta-value highlight">{{ declaration.LastNameInDoc }}</span>
+        </div>
+
+        <!-- Actions -->
+        <div class="card-actions">
+          <button class="btn-delete" (click)="deleteDeclaration(declaration.uuid)">
+            <i class="fas fa-trash-alt"></i>
+            Supprimer
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination-controls" *ngIf="declarations.length > 0">
+    <button (click)="pageChanged(currentPage - 1)" [disabled]="currentPage === 1">
+      <i class="fas fa-chevron-left"></i> Précédent
+    </button>
+    <span>Page {{ currentPage }} sur {{ totalPages }}</span>
+    <button (click)="pageChanged(currentPage + 1)" [disabled]="currentPage === totalPages">
+      Suivant <i class="fas fa-chevron-right"></i>
+    </button>
+  </div>
+
+</div>

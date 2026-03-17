@@ -54,7 +54,7 @@
         <div class="card-actions">
           <button class="delete-btn" (click)="deleteDeclaration(declaration.uuid)">Supprimer</button>
          <button
-            *ngIf="declaration.certificat?.id"
+            *ngIf="declaration.certificat?.uuid"
             class="view-btn"
             (click)="viewCertificate(declaration.certificat.uuid)">
             👁 Voir certificat

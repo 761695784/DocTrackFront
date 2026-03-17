@@ -1,61 +1,81 @@
-<app-sidebar style="position: absolute; z-index: 2;"></app-sidebar>
+<div class="layout-wrapper">
 
-<div class="header">
-      <!-- Section de défilement du texte -->
-      <div class="scroll-text" style="flex-grow: 1; margin-right: 20px;">
-        <marquee direction="left" scrollamount="6" behavior="scroll" style="font-size: 40px; color: #31287C; font-weight: bold;">
-          Bienvenue sur DocTrack - Simplifiez la gestion de vos documents perdus et retrouvés ! Ensemble, nous construisons un monde où chaque document trouve sa place.
-        </marquee>
+  <app-sidebar></app-sidebar>
+
+  <div class="layout-right">
+    <div class="header">
+      <div class="marquee-wrap">
+        <div class="marquee-track">
+          <span class="marquee-text">
+            Bienvenue sur DocTrack — Simplifiez la gestion de vos documents perdus et retrouvés !
+            <span class="marquee-dot"></span>
+            Ensemble, construisons un monde où chaque document trouve sa place.
+            <span class="marquee-dot"></span>
+          </span>
+          <span class="marquee-text" aria-hidden="true">
+            Bienvenue sur DocTrack — Simplifiez la gestion de vos documents perdus et retrouvés !
+            <span class="marquee-dot"></span>
+            Ensemble, construisons un monde où chaque document trouve sa place.
+            <span class="marquee-dot"></span>
+          </span>
+        </div>
       </div>
 
-  <div class="header-right">
-    <!-- Icône de notification -->
-    <div class="notification-icon" ngbDropdown>
-      <button class="btn" ngbDropdownToggle style="background-color:#31287C;">
-        <i class="fas fa-bell"></i>
-        <span class="badge badge-light">{{ unreadCount }}</span>
-      </button>
-      <div ngbDropdownMenu>
-        <div *ngIf="notifications.length > 0; else noNotifications">
-          <div *ngFor="let notification of notifications">
-            <ng-container *ngIf="notification.type === 'document'; else declarationTemplate">
-              <a class="dropdown-item"
-                 [routerLink]="['/admin/adminpub']"
-                 (click)="markNotificationAsRead(notification.id)">
-                {{ notification.message }}
-              </a>
+      <div class="header-right">
+
+        <div class="hbtn-wrap" ngbDropdown>
+          <button class="hbtn" ngbDropdownToggle>
+            <i class="fas fa-bell"></i>
+            <span class="notif-badge" *ngIf="unreadCount > 0">{{ unreadCount }}</span>
+          </button>
+          <div ngbDropdownMenu class="notif-panel">
+            <div class="np-header">
+              <span class="np-title">Notifications</span>
+            </div>
+            <ng-container *ngIf="notifications.length > 0; else noNotif">
+              <div *ngFor="let n of notifications" class="np-item"
+                   [routerLink]="n.type === 'document' ? ['/admin/adminpub'] : ['/admin/admindec']"
+                   (click)="markNotificationAsRead(n.id)">
+                <div class="np-dot"></div>
+                <div>
+                  <div class="np-msg">{{ n.message }}</div>
+                  <div class="np-time">{{ n.created_at | date:'shortTime' }}</div>
+                </div>
+              </div>
             </ng-container>
-            <ng-template #declarationTemplate>
-              <a class="dropdown-item"
-                 [routerLink]="['/admin/admindec']"
-                 (click)="markNotificationAsRead(notification.id)">
-                {{ notification.message }}
-              </a>
+            <ng-template #noNotif>
+              <div class="np-empty">Aucune nouvelle notification</div>
             </ng-template>
           </div>
         </div>
-        <ng-template #noNotifications>
-          <div class="dropdown-item text-muted">Aucune notification</div>
-        </ng-template>
-      </div>
-    </div>
 
-
-
-          <!-- Dropdown utilisateur -->
-          <div *ngIf="authService.isAuthenticated()" ngbDropdown>
-            <button class="btn btn" ngbDropdownToggle style="background-color:#31287C;">
-              <i class="fas fa-user"></i>
-              <span class="user-name mr-2" style="color: white; font-weight: bold;">
-                {{ authService.getUserName() }}
-              </span>
-            </button>
-            <div ngbDropdownMenu>
-              <a class="dropdown-item" href="/admin/profil" (click)="goToChangePassword()">Modifier mon profil</a>
-              <a class="dropdown-item" href="/connexion" (click)="logout()">Déconnexion</a>
+        <div class="hbtn-wrap" *ngIf="authService.isAuthenticated()" ngbDropdown>
+          <button class="hbtn" ngbDropdownToggle>
+            <!-- <div class="user-avatar">{{ userInitial }}</div> -->
+            <span>{{ authService.getUserName() }}</span>
+            <!-- <i class="fas fa-chevron-down" style="font-size:10px; opacity:0.7;"></i> -->
+          </button>
+          <div ngbDropdownMenu class="user-panel">
+            <div class="dp-header">
+              <!-- <div class="dp-avatar">{{ userInitial }}</div> -->
+              <div>
+                <div class="dp-name">{{ authService.getUserName() }}</div>
+                <div class="dp-role">Administrateur</div>
+              </div>
+            </div>
+            <a class="dp-item" routerLink="/admin/profil">
+              <i class="fas fa-user dp-icon"></i>
+              Modifier mon profil
+            </a>
+            <div class="dp-item danger" (click)="logout()">
+              <i class="fas fa-sign-out-alt dp-icon"></i>
+              Déconnexion
             </div>
           </div>
+        </div>
+
+      </div>
+    </div>
   </div>
+
 </div>
-
-
