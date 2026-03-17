@@ -82,14 +82,14 @@ export class DeclarationService {
   }
 
   // Voir un certificat (ouvrir en PDF)
-  viewCertificate(id: number): Observable<Blob> {
+  viewCertificate(uuid: number): Observable<Blob> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
 
     return this.http.get(
-      `${apiUrl}/certificats/${id}/voir`,
+      `${apiUrl}/certificats/${uuid}/voir`,
       {
         headers,
         responseType: 'blob'
