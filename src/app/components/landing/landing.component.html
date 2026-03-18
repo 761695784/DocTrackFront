@@ -68,7 +68,7 @@
                  [src]="document.image" alt="Document">
             <div class="blur-overlay"></div>
             <div class="result-type-badge">
-              {{ document.document_type?.TypeName }}
+              {{ document.document_type.TypeName }}
             </div>
             <div class="result-status-badge"
                  [ngClass]="document.statut === 'récupéré' ? 'badge-green' : 'badge-orange'">

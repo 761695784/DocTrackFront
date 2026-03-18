@@ -351,4 +351,16 @@ export class AuthService {
   }): Observable<any> {
     return this.http.post(`${apiUrl}/reset-password`, data);
   }
+
+  getActivityLogs(page = 1): Observable<any> {
+  return this.http.get(`${apiUrl}/activity-logs?page=${page}`, {
+    headers: this.getAuthHeaders()
+  });
+}
+
+getActivityLogsByType(type: string, page = 1): Observable<any> {
+  return this.http.get(`${apiUrl}/activity-logs/${type}?page=${page}`, {
+    headers: this.getAuthHeaders()
+  });
+}
 }

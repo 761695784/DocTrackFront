@@ -40,7 +40,7 @@
 
             <!-- Badge type -->
             <div class="doc-type-badge">
-              {{ documentDetails.document_type?.TypeName }}
+              {{ documentDetails.document_type.TypeName }}
             </div>
           </div>
         </div>
@@ -50,7 +50,7 @@
 
           <!-- Alerte restitution -->
           <div class="restitution-alert"
-               *ngIf="documentDetails?.statut !== 'récupéré'">
+               *ngIf="documentDetails.statut !== 'récupéré'">
             <div class="alert-icon">
               <i class="fas fa-hand-holding"></i>
             </div>
@@ -76,7 +76,7 @@
             <div class="meta-row">
               <div class="meta-item">
                 <span class="meta-label">Type de document</span>
-                <span class="meta-value">{{ documentDetails.document_type?.TypeName }}</span>
+                <span class="meta-value">{{ documentDetails.document_type.TypeName }}</span>
               </div>
             </div>
             <div class="meta-row">
@@ -106,7 +106,7 @@
 
           <!-- Bouton restituer -->
           <div class="doc-actions"
-               *ngIf="!isOwner && documentDetails?.statut !== 'récupéré'">
+               *ngIf="!isOwner && documentDetails.statut !== 'récupéré'">
             <button class="btn-restituer"
                     (click)="requestRestitution()"
                     [disabled]="isRestitutionRequested">
@@ -116,7 +116,7 @@
           </div>
 
           <!-- Message récupéré -->
-          <div class="recovered-badge" *ngIf="documentDetails?.statut === 'récupéré'">
+          <div class="recovered-badge" *ngIf="documentDetails.statut === 'récupéré'">
             <i class="fas fa-check-circle"></i>
             <span>Ce document a été récupéré par son propriétaire</span>
           </div>
@@ -147,7 +147,7 @@
 
         <div class="comment-item" *ngFor="let commentaire of commentaires">
           <div class="comment-avatar">
-            {{ commentaire.user.FirstName?.charAt(0) }}{{ commentaire.user.LastName?.charAt(0) }}
+            {{ commentaire.user.FirstName.charAt(0) }}{{ commentaire.user.LastName.charAt(0) }}
           </div>
           <div class="comment-body">
             <div class="comment-meta">
@@ -169,7 +169,7 @@
                  (keyup.enter)="addCommentaire()">
         </div>
         <button class="btn-comment" (click)="addCommentaire()"
-                [disabled]="isLoading || !newComment?.trim()">
+                [disabled]="isLoading || !newComment.trim()">
           <i class="fas fa-paper-plane"></i>
           {{ isLoading ? 'Envoi...' : 'Envoyer' }}
         </button>

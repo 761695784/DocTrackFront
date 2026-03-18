@@ -30,6 +30,7 @@ import { NewpassComponent } from './components/newpass/newpass.component';
 import { PrivatePolicyComponent } from './components/private-policy/private-policy.component';
 import { QrcodeComponent } from './components/qrcode/qrcode.component';
 import { AdmincertifComponent } from './components/admincertif/admincertif.component';
+import { AdminlogsComponent } from './components/adminlogs/adminlogs.component';
 
 
 export const routes: Routes = [
@@ -70,6 +71,7 @@ export const routes: Routes = [
       { path: 'adminstats', component: AdminstatsComponent },
       { path: 'admindetails/:uuid', component: AdmindetailsComponent },
       { path: 'admincertif', component: AdmincertifComponent },
+      { path: 'adminlogs', component: AdminlogsComponent },
     ]
   },
 
