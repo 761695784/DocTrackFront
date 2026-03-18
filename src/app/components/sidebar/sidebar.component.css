@@ -58,7 +58,6 @@
   flex: 1;
   overflow-y: auto;
   padding: 8px 0;
-  scrollbar-width: none;
 }
 
 .sb-nav::-webkit-scrollbar { display: none; }

@@ -105,64 +105,13 @@ export class LostdeclarationComponent {
     }
   }
 
-  // Afficher le certificat de perte
-viewCertificate(certificatUuid: string) {
-  if (!certificatUuid) {
-    Swal.fire('Erreur', 'Identifiant du certificat introuvable.', 'error');
-    return;
+    // Afficher le certificat de perte
+  viewCertificate(uuid: string): void {
+    this.declarationService.viewCertificate(uuid); // gère tout en interne
+  }
+  // Telecharger le certificat
+  downloadCertificate(uuid: string): void {
+    this.declarationService.triggerDownload(uuid); // gère tout en interne
   }
 
-  this.declarationService.viewCertificate(certificatUuid).subscribe(
-    (blob: Blob) => {
-      try {
-        const fileURL = URL.createObjectURL(blob);
-
-        // Sur mobile, window.open est souvent bloqué — on crée un lien cliquable
-        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-        if (isMobile) {
-          const a = document.createElement('a');
-          a.href = fileURL;
-          a.target = '_blank';
-          a.rel = 'noopener noreferrer';
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          setTimeout(() => URL.revokeObjectURL(fileURL), 10000);
-        } else {
-          const newWindow = window.open(fileURL, '_blank');
-          if (!newWindow) {
-            // Popup bloquée — fallback lien
-            const a = document.createElement('a');
-            a.href = fileURL;
-            a.target = '_blank';
-            a.click();
-          }
-          setTimeout(() => URL.revokeObjectURL(fileURL), 10000);
-        }
-      } catch (e) {
-        Swal.fire('Erreur', 'Impossible d\'ouvrir le certificat.', 'error');
-      }
-    },
-    () => {
-      Swal.fire('Erreur', 'Impossible de charger le certificat.', 'error');
-    }
-  );
-}
-  // Télécharger le certificat de perte
-  downloadCertificate(id: number) {
-  this.declarationService.downloadCertificate(id).subscribe(
-    (blob: Blob) => {
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `certificat-${id}.pdf`;
-      a.click();
-      window.URL.revokeObjectURL(url);
-    },
-    () => {
-      Swal.fire('Erreur', 'Impossible de télécharger le certificat.', 'error');
-    }
-  );
-}
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap,map } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { apiUrl } from './apiUrl';
 
@@ -11,6 +11,13 @@ import { apiUrl } from './apiUrl';
 export class DeclarationService {
 
   constructor(private http: HttpClient, private authService: AuthService) {}
+
+    // ── Helper headers ──────────────────────────────
+  private getHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token') ?? '';
+    return new HttpHeaders({ Authorization: `Bearer ${token}` });
+  }
+
 
   // Récupérer les déclarations de l'utilisateur connecté
   getUserDeclarations(): Observable<any[]> {
@@ -57,40 +64,93 @@ export class DeclarationService {
     const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
     return this.http.post(`${apiUrl}/declarations/restore/${id}`, {}, { headers });
   }
+ // ── Certificats ─────────────────────────────────
 
-  // Afficher tous les certificats de pertes
+  /**
+   * Tous les certificats — Admin uniquement
+   * Retourne le tableau depuis res.certificats
+   */
   getCertificates(): Observable<any[]> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
-    return this.http.get<any[]>(`${apiUrl}/admin/certificats`, { headers });
-  }
-
-  // Telecharger les certificats de pertes
-  downloadCertificate(uuid: number): Observable<Blob> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-
-    return this.http.get(
-      `${apiUrl}/certificats/${uuid}/telecharger`,
-      {
-        headers,
-        responseType: 'blob'
-      }
+    return this.http.get<any>(
+      `${apiUrl}/admin/certificats`,
+      { headers: this.getHeaders() }
+    ).pipe(
+      map(res => res.certificats ?? res ?? [])
     );
   }
 
-  // Voir un certificat (ouvrir en PDF)
-viewCertificate(uuid: string): Observable<Blob> {
-  const headers = new HttpHeaders({
-    'Authorization': `Bearer ${localStorage.getItem('token')}`
-  });
-  return this.http.get(`${apiUrl}/certificats/${uuid}/voir`, {
-    headers,
-    responseType: 'blob'
-  });
-}
+  /**
+   * Mes certificats — Utilisateur connecté
+   */
+  getMesCertificats(): Observable<any[]> {
+    return this.http.get<any>(
+      `${apiUrl}/my-certificats`,
+      { headers: this.getHeaders() }
+    ).pipe(
+      map(res => res.certificats ?? res ?? [])
+    );
+  }
 
+  /**
+   * Voir un certificat en PDF (ouvre dans le navigateur)
+   * Utilise window.open pour un affichage direct
+   */
+  viewCertificate(uuid: string): void {
+    // On ouvre directement — le token est vérifié côté backend
+    // via l'URL ou on peut passer par un blob si l'API l'exige
+    const token = localStorage.getItem('token') ?? '';
+    this.http.get(
+      `${apiUrl}/certificats/${uuid}/voir`,
+      { headers: this.getHeaders(), responseType: 'blob' }
+    ).subscribe({
+      next: (blob) => {
+        const url = window.URL.createObjectURL(blob);
+        window.open(url, '_blank');
+        // Libère la mémoire après 60s
+        setTimeout(() => window.URL.revokeObjectURL(url), 60000);
+      },
+      error: (err) => console.error('Erreur ouverture certificat:', err)
+    });
+  }
+
+  /**
+   * Voir un certificat — retourne Observable<Blob>
+   * Pour les cas où on gère le blob manuellement
+   */
+  viewCertificateBlob(uuid: string): Observable<Blob> {
+    return this.http.get(
+      `${apiUrl}/certificats/${uuid}/voir`,
+      { headers: this.getHeaders(), responseType: 'blob' }
+    );
+  }
+
+  /**
+   * Télécharger un certificat PDF
+   */
+  downloadCertificate(uuid: string): Observable<Blob> {
+    return this.http.get(
+      `${apiUrl}/certificats/${uuid}/telecharger`,
+      { headers: this.getHeaders(), responseType: 'blob' }
+    );
+  }
+
+  /**
+   * Helper : déclenche le téléchargement du PDF directement
+   */
+  triggerDownload(uuid: string, filename?: string): void {
+    this.downloadCertificate(uuid).subscribe({
+      next: (blob) => {
+        const url  = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href     = url;
+        link.download = filename ?? `certificat_${uuid}.pdf`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      },
+      error: (err) => console.error('Erreur téléchargement:', err)
+    });
+  }
 
 }
