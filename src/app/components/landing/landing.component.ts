@@ -50,7 +50,7 @@ export class LandingComponent implements OnInit {
   }
 
   // Methode pour la redirection vers les details de la publications
-  viewDetails(id: number): void {
-    this.router.navigate(['/document', id]);
+  viewDetails(uuid: string): void {
+    this.router.navigate(['/document', uuid]);
   }
 }

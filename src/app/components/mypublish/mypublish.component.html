@@ -52,9 +52,9 @@
              [style.animation-delay]="i * 0.05 + 's'">
           <div class="card-image-wrap">
             <img loading="lazy"
-                 [src]="pub.image || '/assets/default-image.png'"
+                 [src]="pub.image_blurred || '/assets/default-image.png'"
                  alt="Document" />
-            <div class="card-image-overlay"></div>
+            <!-- <div class="card-image-overlay"></div> -->
             <div class="card-badge badge-red">Supprimée</div>
           </div>
           <div class="card-content">
@@ -115,11 +115,10 @@
 
           <div class="card-image-wrap">
             <img loading="lazy"
-                 [src]="publication.image || '/assets/default-image.png'"
+                 [src]="publication.image_blurred || '/assets/default-image.png'"
                  alt="Document" />
             <div class="card-image-overlay"></div>
-            <div class="blur-overlay"></div>
-
+            <!-- <div class="blur-overlay"></div> -->
             <!-- Badge type document -->
             <div class="card-badge badge-blue">
               {{ publication.document_type.TypeName }}
@@ -161,7 +160,7 @@
 
             <div class="card-actions">
               <button class="btn-delete"
-                      (click)="deletePublication(publication.id)">
+                      (click)="deletePublication(publication.uuid)">
                 <i class="fas fa-trash-alt"></i> Supprimer
               </button>
               <button class="btn-status"

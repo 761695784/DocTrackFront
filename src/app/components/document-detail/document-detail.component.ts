@@ -12,8 +12,11 @@
   // Interface pour décrire les données du document
   export interface DocumentDetails {
     id: number;
-    uuid: string; 
+    uuid: string;
     image: string | null;
+    image_thumb: string;
+    image_blurred: string;
+    image_optimized: string;
     OwnerFirstName: string;
     OwnerLastName: string;
     Location: string;
@@ -40,7 +43,7 @@
 // Interface pour décrire les données du commentaire
   export interface Commentaire {
     id: number;
-    uuid: string; 
+    uuid: string;
     contenu: string;
     document_id: number;
     user: {
@@ -56,7 +59,7 @@
     imports: [NavbarComponent, FooterComponent, CommonModule, FormsModule],
     templateUrl: './document-detail.component.html',
     styleUrls: ['./document-detail.component.css'],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA], 
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
   })
   export class DocumentDetailComponent implements OnInit {
     documentDetails: DocumentDetails | null = null; // Utiliser le type DocumentDetails
@@ -75,10 +78,10 @@
 
     ngOnInit(): void {
       this.route.paramMap.subscribe(paramMap => {
-        const documentUuid = paramMap.get('uuid'); 
+        const documentUuid = paramMap.get('uuid');
         if (documentUuid) {
-          this.getDocumentDetails(documentUuid); 
-          this.getCommentaires(documentUuid); 
+          this.getDocumentDetails(documentUuid);
+          this.getCommentaires(documentUuid);
         } else {
           // console.error('Document UUID is null or undefined');
         }
@@ -125,8 +128,8 @@
           next: () => {
             this.newComment = '';
              // Utilisation de l'opérateur non-null assertion '!'
-            this.getCommentaires(this.documentDetails?.uuid!); 
-            this.isLoading = false; 
+            this.getCommentaires(this.documentDetails?.uuid!);
+            this.isLoading = false;
             Swal.fire({
               icon: 'success',
               title: 'Commentaire ajouté',
@@ -137,7 +140,7 @@
           },
           error: (err) => {
             // console.error('Erreur lors de l\'ajout du commentaire', err);
-            this.isLoading = false; 
+            this.isLoading = false;
             Swal.fire({
               icon: 'error',
               title: 'Erreur',

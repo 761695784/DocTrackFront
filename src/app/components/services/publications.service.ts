@@ -27,59 +27,60 @@ export class PublicationsService {
     return this.http.get<Document[]>(`${apiUrl}/deleted-documents`, { headers }).pipe(
       tap(documents => this.publicationsSubject.next(documents)),
       map(documents => documents.map(doc => {
-        doc.image = doc.image ? `${IMAGE_URL_BASE}${doc.image}` : '';
+        // doc.image = doc.image ? `${IMAGE_URL_BASE}${doc.image}` : '';
         return doc;
       })),
       catchError(this.handleError)
     );
   }
 
-  // Récupérer les documents "récupérés" 
+  // Récupérer les documents "récupérés"
   getRecoveredDocuments(): Observable<Document[]> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
     return this.http.get<Document[]>(`${apiUrl}/recovered-documents`, { headers }).pipe(
       tap(documents => this.publicationsSubject.next(documents)),
       map(documents => documents.map(doc => {
-        doc.image = doc.image ? `${IMAGE_URL_BASE}${doc.image}` : '';
+        // doc.image = doc.image ? `${IMAGE_URL_BASE}${doc.image}` : '';
         return doc;
       })),
       catchError(this.handleError)
     );
   }
 
-  // Récupérer les documents "non récupérés" 
+  // Récupérer les documents "non récupérés"
   getNotRecoveredDocuments(): Observable<Document[]> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
     return this.http.get<Document[]>(`${apiUrl}/not-recovered-documents`, { headers }).pipe(
       tap(documents => this.publicationsSubject.next(documents)),
       map(documents => documents.map(doc => {
-        doc.image = doc.image ? `${IMAGE_URL_BASE}${doc.image}` : '';
+        // doc.image = doc.image ? `${IMAGE_URL_BASE}${doc.image}` : '';
         return doc;
       })),
       catchError(this.handleError)
     );
   }
 
-  // Gestion des erreurs 
+  // Gestion des erreurs
   private handleError(error: any): Observable<never> {
     console.error('Une erreur est survenue:', error);
     return throwError(() => new Error('Une erreur est survenue, veuillez réessayer plus tard.'));
   }
 
-  // Récupérer toutes les publications pour un SimpleUser 
+  // Récupérer toutes les publications pour un SimpleUser
   getAllPublications(): Observable<Document[]> {
     return this.http.get<Document[]>(`${apiUrl}/document`).pipe(
       tap(documents => this.publicationsSubject.next(documents)),
       map(documents => documents.map(doc => {
-        doc.image = doc.image ? `${IMAGE_URL_BASE}${doc.image}` : '';
+        // doc.image = doc.image ? `${IMAGE_URL_BASE}${doc.image}` : '';
         return doc;
       }))
     );
   }
 
-  // Récupérer toutes les publications y compris supprimées pour l'admin 
+
+  // Récupérer toutes les publications y compris supprimées pour l'admin
   getAllDocumentsIncludingDeleted(): Observable<Document[]> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
@@ -87,7 +88,7 @@ export class PublicationsService {
       tap(response => console.log('Réponse du serveur:', response)),
       map(documents => {
         return documents.map(doc => {
-          doc.image = doc.image ? `${IMAGE_URL_BASE}${doc.image}` : '';
+          // doc.image = doc.image ? `${IMAGE_URL_BASE}${doc.image}` : '';
           return doc;
         });
       }),
@@ -98,7 +99,7 @@ export class PublicationsService {
     );
   }
 
-  // Récupérer les documents supprimés 
+  // Récupérer les documents supprimés
   getTrashedDocuments(): Observable<Document[]> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
@@ -106,7 +107,7 @@ export class PublicationsService {
       map(response => {
         const trashedDocuments: Document[] = Array.isArray(response.data) ? response.data : [];
         trashedDocuments.forEach((doc: Document) => {
-          doc.image = doc.image ? `${IMAGE_URL_BASE}${doc.image}` : '';
+          // doc.image = doc.image ? `${IMAGE_URL_BASE}${doc.image}` : '';
         });
         return trashedDocuments;
       }),
@@ -126,21 +127,21 @@ export class PublicationsService {
     );
   }
 
-  // Diagramme en barre : publications par type 
+  // Diagramme en barre : publications par type
   getPublicationsByType(): Observable<Document[]> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
     return this.http.get<Document[]>(`${apiUrl}/publications-by-type`, { headers });
   }
 
-  // Diagramme en barre : nombre de publications par statut 
+  // Diagramme en barre : nombre de publications par statut
   getDocumentStatusCount(): Observable<Document[]> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
     return this.http.get<Document[]>(`${apiUrl}/status-count`, { headers });
   }
 
-  // Diagramme circulaire : demandes de restitution 
+  // Diagramme circulaire : demandes de restitution
   getRestitutionData(): Observable<Document[]> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
@@ -154,14 +155,14 @@ export class PublicationsService {
     return this.http.get<Document[]>(`${apiUrl}/email-activity`, { headers });
   }
 
-  // Courbe d'évolution 
+  // Courbe d'évolution
   getEvolutionData(): Observable<Document[]> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
     return this.http.get<Document[]>(`${apiUrl}/statistics`, { headers });
   }
 
-  // Publications par lieu 
+  // Publications par lieu
   getPublicationsByLocation(): Observable<Location[]> {
     return this.http.get<Location[]>(`${apiUrl}/lieu`).pipe(
       catchError(error => {
@@ -171,7 +172,7 @@ export class PublicationsService {
     );
   }
 
-  // Ajouter une publication 
+  // Ajouter une publication
   addPublication(document: FormData): Observable<Document> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
@@ -183,13 +184,13 @@ export class PublicationsService {
   }
 
   // Supprimer une publication
-  deletePublication(id: number): Observable<void> {
+  deletePublication(uuid: string): Observable<void> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    return this.http.delete<void>(`${apiUrl}/documents/${id}`, { headers });
+    return this.http.delete<void>(`${apiUrl}/documents/${uuid}`, { headers });
   }
 
-  // Restaurer un document supprimé 
+  // Restaurer un document supprimé
   restoreDocument(uuid: string): Observable<{ success: boolean; message: string }> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });

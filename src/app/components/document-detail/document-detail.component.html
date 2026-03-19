@@ -23,13 +23,13 @@
         <!-- Colonne gauche : image -->
         <div class="doc-image-col">
           <div class="doc-image-wrap">
-            <img *ngIf="documentDetails.image"
-                 [src]="documentDetails.image"
+            <img *ngIf="documentDetails.image_blurred || documentDetails.image"
+                 [src]="documentDetails.image_blurred || documentDetails.image"
                  alt="Document"
                  class="doc-image"
                  loading="lazy"
                  oncontextmenu="return false;" />
-            <div class="blur-overlay"></div>
+            <!-- <div class="blur-overlay"></div> -->
 
             <!-- Badge statut -->
             <div class="doc-status-badge"

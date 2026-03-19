@@ -10,6 +10,9 @@ export interface Document {
   id: number;
   uuid:string;
   image: string;
+  image_thumb: string;
+  image_blurred: string;
+  image_optimized: string;
   OwnerFirstName: string;
   OwnerLastName: string;
   Location: string;

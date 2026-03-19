@@ -10,6 +10,9 @@ export interface Document {
   id: number;
   uuid:string;
   image: string;
+  image_thumb: string;      // ← AJOUTE
+  image_blurred: string;    // ← AJOUTE
+  image_optimized: string;  // ← AJOUTE
   OwnerFirstName: string;
   OwnerLastName: string;
   Location: string;
@@ -108,7 +111,7 @@ loadTrashedDocuments() {
   }
 
   // Supprimer une publication
-  deletePublication(id: number): void {
+  deletePublication(uuid: string): void {
     Swal.fire({
       title: 'Êtes-vous sûr de vouloir supprimer cette publication ?',
       text: "Cette action est irréversible !",
@@ -120,9 +123,9 @@ loadTrashedDocuments() {
       cancelButtonText: 'Annuler'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.publicationService.deletePublication(id).subscribe({
+        this.publicationService.deletePublication(uuid).subscribe({
           next: () => {
-            this.publications = this.publications.filter(publication => publication.id !== id);
+            this.publications = this.publications.filter(publication => publication.uuid !== uuid);
             Swal.fire({
               title: 'Supprimé!',
               text: 'Publication supprimée avec succès.',

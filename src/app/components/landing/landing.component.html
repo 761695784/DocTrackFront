@@ -64,9 +64,9 @@
         <div class="result-card" *ngFor="let document of filteredDocuments; let i = index"
              [style.animation-delay]="i * 0.05 + 's'">
           <div class="result-card-img">
-            <img *ngIf="document.image" loading="lazy"
-                 [src]="document.image" alt="Document">
-            <div class="blur-overlay"></div>
+            <img *ngIf="document.image_blurred || document.image" loading="lazy"
+                 [src]="document.image_blurred || document.image" alt="Document">
+            <!-- <div class="blur-overlay"></div> -->
             <div class="result-type-badge">
               {{ document.document_type.TypeName }}
             </div>
@@ -91,7 +91,7 @@
                 <span class="result-meta-value">{{ document.OwnerLastName }}</span>
               </div>
             </div>
-            <button class="btn-details" (click)="viewDetails(document.id)">
+            <button class="btn-details" (click)="viewDetails(document.uuid)">
               <i class="fas fa-eye"></i> Voir les détails
             </button>
           </div>

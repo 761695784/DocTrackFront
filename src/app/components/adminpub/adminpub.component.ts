@@ -11,10 +11,13 @@ export interface Document {
   id: number;
   uuid:string;
   image: string;
+  image_thumb: string;
+  image_blurred: string;
+  image_optimized: string;
   OwnerFirstName: string;
   OwnerLastName: string;
   Location: string;
-  statut: string; // Peut être 'récupéré' ou 'non récupéré'
+  statut: string;
   document_type_id: number;
   user_id: number;
   created_at: string;
@@ -52,7 +55,7 @@ export class AdminpubComponent implements OnInit {
   notRecoveredDocuments: Document[] = [];
   selectedFilter: string = 'all-publications'; // Filtre sélectionné: 'all', 'softdeleted', 'recovered', 'notrecovered'
   pasderesultat: boolean = false;
-  
+
 
   constructor(private publicationsService: PublicationsService, private router: Router) {}
 
@@ -136,8 +139,8 @@ export class AdminpubComponent implements OnInit {
     return Math.ceil(this.documents.length / this.itemsPerPage);
   }
 
-  deletePublication(id: number): void {
-    if (id) {
+  deletePublication(uuid: string): void {
+    if (uuid) {
       Swal.fire({
         title: 'Êtes-vous sûr de vouloir supprimer cette publication ?',
         text: 'Cette action est irréversible !',
@@ -149,7 +152,7 @@ export class AdminpubComponent implements OnInit {
         cancelButtonText: 'Annuler'
       }).then((result) => {
         if (result.isConfirmed) {
-          this.publicationsService.deletePublication(id).subscribe({
+          this.publicationsService.deletePublication(uuid).subscribe({
             next: () => {
               Swal.fire({
                 title: 'Supprimé!',
