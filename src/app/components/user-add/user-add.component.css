@@ -1,206 +1,293 @@
-/* General Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body { font-family: 'Poppins', Arial, sans-serif; }
+
+/* ── Layout ── */
+.page-content {
+  background: #f4f3fb;
+  min-height: 100vh;
+  padding: 28px 28px 48px;
+  margin-left: 240px;
+  margin-top: 64px;
 }
 
-/* Form Container */
-.form-container {
-  max-width: 600px;
-  margin: 40px auto;
-  padding: 30px;
-  background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-  opacity: 0;
-  transform: translateY(50px);
-  animation: fadeIn 0.6s ease forwards;
-  transition: all 0.3s ease;
-}
-
-/* Animation */
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Form Header */
-.form-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.form-header h2 {
-  font-size: 24px;
-  color: #31287C;
-}
-
-.close-btn {
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  color: #31287C;
-  transition: color 0.3s ease;
-}
-
-.close-btn:hover {
-  color: #F6A500;
-}
-
-/* Form Group */
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-group label {
-  display: block;
-  font-size: 16px;
-  color: #31287C;
-  margin-bottom: 8px;
-}
-
-.form-group input,
-.form-group select {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 14px;
-  transition: all 0.3s ease;
-}
-
-.form-group input:focus,
-.form-group select:focus {
-  border-color: #F6A500;
-  box-shadow: 0 0 8px rgba(246, 165, 0, 0.3);
-}
-
-/* Error Messages */
-.error-message {
-  color: red; /* Change color to red for error messages */
-  font-size: 12px; /* Optional: Adjust font size */
-  margin-top: 5px; /* Optional: Add some space above */
-}
-
-/* Form Row */
-.form-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-.form-row .form-group {
-  width: 100%;
-}
-
-
-/* Form Buttons */
-.form-buttons {
-  display: flex;
-  justify-content: flex-end;
-  gap: 15px;
-  margin-top: 20px;
-}
-
-.cancel-btn {
-  padding: 12px 25px;
-  background-color: white;
-  color: #31287C;
-  border: 2px solid #31287C;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.cancel-btn:hover {
-  background-color: #31287C;
-  color: white;
-}
-
-.submit-btn {
-  padding: 12px 25px;
-  background-color: #31287C;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.submit-btn:hover {
-  background-color: #F6A500;
-}
-
-/* Full width for email input */
-.full-width {
-  width: 100%;
-}
-
-/* Form Row */
-.form-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-.form-row .form-group {
-  width: 48%;
-}
-
-label.required::after {
-  content: '*';
-  color: red;
-  margin-left: 5px;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .form-container {
-    width: 75%;
-    padding: 20px;
-    margin-right: 5%;
-  }
-
-  .form-header h2 {
-    font-size: 20px;
-  }
-
-  .form-row {
-    flex-direction: column;
-  }
-
-  .form-row .form-group {
-    width: 100%;
-  }
-
-  .form-buttons {
-    justify-content: space-between;
-  }
-
-  .cancel-btn,
-  .submit-btn {
-    width: 48%;
-  }
-}
-
+/* Loader */
 .loader-overlay {
-  position: fixed; /* Positionné par rapport à la fenêtre */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(23, 23, 23, 0.7); /* Fond semi-transparent */
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(23,23,23,0.7);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
+}
+
+/* ── Header ── */
+.page-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.page-header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.page-header-icon {
+  width: 48px; height: 48px;
+  border-radius: 14px;
+  background: #31287C;
+  color: #F6A500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.page-header-left h1 {
+  font-size: 20px;
+  font-weight: 800;
+  color: #31287C;
+}
+
+.page-header-left p {
+  font-size: 13px;
+  color: #aaa;
+  margin-top: 2px;
+}
+
+/* ── Form card ── */
+.form-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(49,40,124,0.07);
+  border: 1px solid rgba(49,40,124,0.06);
+  overflow: hidden;
+  max-width: 760px;
+  margin: 0 auto;
+  animation: fadeUp 0.5s ease forwards;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.form-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  background: #31287C;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.form-card-header i { color: #F6A500; font-size: 16px; }
+
+form { padding: 28px 24px; }
+
+/* ── Section titles ── */
+.form-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #aaa;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.form-divider {
+  height: 1px;
+  background: #f0eeff;
+  margin: 20px 0 16px;
+}
+
+/* ── Form row ── */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* ── Field group ── */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+label i { color: #31287C; font-size: 11px; }
+
+label.required::after {
+  content: '*';
+  color: #e53935;
+  font-size: 13px;
+  margin-left: 2px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  border: 2px solid #e8e6f5;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #333;
+  background: #faf9ff;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:hover, select:hover { border-color: #c5c0e8; }
+
+input:focus, select:focus {
+  border-color: #31287C;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(49,40,124,0.08);
+}
+
+.error-text {
+  color: #e53935;
+  font-size: 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* Password toggle */
+.password-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrap input { padding-right: 44px; }
+
+.toggle-pw {
+  position: absolute;
+  right: 12px;
+  width: auto;
+  height: auto;
+  background: none;
+  border: none;
+  color: #aaa;
+  cursor: pointer;
+  padding: 4px;
+  font-size: 14px;
+  transition: color 0.15s;
+}
+
+.toggle-pw:hover { color: #31287C; }
+
+/* Security note */
+.security-note {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  background: #f0eeff;
+  border: 1px solid rgba(49,40,124,0.1);
+  border-left: 4px solid #31287C;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin: 8px 0 24px;
+}
+
+.security-note i {
+  color: #31287C;
+  font-size: 16px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.security-note p {
+  font-size: 12px;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* Buttons */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: 1px solid #f0eeff;
+}
+
+.btn-cancel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 22px;
+  background: #fff;
+  color: #31287C;
+  border: 2px solid #e8e6f5;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-cancel:hover {
+  border-color: #31287C;
+  background: #f0eeff;
+}
+
+.btn-submit {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 24px;
+  background: #31287C;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.btn-submit:hover:not(:disabled) {
+  background: #F6A500;
+  color: #31287C;
+  transform: translateY(-1px);
+}
+
+.btn-submit:disabled {
+  background: #ddd;
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .page-content { margin-left: 0; }
+}
+
+@media (max-width: 600px) {
+  .page-content  { padding: 16px; }
+  .form-row      { grid-template-columns: 1fr; }
+  .form-actions  { flex-direction: column-reverse; }
+  .btn-cancel, .btn-submit { width: 100%; justify-content: center; }
 }

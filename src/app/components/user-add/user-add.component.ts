@@ -13,13 +13,14 @@ import { Router } from '@angular/router';
   templateUrl: './user-add.component.html',
   styleUrl: './user-add.component.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA], // Ajoutez cette ligne
-  
+
 })
 export class UserAddComponent implements OnInit {
 
   userForm!: FormGroup; // Formulaire pour ajouter un utilisateur
   isLoading: boolean = false; // Variable pour contrôler l'affichage du loader
-
+  showPassword = false;
+  showConfirm  = false;
 
   constructor(
     private formBuilder: FormBuilder,
