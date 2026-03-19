@@ -31,6 +31,7 @@ import { PrivatePolicyComponent } from './components/private-policy/private-poli
 import { QrcodeComponent } from './components/qrcode/qrcode.component';
 import { AdmincertifComponent } from './components/admincertif/admincertif.component';
 import { AdminlogsComponent } from './components/adminlogs/adminlogs.component';
+import { AdminbackupComponent } from './components/adminbackup/adminbackup.component';
 
 
 export const routes: Routes = [
@@ -72,6 +73,7 @@ export const routes: Routes = [
       { path: 'admindetails/:uuid', component: AdmindetailsComponent },
       { path: 'admincertif', component: AdmincertifComponent },
       { path: 'adminlogs', component: AdminlogsComponent },
+      { path: 'adminbackup', component: AdminbackupComponent },
     ]
   },
 
