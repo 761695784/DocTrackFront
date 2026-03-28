@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap,timeout, catchError } from 'rxjs/operators';
 import { apiUrl } from './apiUrl';
 
 @Injectable({
@@ -207,15 +207,31 @@ export class AuthService {
     return this.http.post(`${apiUrl}/reset-password`, data);
   }
 
-  getActivityLogs(page = 1): Observable<any> {
+getActivityLogs(page = 1): Observable<any> {
     return this.http.get(`${apiUrl}/activity-logs?page=${page}`, {
-      headers: this.getAuthHeaders(),
-    });
-  }
+        headers: this.getAuthHeaders(),
+    }).pipe(
+        timeout(15000), // ← 15 secondes max, sinon erreur
+        catchError(err => {
+            if (err.name === 'TimeoutError') {
+                return throwError(() => new Error('La requête a pris trop de temps.'));
+            }
+            return throwError(() => err);
+        })
+    );
+}
 
-  getActivityLogsByType(type: string, page = 1): Observable<any> {
+getActivityLogsByType(type: string, page = 1): Observable<any> {
     return this.http.get(`${apiUrl}/activity-logs/${type}?page=${page}`, {
-      headers: this.getAuthHeaders(),
-    });
-  }
+        headers: this.getAuthHeaders(),
+    }).pipe(
+        timeout(15000),
+        catchError(err => {
+            if (err.name === 'TimeoutError') {
+                return throwError(() => new Error('La requête a pris trop de temps.'));
+            }
+            return throwError(() => err);
+        })
+    );
+}
 }

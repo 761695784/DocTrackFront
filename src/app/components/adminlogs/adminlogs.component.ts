@@ -34,26 +34,30 @@ export class AdminlogsComponent implements OnInit {
 
   // ── Chargement ────────────────────────────────
 
-  loadLogs(page = 1): void {
+loadLogs(page = 1): void {
     this.isLoading = true;
 
     const obs = this.activeFilter === 'all'
-      ? this.authService.getActivityLogs(page)
-      : this.authService.getActivityLogsByType(this.activeFilter, page);
+        ? this.authService.getActivityLogs(page)
+        : this.authService.getActivityLogsByType(this.activeFilter, page);
 
     obs.subscribe({
-      next: (res) => {
-        this.logs        = res.data;
-        this.filteredLogs = res.data;
-        this.currentPage = res.current_page;
-        this.lastPage    = res.last_page;
-        this.totalLogs   = res.total;
-        this.isLoading   = false;
-        this.filterLogs();
-      },
-      error: () => { this.isLoading = false; }
+        next: (res) => {
+            this.logs         = res.data;
+            this.filteredLogs = res.data;
+            this.currentPage  = res.current_page;
+            this.lastPage     = res.last_page;
+            this.totalLogs    = res.total;
+            this.isLoading    = false;
+            this.filterLogs();
+        },
+        error: (err) => {
+            this.isLoading = false;
+            console.error('Erreur chargement logs:', err.message);
+            // ← le spinner s'arrête et affiche l'empty state
+        }
     });
-  }
+}
 
   // ── Filtres ────────────────────────────────────
 
