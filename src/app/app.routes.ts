@@ -1,93 +1,62 @@
-import { FoundQrComponent } from './components/found-qr/found-qr.component';
 import { Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
-import { LandingComponent } from './components/landing/landing.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
-import { DocumentListComponent } from './components/document-list/document-list.component';
-import { DocumentDetailComponent } from './components/document-detail/document-detail.component';
-import { PublishformComponent } from './components/publishform/publishform.component';
-import { DeclarationformComponent } from './components/declarationform/declarationform.component';
-import { LostdeclarationComponent } from './components/lostdeclaration/lostdeclaration.component';
-import { MypublishComponent } from './components/mypublish/mypublish.component';
-import { ChangeprofilComponent } from './components/changeprofil/changeprofil.component';
-import { EvolutionChartComponent } from './components/evolution-chart/evolution-chart.component';
-import { RestitutionChartComponent } from './components/restitution-chart/restitution-chart.component';
-import { PublicationTypeChartComponent } from './components/publication-type-chart/publication-type-chart.component';
-import { EmailActivityChartComponent } from './components/email-activity-chart/email-activity-chart.component';
-import { AdminComponent } from './components/admin/admin.component';
-import { AdminpubComponent } from './components/adminpub/adminpub.component';
-import { AdmindetailsComponent } from './components/admindetails/admindetails.component';
-import { AdmindeclarationComponent } from './components/admindeclaration/admindeclaration.component';
-import { UsergetComponent } from './components/userget/userget.component';
-import { UserAddComponent } from './components/user-add/user-add.component';
-import { AdminprofilComponent } from './components/adminprofil/adminprofil.component';
-import { AdminstatsComponent } from './components/adminstats/adminstats.component';
-import { AProposComponent } from './components/a-propos/a-propos.component';
-import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
-import { NewpassComponent } from './components/newpass/newpass.component';
-import { PrivatePolicyComponent } from './components/private-policy/private-policy.component';
-import { QrcodeComponent } from './components/qrcode/qrcode.component';
-import { AdmincertifComponent } from './components/admincertif/admincertif.component';
-import { AdminlogsComponent } from './components/adminlogs/adminlogs.component';
-import { AdminbackupComponent } from './components/adminbackup/adminbackup.component';
-import { AdminrapportComponent } from './components/adminrapport/adminrapport.component';
-
 
 export const routes: Routes = [
-  { path: '', component: LandingComponent },
-  { path: 'navbar', component: NavbarComponent },
-  { path: 'accueil', component: LandingComponent },
-  { path: 'connexion', component: LoginComponent },
-  { path: 'inscription', component: RegisterComponent },
-  { path: 'liste', component: DocumentListComponent },
-  { path: 'apropos', component: AProposComponent},
-  { path: 'reset',component: ResetPasswordComponent},
-  { path: 'newpass', component: NewpassComponent },
-  { path: 'private-policy', component: PrivatePolicyComponent },
-  { path: 'found-qr', component: FoundQrComponent },
 
+  // ══════════════════════════════════════════
+  // Pages publiques — chargées immédiatement
+  // ══════════════════════════════════════════
+  { path: '', loadComponent: () => import('./components/landing/landing.component').then(m => m.LandingComponent) },
+  { path: 'accueil', redirectTo: '', pathMatch: 'full' }, // ← évite le doublon
+  { path: 'connexion', loadComponent: () => import('./components/login/login.component').then(m => m.LoginComponent) },
+  { path: 'inscription', loadComponent: () => import('./components/register/register.component').then(m => m.RegisterComponent) },
+  { path: 'liste', loadComponent: () => import('./components/document-list/document-list.component').then(m => m.DocumentListComponent) },
+  { path: 'apropos', loadComponent: () => import('./components/a-propos/a-propos.component').then(m => m.AProposComponent) },
+  { path: 'reset', loadComponent: () => import('./components/reset-password/reset-password.component').then(m => m.ResetPasswordComponent) },
+  { path: 'newpass', loadComponent: () => import('./components/newpass/newpass.component').then(m => m.NewpassComponent) },
+  { path: 'private-policy', loadComponent: () => import('./components/private-policy/private-policy.component').then(m => m.PrivatePolicyComponent) },
+  { path: 'found-qr', loadComponent: () => import('./components/found-qr/found-qr.component').then(m => m.FoundQrComponent) },
 
+  // ══════════════════════════════════════════
+  // Pages protégées — user connecté
+  // ══════════════════════════════════════════
+  { path: 'publier', loadComponent: () => import('./components/publishform/publishform.component').then(m => m.PublishformComponent), canActivate: [AuthGuard] },
+  { path: 'document/:uuid', loadComponent: () => import('./components/document-detail/document-detail.component').then(m => m.DocumentDetailComponent), canActivate: [AuthGuard] },
+  { path: 'declarer', loadComponent: () => import('./components/declarationform/declarationform.component').then(m => m.DeclarationformComponent), canActivate: [AuthGuard] },
+  { path: 'lost', loadComponent: () => import('./components/lostdeclaration/lostdeclaration.component').then(m => m.LostdeclarationComponent), canActivate: [AuthGuard] },
+  { path: 'mypub', loadComponent: () => import('./components/mypublish/mypublish.component').then(m => m.MypublishComponent), canActivate: [AuthGuard] },
+  { path: 'modify', loadComponent: () => import('./components/changeprofil/changeprofil.component').then(m => m.ChangeprofilComponent), canActivate: [AuthGuard] },
+  { path: 'code', loadComponent: () => import('./components/qrcode/qrcode.component').then(m => m.QrcodeComponent), canActivate: [AuthGuard] },
 
-  // Routes avec Authentification pour un user simple
-  { path: 'publier', component: PublishformComponent, canActivate: [AuthGuard] },
-  { path: 'document/:uuid', component: DocumentDetailComponent, canActivate: [AuthGuard] },
-  { path: 'declarer', component: DeclarationformComponent, canActivate: [AuthGuard] },
-  { path: 'lost', component: LostdeclarationComponent, canActivate: [AuthGuard] },
-  { path: 'mypub', component: MypublishComponent, canActivate: [AuthGuard] },
-  { path: 'modify', component: ChangeprofilComponent, canActivate: [AuthGuard] },
-  { path: 'code', component: QrcodeComponent,canActivate: [AuthGuard] },
-
-  // Routes pour un Administrateur
+  // ══════════════════════════════════════════
+  // Pages admin — lazy loaded + protégées
+  // ══════════════════════════════════════════
   {
     path: 'admin',
     canActivate: [AuthGuard],
     children: [
-      { path: '', component: AdminComponent },
-      { path: 'profil', component: AdminprofilComponent },
-      { path: 'adminpub', component: AdminpubComponent },
-      { path: 'admindec', component: AdmindeclarationComponent },
-      { path: 'adminuser', component: UsergetComponent },
-      { path: 'adminadd', component: UserAddComponent },
-      { path: 'adminstats', component: AdminstatsComponent },
-      { path: 'admindetails/:uuid', component: AdmindetailsComponent },
-      { path: 'admincertif', component: AdmincertifComponent },
-      { path: 'adminlogs', component: AdminlogsComponent },
-      { path: 'adminbackup', component: AdminbackupComponent },
-      { path: 'adminrapport', component: AdminrapportComponent },
+      { path: '', loadComponent: () => import('./components/admin/admin.component').then(m => m.AdminComponent) },
+      { path: 'profil', loadComponent: () => import('./components/adminprofil/adminprofil.component').then(m => m.AdminprofilComponent) },
+      { path: 'adminpub', loadComponent: () => import('./components/adminpub/adminpub.component').then(m => m.AdminpubComponent) },
+      { path: 'admindec', loadComponent: () => import('./components/admindeclaration/admindeclaration.component').then(m => m.AdmindeclarationComponent) },
+      { path: 'adminuser', loadComponent: () => import('./components/userget/userget.component').then(m => m.UsergetComponent) },
+      { path: 'adminadd', loadComponent: () => import('./components/user-add/user-add.component').then(m => m.UserAddComponent) },
+      { path: 'adminstats', loadComponent: () => import('./components/adminstats/adminstats.component').then(m => m.AdminstatsComponent) },
+      { path: 'admindetails/:uuid', loadComponent: () => import('./components/admindetails/admindetails.component').then(m => m.AdmindetailsComponent) },
+      { path: 'admincertif', loadComponent: () => import('./components/admincertif/admincertif.component').then(m => m.AdmincertifComponent) },
+      { path: 'adminlogs', loadComponent: () => import('./components/adminlogs/adminlogs.component').then(m => m.AdminlogsComponent) },
+      { path: 'adminbackup', loadComponent: () => import('./components/adminbackup/adminbackup.component').then(m => m.AdminbackupComponent) },
+      { path: 'adminrapport', loadComponent: () => import('./components/adminrapport/adminrapport.component').then(m => m.AdminrapportComponent) },
     ]
   },
 
-  // Routes pour les differents diagrammes
-  { path: 'statistiques', component: EvolutionChartComponent, canActivate: [AuthGuard] },
-  { path: 'restitution', component: RestitutionChartComponent, canActivate: [AuthGuard] },
-  { path: 'publication-types', component: PublicationTypeChartComponent, canActivate: [AuthGuard] },
-  { path: 'email-activity', component: EmailActivityChartComponent, canActivate: [AuthGuard] },
+  // ══════════════════════════════════════════
+  // Diagrammes — déjà lazy loaded
+  // ══════════════════════════════════════════
+  { path: 'statistiques', loadComponent: () => import('./components/evolution-chart/evolution-chart.component').then(m => m.EvolutionChartComponent), canActivate: [AuthGuard] },
+  { path: 'restitution', loadComponent: () => import('./components/restitution-chart/restitution-chart.component').then(m => m.RestitutionChartComponent), canActivate: [AuthGuard] },
+  { path: 'publication-types', loadComponent: () => import('./components/publication-type-chart/publication-type-chart.component').then(m => m.PublicationTypeChartComponent), canActivate: [AuthGuard] },
+  { path: 'email-activity', loadComponent: () => import('./components/email-activity-chart/email-activity-chart.component').then(m => m.EmailActivityChartComponent), canActivate: [AuthGuard] },
+  { path: 'map', loadComponent: () => import('./components/map/map.component').then(m => m.MapComponent) },
 
-  // Lazy Loading pour la carte
-  {
-    path: 'map',
-    loadComponent: () => import('./components/map/map.component').then(m => m.MapComponent)
-  }
 ];
