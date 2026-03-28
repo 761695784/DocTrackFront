@@ -29,7 +29,7 @@ export class DetailsService {
       })
     );
   }
-  
+
   // Envoyer une demande de restitution
   requestRestitution(uuid: string): Observable<any> {
     const token = localStorage.getItem('token');

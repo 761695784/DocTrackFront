@@ -6,10 +6,11 @@ import { FooterComponent } from '../footer/footer.component';
 import { SideheadersComponent } from '../sideheaders/sideheaders.component';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
+import { DocTypeService, DocType } from '../services/doc-type.service';
 
 export interface Document {
   id: number;
-  uuid:string;
+  uuid: string;
   image: string;
   image_thumb: string;
   image_blurred: string;
@@ -34,7 +35,7 @@ export interface Document {
   document_type: {
     id: number;
     TypeName: string;
-  }
+  };
 }
 
 @Component({
@@ -42,7 +43,7 @@ export interface Document {
   standalone: true,
   imports: [SideheadersComponent, CommonModule, FormsModule],
   templateUrl: './adminpub.component.html',
-  styleUrls: ['./adminpub.component.css']
+  styleUrls: ['./adminpub.component.css'],
 })
 export class AdminpubComponent implements OnInit {
   documents: Document[] = [];
@@ -53,42 +54,74 @@ export class AdminpubComponent implements OnInit {
   deletedDocuments: Document[] = [];
   recoveredDocuments: Document[] = [];
   notRecoveredDocuments: Document[] = [];
-  selectedFilter: string = 'all-publications'; // Filtre sélectionné: 'all', 'softdeleted', 'recovered', 'notrecovered'
+  selectedFilter: string = 'all-publications';
   pasderesultat: boolean = false;
+  documentTypes: DocType[] = [];
+  selectedType: number | null = null;
 
+  constructor(
+    private publicationsService: PublicationsService,
+    private router: Router,
+    private docTypeService: DocTypeService,
+  ) {}
 
-  constructor(private publicationsService: PublicationsService, private router: Router) {}
-
+  // Initialisation du composant
   ngOnInit(): void {
     this.loadAllPublications();
+    this.loadDocumentTypes();
     this.publicationsService.getDeletedDocuments().subscribe({
       next: (documents) => (this.deletedDocuments = documents),
-      error: (err) => console.error('Erreur lors de la récupération des documents supprimés:', err)
+      error: (err) =>
+        console.error(
+          'Erreur lors de la récupération des documents supprimés:',
+          err,
+        ),
     });
 
     this.publicationsService.getRecoveredDocuments().subscribe({
       next: (documents) => (this.recoveredDocuments = documents),
-      error: (err) => console.error('Erreur lors de la récupération des documents récupérés:', err)
+      error: (err) =>
+        console.error(
+          'Erreur lors de la récupération des documents récupérés:',
+          err,
+        ),
     });
 
     this.publicationsService.getNotRecoveredDocuments().subscribe({
       next: (documents) => (this.notRecoveredDocuments = documents),
-      error: (err) => console.error('Erreur lors de la récupération des documents non récupérés:', err)
+      error: (err) =>
+        console.error(
+          'Erreur lors de la récupération des documents non récupérés:',
+          err,
+        ),
     });
   }
 
+  // Fonction pour charger toutes les publications
   loadAllPublications(): void {
     this.publicationsService.getAllDocumentsIncludingDeleted().subscribe({
       next: (docs) => {
         this.documents = docs.sort((a: Document, b: Document) => {
-          return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+          return (
+            new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+          );
         });
         this.filteredDocuments = this.documents;
       },
-      error: (err) => console.error('Erreur lors de la récupération des publications', err)
+      error: (err) =>
+        console.error('Erreur lors de la récupération des publications', err),
     });
   }
 
+  // Fonction pour charger les types de documents
+  loadDocumentTypes(): void {
+    this.docTypeService.getDocumentTypes().subscribe({
+      next: (types) => (this.documentTypes = types),
+      error: (err) => console.error('Erreur types:', err),
+    });
+  }
+
+  // Fonction pour filtrer les documents
   filterDocuments(): void {
     this.currentPage = 1; // Réinitialiser à la première page
     this.pasderesultat = false; // Reset the pasderesultat flag
@@ -97,9 +130,10 @@ export class AdminpubComponent implements OnInit {
     let documents = this.documents;
     if (this.searchTerm) {
       const lowerCaseSearchTerm = this.searchTerm.toLowerCase();
-      documents = documents.filter(document =>
-        document.OwnerFirstName.toLowerCase().includes(lowerCaseSearchTerm) ||
-        document.OwnerLastName.toLowerCase().includes(lowerCaseSearchTerm)
+      documents = documents.filter(
+        (document) =>
+          document.OwnerFirstName.toLowerCase().includes(lowerCaseSearchTerm) ||
+          document.OwnerLastName.toLowerCase().includes(lowerCaseSearchTerm),
       );
     }
 
@@ -114,31 +148,46 @@ export class AdminpubComponent implements OnInit {
       }
     }
 
+    // Filtrer en fonction du type de document sélectionné
+    if (this.selectedType) {
+      documents = documents.filter(
+        (d) => d.document_type?.id === +this.selectedType!,
+      );
+    }
+
     // Mettre à jour les documents filtrés
     this.filteredDocuments = documents;
 
-      // Vérifier s'il y a des résultats filtrés et mettre à jour pasderesultat
-      this.pasderesultat = this.filteredDocuments.length === 0;
+    // Vérifier s'il y a des résultats filtrés et mettre à jour pasderesultat
+    this.pasderesultat = this.filteredDocuments.length === 0;
   }
 
+  // Fonction pour afficher les détails d'une publication
   viewDetails(uuid: string): void {
     this.router.navigate(['/admin/admindetails', uuid]);
   }
 
+  // Fonction pour changer de page
   pageChanged(page: number): void {
     this.currentPage = page;
   }
 
+  // Fonction pour obtenir les publications paginées
   get paginatedDocuments(): Document[] {
-    const docsToPaginate = this.filteredDocuments.length > 0 ? this.filteredDocuments : this.documents;
+    const docsToPaginate =
+      this.filteredDocuments.length > 0
+        ? this.filteredDocuments
+        : this.documents;
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     return docsToPaginate.slice(startIndex, startIndex + this.itemsPerPage);
   }
 
+  // Fonction pour obtenir le nombre total de pages
   get totalPages(): number {
     return Math.ceil(this.documents.length / this.itemsPerPage);
   }
 
+  // Fonction pour supprimer une publication
   deletePublication(uuid: string): void {
     if (uuid) {
       Swal.fire({
@@ -149,7 +198,7 @@ export class AdminpubComponent implements OnInit {
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Oui, supprimer!',
-        cancelButtonText: 'Annuler'
+        cancelButtonText: 'Annuler',
       }).then((result) => {
         if (result.isConfirmed) {
           this.publicationsService.deletePublication(uuid).subscribe({
@@ -159,7 +208,7 @@ export class AdminpubComponent implements OnInit {
                 text: 'Publication supprimée avec succès.',
                 icon: 'success',
                 timer: 2000,
-                showConfirmButton: false
+                showConfirmButton: false,
               });
               this.loadAllPublications();
             },
@@ -167,9 +216,9 @@ export class AdminpubComponent implements OnInit {
               Swal.fire({
                 title: 'Erreur',
                 text: 'Une erreur est survenue lors de la suppression.',
-                icon: 'error'
+                icon: 'error',
               });
-            }
+            },
           });
         }
       });

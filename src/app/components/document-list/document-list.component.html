@@ -68,7 +68,7 @@
         <!-- Image -->
         <div class="image-container">
           <img *ngIf="document.image_blurred || document.image" loading="lazy"
-               [src]="document.image_blurred || document.image" alt="document"
+               [src]="document.image_blurred || document.image" alt="document" decoding="async"
                class="image" oncontextmenu="return false;" />
           <!-- <div class="blur-overlay"></div> -->
           <div class="image-type-chip">{{ document.document_type.TypeName }}</div>

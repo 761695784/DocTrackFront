@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map, tap, catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 import { AuthService } from './auth.service';
 import { Document } from '../document-list/document-list.component';
-import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
 import { apiUrl } from './apiUrl';
 import { IMAGE_URL_BASE } from './imageUrl';
 import { Location } from './location.model';
@@ -20,154 +19,115 @@ export class PublicationsService {
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  // Récupérer les documents supprimés
+  // ====================== Méthodes protégées (avec token) ======================
+
+  // Documents supprimés
   getDeletedDocuments(): Observable<Document[]> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    return this.http.get<Document[]>(`${apiUrl}/deleted-documents`, { headers }).pipe(
-      tap(documents => this.publicationsSubject.next(documents)),
-      map(documents => documents.map(doc => {
-        // doc.image = doc.image ? `${IMAGE_URL_BASE}${doc.image}` : '';
-        return doc;
-      })),
-      catchError(this.handleError)
-    );
+    return this.getWithAuth(`${apiUrl}/deleted-documents`);
   }
 
-  // Récupérer les documents "récupérés"
+  // Documents récupérés
   getRecoveredDocuments(): Observable<Document[]> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    return this.http.get<Document[]>(`${apiUrl}/recovered-documents`, { headers }).pipe(
-      tap(documents => this.publicationsSubject.next(documents)),
-      map(documents => documents.map(doc => {
-        // doc.image = doc.image ? `${IMAGE_URL_BASE}${doc.image}` : '';
-        return doc;
-      })),
-      catchError(this.handleError)
-    );
+    return this.getWithAuth(`${apiUrl}/recovered-documents`);
   }
 
-  // Récupérer les documents "non récupérés"
+  // Documents non récupérés
   getNotRecoveredDocuments(): Observable<Document[]> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    return this.http.get<Document[]>(`${apiUrl}/not-recovered-documents`, { headers }).pipe(
-      tap(documents => this.publicationsSubject.next(documents)),
-      map(documents => documents.map(doc => {
-        // doc.image = doc.image ? `${IMAGE_URL_BASE}${doc.image}` : '';
-        return doc;
-      })),
-      catchError(this.handleError)
-    );
+    return this.getWithAuth(`${apiUrl}/not-recovered-documents`);
   }
 
-  // Gestion des erreurs
-  private handleError(error: any): Observable<never> {
-    console.error('Une erreur est survenue:', error);
-    return throwError(() => new Error('Une erreur est survenue, veuillez réessayer plus tard.'));
-  }
-
-  // Récupérer toutes les publications pour un SimpleUser
-  getAllPublications(): Observable<Document[]> {
-    return this.http.get<Document[]>(`${apiUrl}/document`).pipe(
-      tap(documents => this.publicationsSubject.next(documents)),
-      map(documents => documents.map(doc => {
-        // doc.image = doc.image ? `${IMAGE_URL_BASE}${doc.image}` : '';
-        return doc;
-      }))
-    );
-  }
-
-
-  // Récupérer toutes les publications y compris supprimées pour l'admin
+  // Toutes les publications (pour admin) y compris supprimées
   getAllDocumentsIncludingDeleted(): Observable<Document[]> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    return this.http.get<Document[]>(`${apiUrl}/all-publications`, { headers }).pipe(
-      tap(response => console.log('Réponse du serveur:', response)),
-      map(documents => {
-        return documents.map(doc => {
-          // doc.image = doc.image ? `${IMAGE_URL_BASE}${doc.image}` : '';
-          return doc;
-        });
-      }),
-      catchError(err => {
-        console.error('Erreur lors de la récupération des documents', err);
-        return ([]);
+    return this.getWithAuth(`${apiUrl}/all-publications`);
+  }
+
+  // Documents dans la corbeille (trashed)
+  getTrashedDocuments(): Observable<Document[]> {
+    return this.getWithAuth<{ data: Document[] }>(`${apiUrl}/trashed`).pipe(
+      map(response => Array.isArray(response.data) ? response.data : [])
+    );
+  }
+
+  // Publications de l'utilisateur connecté
+  getUserPublications(): Observable<Document[]> {
+    return this.getWithAuth<Document[]>(`${apiUrl}/my-publications`).pipe(
+      map(publications =>
+        publications.map(pub => {
+          pub.image = pub.image ? `${IMAGE_URL_BASE}${pub.image}` : '';
+          return pub;
+        })
+      )
+    );
+  }
+
+  // ====================== Méthodes pour statistiques / graphiques ======================
+
+  // Publications par type (diagramme en barre)
+  getPublicationsByType(): Observable<any> {
+    return this.getWithAuth<any>(`${apiUrl}/publications-by-type`).pipe(
+      map(response => {
+        // Normalise la réponse : on veut toujours { data: [...] } ou directement le tableau
+        const data = response?.data || response || [];
+        console.log('Données normalisées pour publications-by-type:', data);
+        return { data };   // on retourne toujours un objet { data }
       })
     );
   }
 
-  // Récupérer les documents supprimés
-  getTrashedDocuments(): Observable<Document[]> {
+  // Nombre de publications par statut
+  getDocumentStatusCount(): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    return this.http.get<{ data: Document[] }>(`${apiUrl}/trashed`, { headers }).pipe(
-      map(response => {
-        const trashedDocuments: Document[] = Array.isArray(response.data) ? response.data : [];
-        trashedDocuments.forEach((doc: Document) => {
-          // doc.image = doc.image ? `${IMAGE_URL_BASE}${doc.image}` : '';
-        });
-        return trashedDocuments;
-      }),
-      catchError(error => throwError(error))
-    );
+    return this.http.get<any>(`${apiUrl}/status-count`, { headers });
   }
 
-  // Récupérer les publications d'un utilisateur
-  getUserPublications(): Observable<Document[]> {
+  // Demandes de restitution (diagramme circulaire)
+  getRestitutionData(): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    return this.http.get<Document[]>(`${apiUrl}/my-publications`, { headers }).pipe(
-      map(publications => publications.map(pub => {
-        pub.image = pub.image ? `${IMAGE_URL_BASE}${pub.image}` : '';
-        return pub;
-      }))
-    );
+    return this.http.get<any>(`${apiUrl}/restitution-data`, { headers });
   }
 
-  // Diagramme en barre : publications par type
-  getPublicationsByType(): Observable<Document[]> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    return this.http.get<Document[]>(`${apiUrl}/publications-by-type`, { headers });
-  }
-
-  // Diagramme en barre : nombre de publications par statut
-  getDocumentStatusCount(): Observable<Document[]> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    return this.http.get<Document[]>(`${apiUrl}/status-count`, { headers });
-  }
-
-  // Diagramme circulaire : demandes de restitution
-  getRestitutionData(): Observable<Document[]> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    return this.http.get<Document[]>(`${apiUrl}/restitution-data`, { headers });
-  }
-
-  // Diagramme en barre : nombre de mails envoyés
-  getEmailActivity(): Observable<Document[]> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    return this.http.get<Document[]>(`${apiUrl}/email-activity`, { headers });
+  // Activité emails
+  getEmailActivity(): Observable<any> {
+    return this.getWithAuth(`${apiUrl}/email-activity`);
   }
 
   // Courbe d'évolution
-  getEvolutionData(): Observable<Document[]> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    return this.http.get<Document[]>(`${apiUrl}/statistics`, { headers });
+  getEvolutionData(): Observable<any> {
+    return this.getWithAuth(`${apiUrl}/statistics`);
   }
 
   // Publications par lieu
   getPublicationsByLocation(): Observable<Location[]> {
     return this.http.get<Location[]>(`${apiUrl}/lieu`).pipe(
       catchError(error => {
-        console.error("Erreur lors de la récupération des données :", error);
-        return throwError(error);
+        console.error("Erreur lors de la récupération des données par lieu :", error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  // ====================== Méthodes CRUD ======================
+
+  // Récupérer toutes les publications publiques (sans token)
+  getAllPublications(): Observable<Document[]> {
+    return this.http.get<any>(`${apiUrl}/document`).pipe(
+      tap(response => console.log('Réponse complète du serveur pour getAllPublications:', response)),
+      map(response => {
+        const documents = Array.isArray(response)
+          ? response
+          : (response?.data && Array.isArray(response.data))
+            ? response.data
+            : [];
+
+        console.log('Documents extraits (data):', documents);
+        this.publicationsSubject.next(documents);
+        return documents;
+      }),
+      catchError(err => {
+        console.error('Erreur lors de la récupération des publications', err);
+        return throwError(() => new Error('Failed to fetch documents'));
       })
     );
   }
@@ -176,11 +136,7 @@ export class PublicationsService {
   addPublication(document: FormData): Observable<Document> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    return this.http.post<Document>(`${apiUrl}/documents`, document, { headers }).pipe(
-      tap(response => {
-        // Logique après l'ajout de la publication
-      })
-    );
+    return this.http.post<Document>(`${apiUrl}/documents`, document, { headers });
   }
 
   // Supprimer une publication
@@ -190,14 +146,16 @@ export class PublicationsService {
     return this.http.delete<void>(`${apiUrl}/documents/${uuid}`, { headers });
   }
 
-  // Restaurer un document supprimé
+  // Restaurer un document
   restoreDocument(uuid: string): Observable<{ success: boolean; message: string }> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    return this.http.post<{ success: boolean; message: string }>(`${apiUrl}/documents/restore/${uuid}`, {}, { headers });
+    return this.http.post<{ success: boolean; message: string }>(
+      `${apiUrl}/documents/restore/${uuid}`, {}, { headers }
+    );
   }
 
-  // Modifier le statut d'une publication
+  // Modifier le statut
   updatePublicationStatus(uuid: string, statut: string): Observable<{ success: boolean; message: string; document: Document }> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
@@ -211,5 +169,39 @@ export class PublicationsService {
         this.publicationsSubject.next(updatedDocuments);
       })
     );
+  }
+
+  // ====================== Méthode privée réutilisable ======================
+  private getWithAuth<T = Document[]>(url: string): Observable<T> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+
+    return this.http.get<any>(url, { headers }).pipe(
+      map(response => {
+        // Gestion pagination Laravel (response.data) ou tableau direct
+        if (Array.isArray(response)) {
+          return response as T;
+        }
+        if (response?.data && Array.isArray(response.data)) {
+          return response.data as T;
+        }
+        return [] as T;   // fallback sécurisé
+      }),
+      tap(data => {
+        if (Array.isArray(data)) {
+          console.log(`Données extraites depuis ${url}:`, data.length, 'éléments');
+        }
+      }),
+      catchError(err => {
+        console.error(`Erreur sur ${url}`, err);
+        return throwError(() => err);
+      })
+    );
+  }
+
+  // Gestion d'erreur globale (si tu veux l'utiliser ailleurs)
+  private handleError(error: any): Observable<never> {
+    console.error('Une erreur est survenue:', error);
+    return throwError(() => new Error('Une erreur est survenue, veuillez réessayer plus tard.'));
   }
 }

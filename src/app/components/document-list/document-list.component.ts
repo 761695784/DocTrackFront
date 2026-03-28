@@ -60,21 +60,28 @@ export class DocumentListComponent implements OnInit {
   }
 
   // Methode pour charger tous les documents
-  fetchDocuments(): void {
-    this.publicationsService.getAllPublications().subscribe({
-      next: (data) => {
-        console.log('Documents fetched:', data); // Vérifiez la réponse de l'API
-        // Trier les documents du plus récent au plus ancien
-        this.documents = data.sort(
-          (a, b) =>
-            new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+fetchDocuments(): void {
+  this.publicationsService.getAllPublications().subscribe({
+    next: (data) => {
+      console.log('Documents fetched (après mapping):', data);
+
+      if (data && data.length > 0) {
+        this.documents = [...data].sort((a, b) =>
+          new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
         );
-        // Initialisez filteredDocuments avec tous les documents
-        this.filteredDocuments = this.documents;
-      },
-      error: (err) => console.error('Failed to fetch documents', err)
-    });
-  }
+        this.filteredDocuments = [...this.documents];
+        this.currentPage = 1;
+      } else {
+        this.documents = [];
+        this.filteredDocuments = [];
+        console.warn('Aucun document reçu après mapping');
+      }
+    },
+    error: (err) => {
+      console.error('Failed to fetch documents', err);
+    }
+  });
+}
 
   // methode de filtrage les document lors de la recherche
   filterDocuments(): void {
